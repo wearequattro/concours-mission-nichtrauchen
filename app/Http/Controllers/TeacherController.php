@@ -34,7 +34,7 @@ class TeacherController extends Controller {
     }
 
     function documents() {
-
+        return view('register-teacher.documents');
     }
 
     function party() {
