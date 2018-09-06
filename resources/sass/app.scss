@@ -1,14 +1,68 @@
-
 // Fonts
 @import url('https://fonts.googleapis.com/css?family=Nunito');
-
 // Variables
 @import 'variables';
-
 // Bootstrap
 @import '~bootstrap/scss/bootstrap';
+@import "~font-awesome/css/font-awesome.min.css";
 
 .navbar-laravel {
   background-color: #fff;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.04);
+}
+
+.teacher {
+
+  @media (min-width: 768px) {
+    #nav-bg {
+      background-color: #f7f7f7;
+      border-right: 1px solid #ccc;
+      position: fixed;
+      top: 0;
+      left: 0;
+      bottom: 0;
+      width: 16.666666%;
+    }
+  }
+
+  nav {
+
+    @media (max-width: 768px) {
+      background-color: #f7f7f7;
+      border-bottom: 1px solid #ccc;
+    }
+
+    li {
+      width: 100%;
+    }
+
+    ul {
+      margin-top: 10px;
+    }
+
+    .nav-link {
+      padding-left: 4px;
+      padding-top: 8px;
+      padding-bottom: 8px;
+      font-weight: bold;
+      color: #333;
+      i {
+        color: #888;
+      }
+    }
+
+    .nav-link:hover {
+      color: #333;
+      i {
+        color: #000;
+      }
+    }
+
+    .nav-link.active {
+      color: #007bff;
+      i {
+        color: #007bff;
+      }
+    }
+  }
 }

@@ -1,4 +1,4 @@
-@extends('register-teacher.layout')
+@extends('register-teacher.layout-sidebar')
 
 @section('title', 'Gestion des classes')
 

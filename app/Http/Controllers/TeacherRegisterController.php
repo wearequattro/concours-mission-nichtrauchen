@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\School;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class TeacherRegisterController extends Controller {
@@ -16,7 +17,10 @@ class TeacherRegisterController extends Controller {
     }
 
     function classes() {
-        return view('register-teacher.classes-list');
+        return view('register-teacher.classes-list')->with([
+            'inscription_date_end' => Carbon::parse(env('TEACHER_INSCRIPTION_END'))->format('d M'),
+            'inscription_date_end_relative' => Carbon::parse(env('TEACHER_INSCRIPTION_END'))->diffForHumans(),
+        ]);
     }
 
     function classesAdd() {

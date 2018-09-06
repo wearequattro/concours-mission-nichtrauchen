@@ -1,4 +1,4 @@
-@extends('register-teacher.layout')
+@extends('register-teacher.layout-sidebar')
 
 @section('title', 'Gestion des classes')
 
@@ -6,7 +6,7 @@
     <h1 class="display-4 text-center">Vos classes</h1>
 
     <div class="row">
-        <div class="col-xs-12">
+        <div class="col-sm-6">
             <div class="card">
                 <div class="card-body">
                     <p class="card-text">
@@ -16,6 +16,18 @@
                     <a href="{{ route('teacher-register.classes.add') }}" class="card-link">
                         Ajouter une classe
                     </a>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-6">
+            <div class="card bg-warning">
+                <div class="card-header">
+                    Inscription limit&eacute;e
+                </div>
+                <div class="card-body">
+                    <p class="card-text">
+                        Date de clot&ucirc;re des inscriptions: {{ $inscription_date_end }} ({{ $inscription_date_end_relative }})
+                    </p>
                 </div>
             </div>
         </div>
@@ -30,7 +42,7 @@
                 <tr>
                     <th>Nom</th>
                     <th>Nombre d'&eacute;l&egrave;ves</th>
-                    <th>Lyc&euml;e</th>
+                    <th>Lyc&eacute;e</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -44,4 +56,5 @@
 
         </div>
     </div>
+
 @endsection
