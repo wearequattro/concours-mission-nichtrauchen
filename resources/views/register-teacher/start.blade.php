@@ -12,7 +12,7 @@
 
     <h1 class="display-4 text-center">Inscription enseingnants</h1>
 
-    <form method="post">
+    <form method="post" action="{{ route('teacher-register.startPost') }}">
         @csrf
 
         <div class="form-group">

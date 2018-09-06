@@ -14,6 +14,7 @@
 Route::get('/', function () {
     return view('welcome');
 });
-Route::get('/register/teacher', function () {
-    return view('register-teacher.start');
-});
+
+Route::get('/register/teacher', 'TeacherRegisterController@start')->name('teacher-register.start');
+Route::post('/register/teacher', 'TeacherRegisterController@startPost')->name('teacher-register.startPost');
+Route::get('/register/teacher/classes', 'TeacherRegisterController@classes')->name('teacher-register.classes');
