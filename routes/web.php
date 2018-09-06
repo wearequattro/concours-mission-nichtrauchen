@@ -23,3 +23,5 @@ Route::get('/teacher/classes', 'TeacherController@classes')->name('teacher-regis
 Route::get('/teacher/classes/add', 'TeacherController@classesAdd')->name('teacher-register.classes.add');
 Route::post('/teacher/classes/add', 'TeacherController@classesAddPost')->name('teacher-register.classes.add.post');
 Route::post('/teacher/classes/add', 'TeacherController@classesAddPost')->name('teacher-register.classes.add.post');
+Route::get('/teacher/documents', 'TeacherController@documents')->name('teacher.documents');
+Route::get('/teacher/party', 'TeacherController@party')->name('teacher.party');

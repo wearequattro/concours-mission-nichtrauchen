@@ -33,4 +33,12 @@ class TeacherController extends Controller {
         return redirect()->route('teacher-register.classes');
     }
 
+    function documents() {
+
+    }
+
+    function party() {
+
+    }
+
 }

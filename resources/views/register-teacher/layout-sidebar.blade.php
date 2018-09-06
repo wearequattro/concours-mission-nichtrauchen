@@ -22,7 +22,7 @@
                 <li class="nav-item">
                     <a href="{{ route('teacher-register.classes') }}" class="nav-link">
                         <i class="fa fa-fw fa-graduation-cap"></i>
-                        Classes
+                        Mes Classes
                     </a>
                 </li>
                 <li class="nav-item">
@@ -32,9 +32,15 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="#" class="nav-link">
+                    <a href="{{ route('teacher.documents') }}" class="nav-link">
                         <i class="fa fa-fw fa-file-text"></i>
-                        Documents
+                        Mes Documents
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="{{ route('teacher.party') }}" class="nav-link">
+                        <i class="fa fa-fw fa-birthday-cake"></i>
+                        F&ecirc;te de Cl&ocirc;ture
                     </a>
                 </li>
             </ul>
