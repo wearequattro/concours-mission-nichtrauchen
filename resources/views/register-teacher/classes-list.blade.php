@@ -43,11 +43,15 @@
                     <th>Nom</th>
                     <th>Nombre d'&eacute;l&egrave;ves</th>
                     <th>Lyc&eacute;e</th>
+                    <th>Statut janvier</th>
+                    <th>Statut mars</th>
+                    <th>Statut mai</th>
+                    <th>Inscrire &agrave; la f&ecirc;te</th>
                 </tr>
                 </thead>
                 <tbody>
                 <tr>
-                    <td colspan="3" class="text-center">
+                    <td colspan="7" class="text-center">
                         Aucune classe est enregistr&eacute;e
                     </td>
                 </tr>
