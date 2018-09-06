@@ -19,3 +19,4 @@ Route::get('/register/teacher', 'TeacherRegisterController@start')->name('teache
 Route::post('/register/teacher', 'TeacherRegisterController@startPost')->name('teacher-register.startPost');
 Route::get('/register/teacher/classes', 'TeacherRegisterController@classes')->name('teacher-register.classes');
 Route::get('/register/teacher/classes/add', 'TeacherRegisterController@classesAdd')->name('teacher-register.classes.add');
+Route::post('/register/teacher/classes/add', 'TeacherRegisterController@classesAddPost')->name('teacher-register.classes.add.post');

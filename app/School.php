@@ -14,6 +14,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property string address
  * @property string postal_code
  * @property string city
+ * @property string full_address
  * @property Carbon updated_at
  * @property Carbon created_at
  *
@@ -27,5 +28,11 @@ class School extends Model {
         'postal_code',
         'city',
     ];
+
+    protected $appends = ['full_address'];
+
+    public function getFullAddressAttribute() {
+        return $this->address . " " . $this->postal_code . " " . $this->city;
+    }
 
 }
