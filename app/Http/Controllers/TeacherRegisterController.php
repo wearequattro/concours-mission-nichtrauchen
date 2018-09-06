@@ -15,7 +15,11 @@ class TeacherRegisterController extends Controller {
     }
 
     function classes() {
-        return view('register-teacher.start');
+        return view('register-teacher.classes-list');
+    }
+
+    function classesAdd() {
+        return view('register-teacher.classes-add');
     }
 
 }

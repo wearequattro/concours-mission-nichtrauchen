@@ -18,3 +18,4 @@ Route::get('/', function () {
 Route::get('/register/teacher', 'TeacherRegisterController@start')->name('teacher-register.start');
 Route::post('/register/teacher', 'TeacherRegisterController@startPost')->name('teacher-register.startPost');
 Route::get('/register/teacher/classes', 'TeacherRegisterController@classes')->name('teacher-register.classes');
+Route::get('/register/teacher/classes/add', 'TeacherRegisterController@classesAdd')->name('teacher-register.classes.add');
