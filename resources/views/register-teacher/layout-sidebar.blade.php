@@ -14,7 +14,7 @@
         <nav class="col-md-2">
             <ul class="nav">
                 <li class="nav-item">
-                    <a href="#" class="nav-link">
+                    <a href="{{ route('teacher.profile') }}" class="nav-link">
                         <i class="fa fa-fw fa-user-circle"></i>
                         Mon Profil
                     </a>

@@ -15,8 +15,11 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/register/teacher', 'TeacherRegisterController@start')->name('teacher-register.start');
-Route::post('/register/teacher', 'TeacherRegisterController@startPost')->name('teacher-register.startPost');
-Route::get('/register/teacher/classes', 'TeacherRegisterController@classes')->name('teacher-register.classes');
-Route::get('/register/teacher/classes/add', 'TeacherRegisterController@classesAdd')->name('teacher-register.classes.add');
-Route::post('/register/teacher/classes/add', 'TeacherRegisterController@classesAddPost')->name('teacher-register.classes.add.post');
+Route::get('/teacher/register', 'TeacherRegisterController@start')->name('teacher-register.start');
+Route::post('/teacher/register', 'TeacherRegisterController@startPost')->name('teacher-register.startPost');
+Route::get('/teacher/profile', 'TeacherController@profile')->name('teacher.profile');
+Route::post('/teacher/profile', 'TeacherController@profilePost')->name('teacher.profile.post');
+Route::get('/teacher/classes', 'TeacherRegisterController@classes')->name('teacher-register.classes');
+Route::get('/teacher/classes/add', 'TeacherRegisterController@classesAdd')->name('teacher-register.classes.add');
+Route::post('/teacher/classes/add', 'TeacherRegisterController@classesAddPost')->name('teacher-register.classes.add.post');
+Route::post('/teacher/classes/add', 'TeacherRegisterController@classesAddPost')->name('teacher-register.classes.add.post');
