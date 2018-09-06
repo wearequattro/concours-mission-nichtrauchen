@@ -14,3 +14,6 @@
 Route::get('/', function () {
     return view('welcome');
 });
+Route::get('/register/teacher', function () {
+    return view('register-teacher.start');
+});
