@@ -9,7 +9,7 @@
 @section('content')
     <h1 class="display-4 text-center">Inscription enseingnants</h1>
 
-    <form method="post" action="{{ route('teacher-register.startPost') }}">
+    <form method="post" action="{{ route('teacher.registerPost') }}">
         @csrf
 
         <div class="form-group">
@@ -26,22 +26,22 @@
         </div>
 
         <div class="form-group">
-            <label for="teacher_name">Nom</label>
-            <input required type="text" name="teacher_name" id="teacher_name"
-                   class="form-control {{ inputValidationClass($errors, 'teacher_name') }}"
-                   value="{{ old('teacher_name') }}">
+            <label for="teacher_last_name">Nom</label>
+            <input required type="text" name="teacher_last_name" id="teacher_last_name"
+                   class="form-control {{ inputValidationClass($errors, 'teacher_last_name') }}"
+                   value="{{ old('teacher_last_name') }}">
             <div class="invalid-feedback">
-                {{ inputValidationMessages($errors, 'teacher_name') }}
+                {{ inputValidationMessages($errors, 'teacher_last_name') }}
             </div>
         </div>
 
         <div class="form-group">
-            <label for="teacher_surname">Prénom</label>
-            <input required type="text" name="teacher_surname" id="teacher_surname"
-                   class="form-control {{ inputValidationClass($errors, 'teacher_surname') }}"
-                   value="{{ old('teacher_surname') }}">
+            <label for="teacher_first_name">Prénom</label>
+            <input required type="text" name="teacher_first_name" id="teacher_first_name"
+                   class="form-control {{ inputValidationClass($errors, 'teacher_first_name') }}"
+                   value="{{ old('teacher_first_name') }}">
             <div class="invalid-feedback">
-                {{ inputValidationMessages($errors, 'teacher_surname') }}
+                {{ inputValidationMessages($errors, 'teacher_first_name') }}
             </div>
         </div>
 

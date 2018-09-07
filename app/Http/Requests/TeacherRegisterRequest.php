@@ -22,8 +22,8 @@ class TeacherRegisterRequest extends FormRequest {
     public function rules() {
         return [
             'teacher_salutation' => 'required|exists:salutations,id',
-            'teacher_name' => 'required|string',
-            'teacher_surname' => 'required|string',
+            'teacher_first_name' => 'required|string',
+            'teacher_last_name' => 'required|string',
             'teacher_email' => 'required|email|unique:users,email',
             'teacher_password' => 'required|string|min:6|confirmed',
             'teacher_phone' => 'required|string',

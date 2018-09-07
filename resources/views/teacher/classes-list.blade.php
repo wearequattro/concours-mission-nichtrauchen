@@ -15,7 +15,7 @@
                     <p class="card-text">
                         Ajoutez les classes qui participerons &agrave; la &laquo;Mission Nichtrauchen&raquo;
                     </p>
-                    <a href="{{ route('teacher-register.classes.add') }}" class="card-link btn btn-info text-white">
+                    <a href="{{ route('teacher.classes.add') }}" class="card-link btn btn-info text-white">
                         Ajouter une classe
                     </a>
                 </div>

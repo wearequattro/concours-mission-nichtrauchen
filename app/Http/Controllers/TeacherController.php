@@ -14,7 +14,7 @@ use Illuminate\Http\Request;
 class TeacherController extends Controller {
 
     public function profile() {
-        return view('register-teacher.profile')->with([
+        return view('teacher.profile')->with([
             'user' => \Auth::user(),
             'teacher' => \Auth::user()->teacher,
             'salutations' => Salutation::all(),
@@ -40,7 +40,7 @@ class TeacherController extends Controller {
     }
 
     function classes() {
-        return view('register-teacher.classes-list')->with([
+        return view('teacher.classes-list')->with([
             'inscription_date_end' => Carbon::parse(env('TEACHER_INSCRIPTION_END'))->format('d M Y'),
             'inscription_date_end_relative' => Carbon::parse(env('TEACHER_INSCRIPTION_END'))->diffForHumans(),
             'classes' => SchoolClass::findForLoggedInUser(),
@@ -48,7 +48,7 @@ class TeacherController extends Controller {
     }
 
     function classesAdd() {
-        return view('register-teacher.classes-add')->with([
+        return view('teacher.classes-add')->with([
             'schools' => School::all(),
         ]);
     }
@@ -58,11 +58,11 @@ class TeacherController extends Controller {
         $teacher = \Auth::user()->teacher;
         $school = School::findOrFail($request['class_school']);
         SchoolClass::createForTeacher($teacher, $data['class_name'], $data['class_students'], $school);
-        return redirect()->route('teacher-register.classes');
+        return redirect()->route('teacher.classes');
     }
 
     function documents() {
-        return view('register-teacher.documents')->with([
+        return view('teacher.documents')->with([
             'documents' => Document::all(),
         ]);
     }

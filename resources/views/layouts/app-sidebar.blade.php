@@ -27,13 +27,13 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="{{ route('teacher-register.classes') }}" class="nav-link">
+                    <a href="{{ route('teacher.classes') }}" class="nav-link">
                         <i class="fa fa-fw fa-graduation-cap"></i>
                         Mes Classes
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="{{ route('teacher-register.classes.add') }}" class="nav-link">
+                    <a href="{{ route('teacher.classes.add') }}" class="nav-link">
                         <i class="fa fa-fw fa-plus-circle"></i>
                         Ajouter une classe
                     </a>

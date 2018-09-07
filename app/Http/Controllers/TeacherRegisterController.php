@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\Auth;
 class TeacherRegisterController extends Controller {
 
     function start() {
-        return view('register-teacher.start')->with([
+        return view('teacher.register')->with([
             'salutations' => Salutation::all(),
         ]);
     }
@@ -19,13 +19,13 @@ class TeacherRegisterController extends Controller {
         $data = $request->validated();
         $teacher = Teacher::createWithUser(
             $data['teacher_salutation'],
-            $data['teacher_name'],
-            $data['teacher_surname'],
+            $data['teacher_first_name'],
+            $data['teacher_last_name'],
             $data['teacher_email'],
             $data['teacher_password'],
             $data['teacher_phone']);
         Auth::login($teacher->user);
-        return redirect()->route('teacher-register.classes');
+        return redirect()->route('teacher.classes');
     }
 
 }

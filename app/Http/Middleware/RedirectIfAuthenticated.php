@@ -19,7 +19,7 @@ class RedirectIfAuthenticated
     {
         if (Auth::guard($guard)->check()) {
             if(Auth::user()->teacher !== null)
-                return redirect()->route('teacher-register.classes');
+                return redirect()->route('teacher.classes');
             return redirect('/');// todo redirect to admin dashboard
         }
 

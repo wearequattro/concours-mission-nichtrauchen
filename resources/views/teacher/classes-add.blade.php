@@ -5,7 +5,7 @@
 @section('content')
     <h1 class="display-4 text-center">Ajouter une classe</h1>
 
-    <form method="post" action="{{ route('teacher-register.classes.add.post') }}">
+    <form method="post" action="{{ route('teacher.classes.add.post') }}">
         @csrf
 
         <div class="form-group">
