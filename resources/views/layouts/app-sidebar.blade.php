@@ -18,6 +18,7 @@
 <div class="container-fluid">
     <div class="row">
         <div id="nav-bg"></div>
+        @if(Auth::user() !== null && Auth::user()->type === \App\User::TYPE_TEACHER && Auth::user()->teacher != null)
         <nav id="sidebar" class="col-md-2">
             <ul class="nav">
                 <li class="nav-item">
@@ -58,6 +59,42 @@
                 </li>
             </ul>
         </nav>
+        @elseif(Auth::user() !== null && Auth::user()->type === \App\User::TYPE_ADMIN)
+            <nav id="sidebar" class="col-md-2">
+                <ul class="nav">
+                    <li class="nav-item">
+                        <a href="#" class="nav-link">
+                            <i class="fa fa-fw fa-graduation-cap"></i>
+                            Classes
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#" class="nav-link">
+                            <i class="fa fa-fw fa-file-text"></i>
+                            Documents
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#" class="nav-link">
+                            <i class="fa fa-fw fa-university"></i>
+                            Lyc&eacute;es
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#" class="nav-link">
+                            <i class="fa fa-fw fa-birthday-cake"></i>
+                            F&ecirc;te de Cl&ocirc;ture
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="{{ route('logout') }}" class="nav-link">
+                            <i class="fa fa-fw fa-sign-out"></i>
+                            D&eacute;connecter
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+        @endif
 
 
         <div class="col-md-10 pr-4 pl-4">
