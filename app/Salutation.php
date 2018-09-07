@@ -6,7 +6,7 @@ use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 
 /**
- * Class Salutation
+ * Defines how to address a user in an email
  * @package App
  *
  * @property int id
