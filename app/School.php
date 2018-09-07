@@ -19,6 +19,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property Carbon created_at
  *
  * @method static School create(array $map)
+ * @method static School findOrFail(int $id)
  */
 class School extends Model {
 
