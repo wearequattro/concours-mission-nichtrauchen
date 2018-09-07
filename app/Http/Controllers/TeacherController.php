@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Document;
 use App\Http\Requests\ProfileUpdateRequest;
 use App\Http\Requests\SchoolClassCreateRequest;
 use App\Salutation;
@@ -61,7 +62,9 @@ class TeacherController extends Controller {
     }
 
     function documents() {
-        return view('register-teacher.documents');
+        return view('register-teacher.documents')->with([
+            'documents' => Document::all(),
+        ]);
     }
 
     function party() {

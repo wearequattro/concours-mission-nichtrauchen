@@ -6,18 +6,26 @@
     <h1 class="display-4 text-center">Mes Documents</h1>
 
     <div class="row">
-        @for($i = 0; $i < 10; $i++)
+        @forelse($documents as $document)
             <div class="col-sm-3">
                 <div class="card mb-3">
-                    <div class="card-header">Document {{ $i }}</div>
+                    <div class="card-header">{{ $document->title }}</div>
                     <div class="card-body">
-                        <h5 class="card-title">Document {{ $i }}</h5>
-                        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                        <a href="#" class="card-link">Download</a>
+                        <h5 class="card-title">{{ $document->title }}</h5>
+                        <p class="card-text">{{ $document->description }}</p>
+                        <a href="{{ $document->getDownloadUrl() }}" target="_blank" download class="card-link">T&eacute;l&eacute;charger</a>
                     </div>
                 </div>
             </div>
-        @endfor
+            @empty
+            <div class="col-sm-4 offset-sm-4">
+                <div class="card">
+                    <div class="card-body">
+                        <h4 class="card-title text-center text-muted font-italic">Aucun fichier disponible</h4>
+                    </div>
+                </div>
+            </div>
+        @endforelse
     </div>
 
 @endsection
