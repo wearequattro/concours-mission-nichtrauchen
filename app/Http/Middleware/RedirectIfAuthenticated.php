@@ -18,7 +18,9 @@ class RedirectIfAuthenticated
     public function handle($request, Closure $next, $guard = null)
     {
         if (Auth::guard($guard)->check()) {
-            return redirect('/home');
+            if(Auth::user()->teacher !== null)
+                return redirect()->route('teacher.profile');
+            return redirect('/');// todo redirect to admin dashboard
         }
 
         return $next($request);
