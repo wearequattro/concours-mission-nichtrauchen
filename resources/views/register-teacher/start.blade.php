@@ -1,4 +1,4 @@
-@extends('register-teacher.layout')
+@extends('layouts.app')
 
 <?php
 /** @var \Illuminate\Support\ViewErrorBag $errors */
