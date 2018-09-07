@@ -2,10 +2,12 @@
 
 namespace App;
 
+use App\Mail\ResetPasswordMail;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Session;
 
 /**
  * Represents a user that can login to the app. Different types of users have their own models containing information
@@ -63,6 +65,11 @@ class User extends Authenticatable {
             'password' => \Hash::make($password),
             'type' => $type,
         ]);
+    }
+
+    public function sendPasswordResetNotification($token) {
+        \Mail::to($this->email)->queue(new ResetPasswordMail($token));
+        Session::flash('message', 'Email a été envoye avec succès');
     }
 
 }

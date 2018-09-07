@@ -18,7 +18,10 @@ Route::get('/', function () {
 Route::get('/logout', 'Auth\LoginController@logout')->name('logout');
 Route::get('/login', 'Auth\LoginController@showLoginForm')->name('login');
 Route::post('/login', 'Auth\LoginController@login')->name('login.post');
-Route::get('/login/recover', 'Auth\ResetPasswordController@showResetForm')->name('login.password.reset');
+Route::get('/login/recover', 'Auth\ForgotPasswordController@showLinkRequestForm')->name('login.password.recover');
+Route::post('/login/recover', 'Auth\ForgotPasswordController@sendResetLinkEmail')->name('login.password.recover.post');
+Route::get('/login/recover/reset/{token}', 'Auth\ResetPasswordController@showResetForm')->name('login.password.reset');
+Route::post('/login/recover/reset', 'Auth\ResetPasswordController@reset')->name('login.password.reset.post');
 Route::get('/login/redirect', 'Auth\LoginController@loginRedirect')->name('login.redirect');
 
 Route::group(['middleware' => 'guest'], function () {

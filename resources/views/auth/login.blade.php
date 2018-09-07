@@ -34,7 +34,7 @@
 
             <div>
                 <p>
-                    <a href="{{ route('login.password.reset') }}">Mot de passe oubli&eacute;?</a>
+                    <a href="{{ route('login.password.recover') }}">Mot de passe oubli&eacute;?</a>
                 </p>
             </div>
 
