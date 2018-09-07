@@ -24,3 +24,18 @@ function inputValidationMessages(\Illuminate\Support\ViewErrorBag $errorBag, $fi
     }
     return "";
 }
+
+/**
+ * Converts a nullable boolean to 3 different icons; null -> circle, true -> check, false -> cross
+ * @param $status
+ * @return \Illuminate\Support\HtmlString
+ */
+function statusToIcon($status) {
+    if($status === null)
+        return new \Illuminate\Support\HtmlString('<i class="fa fa-fw fa-circle"></i>');
+    if($status === 1)
+        return new \Illuminate\Support\HtmlString('<i class="fa fa-fw fa-check-circle"></i>');
+    if($status === 0)
+        return new \Illuminate\Support\HtmlString('<i class="fa fa-fw fa-times-circle"></i>');
+    return new \Illuminate\Support\HtmlString("");
+}

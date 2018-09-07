@@ -8,12 +8,14 @@
     <div class="row">
         <div class="col-sm-6">
             <div class="card">
+                <div class="card-header">
+                    Ajoutez une classe
+                </div>
                 <div class="card-body">
                     <p class="card-text">
-                        Inscrivez vos classes avec lesquels vous voulez participer &agrave; la mission &laquo;Nichtrauchen&raquo;
+                        Ajoutez les classes qui participerons &agrave; la &laquo;Mission Nichtrauchen&raquo;
                     </p>
-
-                    <a href="{{ route('teacher-register.classes.add') }}" class="card-link">
+                    <a href="{{ route('teacher-register.classes.add') }}" class="card-link btn btn-info text-white">
                         Ajouter une classe
                     </a>
                 </div>
@@ -26,7 +28,8 @@
                 </div>
                 <div class="card-body">
                     <p class="card-text">
-                        Date de clot&ucirc;re des inscriptions: {{ $inscription_date_end }} ({{ $inscription_date_end_relative }})
+                        Date de clot&ucirc;re des inscriptions: {{ $inscription_date_end }}
+                        ({{ $inscription_date_end_relative }})
                     </p>
                 </div>
             </div>
@@ -34,9 +37,9 @@
     </div>
 
     <div class="row">
-        <div class="col-xs-12 table-responsive mt-2">
+        <div class="col-xs-12 table-responsive mt-2 pl-3 pr-3">
 
-            <table class="table table-bordered table-striped bg-white">
+            <table class="table table-bordered table-striped bg-white school-classes">
                 <caption>Liste de vos classes</caption>
                 <thead>
                 <tr>
@@ -50,11 +53,23 @@
                 </tr>
                 </thead>
                 <tbody>
-                <tr>
-                    <td colspan="7" class="text-center">
-                        Aucune classe est enregistr&eacute;e
-                    </td>
-                </tr>
+                @forelse($classes as $class)
+                    <tr>
+                        <td>{{ $class->name }}</td>
+                        <td>{{ $class->students }}</td>
+                        <td>{{ $class->school->name }}</td>
+                        <td>{{ statusToIcon($class->status_january) }}</td>
+                        <td>{{ statusToIcon($class->status_march) }}</td>
+                        <td>{{ statusToIcon($class->status_may) }}</td>
+                        <td>{{ statusToIcon($class->status_party) }}</td>
+                    </tr>
+                @empty
+                    <tr>
+                        <td colspan="7" class="text-center">
+                            Aucune classe est enregistr&eacute;e
+                        </td>
+                    </tr>
+                @endforelse
                 </tbody>
             </table>
 

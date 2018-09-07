@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\SchoolClassCreateRequest;
 use App\School;
+use App\SchoolClass;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 
@@ -18,8 +20,9 @@ class TeacherController extends Controller {
 
     function classes() {
         return view('register-teacher.classes-list')->with([
-            'inscription_date_end' => Carbon::parse(env('TEACHER_INSCRIPTION_END'))->format('d M'),
+            'inscription_date_end' => Carbon::parse(env('TEACHER_INSCRIPTION_END'))->format('d M Y'),
             'inscription_date_end_relative' => Carbon::parse(env('TEACHER_INSCRIPTION_END'))->diffForHumans(),
+            'classes' => SchoolClass::findForLoggedInUser(),
         ]);
     }
 
@@ -29,7 +32,11 @@ class TeacherController extends Controller {
         ]);
     }
 
-    function classesAddPost(Request $request) {
+    function classesAddPost(SchoolClassCreateRequest $request) {
+        $data = $request->validated();
+        $teacher = \Auth::user()->teacher;
+        $school = School::findOrFail($request['class_school']);
+        SchoolClass::createForTeacher($teacher, $data['class_name'], $data['class_students'], $school);
         return redirect()->route('teacher-register.classes');
     }
 
