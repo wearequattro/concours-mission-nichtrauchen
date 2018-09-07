@@ -10481,6 +10481,10 @@ a.text-dark:focus {
           box-shadow: 0 2px 4px rgba(0, 0, 0, 0.04);
 }
 
+table.school-classes i {
+  font-size: 1.2em;
+}
+
 @media (min-width: 768px) {
   .teacher #nav-bg {
     background-color: #f7f7f7;

@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\ProfileUpdateRequest;
 use App\Http\Requests\SchoolClassCreateRequest;
+use App\Salutation;
 use App\School;
 use App\SchoolClass;
 use Carbon\Carbon;
@@ -11,10 +13,28 @@ use Illuminate\Http\Request;
 class TeacherController extends Controller {
 
     public function profile() {
-        return view('register-teacher.profile');
+        return view('register-teacher.profile')->with([
+            'user' => \Auth::user(),
+            'teacher' => \Auth::user()->teacher,
+            'salutations' => Salutation::all(),
+        ]);
     }
 
-    public function profilePost(Request $request) {
+    public function profilePost(ProfileUpdateRequest $request) {
+        $data = $request->validated();
+        \Auth::user()->teacher->update([
+            'first_name' => $data['teacher_first_name'],
+            'last_name' => $data['teacher_last_name'],
+            'phone' => $data['teacher_phone'],
+            'salutation_id' => $data['teacher_salutation'],
+        ]);
+        \Auth::user()->update([
+            'email' => $data['teacher_email'],
+        ]);
+        if(isset($data['teacher_password']) && $data['teacher_password'] !== null)
+            \Auth::user()->updatePassword($data['teacher_password']);
+
+        \Session::flash('message', 'Mise à jour réussie');
         return redirect()->route('teacher.profile');
     }
 

@@ -4,14 +4,14 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class TeacherRegisterRequest extends FormRequest {
+class ProfileUpdateRequest extends FormRequest {
     /**
      * Determine if the user is authorized to make this request.
      *
      * @return bool
      */
     public function authorize() {
-        return \Auth::user() === null;
+        return \Auth::user() !== null;
     }
 
     /**
@@ -22,11 +22,11 @@ class TeacherRegisterRequest extends FormRequest {
     public function rules() {
         return [
             'teacher_salutation' => 'required|exists:salutations,id',
-            'teacher_name' => 'required|string',
-            'teacher_surname' => 'required|string',
-            'teacher_email' => 'required|email|unique:users,email',
-            'teacher_password' => 'required|string|min:6|confirmed',
+            'teacher_last_name' => 'required|string',
+            'teacher_first_name' => 'required|string',
+            'teacher_email' => 'required|email|unique:users,email,' . \Auth::user()->id,
             'teacher_phone' => 'required|string',
+            'teacher_password' => 'nullable|string|min:6|confirmed',
         ];
     }
 }

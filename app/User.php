@@ -51,6 +51,12 @@ class User extends Authenticatable {
         return $this->belongsTo(Teacher::class);
     }
 
+    public function updatePassword($password) {
+        $this->update([
+            'password' => \Hash::make($password),
+        ]);
+    }
+
     public static function createUser($email, $password, $type) {
         return static::create([
             'email' => $email,
