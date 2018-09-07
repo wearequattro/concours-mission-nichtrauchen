@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\User;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 
 class LoginController extends Controller
@@ -25,7 +26,7 @@ class LoginController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = '/teacher/profile';
+    protected $redirectTo = '/login/redirect';
 
     /**
      * Create a new controller instance.
@@ -35,5 +36,16 @@ class LoginController extends Controller
     public function __construct()
     {
         $this->middleware('guest')->except('logout');
+    }
+
+    public function loginRedirect() {
+        if(\Auth::user() === null) {
+            if(\Auth::user()->type === User::TYPE_TEACHER && \Auth::user()->teacher !== null) {
+                return redirect()->route('teacher-register.classes');
+            } else if(\Auth::user()->type === User::TYPE_ADMIN) {
+                return redirect()->route('admin.dashboard');
+            }
+        }
+        return redirect()->route('login');
     }
 }

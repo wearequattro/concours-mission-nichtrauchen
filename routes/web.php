@@ -16,7 +16,10 @@ Route::get('/', function () {
 });
 
 Route::get('/logout', 'Auth\LoginController@logout')->name('logout');
-Route::get('/login', function () { return "todo login page"; })->name('login');
+Route::get('/login', 'Auth\LoginController@showLoginForm')->name('login');
+Route::post('/login', 'Auth\LoginController@login')->name('login.post');
+Route::get('/login/recover', 'Auth\ResetPasswordController@showResetForm')->name('login.password.reset');
+Route::get('/login/redirect', 'Auth\LoginController@loginRedirect')->name('login.redirect');
 
 Route::group(['middleware' => 'guest'], function () {
     Route::get('/teacher/register', 'TeacherRegisterController@start')->name('teacher-register.start');
