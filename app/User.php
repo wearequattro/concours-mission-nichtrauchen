@@ -2,14 +2,32 @@
 
 namespace App;
 
-use Illuminate\Auth\MustVerifyEmail;
+use Carbon\Carbon;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
-use Illuminate\Contracts\Auth\MustVerifyEmail as MustVerifyEmailContract;
 
-class User extends Authenticatable
-{
+/**
+ * Represents a user that can login to the app. Different types of users have their own models containing information
+ * specific to their user type.
+ * @package App
+ * @property int id
+ * @property string email
+ * @property Carbon email_verified_at
+ * @property string password
+ * @property string remember_token
+ * @property Carbon created_at
+ * @property Carbon updated_at
+ * @property string type
+ * @property Teacher teacher
+ *
+ * @method static User create(array $valueMap)
+ */
+class User extends Authenticatable {
     use Notifiable;
+
+    public const TYPE_ADMIN = "admin";
+    public const TYPE_TEACHER = "teacher";
 
     /**
      * The attributes that are mass assignable.
@@ -17,7 +35,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password',
+        'email', 'password', 'type'
     ];
 
     /**
@@ -28,4 +46,17 @@ class User extends Authenticatable
     protected $hidden = [
         'password', 'remember_token',
     ];
+
+    public function teacher(): BelongsTo {
+        return $this->belongsTo(Teacher::class);
+    }
+
+    public static function createUser($email, $password, $type) {
+        return static::create([
+            'email' => $email,
+            'password' => \Hash::make($password),
+            'type' => $type,
+        ]);
+    }
+
 }

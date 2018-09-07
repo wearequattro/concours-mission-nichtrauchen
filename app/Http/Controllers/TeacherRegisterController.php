@@ -4,7 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\TeacherRegisterRequest;
 use App\Salutation;
-use Illuminate\Http\Request;
+use App\Teacher;
+use Illuminate\Support\Facades\Auth;
 
 class TeacherRegisterController extends Controller {
 
@@ -16,7 +17,14 @@ class TeacherRegisterController extends Controller {
 
     function startPost(TeacherRegisterRequest $request) {
         $data = $request->validated();
-        dd($data);
+        $teacher = Teacher::createWithUser(
+            $data['teacher_salutation'],
+            $data['teacher_name'],
+            $data['teacher_surname'],
+            $data['teacher_email'],
+            $data['teacher_password'],
+            $data['teacher_phone']);
+        Auth::login($teacher->user);
         return redirect()->route('teacher-register.classes');
     }
 
