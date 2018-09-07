@@ -8,10 +8,17 @@
     <title>@yield('title')</title>
 </head>
 <body class="teacher">
+<nav class="navbar navbar-dark bg-dark mb-2">
+    <a href="{{ route('teacher.profile') }}" class="navbar-brand">Mission Nichtrauchen</a>
+    <a href="{{ route('logout') }}" class="navbar-text text-white">
+        <i class="fa fa-fw fa-sign-out"></i>
+        D&eacute;connecter
+    </a>
+</nav>
 <div class="container-fluid">
     <div class="row">
         <div id="nav-bg"></div>
-        <nav class="col-md-2">
+        <nav id="sidebar" class="col-md-2">
             <ul class="nav">
                 <li class="nav-item">
                     <a href="{{ route('teacher.profile') }}" class="nav-link">
@@ -41,6 +48,12 @@
                     <a href="{{ route('teacher.party') }}" class="nav-link">
                         <i class="fa fa-fw fa-birthday-cake"></i>
                         F&ecirc;te de Cl&ocirc;ture
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="{{ route('logout') }}" class="nav-link">
+                        <i class="fa fa-fw fa-sign-out"></i>
+                        D&eacute;connecter
                     </a>
                 </li>
             </ul>

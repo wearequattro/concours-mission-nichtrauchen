@@ -15,6 +15,8 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::get('/logout', 'Auth\LoginController@logout')->name('logout');
+
 Route::get('/teacher/register', 'TeacherRegisterController@start')->name('teacher-register.start');
 Route::post('/teacher/register', 'TeacherRegisterController@startPost')->name('teacher-register.startPost');
 Route::get('/teacher/profile', 'TeacherController@profile')->name('teacher.profile');
