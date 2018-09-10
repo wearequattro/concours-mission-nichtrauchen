@@ -1,56 +1,69 @@
 @extends('layouts.app-sidebar')
 
-@section('title', 'Mon Profil')
+@section('title', 'Mise à jour enseignant')
 
 @section('content')
     <h1 class="display-5 text-center">
-        Mise à jour &laquo;{{ $class->name }} <span class="text-muted">{{ $class->school->name }}</span>&raquo;
+        Mise à jour &laquo;{{ $teacher->full_name }}&raquo;
     </h1>
 
-    <form method="post" action="{{ route('admin.classes.edit.post', [$class]) }}">
+    <form method="post" action="{{ route('admin.teachers.edit.post', [$teacher]) }}">
         @csrf
 
         <div class="form-group">
-            <label for="name">Nom</label>
-            <input required type="text" name="name" id="name"
-                   class="form-control {{ inputValidationClass($errors, 'name') }}"
-                   value="{{ old('name') ?? $class->name }}">
-            <div class="invalid-feedback">
-                {{ inputValidationMessages($errors, 'name') }}
-            </div>
-        </div>
-
-        <div class="form-group">
-            <label for="students">Étudiants</label>
-            <input required type="number" name="students" id="students" min="1" max="99"
-                   class="form-control {{ inputValidationClass($errors, 'students') }}"
-                   value="{{ old('students') ?? $class->students }}">
-            <div class="invalid-feedback">
-                {{ inputValidationMessages($errors, 'students') }}
-            </div>
-        </div>
-
-        <div class="form-group">
-            <label for="school_id">Lycée</label>
-            <select class="form-control" required name="school_id" id="school_id">
-                @foreach($schools as $school)
-                    <option value="{{ $school->id }}" {{ $class->school_id === $school->id ? 'selected' : '' }}>{{ $school->name }}</option>
-                @endforeach
+            <label for="salutation_id">Titre</label>
+            <select required name="salutation_id" id="salutation_id"
+                    class="form-control {{ inputValidationClass($errors, 'salutation_id') }}">
+                    @foreach($salutations as $salutation)
+                        <option value="{{ $salutation->id }}"
+                                {{ $teacher->salutation_id === $salutation->id ? 'selected' : '' }}>
+                            {{ $salutation->long_form }}
+                        </option>
+                    @endforeach
             </select>
             <div class="invalid-feedback">
-                {{ inputValidationMessages($errors, 'school_id') }}
+                {{ inputValidationMessages($errors, 'salutation_id') }}
             </div>
         </div>
 
         <div class="form-group">
-            <label for="teacher_id">Enseignant</label>
-            <select class="form-control" required name="teacher_id" id="teacher_id">
-                @foreach($teachers as $teacher)
-                    <option value="{{ $teacher->id }}" {{ $teacher->teacher_id === $teacher->id ? 'selected' : '' }}>{{ $teacher->full_name }}</option>
-                @endforeach
-            </select>
+            <label for="last_name">Nom</label>
+            <input required type="text" name="last_name" id="last_name"
+                   class="form-control {{ inputValidationClass($errors, 'last_name') }}"
+                   value="{{ old('last_name') ?? $teacher->last_name }}">
             <div class="invalid-feedback">
-                {{ inputValidationMessages($errors, 'teacher_id') }}
+                {{ inputValidationMessages($errors, 'last_name') }}
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="first_name">Prénom</label>
+            <input required type="text" name="first_name" id="first_name"
+                   class="form-control {{ inputValidationClass($errors, 'first_name') }}"
+                   value="{{ old('first_name') ?? $teacher->first_name }}">
+            <div class="invalid-feedback">
+                {{ inputValidationMessages($errors, 'first_name') }}
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="phone">Télephone</label>
+            <input required type="text" name="phone" id="phone"
+                   class="form-control {{ inputValidationClass($errors, 'phone') }}"
+                   value="{{ old('phone') ?? $teacher->phone }}">
+            <div class="invalid-feedback">
+                {{ inputValidationMessages($errors, 'phone') }}
+            </div>
+            <small id="phone_help" class="form-text text-muted">Selon ce format: +352 621123456</small>
+        </div>
+
+        <div class="form-group">
+            <label for="email">Adresse Email</label>
+            <input required type="email" name="email" id="email"
+                   class="form-control {{ inputValidationClass($errors, 'email') }}"
+                   value="{{ old('email') ?? $teacher->user->email }}">
+            <div class="invalid-feedback">
+                {{ inputValidationMessages($errors, 'email') }}
             </div>
         </div>
 
