@@ -9,7 +9,7 @@
 </head>
 <body class="teacher">
 <nav class="navbar navbar-dark bg-dark mb-2">
-    <a href="{{ route('teacher.profile') }}" class="navbar-brand">Mission Nichtrauchen</a>
+    <a href="{{ route('login.redirect') }}" class="navbar-brand">Mission Nichtrauchen</a>
     <a href="{{ route('logout') }}" class="navbar-text text-white">
         <i class="fa fa-fw fa-sign-out"></i>
         D&eacute;connecter
@@ -63,25 +63,37 @@
             <nav id="sidebar" class="col-md-2">
                 <ul class="nav">
                     <li class="nav-item">
-                        <a href="#" class="nav-link">
+                        <a href="{{ route('admin.classes') }}" class="nav-link">
                             <i class="fa fa-fw fa-graduation-cap"></i>
                             Classes
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a href="#" class="nav-link">
-                            <i class="fa fa-fw fa-file-text"></i>
-                            Documents
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="#" class="nav-link">
+                        <a href="{{ route('admin.schools') }}" class="nav-link">
                             <i class="fa fa-fw fa-university"></i>
                             Lyc&eacute;es
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a href="#" class="nav-link">
+                        <a href="{{ route('admin.teachers') }}" class="nav-link">
+                            <i class="fa fa-fw fa-users"></i>
+                            Enseignants
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="{{ route('admin.emails') }}" class="nav-link">
+                            <i class="fa fa-fw fa-envelope"></i>
+                            Emails
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="{{ route('admin.documents') }}" class="nav-link">
+                            <i class="fa fa-fw fa-file-text"></i>
+                            Documents
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="{{ route('admin.party') }}" class="nav-link">
                             <i class="fa fa-fw fa-birthday-cake"></i>
                             F&ecirc;te de Cl&ocirc;ture
                         </a>

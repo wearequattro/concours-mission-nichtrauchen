@@ -40,5 +40,11 @@ Route::group(['middleware' => ['auth', 'teacher']], function () {
 });
 
 Route::group(['middleware' => ['auth', 'admin']], function () {
-    Route::get('/admin/dashboard')->name('admin.dashboard');
+    Route::get('/admin/dashboard', 'AdminController@dashboard')->name('admin.dashboard');
+    Route::get('/admin/classes', 'AdminController@classes')->name('admin.classes');
+    Route::get('/admin/schools', 'AdminController@schools')->name('admin.schools');
+    Route::get('/admin/teachers', 'AdminController@teachers')->name('admin.teachers');
+    Route::get('/admin/emails', 'AdminController@emails')->name('admin.emails');
+    Route::get('/admin/documents', 'AdminController@documents')->name('admin.documents');
+    Route::get('/admin/party', 'AdminController@party')->name('admin.party');
 });
