@@ -14,6 +14,7 @@ use Illuminate\Support\Str;
  * @property string title
  * @property string description
  * @property string filename
+ * @property boolean visible
  * @property Carbon created_at
  * @property Carbon updated_at
  */
