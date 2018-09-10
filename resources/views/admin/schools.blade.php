@@ -1,6 +1,6 @@
 @extends('layouts.app-sidebar')
 
-@section('title', 'Tableau de bord admin')
+@section('title', 'Lycées')
 
 @section('content')
     <h1 class="display-4 text-center">Lycées</h1>

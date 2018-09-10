@@ -1,6 +1,6 @@
 @extends('layouts.app-sidebar')
 
-@section('title', 'Mon Profil')
+@section('title', 'Mise à jour classe')
 
 @section('content')
     <h1 class="display-5 text-center">
