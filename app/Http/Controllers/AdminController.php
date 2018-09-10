@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Document;
 use App\EditableEmail;
 use App\Http\Requests\AdminClassUpdateRequest;
+use App\Http\Requests\AdminDocumentUploadRequest;
 use App\Http\Requests\AdminEmailsUpdateRequest;
 use App\Http\Requests\AdminSchoolUpdateRequest;
 use App\Http\Requests\AdminTeacherUpdateRequest;
@@ -13,6 +15,9 @@ use App\School;
 use App\SchoolClass;
 use App\Teacher;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
+use PhpParser\Comment\Doc;
+use Ramsey\Uuid\Uuid;
 use Session;
 
 class AdminController extends Controller {
@@ -66,7 +71,32 @@ class AdminController extends Controller {
     }
 
     public function documents() {
-        return view('admin.dashboard');
+        return view('admin.documents')->with([
+            'documents' => Document::all(),
+        ]);
+    }
+
+    public function documentsPost(AdminDocumentUploadRequest $request) {
+        $data = $request->validated();
+        $name = \Storage::putFile("documents", $request->file('file'));
+
+        Document::create([
+            'title' => $data['title'],
+            'description' => $data['description'] ?? '',
+            'filename' => $name,
+        ]);
+        return redirect()->route('admin.documents');
+    }
+
+    public function documentsToggleVisibility(Document $document) {
+        $document->update([
+            'visible' => !$document->visible
+        ]);
+        return redirect()->route('admin.documents');
+    }
+
+    public function documentsDownload(Document $document) {
+        return Storage::download($document->filename);
     }
 
     public function teachers() {

@@ -17,10 +17,12 @@ use Illuminate\Support\Str;
  * @property boolean visible
  * @property Carbon created_at
  * @property Carbon updated_at
+ *
+ * @method static Document create(array $values)
  */
 class Document extends Model {
 
-    protected $fillable = ['title', 'description', 'filename'];
+    protected $fillable = ['title', 'description', 'filename', 'visible'];
 
     public function getDownloadUrl() {
         if(Str::startsWith($this->filename, ['http://', 'https://']))

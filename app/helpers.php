@@ -32,10 +32,10 @@ function inputValidationMessages(\Illuminate\Support\ViewErrorBag $errorBag, $fi
  */
 function statusToIcon($status) {
     if($status === null)
-        return new \Illuminate\Support\HtmlString('<i class="fa fa-fw fa-circle"></i>');
+        return new \Illuminate\Support\HtmlString('<i class="fa fa-fw fa-circle text-info"></i>');
     if($status === 1)
-        return new \Illuminate\Support\HtmlString('<i class="fa fa-fw fa-check-circle"></i>');
+        return new \Illuminate\Support\HtmlString('<i class="fa fa-fw fa-check-circle text-success"></i>');
     if($status === 0)
-        return new \Illuminate\Support\HtmlString('<i class="fa fa-fw fa-times-circle"></i>');
+        return new \Illuminate\Support\HtmlString('<i class="fa fa-fw fa-times-circle text-danger"></i>');
     return new \Illuminate\Support\HtmlString("");
 }
