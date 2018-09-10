@@ -65,7 +65,19 @@ class AdminController extends Controller {
     }
 
     public function teachers() {
-        return view('admin.dashboard');
+        return view('admin.teachers')->with([
+            'teachers' => Teacher::all(),
+        ]);
+    }
+
+    public function teachersEdit(Teacher $teacher) {
+        return view('admin.teachers-edit')->with([
+            'teacher' => $teacher,
+        ]);
+    }
+
+    public function teachersEditPost() {
+        return redirect()->route('admin.teachers');
     }
 
     public function emails() {

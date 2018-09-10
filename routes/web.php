@@ -48,6 +48,8 @@ Route::group(['middleware' => ['auth', 'admin']], function () {
     Route::get('/admin/schools/{school}', 'AdminController@schoolsEdit')->name('admin.schools.edit');
     Route::post('/admin/schools/{school}', 'AdminController@schoolsEditPost')->name('admin.schools.edit.post');
     Route::get('/admin/teachers', 'AdminController@teachers')->name('admin.teachers');
+    Route::get('/admin/teachers/{teacher}', 'AdminController@teachersEdit')->name('admin.teachers.edit');
+    Route::post('/admin/teachers/{teacher}', 'AdminController@teachersEditPost')->name('admin.teachers.edit.post');
     Route::get('/admin/emails', 'AdminController@emails')->name('admin.emails');
     Route::get('/admin/documents', 'AdminController@documents')->name('admin.documents');
     Route::get('/admin/party', 'AdminController@party')->name('admin.party');
