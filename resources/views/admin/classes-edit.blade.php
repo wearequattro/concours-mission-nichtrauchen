@@ -3,48 +3,54 @@
 @section('title', 'Mon Profil')
 
 @section('content')
-    <h1 class="display-5 text-center">Mise à jour &laquo;{{ $school->name }}&raquo;</h1>
+    <h1 class="display-5 text-center">
+        Mise à jour &laquo;{{ $class->name }} <span class="text-muted">{{ $class->school->name }}</span>&raquo;
+    </h1>
 
-    <form method="post" action="{{ route('admin.schools.edit.post', [$school]) }}">
+    <form method="post" action="{{ route('admin.classes.edit.post', [$class]) }}">
         @csrf
 
         <div class="form-group">
-            <label for="school_name">Nom</label>
-            <input required type="text" name="school_name" id="school_name"
-                   class="form-control {{ inputValidationClass($errors, 'school_name') }}"
-                   value="{{ old('school_name') ?? $school->name }}">
+            <label for="name">Nom</label>
+            <input required type="text" name="name" id="name"
+                   class="form-control {{ inputValidationClass($errors, 'name') }}"
+                   value="{{ old('name') ?? $class->name }}">
             <div class="invalid-feedback">
-                {{ inputValidationMessages($errors, 'school_name') }}
+                {{ inputValidationMessages($errors, 'name') }}
             </div>
         </div>
 
         <div class="form-group">
-            <label for="school_address">Adresse de l'école</label>
-            <input required type="text" name="school_address" id="school_address"
-                   class="form-control {{ inputValidationClass($errors, 'school_address') }}"
-                   value="{{ old('school_address') ?? $school->address }}">
+            <label for="students">Étudiants</label>
+            <input required type="number" name="students" id="students" min="1" max="99"
+                   class="form-control {{ inputValidationClass($errors, 'students') }}"
+                   value="{{ old('students') ?? $class->students }}">
             <div class="invalid-feedback">
-                {{ inputValidationMessages($errors, 'school_address') }}
+                {{ inputValidationMessages($errors, 'students') }}
             </div>
         </div>
 
         <div class="form-group">
-            <label for="school_postal_code">Code Postal</label>
-            <input required type="text" name="school_postal_code" id="school_postal_code"
-                   class="form-control {{ inputValidationClass($errors, 'school_postal_code') }}"
-                   value="{{ old('school_postal_code') ?? $school->postal_code }}">
+            <label for="school_id">Lycée</label>
+            <select class="form-control" required name="school_id" id="school_id">
+                @foreach($schools as $school)
+                    <option value="{{ $school->id }}" {{ $class->school_id === $school->id ? 'selected' : '' }}>{{ $school->name }}</option>
+                @endforeach
+            </select>
             <div class="invalid-feedback">
-                {{ inputValidationMessages($errors, 'school_postal_code') }}
+                {{ inputValidationMessages($errors, 'school_id') }}
             </div>
         </div>
 
         <div class="form-group">
-            <label for="school_city">Ville</label>
-            <input required type="text" name="school_city" id="school_city"
-                   class="form-control {{ inputValidationClass($errors, 'school_city') }}"
-                   value="{{ old('school_city') ?? $school->city }}">
+            <label for="teacher_id">Enseignant</label>
+            <select class="form-control" required name="teacher_id" id="teacher_id">
+                @foreach($teachers as $teacher)
+                    <option value="{{ $teacher->id }}" {{ $teacher->teacher_id === $teacher->id ? 'selected' : '' }}>{{ $teacher->full_name }}</option>
+                @endforeach
+            </select>
             <div class="invalid-feedback">
-                {{ inputValidationMessages($errors, 'school_city') }}
+                {{ inputValidationMessages($errors, 'teacher_id') }}
             </div>
         </div>
 

@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\AdminClassUpdateRequest;
 use App\Http\Requests\AdminSchoolUpdateRequest;
 use App\School;
 use App\SchoolClass;
+use App\Teacher;
 use Illuminate\Http\Request;
 use Session;
 
@@ -18,6 +20,20 @@ class AdminController extends Controller {
         return view('admin.classes')->with([
             'classes' => SchoolClass::all(),
         ]);
+    }
+
+    public function classesEdit(SchoolClass $class) {
+        return view('admin.classes-edit')->with([
+            'class' => $class,
+            'schools' => School::all(),
+            'teachers' => Teacher::all(),
+        ]);
+    }
+
+    public function classesEditPost(AdminClassUpdateRequest $request, SchoolClass $class) {
+        $class->update($request->validated());
+        Session::flash('message', 'Mise à jour réussie');
+        return redirect()->route('admin.classes');
     }
 
     public function schools() {
