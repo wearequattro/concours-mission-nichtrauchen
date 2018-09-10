@@ -4,6 +4,7 @@ namespace App;
 
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Collection;
 
 /**
  * Class School
@@ -15,6 +16,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property string postal_code
  * @property string city
  * @property string full_address
+ * @property Collection classes All classes belonging to this school
  * @property Carbon updated_at
  * @property Carbon created_at
  *
@@ -34,6 +36,10 @@ class School extends Model {
 
     public function getFullAddressAttribute() {
         return $this->address . " " . $this->postal_code . " " . $this->city;
+    }
+
+    public function classes() {
+        return $this->hasMany(SchoolClass::class);
     }
 
 }

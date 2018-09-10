@@ -1,0 +1,50 @@
+@extends('layouts.app-sidebar')
+
+@section('title', 'Tableau de bord admin')
+
+@section('content')
+    <h1 class="display-4 text-center">Lycées</h1>
+
+            <div class="table-responsive">
+
+                <table class="table table-bordered table-striped">
+                    <thead>
+                    <tr>
+                        <th>Nom</th>
+                        <th>Adresse</th>
+                        <th>Code Postal</th>
+                        <th>Ville</th>
+                        <th>N° Classes</th>
+                        <th>Action</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    @forelse($schools as $school)
+                        <tr>
+                            <td>{{ $school->name }}</td>
+                            <td>{{ $school->address }}</td>
+                            <td>{{ $school->postal_code }}</td>
+                            <td>{{ $school->city }}</td>
+                            <td>{{ $school->classes()->count() }}</td>
+                            <td>
+                                <a href="{{ route('admin.schools.edit', [$school->id]) }}" class="btn btn-warning">
+                                    <i class="fa fa-fw fa-pencil"></i>
+                                </a>
+                            </td>
+                        </tr>
+                        @empty
+                        <tr>
+                            <td colspan="6" class="text-center">Aucun lycée disponible</td>
+                        </tr>
+                    @endforelse
+                    </tbody>
+                </table>
+
+            </div>
+@endsection
+
+@push('js')
+    <script>
+        $('table').dataTable();
+    </script>
+@endpush
