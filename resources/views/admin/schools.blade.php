@@ -5,6 +5,12 @@
 @section('content')
     <h1 class="display-4 text-center">Lycées</h1>
 
+    @if(Session::has('message'))
+        <div class="alert alert-success">
+            {{ Session::get('message') }}
+        </div>
+    @endif
+
             <div class="table-responsive">
 
                 <table class="table table-bordered table-striped">
