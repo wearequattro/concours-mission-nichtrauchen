@@ -28,7 +28,7 @@ Route::group(['middleware' => 'guest'], function () {
     Route::get('/teacher/register', 'TeacherRegisterController@start')->name('teacher.register');
     Route::post('/teacher/register', 'TeacherRegisterController@startPost')->name('teacher.registerPost');
 });
-Route::group(['middleware' => 'auth'], function () {
+Route::group(['middleware' => ['auth', 'teacher']], function () {
     Route::get('/teacher/profile', 'TeacherController@profile')->name('teacher.profile');
     Route::post('/teacher/profile', 'TeacherController@profilePost')->name('teacher.profile.post');
     Route::get('/teacher/classes', 'TeacherController@classes')->name('teacher.classes');
@@ -37,4 +37,8 @@ Route::group(['middleware' => 'auth'], function () {
     Route::post('/teacher/classes/add', 'TeacherController@classesAddPost')->name('teacher.classes.add.post');
     Route::get('/teacher/documents', 'TeacherController@documents')->name('teacher.documents');
     Route::get('/teacher/party', 'TeacherController@party')->name('teacher.party');
+});
+
+Route::group(['middleware' => ['auth', 'admin']], function () {
+    Route::get('/admin/dashboard')->name('admin.dashboard');
 });

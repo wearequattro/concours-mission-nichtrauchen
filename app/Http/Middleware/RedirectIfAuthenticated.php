@@ -2,6 +2,7 @@
 
 namespace App\Http\Middleware;
 
+use App\User;
 use Closure;
 use Illuminate\Support\Facades\Auth;
 
@@ -20,7 +21,9 @@ class RedirectIfAuthenticated
         if (Auth::guard($guard)->check()) {
             if(Auth::user()->teacher !== null)
                 return redirect()->route('teacher.classes');
-            return redirect('/');// todo redirect to admin dashboard
+            if(Auth::user()->type === User::TYPE_ADMIN)
+                return redirect()->route('admin.dashboard');
+            return redirect('/');
         }
 
         return $next($request);
