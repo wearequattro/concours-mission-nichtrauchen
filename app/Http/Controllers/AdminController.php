@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\AdminSchoolUpdateRequest;
 use App\School;
+use App\SchoolClass;
 use Illuminate\Http\Request;
 use Session;
 
@@ -14,7 +15,9 @@ class AdminController extends Controller {
     }
 
     public function classes() {
-        return view('admin.dashboard');
+        return view('admin.classes')->with([
+            'classes' => SchoolClass::all(),
+        ]);
     }
 
     public function schools() {

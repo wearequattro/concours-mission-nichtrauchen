@@ -42,6 +42,8 @@ Route::group(['middleware' => ['auth', 'teacher']], function () {
 Route::group(['middleware' => ['auth', 'admin']], function () {
     Route::get('/admin/dashboard', 'AdminController@dashboard')->name('admin.dashboard');
     Route::get('/admin/classes', 'AdminController@classes')->name('admin.classes');
+    Route::get('/admin/classes/{class}', 'AdminController@classesEdit')->name('admin.classes.edit');
+    Route::post('/admin/classes/{class}', 'AdminController@classesEditPost')->name('admin.classes.edit.post');
     Route::get('/admin/schools', 'AdminController@schools')->name('admin.schools');
     Route::get('/admin/schools/{school}', 'AdminController@schoolsEdit')->name('admin.schools.edit');
     Route::post('/admin/schools/{school}', 'AdminController@schoolsEditPost')->name('admin.schools.edit.post');
