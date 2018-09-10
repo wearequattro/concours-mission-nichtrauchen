@@ -51,6 +51,8 @@ Route::group(['middleware' => ['auth', 'admin']], function () {
     Route::get('/admin/teachers/{teacher}', 'AdminController@teachersEdit')->name('admin.teachers.edit');
     Route::post('/admin/teachers/{teacher}', 'AdminController@teachersEditPost')->name('admin.teachers.edit.post');
     Route::get('/admin/emails', 'AdminController@emails')->name('admin.emails');
+    Route::get('/admin/emails/{email}', 'AdminController@emailsEdit')->name('admin.emails.edit');
+    Route::post('/admin/emails/{email}', 'AdminController@emailsEditPost')->name('admin.emails.edit.post');
     Route::get('/admin/documents', 'AdminController@documents')->name('admin.documents');
     Route::get('/admin/party', 'AdminController@party')->name('admin.party');
 });

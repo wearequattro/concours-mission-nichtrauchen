@@ -2,9 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\EditableEmail;
 use App\Http\Requests\AdminClassUpdateRequest;
+use App\Http\Requests\AdminEmailsUpdateRequest;
 use App\Http\Requests\AdminSchoolUpdateRequest;
 use App\Http\Requests\AdminTeacherUpdateRequest;
+use App\PlaceHolder;
 use App\Salutation;
 use App\School;
 use App\SchoolClass;
@@ -87,7 +90,26 @@ class AdminController extends Controller {
     }
 
     public function emails() {
-        return view('admin.dashboard');
+        return view('admin.emails')->with([
+            'emails' => EditableEmail::all(),
+        ]);
+    }
+
+    public function emailsEdit(EditableEmail $email) {
+        $placeholders = EditableEmail::getPlaceholders()
+            ->map(function (PlaceHolder $placeHolder) {
+                return ['text' => $placeHolder->previewValue, 'value' => $placeHolder->key];
+            });
+        return view('admin.emails-edit')->with([
+            'email' => $email,
+            'placeholders' => $placeholders,
+        ]);
+    }
+
+    public function emailsEditPost(AdminEmailsUpdateRequest $request, EditableEmail $email) {
+        $email->update($request->validated());
+        Session::flash('message', 'Mise à jour réussie');
+        return redirect()->route('admin.emails');
     }
 
     public function party() {
