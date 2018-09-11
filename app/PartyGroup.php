@@ -4,6 +4,7 @@ namespace App;
 
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 /**
  * Class PartyGroup
@@ -14,7 +15,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property int students
  * @property string language
  * @property int school_class_id
- * @property SchoolClass school_class
+ * @property SchoolClass schoolClass
  * @property Carbon created_at
  * @property Carbon updated_at
  *
@@ -22,4 +23,8 @@ use Illuminate\Database\Eloquent\Model;
  */
 class PartyGroup extends Model {
     protected $fillable = ['name', 'students', 'language', 'school_class_id'];
+
+    public function schoolClass(): BelongsTo {
+        return $this->belongsTo(SchoolClass::class);
+    }
 }

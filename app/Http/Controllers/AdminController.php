@@ -9,6 +9,7 @@ use App\Http\Requests\AdminDocumentUploadRequest;
 use App\Http\Requests\AdminEmailsUpdateRequest;
 use App\Http\Requests\AdminSchoolUpdateRequest;
 use App\Http\Requests\AdminTeacherUpdateRequest;
+use App\PartyGroup;
 use App\PlaceHolder;
 use App\Salutation;
 use App\School;
@@ -149,7 +150,11 @@ class AdminController extends Controller {
     }
 
     public function party() {
-        return view('admin.dashboard');
+        $groups = PartyGroup::all()->groupBy('school_class_id');
+
+        return view('admin.party')->with([
+            'groups' => $groups,
+        ]);
     }
 
 }

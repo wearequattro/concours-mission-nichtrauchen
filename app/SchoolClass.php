@@ -27,7 +27,7 @@ use Illuminate\Support\Collection;
  * @property Carbon created_at
  * @property School school
  * @property Teacher teacher
- * @property PartyGroup party_groups
+ * @property PartyGroup partyGroups
  *
  * @method static SchoolClass create(array $values)
  */
