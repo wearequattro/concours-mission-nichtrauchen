@@ -97,6 +97,9 @@
                         <a href="{{ route('admin.documents.download', [$document]) }}" class="btn btn-info">
                             <i class="fa fa-fw fa-download text-white"></i>
                         </a>
+                        <a href="{{ route('admin.documents.delete', [$document]) }}" class="btn btn-danger">
+                            <i class="fa fa-fw fa-trash-o text-white"></i>
+                        </a>
                     </td>
                 </tr>
             @empty

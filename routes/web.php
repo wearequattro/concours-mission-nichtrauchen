@@ -57,5 +57,6 @@ Route::group(['middleware' => ['auth', 'admin']], function () {
     Route::post('/admin/documents', 'AdminController@documentsPost')->name('admin.documents.post');
     Route::get('/admin/documents/{document}/visibility', 'AdminController@documentsToggleVisibility')->name('admin.documents.toggleVisibility');
     Route::get('/admin/documents/{document}/download', 'AdminController@documentsDownload')->name('admin.documents.download');
+    Route::get('/admin/documents/{document}/delete', 'AdminController@documentsDelete')->name('admin.documents.delete');
     Route::get('/admin/party', 'AdminController@party')->name('admin.party');
 });

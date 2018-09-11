@@ -99,6 +99,12 @@ class AdminController extends Controller {
         return Storage::download($document->filename);
     }
 
+    public function documentsDelete(Document $document) {
+        Storage::delete($document->filename);
+        $document->delete();
+        return redirect()->route('admin.documents');
+    }
+
     public function teachers() {
         return view('admin.teachers')->with([
             'teachers' => Teacher::all(),
