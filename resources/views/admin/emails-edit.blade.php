@@ -93,11 +93,12 @@
         function refreshPreview() {
             var text = tinymce.get('text').getContent();
             for (p in placeholders) {
-                var o = placeholders[p]
-                text = text.replace(new RegExp(o.value, "g"), '<span style="background-color:pink">' + o.text + '</span>');
+                var o = placeholders[p];
+                text = text.replace(new RegExp(o.value, "g"), o.preview);
             }
 
             $('#preview').html(text);
+            $('#text').html(text);
         }
 
     </script>

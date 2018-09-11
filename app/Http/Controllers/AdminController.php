@@ -135,7 +135,11 @@ class AdminController extends Controller {
     public function emailsEdit(EditableEmail $email) {
         $placeholders = EditableEmail::getPlaceholders()
             ->map(function (PlaceHolder $placeHolder) {
-                return ['text' => $placeHolder->previewValue, 'value' => $placeHolder->key];
+                return [
+                    'text' => !empty($placeHolder->description) ? $placeHolder->description : $placeHolder->previewValue,
+                    'preview' => $placeHolder->previewValue,
+                    'value' => $placeHolder->key,
+                ];
             });
         return view('admin.emails-edit')->with([
             'email' => $email,
