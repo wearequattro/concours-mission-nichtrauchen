@@ -23,6 +23,15 @@ use Illuminate\Support\Collection;
  * @property boolean status_march
  * @property boolean status_may
  * @property boolean status_party
+ * @property string january_token
+ * @property Carbon january_sent_at
+ * @property Carbon january_reminder_sent_at
+ * @property string march_token
+ * @property Carbon march_sent_at
+ * @property Carbon march_reminder_sent_at
+ * @property string may_token
+ * @property Carbon may_sent_at
+ * @property Carbon may_reminder_sent_at
  * @property Carbon updated_at
  * @property Carbon created_at
  * @property School school
@@ -36,6 +45,10 @@ class SchoolClass extends Model {
     protected $fillable = ['name', 'students', 'school_id', 'teacher_id', 'status_january', 'status_march',
         'status_may', 'status_party'];
 
+    public const STATUS_JANUARY = "january";
+    public const STATUS_MARCH = "march";
+    public const STATUS_MAY = "may";
+
     public function school(): BelongsTo {
         return $this->belongsTo(School::class);
     }
@@ -46,6 +59,41 @@ class SchoolClass extends Model {
 
     public function partyGroups(): HasMany {
         return $this->hasMany(PartyGroup::class);
+    }
+
+    /**
+     * Determines if sent_at is not set and that "now" is after the followUp date in env.
+     * @param string $whichStatus Which status to check, use constants: {@link STATUS_JANUARY}, {@link STATUS_MARCH}, {@link STATUS_MAY}
+     * @return bool
+     */
+    public function shouldSendFollowUp(string $whichStatus): bool {
+        $followupDate = null;
+        if($whichStatus === static::STATUS_JANUARY)
+            $followupDate = env('FOLLOW_UP_1');
+        if($whichStatus === static::STATUS_MARCH)
+            $followupDate = env('FOLLOW_UP_2');
+        if($whichStatus === static::STATUS_MAY)
+            $followupDate = env('FOLLOW_UP_3');
+        $sentAtName = $whichStatus . '_sent_at';
+        /** @var Carbon $sentAt */
+        $sentAt = $this->$sentAtName;
+        return $sentAt === null && Carbon::now()->gte(Carbon::createFromFormat('Y-m-d', env($followupDate)));
+    }
+
+    /**
+     * Checks if the follow up for the given status is sent, and it was at least some time ago (configurable in env).
+     * @param string $whichStatus Which status to check, use constants: {@link STATUS_JANUARY}, {@link STATUS_MARCH}, {@link STATUS_MAY}
+     * @return bool
+     */
+    public function shouldSendFollowUpReminder(string $whichStatus): bool {
+        $sentAtName = $whichStatus . '_sent_at';
+        $reminderSentAtName = $whichStatus . '_reminder_sent_at';
+        /** @var Carbon $sentAt */
+        $sentAt = $this->$sentAtName;
+        /** @var Carbon $reminderSentAt */
+        $reminderSentAt = $this->$reminderSentAtName;
+        $followupReminderDate = $sentAt->copy()->addDays(env('FOLLOW_UP_MAIL_RESEND_DELAY_DAYS'));
+        return $sentAt !== null && $reminderSentAt === null && Carbon::now()->gte($followupReminderDate);
     }
 
     /**
