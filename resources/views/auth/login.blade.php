@@ -26,7 +26,16 @@
                     {{ inputValidationMessages($errors, 'password') }}
                 </div>
             </div>
-            
+
+            <div class="form-group text-left ml-4">
+                <input type="checkbox" name="remember" id="remember"
+                       class="custom-control-input {{ inputValidationClass($errors, 'remember') }}">
+                <label for="remember" class="custom-control-label">Se souvenir de moi</label>
+                <div class="invalid-feedback">
+                    {{ inputValidationMessages($errors, 'remember') }}
+                </div>
+            </div>
+
 
             <div class="form-group">
                 <input type="submit" class="btn btn-block btn-lg btn-primary" value="Connecter">
