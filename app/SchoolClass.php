@@ -3,8 +3,11 @@
 namespace App;
 
 use Carbon\Carbon;
+use function foo\func;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Support\Collection;
 
 /**
@@ -24,6 +27,7 @@ use Illuminate\Support\Collection;
  * @property Carbon created_at
  * @property School school
  * @property Teacher teacher
+ * @property PartyGroup party_groups
  *
  * @method static SchoolClass create(array $values)
  */
@@ -38,6 +42,10 @@ class SchoolClass extends Model {
 
     public function teacher(): BelongsTo {
         return $this->belongsTo(Teacher::class);
+    }
+
+    public function partyGroups(): HasMany {
+        return $this->hasMany(PartyGroup::class);
     }
 
     /**
@@ -76,6 +84,28 @@ class SchoolClass extends Model {
         return static::query()
             ->where('teacher_id', $teacher->id)
             ->get();
+    }
+
+    /**
+     * Converts this SchoolClass into multiple school classes grouped into equal parts based on the number of students.
+     * 10 Students -> 1 group with 10, 11 students -> group with 5 and group with 6.
+     * @param int $maxInGroup How many students per group
+     * @return Collection Number of students per group
+     */
+    public function mapToGroups(int $maxInGroup = 10) {
+        $numGroups = ceil($this->students / $maxInGroup);
+        $groups = collect();
+        for ($i = 0; $i < $numGroups; $i++) {
+            if ($i < $numGroups - 1) {
+                // Divide number of students into equal parts and add them
+                $students = ceil($this->students / $numGroups);
+            } else {
+                // If it's the last group, just take the remaining number of students
+                $students = $this->students - $groups->sum();
+            }
+            $groups->push(intval($students));
+        }
+        return $groups;
     }
 
 }

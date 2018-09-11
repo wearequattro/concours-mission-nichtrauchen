@@ -3,12 +3,15 @@
 namespace App\Http\Controllers;
 
 use App\Document;
+use App\Http\Requests\PartyGroupRegistrationRequest;
 use App\Http\Requests\ProfileUpdateRequest;
 use App\Http\Requests\SchoolClassCreateRequest;
+use App\PartyGroup;
 use App\Salutation;
 use App\School;
 use App\SchoolClass;
 use Carbon\Carbon;
+use function foo\func;
 use Illuminate\Http\Request;
 
 class TeacherController extends Controller {
@@ -32,7 +35,7 @@ class TeacherController extends Controller {
         \Auth::user()->update([
             'email' => $data['teacher_email'],
         ]);
-        if(isset($data['teacher_password']) && $data['teacher_password'] !== null)
+        if (isset($data['teacher_password']) && $data['teacher_password'] !== null)
             \Auth::user()->updatePassword($data['teacher_password']);
 
         \Session::flash('message', 'Mise à jour réussie');
@@ -68,7 +71,38 @@ class TeacherController extends Controller {
     }
 
     function party() {
+        $classes = SchoolClass::findForLoggedInUser()->sort(function (SchoolClass $schoolClass) {
+            return $schoolClass->partyGroups()->exists() ? 1 : 0;
+        });
+        return view('teacher.party')->with([
+            'classes' => $classes,
+        ]);
+    }
 
+    function partyClass(SchoolClass $class) {
+        if($class->partyGroups()->exists())
+            return redirect()->route('teacher.party');
+        return view('teacher.party-class')->with([
+            'class' => $class,
+            'groups' => $class->mapToGroups(),
+        ]);
+    }
+
+    function partyClassPost(PartyGroupRegistrationRequest $request, SchoolClass $class) {
+        $numStudents = $class->mapToGroups();
+        $data = $request->validated()['class'];
+        for ($i = 0; $i < sizeof($data); $i++) {
+            $name = $data[$i]['name'];
+            $language = $data[$i]['language'];
+            $students = $numStudents[$i];
+            PartyGroup::create([
+                'name' => $name,
+                'students' => $students,
+                'language' => $language,
+                'school_class_id' => $class->id,
+            ]);
+        }
+        return redirect()->route('teacher.party');
     }
 
 }
