@@ -1,5 +1,6 @@
 // Fonts
 @import url('https://fonts.googleapis.com/css?family=Nunito');
+@import url('https://fonts.googleapis.com/css?family=Oleo+Script+Swash+Caps');
 // Variables
 @import 'variables';
 // Bootstrap
@@ -16,6 +17,14 @@ table.school-classes {
   i {
     font-size: 1.2em;
   }
+}
+
+.btn-primary {
+  color: #fff;
+}
+
+.navbar-brand, .display-1, .display-2, .display-3, .display-4, .display-5 {
+  font-family: 'Oleo Script Swash Caps', cursive;
 }
 
 .teacher {

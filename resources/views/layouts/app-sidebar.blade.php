@@ -51,12 +51,6 @@
                         F&ecirc;te de Cl&ocirc;ture
                     </a>
                 </li>
-                <li class="nav-item">
-                    <a href="{{ route('logout') }}" class="nav-link">
-                        <i class="fa fa-fw fa-sign-out"></i>
-                        D&eacute;connecter
-                    </a>
-                </li>
             </ul>
         </nav>
         @elseif(Auth::user() !== null && Auth::user()->type === \App\User::TYPE_ADMIN)
@@ -96,12 +90,6 @@
                         <a href="{{ route('admin.party') }}" class="nav-link">
                             <i class="fa fa-fw fa-birthday-cake"></i>
                             F&ecirc;te de Cl&ocirc;ture
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="{{ route('logout') }}" class="nav-link">
-                            <i class="fa fa-fw fa-sign-out"></i>
-                            D&eacute;connecter
                         </a>
                     </li>
                 </ul>

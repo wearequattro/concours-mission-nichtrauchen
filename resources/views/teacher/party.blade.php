@@ -11,10 +11,10 @@
             <div class="col-xs-12 col-sm-12 mt-4 mb-2">
                 <div class="card">
                     <div class="card-body">
-                        <h3 class="display-5 mb-0">
+                        <h3>
                             Classe {{ $class->name }} <small class="text-muted text">{{ $class->school->name }}</small>
                         </h3>
-                        <a class="btn btn-primary text-white mt-3" href="{{ route('party.class', [$class]) }}">
+                        <a class="btn btn-primary text-white" href="{{ route('party.class', [$class]) }}">
                             Inscrire
                         </a>
                     </div>
@@ -26,10 +26,10 @@
                 <div class="col-xs-12 col-sm-12 mt-4 mb-2">
                     <div class="card">
                         <div class="card-body bg-light">
-                            <h3 class="display-5 mb-0">
+                            <h3>
                                 Classe {{ $class->name }} <small class="text-muted text">{{ $class->school->name }}</small>
                             </h3>
-                            <p class="mt-2 mb-0">Déjà inscrit</p>
+                            <p class="mb-0">Déjà inscrit</p>
                         </div>
                     </div>
                 </div>

@@ -1,13 +1,13 @@
 @extends('layouts.app')
 
 @section('content')
+    <h1 class="display-4 text-center">Login &laquo;Mission Nichtrauchen&raquo;</h1>
     <div class="col-sm-6 offset-3">
 
         <form class="text-center mt-4" method="post" action="{{ route('login.post') }}">
             @csrf
-            <h1>Login &laquo;Mission Nichtrauchen&raquo;</h1>
 
-            <div class="form-group mt-4">
+            <div class="form-group mt-4 text-left">
                 <label for="email">Adresse Email</label>
                 <input required type="email" name="email" id="email"
                        class="form-control {{ inputValidationClass($errors, 'email') }}"
@@ -17,7 +17,7 @@
                 </div>
             </div>
 
-            <div class="form-group">
+            <div class="form-group text-left">
                 <label for="password">Mot de passe</label>
                 <input required type="password" name="password" id="password"
                        class="form-control {{ inputValidationClass($errors, 'password') }}"
