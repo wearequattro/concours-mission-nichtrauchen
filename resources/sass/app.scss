@@ -1,6 +1,7 @@
 // Fonts
 @import url('https://fonts.googleapis.com/css?family=Nunito');
 @import url('https://fonts.googleapis.com/css?family=Oleo+Script+Swash+Caps');
+@import url('https://fonts.googleapis.com/css?family=Roboto+Slab');
 // Variables
 @import 'variables';
 // Bootstrap
@@ -16,6 +17,88 @@
 table.school-classes {
   i {
     font-size: 1.2em;
+  }
+}
+
+.frontend > .container {
+  margin-top: 2.5em;
+  margin-bottom: 4em;
+}
+
+.frontend {
+  background-color: #fff;
+
+  .navbar {
+    margin-bottom: 2em;
+    .logo {
+      display: block;
+      margin: 0 auto;
+    }
+  }
+
+  footer {
+    padding-top: 3em;
+    padding-bottom: 2em;
+    font-family: 'Roboto Slab', serif;
+    background-color: #FAB234;
+
+    .lead {
+      font-size: 1em;
+      font-weight: 700;
+    }
+
+    ul.contact-info {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+
+      li {
+        margin-bottom: 0.5em;
+      }
+    }
+
+    .soc-ico {
+      a {
+        display: inline-block;
+        margin-right: 5px;
+        width: 24px;
+        height: 24px;
+        background-color: #FBBD52;
+        border-radius: 100%;
+        :hover {
+          transition-duration: 0.3s;
+          background-color: #FAB234;
+        }
+        svg {
+          transition-duration: 0.3s;
+          width: 24px;
+          height: 24px;
+          fill: #fff;
+        }
+      }
+    }
+
+    hr {
+      border-color: #fff;
+    }
+
+    .logo-fondation {
+      height: 60px;
+      width: auto;
+    }
+
+    .links {
+      p {
+        margin-bottom: 0;
+        margin-top: 0;
+      }
+      p:first-of-type {
+        margin-bottom: 0.4em;
+      }
+      a {
+        color: #fff;
+      }
+    }
   }
 }
 

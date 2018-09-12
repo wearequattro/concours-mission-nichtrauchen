@@ -1,7 +1,7 @@
-@extends('layouts.app')
+@extends('layouts.frontend')
 
 @section('content')
-    <h1 class="display-4 text-center">Login &laquo;Mission Nichtrauchen&raquo;</h1>
+    <h1 class="display-4 text-center">Login</h1>
     <div class="col-sm-6 offset-3">
 
         <form class="text-center mt-4" method="post" action="{{ route('login.post') }}">

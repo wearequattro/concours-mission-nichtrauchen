@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.frontend')
 
 <?php
 /** @var \Illuminate\Support\ViewErrorBag $errors */
