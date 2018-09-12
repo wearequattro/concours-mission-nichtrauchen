@@ -31,6 +31,7 @@ class EditableEmail extends Model {
     public static $MAIL_CONTEST_START = ["contest_start", "Message pour le début du concours"];
     public static $MAIL_FOLLOW_UP = ["follow_up", "Message de suivi et rappel aux professeurs"];
     public static $MAIL_FOLLOW_UP_YES = ["follow_up_yes", "Réponse positive du suivi"];
+    public static $MAIL_FOLLOW_UP_NO = ["follow_up_no", "Réponse négative du suivi"];
     public static $MAIL_FOLLOW_UP_YES_INVITE_PARTY = ["follow_up_yes_invite_party", "Réponse positive du suivi et invitation au fête de clôture"];
     public static $MAIL_PARTY_CONFIRMATION = ["party_confirmation", "Confirmation de participation á la fête de clôture"];
     public static $MAIL_FINAL = ["final", "Confirmation de participation á la fête de clôture"];
@@ -41,6 +42,7 @@ class EditableEmail extends Model {
             static::$MAIL_CONTEST_START,
             static::$MAIL_FOLLOW_UP,
             static::$MAIL_FOLLOW_UP_YES,
+            static::$MAIL_FOLLOW_UP_NO,
             static::$MAIL_FOLLOW_UP_YES_INVITE_PARTY,
             static::$MAIL_PARTY_CONFIRMATION,
             static::$MAIL_FINAL,
