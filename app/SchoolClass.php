@@ -2,13 +2,13 @@
 
 namespace App;
 
+use App\Mail\CustomEmail;
 use Carbon\Carbon;
-use function foo\func;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
-use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Support\Collection;
+use Ramsey\Uuid\Uuid;
 
 /**
  * Class SchoolClass
@@ -43,7 +43,11 @@ use Illuminate\Support\Collection;
 class SchoolClass extends Model {
 
     protected $fillable = ['name', 'students', 'school_id', 'teacher_id', 'status_january', 'status_march',
-        'status_may', 'status_party'];
+        'status_may', 'status_party', 'january_token', 'january_sent_at', 'january_reminder_sent_at', 'march_token',
+        'march_sent_at', 'march_reminder_sent_at', 'may_token', 'may_sent_at', 'may_reminder_sent_at'];
+
+    protected $dates = ['january_sent_at', 'january_reminder_sent_at', 'march_sent_at', 'march_reminder_sent_at',
+        'may_sent_at', 'may_reminder_sent_at'];
 
     public const STATUS_JANUARY = "january";
     public const STATUS_MARCH = "march";
@@ -68,16 +72,20 @@ class SchoolClass extends Model {
      */
     public function shouldSendFollowUp(string $whichStatus): bool {
         $followupDate = null;
-        if($whichStatus === static::STATUS_JANUARY)
+        if ($whichStatus === static::STATUS_JANUARY)
             $followupDate = env('FOLLOW_UP_1');
-        if($whichStatus === static::STATUS_MARCH)
+        if ($whichStatus === static::STATUS_MARCH)
             $followupDate = env('FOLLOW_UP_2');
-        if($whichStatus === static::STATUS_MAY)
+        if ($whichStatus === static::STATUS_MAY)
             $followupDate = env('FOLLOW_UP_3');
         $sentAtName = $whichStatus . '_sent_at';
+        $statusValue = $this->__get('status_' . $whichStatus);
         /** @var Carbon $sentAt */
         $sentAt = $this->$sentAtName;
-        return $sentAt === null && Carbon::now()->gte(Carbon::createFromFormat('Y-m-d', env($followupDate)));
+        return $this->arePreviousStatusesPositive($whichStatus)
+            && $sentAt === null
+            && $statusValue === null
+            && Carbon::now()->gte(Carbon::createFromFormat('Y-m-d', $followupDate));
     }
 
     /**
@@ -92,8 +100,35 @@ class SchoolClass extends Model {
         $sentAt = $this->$sentAtName;
         /** @var Carbon $reminderSentAt */
         $reminderSentAt = $this->$reminderSentAtName;
+        if ($sentAt === null || !$this->arePreviousStatusesPositive($whichStatus))
+            return false;
+        $statusValue = $this->__get('status_' . $whichStatus);
         $followupReminderDate = $sentAt->copy()->addDays(env('FOLLOW_UP_MAIL_RESEND_DELAY_DAYS'));
-        return $sentAt !== null && $reminderSentAt === null && Carbon::now()->gte($followupReminderDate);
+        return $reminderSentAt === null && $statusValue === null && Carbon::now()->gte($followupReminderDate);
+    }
+
+    /**
+     * Checks if the previous statuses have been answered positively by the teacher.
+     * @param string $whichStatus Which status to check, use constants: {@link STATUS_JANUARY}, {@link STATUS_MARCH}, {@link STATUS_MAY}
+     * @return bool
+     */
+    private function arePreviousStatusesPositive($whichStatus) {
+        if ($whichStatus === static::STATUS_JANUARY)
+            return true;
+        if ($whichStatus === static::STATUS_MARCH)
+            return $this->status_january === 1;
+        if ($whichStatus === static::STATUS_MAY)
+            return $this->status_january === 1 && $this->status_march === 1;
+
+        return false;
+    }
+
+    /**
+     * Checks if this class is eligible for the end party.
+     * @return bool
+     */
+    public function isEligibleForParty() {
+        return $this->status_january === 1 && $this->status_march === 1 && $this->status_may === 1;
     }
 
     /**
@@ -118,7 +153,7 @@ class SchoolClass extends Model {
      * @return Collection Collection of {@link SchoolClass} objects
      */
     public static function findForLoggedInUser(): Collection {
-        if(\Auth::user() === null || \Auth::user()->type !== User::TYPE_TEACHER || \Auth::user()->teacher === null)
+        if (\Auth::user() === null || \Auth::user()->type !== User::TYPE_TEACHER || \Auth::user()->teacher === null)
             return collect();
         return static::findForTeacher(\Auth::user()->teacher);
     }
@@ -132,6 +167,57 @@ class SchoolClass extends Model {
         return static::query()
             ->where('teacher_id', $teacher->id)
             ->get();
+    }
+
+    /**
+     * Set the status of the follow to the given response. Which status to choose is automatically determined
+     * through the token as it is unique.
+     * @param string $token The token from the url in the email
+     * @param bool $newStatus If the class is still not smoking
+     * @return bool If the status was changed
+     */
+    public static function setFollowUpStatus(string $token, bool $newStatus): bool {
+        $wasStatusChanged = false;
+        $statuses = collect([static::STATUS_JANUARY, static::STATUS_MARCH, static::STATUS_MAY]);
+        foreach ($statuses as $whichStatus) {
+            $dbFieldToken = $whichStatus . '_token'; // january_token
+            $dbFieldStatus = 'status_' . $whichStatus; // status_january
+            $class = static::query()->where($dbFieldToken, $token)->first();
+            if ($class != null) {
+                $class->update([
+                    $dbFieldToken => null,
+                    $dbFieldStatus => $newStatus,
+                ]);
+                $wasStatusChanged = true;
+                $class->sendFollowUpReplyToResponse($whichStatus, $newStatus);
+                break;
+            }
+        }
+        return $wasStatusChanged;
+    }
+
+    /**
+     * Sends the appropriate reply to the teacher's follow up response.
+     * @param string $whichStatus Which status to check, use constants: {@link STATUS_JANUARY}, {@link STATUS_MARCH}, {@link STATUS_MAY}
+     * @param bool $newStatus
+     */
+    function sendFollowUpReplyToResponse($whichStatus, bool $newStatus) {
+        $mailToSend = null;
+        if($newStatus === false) { // no
+            if (in_array($whichStatus, [static::STATUS_JANUARY, static::STATUS_MARCH, static::STATUS_MAY])) {
+                $mailToSend = EditableEmail::$MAIL_FOLLOW_UP_NO;
+            }
+        } else { // yes
+            if (in_array($whichStatus, [static::STATUS_JANUARY, static::STATUS_MARCH])) {
+                $mailToSend = EditableEmail::$MAIL_FOLLOW_UP_YES;
+            } else if($whichStatus === static::STATUS_MAY) {
+                $mailToSend = EditableEmail::$MAIL_FOLLOW_UP_YES_INVITE_PARTY;
+            }
+        }
+        if($mailToSend != null) {
+            \Mail::to($this->teacher->user->email)
+                ->queue(new CustomEmail(EditableEmail::find($mailToSend), $this->teacher, $this));
+        }
     }
 
     /**
@@ -154,6 +240,38 @@ class SchoolClass extends Model {
             $groups->push(intval($students));
         }
         return $groups;
+    }
+
+    /**
+     * Returns the current token to respond the follow up.
+     * @return string
+     */
+    public function getCurrentToken() {
+        if($this->january_token != null)
+            return $this->january_token;
+        if($this->march_token != null)
+            return $this->march_token;
+        if($this->may_token != null)
+            return $this->may_token;
+        \Log::warning('user has no token. ' . $this->toJson());
+        return "";
+    }
+
+    public function sendFollowUpEmail($status) {
+        $this->update([
+            $status . '_sent_at' => Carbon::now(),
+            $status . '_token' => Uuid::uuid4()->toString(),
+        ]);
+        \Mail::to($this->teacher->user->email)
+            ->queue(new CustomEmail(EditableEmail::find(EditableEmail::$MAIL_FOLLOW_UP), $this->teacher, $this));
+    }
+
+    public function sendFollowUpReminderEmail($status) {
+        $this->update([
+            $status . '_reminder_sent_at' => Carbon::now(),
+        ]);
+        \Mail::to($this->teacher->user->email)
+            ->queue(new CustomEmail(EditableEmail::find(EditableEmail::$MAIL_FOLLOW_UP), $this->teacher, $this));
     }
 
 }

@@ -41,6 +41,8 @@ Route::group(['middleware' => ['auth', 'teacher']], function () {
     Route::post('/teacher/party/{class}', 'TeacherController@partyClassPost')->name('party.class.post');
 });
 
+Route::get('/suivi/{token}/{status}', 'FollowUpController@setFollowUpStatus')->name('follow-up');
+
 Route::group(['middleware' => ['auth', 'admin']], function () {
     Route::get('/admin/dashboard', 'AdminController@dashboard')->name('admin.dashboard');
     Route::group(['namespace' => 'Admin'], function () {

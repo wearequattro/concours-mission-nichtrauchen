@@ -5,6 +5,7 @@ namespace App;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Collection;
+use Illuminate\Support\Str;
 
 /**
  * Class EditableEmail
@@ -34,7 +35,7 @@ class EditableEmail extends Model {
     public static $MAIL_FOLLOW_UP_NO = ["follow_up_no", "Réponse négative du suivi"];
     public static $MAIL_FOLLOW_UP_YES_INVITE_PARTY = ["follow_up_yes_invite_party", "Réponse positive du suivi et invitation au fête de clôture"];
     public static $MAIL_PARTY_CONFIRMATION = ["party_confirmation", "Confirmation de participation á la fête de clôture"];
-    public static $MAIL_FINAL = ["final", "Confirmation de participation á la fête de clôture"];
+    public static $MAIL_FINAL = ["final", "Mail final"];
 
     public static function getEmails() {
         return collect([
@@ -50,13 +51,43 @@ class EditableEmail extends Model {
     }
 
     /**
+     * Returns the text from this email where all placeholders have been replaced
+     * @param Teacher $teacher
+     * @param SchoolClass $class
+     * @return string The complete email, with placeholders having been replaced.
+     */
+    public function replaceAll($teacher, $class): string {
+        $text = $this->text;
+        foreach (static::getPlaceholders() as $placeholder) {
+            /** @var PlaceHolder $placeholder */
+            if(Str::contains($text, $placeholder->key)) {
+                $text = str_replace(
+                    $placeholder->key,
+                    $this->getReplacement($placeholder->key, $teacher, $class),
+                    $text);
+            }
+        }
+        return $text;
+    }
+
+    /**
+     * Finds an editable email by the key.
+     * @param array $key One of the constants declared in {@link EditableEmail} class.
+     * @return EditableEmail
+     */
+    public static function find(array $key) {
+        return static::query()->where('key', $key[0])->first();
+    }
+
+    /**
      * Replaces the subject with the proper value. Subject should not contain the placeholder delimiter (%).
      * @param string $subject
      * @param Teacher $teacher
      * @param SchoolClass $class
      * @return string Replaced text
      */
-    public function replace(string $subject, $teacher, $class) {
+    public function getReplacement(string $subject, $teacher, $class) {
+        $subject = str_replace('%', '', $subject);
         if($subject === "PROF")
             return $teacher->full_name;
         if($subject === "PROF_1")
@@ -75,10 +106,10 @@ class EditableEmail extends Model {
             return route('login');
         //if($subject === "LIEN_FETE_INVITE")
         //    return route('');
-        //if($subject === "SUIVI_OUI")
-        //    return route('');
-        //if($subject === "SUIVI_NON")
-        //    return route('');
+        if($subject === "SUIVI_OUI")
+            return route('follow-up', ['token' => $class->getCurrentToken(), 'status' => 'true']);
+        if($subject === "SUIVI_NON")
+            return route('follow-up', ['token' => $class->getCurrentToken(), 'status' => 'false']);
         return "";
     }
 
