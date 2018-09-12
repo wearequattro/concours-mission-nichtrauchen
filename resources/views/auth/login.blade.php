@@ -29,11 +29,8 @@
 
             <div class="form-group text-left ml-4">
                 <input type="checkbox" name="remember" id="remember"
-                       class="custom-control-input {{ inputValidationClass($errors, 'remember') }}">
-                <label for="remember" class="custom-control-label">Se souvenir de moi</label>
-                <div class="invalid-feedback">
-                    {{ inputValidationMessages($errors, 'remember') }}
-                </div>
+                       class="custom-control-input">
+                <label for="remember" class="custom-control-label" {{ old('remember') != null ? 'checked' : '' }}>Se souvenir de moi</label>
             </div>
 
 
