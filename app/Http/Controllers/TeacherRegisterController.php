@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\EditableEmail;
 use App\Http\Requests\TeacherRegisterRequest;
+use App\Mail\CustomEmail;
 use App\Salutation;
 use App\Teacher;
 use Illuminate\Support\Facades\Auth;
@@ -25,6 +27,8 @@ class TeacherRegisterController extends Controller {
             $data['teacher_password'],
             $data['teacher_phone']);
         Auth::login($teacher->user);
+        \Mail::to($teacher->user->email)
+            ->queue(new CustomEmail(EditableEmail::find(EditableEmail::$MAIL_TEACHER_CONFIRMATION), $teacher, null));
         return redirect()->route('teacher.classes');
     }
 
