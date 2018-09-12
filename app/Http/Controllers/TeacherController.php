@@ -3,9 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Document;
+use App\EditableEmail;
 use App\Http\Requests\PartyGroupRegistrationRequest;
 use App\Http\Requests\ProfileUpdateRequest;
 use App\Http\Requests\SchoolClassCreateRequest;
+use App\Mail\CustomEmail;
 use App\PartyGroup;
 use App\Salutation;
 use App\School;
@@ -102,6 +104,8 @@ class TeacherController extends Controller {
                 'school_class_id' => $class->id,
             ]);
         }
+        \Mail::to($class->teacher->user->email)
+            ->queue(new CustomEmail(EditableEmail::find(EditableEmail::$MAIL_PARTY_CONFIRMATION), $class->teacher, $class));
         return redirect()->route('teacher.party');
     }
 
