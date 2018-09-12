@@ -257,6 +257,11 @@ class SchoolClass extends Model {
         return "";
     }
 
+    /**
+     * Sends a follow up email asking if they sill participate in the contest.
+     * @param $status
+     * @throws \Exception
+     */
     public function sendFollowUpEmail($status) {
         $this->update([
             $status . '_sent_at' => Carbon::now(),
@@ -266,6 +271,10 @@ class SchoolClass extends Model {
             ->queue(new CustomEmail(EditableEmail::find(EditableEmail::$MAIL_FOLLOW_UP), $this->teacher, $this));
     }
 
+    /**
+     * Sends the same as message {@see sendFollowUpEmail}.
+     * @param $status
+     */
     public function sendFollowUpReminderEmail($status) {
         $this->update([
             $status . '_reminder_sent_at' => Carbon::now(),
