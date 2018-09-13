@@ -71,5 +71,6 @@ Route::group(['middleware' => ['auth', 'admin']], function () {
         Route::get('/admin/documents/{document}/delete', 'DocumentController@documentsDelete')->name('admin.documents.delete');
 
         Route::get('/admin/party', 'PartyController@party')->name('admin.party');
+        Route::get('/admin/party/export', 'PartyExportController@export')->name('admin.party.export');
     });
 });

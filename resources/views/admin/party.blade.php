@@ -5,6 +5,12 @@
 @section('content')
     <h1 class="display-4 text-center">Inscription Fête de clôture</h1>
 
+    <p>
+        <a class="btn btn-primary" href="{{ route('admin.party.export') }}">
+            Export
+        </a>
+    </p>
+
     @foreach($groups as $group)
         <div class="row">
             <div class="col-12 mt-4">
