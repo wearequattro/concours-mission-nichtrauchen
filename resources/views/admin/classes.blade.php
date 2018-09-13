@@ -11,6 +11,12 @@
         </div>
     @endif
 
+    <p>
+        <a class="btn btn-primary" href="{{ route('admin.classes.export') }}">
+            Export
+        </a>
+    </p>
+
             <div class="table-responsive">
 
                 <table class="table table-bordered table-striped">
