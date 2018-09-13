@@ -44,6 +44,10 @@ class TeacherController extends Controller {
             'inscription_date_end' => Carbon::parse(env('TEACHER_INSCRIPTION_END'))->format('d M Y'),
             'inscription_date_end_relative' => Carbon::parse(env('TEACHER_INSCRIPTION_END'))->diffForHumans(),
             'classes' => SchoolClass::findForLoggedInUser(),
+            'show_january' => Carbon::now()->gte(Carbon::parse(env('FOLLOW_UP_1'))),
+            'show_march' => Carbon::now()->gte(Carbon::parse(env('FOLLOW_UP_2'))),
+            'show_may' => Carbon::now()->gte(Carbon::parse(env('FOLLOW_UP_3'))),
+            'show_party' => Carbon::now()->gte(Carbon::parse(env('FOLLOW_UP_3'))),
         ]);
     }
 

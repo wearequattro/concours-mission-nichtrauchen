@@ -46,10 +46,18 @@
                     <th>Nom</th>
                     <th>Nombre d'&eacute;l&egrave;ves</th>
                     <th>Lyc&eacute;e</th>
+                    @if($show_january)
                     <th>Statut janvier</th>
+                    @endif
+                    @if($show_march)
                     <th>Statut mars</th>
+                    @endif
+                    @if($show_may)
                     <th>Statut mai</th>
+                    @endif
+                    @if($show_party)
                     <th>Inscrire &agrave; la f&ecirc;te</th>
+                    @endif
                 </tr>
                 </thead>
                 <tbody>
@@ -58,10 +66,18 @@
                         <td>{{ $class->name }}</td>
                         <td>{{ $class->students }}</td>
                         <td>{{ $class->school->name }}</td>
+                        @if($show_january)
                         <td>{{ statusToIcon($class->status_january) }}</td>
+                        @endif
+                        @if($show_march)
                         <td>{{ statusToIcon($class->status_march) }}</td>
+                        @endif
+                        @if($show_may)
                         <td>{{ statusToIcon($class->status_may) }}</td>
+                        @endif
+                        @if($show_party)
                         <td>{{ statusToIcon($class->status_party) }}</td>
+                        @endif
                     </tr>
                 @empty
                     <tr>
