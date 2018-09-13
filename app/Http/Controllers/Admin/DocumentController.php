@@ -32,6 +32,13 @@ class DocumentController {
         return redirect()->route('admin.documents');
     }
 
+    public function documentsToggleVisibilityParty(Document $document) {
+        $document->update([
+            'visible_party' => !$document->visible_party
+        ]);
+        return redirect()->route('admin.documents');
+    }
+
     public function documentsDownload(Document $document) {
         return Storage::download($document->filename);
     }

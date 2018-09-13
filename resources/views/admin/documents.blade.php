@@ -81,6 +81,7 @@
                 <th>Nom du fichier</th>
                 <th>Description</th>
                 <th>Visible?</th>
+                <th>Visible Fête?</th>
                 <th>Actions</th>
             </tr>
             </thead>
@@ -89,11 +90,19 @@
                 <tr>
                     <td>{{ $document->title }}</td>
                     <td>{{ $document->description }}</td>
-                    <td>{{ statusToIcon($document->visible) }}</td>
                     <td>
+                        {{ statusToIcon($document->visible) }}
                         <a href="{{ route('admin.documents.toggleVisibility', [$document]) }}" class="btn btn-info">
                             <i class="fa fa-eye fa-fw text-white"></i>
                         </a>
+                    </td>
+                    <td>
+                        {{ statusToIcon($document->visible_party) }}
+                        <a href="{{ route('admin.documents.toggleVisibilityParty', [$document]) }}" class="btn btn-info">
+                            <i class="fa fa-eye fa-fw text-white"></i>
+                        </a>
+                    </td>
+                    <td>
                         <a href="{{ route('admin.documents.download', [$document]) }}" class="btn btn-info">
                             <i class="fa fa-fw fa-download text-white"></i>
                         </a>

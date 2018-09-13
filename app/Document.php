@@ -15,6 +15,7 @@ use Illuminate\Support\Str;
  * @property string description
  * @property string filename
  * @property boolean visible
+ * @property boolean visible_party
  * @property Carbon created_at
  * @property Carbon updated_at
  *
@@ -22,7 +23,7 @@ use Illuminate\Support\Str;
  */
 class Document extends Model {
 
-    protected $fillable = ['title', 'description', 'filename', 'visible'];
+    protected $fillable = ['title', 'description', 'filename', 'visible', 'visible_party'];
 
     public function getDownloadUrl() {
         if(Str::startsWith($this->filename, ['http://', 'https://']))

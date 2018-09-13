@@ -65,6 +65,7 @@ Route::group(['middleware' => ['auth', 'admin']], function () {
         Route::get('/admin/documents', 'DocumentController@documents')->name('admin.documents');
         Route::post('/admin/documents', 'DocumentController@documentsPost')->name('admin.documents.post');
         Route::get('/admin/documents/{document}/visibility', 'DocumentController@documentsToggleVisibility')->name('admin.documents.toggleVisibility');
+        Route::get('/admin/documents/{document}/visibility/party', 'DocumentController@documentsToggleVisibilityParty')->name('admin.documents.toggleVisibilityParty');
         Route::get('/admin/documents/{document}/download', 'DocumentController@documentsDownload')->name('admin.documents.download');
         Route::get('/admin/documents/{document}/delete', 'DocumentController@documentsDelete')->name('admin.documents.delete');
 
