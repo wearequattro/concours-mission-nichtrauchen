@@ -15,54 +15,54 @@
     @csrf
 
     <div class="form-group">
-        <label for="teacher_salutation">Titre</label>
-        <select required name="teacher_salutation" id="teacher_salutation" class="form-control">
+        <label for="salutation_id">Titre</label>
+        <select required name="salutation_id" id="salutation_id" class="form-control">
             @foreach($salutations as $s)
                 <option value="{{ $s->id }}" {{ $s->id === $teacher->salutation_id ? 'selected': '' }}>{{ $s->long_form }}</option>
             @endforeach
         </select>
         <div class="invalid-feedback">
-            {{ inputValidationMessages($errors, 'teacher_salutation') }}
+            {{ inputValidationMessages($errors, 'salutation_id') }}
         </div>
     </div>
 
     <div class="form-group">
-        <label for="teacher_last_name">Nom</label>
-        <input required type="text" name="teacher_last_name" id="teacher_last_name"
-               class="form-control {{ inputValidationClass($errors, 'teacher_last_name') }}"
-               value="{{ old('teacher_last_name') ?? $teacher->last_name }}">
+        <label for="last_name">Nom</label>
+        <input required type="text" name="last_name" id="last_name"
+               class="form-control {{ inputValidationClass($errors, 'last_name') }}"
+               value="{{ old('last_name') ?? $teacher->last_name }}">
         <div class="invalid-feedback">
-            {{ inputValidationMessages($errors, 'teacher_last_name') }}
+            {{ inputValidationMessages($errors, 'last_name') }}
         </div>
     </div>
 
     <div class="form-group">
-        <label for="teacher_first_name">Pr&eacute;nom</label>
-        <input required type="text" name="teacher_first_name" id="teacher_first_name"
-               class="form-control {{ inputValidationClass($errors, 'teacher_first_name') }}"
-               value="{{ old('teacher_first_name') ?? $teacher->first_name }}">
+        <label for="first_name">Pr&eacute;nom</label>
+        <input required type="text" name="first_name" id="first_name"
+               class="form-control {{ inputValidationClass($errors, 'first_name') }}"
+               value="{{ old('first_name') ?? $teacher->first_name }}">
         <div class="invalid-feedback">
-            {{ inputValidationMessages($errors, 'teacher_first_name') }}
+            {{ inputValidationMessages($errors, 'first_name') }}
         </div>
     </div>
 
     <div class="form-group">
-        <label for="teacher_email">Adresse Email</label>
-        <input required type="text" name="teacher_email" id="teacher_email"
-               class="form-control {{ inputValidationClass($errors, 'teacher_email') }}"
-               value="{{ old('teacher_email') ?? $user->email }}">
+        <label for="email">Adresse Email</label>
+        <input required type="text" name="email" id="email"
+               class="form-control {{ inputValidationClass($errors, 'email') }}"
+               value="{{ old('email') ?? $user->email }}">
         <div class="invalid-feedback">
-            {{ inputValidationMessages($errors, 'teacher_email') }}
+            {{ inputValidationMessages($errors, 'email') }}
         </div>
     </div>
 
     <div class="form-group">
-        <label for="teacher_phone">Num&eacute;ro de T&eacute;l&eacute;phone</label>
-        <input required type="text" name="teacher_phone" id="teacher_phone"
-               class="form-control {{ inputValidationClass($errors, 'teacher_phone') }}"
-               value="{{ old('teacher_phone') ?? $teacher->phone }}" aria-describedby="phone_help">
+        <label for="phone">Num&eacute;ro de T&eacute;l&eacute;phone</label>
+        <input required type="text" name="phone" id="phone"
+               class="form-control {{ inputValidationClass($errors, 'phone') }}"
+               value="{{ old('phone') ?? $teacher->phone }}" aria-describedby="phone_help">
         <div class="invalid-feedback">
-            {{ inputValidationMessages($errors, 'teacher_phone') }}
+            {{ inputValidationMessages($errors, 'phone') }}
         </div>
         <small id="phone_help" class="form-text text-muted">Selon ce format: +352 621123456</small>
     </div>
@@ -70,11 +70,11 @@
     <div class="row">
         <div class="col-sm-6">
             <div class="form-group">
-                <label for="teacher_password">Mot de passe</label>
-                <input type="password" name="teacher_password" id="teacher_password" aria-describedby="password_help"
-                       class="form-control {{ inputValidationClass($errors, 'teacher_password') }}">
+                <label for="password">Mot de passe</label>
+                <input type="password" name="password" id="password" aria-describedby="password_help"
+                       class="form-control {{ inputValidationClass($errors, 'password') }}">
                 <div class="invalid-feedback">
-                    {{ inputValidationMessages($errors, 'teacher_password') }}
+                    {{ inputValidationMessages($errors, 'password') }}
                 </div>
                 <small id="password_help">
                     Si vous ne voulez pas changer votre mot de passe, laisser les champs vides.
@@ -84,9 +84,9 @@
 
         <div class="col-sm-6">
             <div class="form-group">
-                <label for="teacher_password_confirmation">Confirmation mot de passe</label>
-                <input type="password" name="teacher_password_confirmation" id="teacher_password_confirmation"
-                       class="form-control {{ inputValidationClass($errors, 'teacher_password') }}">
+                <label for="password_confirmation">Confirmation mot de passe</label>
+                <input type="password" name="password_confirmation" id="password_confirmation"
+                       class="form-control {{ inputValidationClass($errors, 'password') }}">
             </div>
         </div>
     </div>

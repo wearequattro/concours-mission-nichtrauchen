@@ -28,17 +28,12 @@ class TeacherController extends Controller {
 
     public function profilePost(ProfileUpdateRequest $request) {
         $data = $request->validated();
-        \Auth::user()->teacher->update([
-            'first_name' => $data['teacher_first_name'],
-            'last_name' => $data['teacher_last_name'],
-            'phone' => $data['teacher_phone'],
-            'salutation_id' => $data['teacher_salutation'],
-        ]);
+        \Auth::user()->teacher->update($data);
         \Auth::user()->update([
-            'email' => $data['teacher_email'],
+            'email' => $data['email'],
         ]);
-        if (isset($data['teacher_password']) && $data['teacher_password'] !== null)
-            \Auth::user()->updatePassword($data['teacher_password']);
+        if (isset($data['password']) && $data['password'] !== null)
+            \Auth::user()->updatePassword($data['password']);
 
         \Session::flash('message', 'Mise à jour réussie');
         return redirect()->route('teacher.profile');
