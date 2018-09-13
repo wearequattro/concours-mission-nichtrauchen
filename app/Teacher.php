@@ -71,4 +71,12 @@ class Teacher extends Model {
         return $teacher;
     }
 
+    public function hasAccessToParty() {
+        return $this->classes->map(function (SchoolClass $class) {
+            return $class->isEligibleForParty();
+        })->filter(function (bool $val) {
+            return $val === true;
+        })->count() > 0;
+    }
+
 }

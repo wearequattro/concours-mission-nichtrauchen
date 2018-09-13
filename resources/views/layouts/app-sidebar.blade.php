@@ -45,12 +45,14 @@
                         Mes Documents
                     </a>
                 </li>
+                @if(Auth::user()->hasAccessToParty())
                 <li class="nav-item">
                     <a href="{{ route('teacher.party') }}" class="nav-link">
                         <i class="fa fa-fw fa-birthday-cake"></i>
                         F&ecirc;te de Cl&ocirc;ture
                     </a>
                 </li>
+                @endif
             </ul>
         </nav>
         @elseif(Auth::user() !== null && Auth::user()->type === \App\User::TYPE_ADMIN)

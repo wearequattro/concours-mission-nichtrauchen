@@ -72,4 +72,10 @@ class User extends Authenticatable {
         Session::flash('message', 'Email a été envoye avec succès');
     }
 
+    public function hasAccessToParty() {
+        if($this->teacher != null)
+            return $this->teacher->hasAccessToParty();
+        return false;
+    }
+
 }

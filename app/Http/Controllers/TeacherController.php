@@ -72,6 +72,8 @@ class TeacherController extends Controller {
     }
 
     function party() {
+        if(!\Auth::user()->hasAccessToParty())
+            return redirect()->route('teacher.classes');
         $classes = SchoolClass::findForLoggedInUser()->sort(function (SchoolClass $schoolClass) {
             return $schoolClass->partyGroups()->exists() ? 1 : 0;
         });
@@ -82,6 +84,8 @@ class TeacherController extends Controller {
     }
 
     function partyClass(SchoolClass $class) {
+        if(!\Auth::user()->hasAccessToParty())
+            return redirect()->route('teacher.classes');
         if($class->partyGroups()->exists())
             return redirect()->route('teacher.party');
         return view('teacher.party-class')->with([
@@ -91,6 +95,8 @@ class TeacherController extends Controller {
     }
 
     function partyClassPost(PartyGroupRegistrationRequest $request, SchoolClass $class) {
+        if(!\Auth::user()->hasAccessToParty())
+            return redirect()->route('teacher.classes');
         $numStudents = $class->mapToGroups();
         $data = $request->validated()['class'];
         for ($i = 0; $i < sizeof($data); $i++) {
