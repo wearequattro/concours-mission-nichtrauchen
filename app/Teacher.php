@@ -5,7 +5,9 @@ namespace App;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
+use Illuminate\Support\Collection;
 
 /**
  * Class Teacher
@@ -17,6 +19,7 @@ use Illuminate\Database\Eloquent\Relations\HasOne;
  * @property string last_name
  * @property string phone
  * @property string full_name
+ * @property Collection classes
  * @property Carbon updated_at
  * @property Carbon created_at
  * @property User user
@@ -35,6 +38,10 @@ class Teacher extends Model {
 
     public function salutation(): BelongsTo {
         return $this->belongsTo(Salutation::class);
+    }
+
+    public function classes(): HasMany {
+        return $this->hasMany(SchoolClass::class);
     }
 
     public function getFullNameAttribute() {
