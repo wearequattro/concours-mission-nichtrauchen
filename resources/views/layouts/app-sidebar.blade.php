@@ -33,12 +33,14 @@
                         Mes Classes
                     </a>
                 </li>
+                @if(isRegistrationOpen())
                 <li class="nav-item">
                     <a href="{{ route('teacher.classes.add') }}" class="nav-link">
                         <i class="fa fa-fw fa-plus-circle"></i>
                         Ajouter une classe
                     </a>
                 </li>
+                @endif
                 <li class="nav-item">
                     <a href="{{ route('teacher.documents') }}" class="nav-link">
                         <i class="fa fa-fw fa-file-text"></i>

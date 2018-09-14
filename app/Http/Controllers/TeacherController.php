@@ -52,12 +52,18 @@ class TeacherController extends Controller {
     }
 
     function classesAdd() {
+        if(!isRegistrationOpen()) {
+            return redirect()->route('teacher.classes');
+        }
         return view('teacher.classes-add')->with([
             'schools' => School::all(),
         ]);
     }
 
     function classesAddPost(SchoolClassCreateRequest $request) {
+        if(!isRegistrationOpen()) {
+            return redirect()->route('teacher.classes');
+        }
         $data = $request->validated();
         $teacher = \Auth::user()->teacher;
         $school = School::findOrFail($request['class_school']);

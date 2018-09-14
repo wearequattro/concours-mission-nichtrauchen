@@ -39,3 +39,8 @@ function statusToIcon($status) {
         return new \Illuminate\Support\HtmlString('<i class="fa fa-fw fa-times-circle text-danger"></i>');
     return new \Illuminate\Support\HtmlString("");
 }
+
+function isRegistrationOpen() {
+    return \Carbon\Carbon::now()->gte(\Carbon\Carbon::parse(env('TEACHER_INSCRIPTION_START')))
+        && \Carbon\Carbon::now()->lte(\Carbon\Carbon::parse(env('TEACHER_INSCRIPTION_END')));
+}

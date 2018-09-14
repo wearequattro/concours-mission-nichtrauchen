@@ -5,6 +5,7 @@
 @section('content')
     <h1 class="display-4 text-center">Vos classes</h1>
 
+    @if(isRegistrationOpen())
     <div class="row">
         <div class="col-sm-6">
             <div class="card">
@@ -35,6 +36,22 @@
             </div>
         </div>
     </div>
+    @else
+        <div class="row">
+            <div class="col-sm-6">
+                <div class="card">
+                    <div class="card-header">
+                        Inscriptions fermées
+                    </div>
+                    <div class="card-body">
+                        <p class="card-text">
+                            Les inscriptions sont fermées.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    @endif
 
     <div class="row">
         <div class="col-xs-12 table-responsive mt-2 pl-3 pr-3">
