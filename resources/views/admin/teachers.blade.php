@@ -44,7 +44,7 @@
                         </tr>
                         @empty
                         <tr>
-                            <td colspan="5" class="text-center">Aucun lycée disponible</td>
+                            <td colspan="8" class="text-center">Aucun enseignant disponible</td>
                         </tr>
                     @endforelse
                     </tbody>

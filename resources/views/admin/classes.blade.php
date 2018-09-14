@@ -92,7 +92,7 @@
                         </tr>
                         @empty
                         <tr>
-                            <td colspan="9" class="text-center">Aucun lycée disponible</td>
+                            <td colspan="9" class="text-center">Aucune classe disponible</td>
                         </tr>
                     @endforelse
                     </tbody>

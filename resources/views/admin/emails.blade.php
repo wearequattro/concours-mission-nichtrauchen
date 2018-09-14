@@ -36,7 +36,7 @@
                         </tr>
                         @empty
                         <tr>
-                            <td colspan="9" class="text-center">Aucun lycée disponible</td>
+                            <td colspan="4" class="text-center">Aucune email disponible</td>
                         </tr>
                     @endforelse
                     </tbody>
