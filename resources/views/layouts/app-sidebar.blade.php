@@ -85,6 +85,12 @@
                         </a>
                     </li>
                     <li class="nav-item">
+                        <a href="{{ route('admin.dates') }}" class="nav-link">
+                            <i class="fa fa-fw fa-calendar"></i>
+                            Dates
+                        </a>
+                    </li>
+                    <li class="nav-item">
                         <a href="{{ route('admin.documents') }}" class="nav-link">
                             <i class="fa fa-fw fa-file-text"></i>
                             Documents

@@ -27,6 +27,7 @@ class EditableEmail extends Model {
     public $incrementing = false;
 
     protected $primaryKey = "key";
+    protected $keyType = 'string';
 
     public static $MAIL_TEACHER_CONFIRMATION = ["teacher_confirmation", "Email de confirmation dès que l'enseignant s'inscris"];
     public static $MAIL_CONTEST_START = ["contest_start", "Message pour le début du concours"];

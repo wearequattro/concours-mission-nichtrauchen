@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\EditableDate;
 use App\Http\Requests\AdminClassUpdateRequest;
 use App\School;
 use App\SchoolClass;
@@ -14,9 +15,9 @@ class SchoolClassController {
     public function classes() {
         return view('admin.classes')->with([
             'classes' => SchoolClass::all(),
-            'show_january' => Carbon::now()->gte(Carbon::parse(env('FOLLOW_UP_1'))),
-            'show_march' => Carbon::now()->gte(Carbon::parse(env('FOLLOW_UP_2'))),
-            'show_may' => Carbon::now()->gte(Carbon::parse(env('FOLLOW_UP_3'))),
+            'show_january' => Carbon::now()->gte(EditableDate::find(EditableDate::TEACHER_INSCRIPTION_END)),
+            'show_march' => Carbon::now()->gte(EditableDate::find(EditableDate::TEACHER_INSCRIPTION_END)),
+            'show_may' => Carbon::now()->gte(EditableDate::find(EditableDate::FOLLOW_UP_1)),
         ]);
     }
 

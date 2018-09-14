@@ -88,11 +88,11 @@ class SchoolClass extends Model {
     public function shouldSendFollowUp(string $whichStatus): bool {
         $followupDate = null;
         if ($whichStatus === static::STATUS_JANUARY)
-            $followupDate = env('FOLLOW_UP_1');
+            $followupDate = EditableDate::find(EditableDate::FOLLOW_UP_1);
         if ($whichStatus === static::STATUS_MARCH)
-            $followupDate = env('FOLLOW_UP_2');
+            $followupDate = EditableDate::find(EditableDate::FOLLOW_UP_2);
         if ($whichStatus === static::STATUS_MAY)
-            $followupDate = env('FOLLOW_UP_3');
+            $followupDate = EditableDate::find(EditableDate::FOLLOW_UP_3);
         $sentAtName = $whichStatus . '_sent_at';
         $statusValue = $this->__get('status_' . $whichStatus);
         /** @var Carbon $sentAt */
@@ -100,7 +100,7 @@ class SchoolClass extends Model {
         return $this->arePreviousStatusesPositive($whichStatus)
             && $sentAt === null
             && $statusValue === null
-            && Carbon::now()->gte(Carbon::createFromFormat('Y-m-d', $followupDate));
+            && Carbon::now()->gte($followupDate);
     }
 
     /**

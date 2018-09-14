@@ -7,3 +7,4 @@
 
 require('./bootstrap');
 require('../../node_modules/datatables/media/js/jquery.dataTables.min');
+require('../../node_modules/bootstrap-datepicker/js/bootstrap-datepicker');

@@ -41,6 +41,6 @@ function statusToIcon($status) {
 }
 
 function isRegistrationOpen() {
-    return \Carbon\Carbon::now()->gte(\Carbon\Carbon::parse(env('TEACHER_INSCRIPTION_START')))
-        && \Carbon\Carbon::now()->lte(\Carbon\Carbon::parse(env('TEACHER_INSCRIPTION_END')));
+    return \Carbon\Carbon::now()->gte(\App\EditableDate::find('TEACHER_INSCRIPTION_START'))
+        && \Carbon\Carbon::now()->lt(\App\EditableDate::find('TEACHER_INSCRIPTION_END'));
 }
