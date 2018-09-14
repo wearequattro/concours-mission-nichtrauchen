@@ -79,7 +79,7 @@ class EditableDate extends Model {
             [
                 'key' => static::FINAL_MAIL,
                 'label' => 'Mail Final',
-                'value' => '2019-06-06',
+                'value' => '2019-06-07',
             ],
             [
                 'key' => static::NEWSLETTER_START,
