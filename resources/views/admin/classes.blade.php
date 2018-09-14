@@ -11,11 +11,51 @@
         </div>
     @endif
 
-    <p>
-        <a class="btn btn-primary" href="{{ route('admin.classes.export') }}">
-            Export
-        </a>
-    </p>
+    <div class="row">
+
+        <div class="col-sm-2 mb-4">
+            <div class="card">
+                <div class="card-body">
+                    <p>
+                        Exporter {{ $classes->count() }} classes.
+                    </p>
+                    <a class="btn btn-primary" href="{{ route('admin.classes.export') }}">
+                        Export
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <div class="offset-sm-6 col-sm-4">
+
+            <div class="card">
+                <div class="card-body">
+                    <p>
+                        Envoyer rappels
+                    </p>
+
+                    @if($show_january)
+                    <a href="{{ route('admin.classes.resend', [\App\SchoolClass::STATUS_JANUARY]) }}" class="btn btn-primary">
+                        Janvier
+                    </a>
+                    @endif
+                    @if($show_march)
+                    <a href="{{ route('admin.classes.resend', [\App\SchoolClass::STATUS_MARCH]) }}" class="btn btn-primary">
+                        Mars
+                    </a>
+                    @endif
+                    @if($show_may)
+                    <a href="{{ route('admin.classes.resend', [\App\SchoolClass::STATUS_MAY]) }}" class="btn btn-primary">
+                        Mai
+                    </a>
+                    @endif
+
+                </div>
+            </div>
+
+        </div>
+
+    </div>
 
             <div class="table-responsive">
 

@@ -91,9 +91,10 @@ class SchoolClass extends Model {
     /**
      * Checks if the follow up for the given status is sent, and it was at least some time ago (configurable in env).
      * @param string $whichStatus Which status to check, use constants: {@link STATUS_JANUARY}, {@link STATUS_MARCH}, {@link STATUS_MAY}
+     * @param bool $checkIfAlreadySent Checks if the email reminder has already been sent.
      * @return bool
      */
-    public function shouldSendFollowUpReminder(string $whichStatus): bool {
+    public function shouldSendFollowUpReminder(string $whichStatus, $checkIfAlreadySent = true): bool {
         $sentAtName = $whichStatus . '_sent_at';
         $reminderSentAtName = $whichStatus . '_reminder_sent_at';
         /** @var Carbon $sentAt */
@@ -103,8 +104,14 @@ class SchoolClass extends Model {
         if ($sentAt === null || !$this->arePreviousStatusesPositive($whichStatus))
             return false;
         $statusValue = $this->__get('status_' . $whichStatus);
+        if ($statusValue !== null)
+            return false;
         $followupReminderDate = $sentAt->copy()->addDays(env('FOLLOW_UP_MAIL_RESEND_DELAY_DAYS'));
-        return $reminderSentAt === null && $statusValue === null && Carbon::now()->gte($followupReminderDate);
+        if(!$checkIfAlreadySent) {
+            $followupReminderDate = Carbon::create(2000, 1, 1, 0, 0, 0);
+            $reminderSentAt = null;
+        }
+        return $reminderSentAt === null && Carbon::now()->gte($followupReminderDate);
     }
 
     /**
@@ -274,8 +281,12 @@ class SchoolClass extends Model {
     /**
      * Sends the same as message {@see sendFollowUpEmail}.
      * @param $status
+     * @throws \Exception
      */
     public function sendFollowUpReminderEmail($status) {
+        if($this->__get($status . '_reminder_sent_at') === null) {
+            $this->update([$status . '_token' => Uuid::uuid4()->toString()]);
+        }
         $this->update([
             $status . '_reminder_sent_at' => Carbon::now(),
         ]);
