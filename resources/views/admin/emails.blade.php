@@ -44,9 +44,3 @@
 
             </div>
 @endsection
-
-@push('js')
-    <script>
-        $('table').dataTable();
-    </script>
-@endpush

@@ -37,6 +37,8 @@ class EditableEmail extends Model {
     public static $MAIL_FOLLOW_UP_YES_INVITE_PARTY = ["follow_up_yes_invite_party", "Réponse positive du suivi et invitation au fête de clôture"];
     public static $MAIL_PARTY_CONFIRMATION = ["party_confirmation", "Confirmation de participation á la fête de clôture"];
     public static $MAIL_FINAL = ["final", "Mail final"];
+    public static $MAIL_NEWSLETTER_START = ["newsletter_start", "Newsletter début"];
+    public static $MAIL_NEWSLETTER_ENCOURAGEMENT = ["newsletter_encouragement", "Newsletter d'encouragement"];
 
     public static function getEmails() {
         return collect([
@@ -48,6 +50,8 @@ class EditableEmail extends Model {
             static::$MAIL_FOLLOW_UP_YES_INVITE_PARTY,
             static::$MAIL_PARTY_CONFIRMATION,
             static::$MAIL_FINAL,
+            static::$MAIL_NEWSLETTER_START,
+            static::$MAIL_NEWSLETTER_ENCOURAGEMENT,
         ]);
     }
 
@@ -90,7 +94,7 @@ class EditableEmail extends Model {
     public function getReplacement(string $subject, $teacher, $class) {
         $subject = str_replace('%', '', $subject);
         if($subject === "PROF")
-            return $teacher->full_name;
+            return $teacher->salutation->long_form . ' ' . $teacher->first_name . ' ' . $teacher->last_name;
         if($subject === "PROF_1")
             return $teacher->salutation->short_form . ' ' . $teacher->first_name . ' ' . $teacher->last_name;
         if($subject === "TITRE_LONG")
@@ -105,8 +109,8 @@ class EditableEmail extends Model {
             return $class->name;
         if($subject === "LIEN_LOGIN")
             return route('login');
-        //if($subject === "LIEN_FETE_INVITE")
-        //    return route('');
+        if($subject === "LIEN_FETE_INVITE")
+            return route('teacher.party');
         if($subject === "SUIVI_OUI")
             return route('follow-up', ['token' => $class->getCurrentToken(), 'status' => 'true']);
         if($subject === "SUIVI_NON")
