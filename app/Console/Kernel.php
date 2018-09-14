@@ -2,6 +2,7 @@
 
 namespace App\Console;
 
+use App\Console\Commands\SendFollowUpEmails;
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
 
@@ -22,9 +23,7 @@ class Kernel extends ConsoleKernel {
      * @return void
      */
     protected function schedule(Schedule $schedule) {
-        $schedule->call(function () {
-
-        })->everyMinute();
+        $schedule->command(SendFollowUpEmails::class)->everyMinute();
     }
 
     /**
