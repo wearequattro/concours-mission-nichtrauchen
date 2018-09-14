@@ -36,7 +36,7 @@ use Ramsey\Uuid\Uuid;
  * @property Carbon created_at
  * @property School school
  * @property Teacher teacher
- * @property PartyGroup partyGroups
+ * @property Collection partyGroups
  *
  * @method static SchoolClass create(array $values)
  */
@@ -48,6 +48,8 @@ class SchoolClass extends Model {
 
     protected $dates = ['january_sent_at', 'january_reminder_sent_at', 'march_sent_at', 'march_reminder_sent_at',
         'may_sent_at', 'may_reminder_sent_at'];
+
+    protected $appends = ['status_party'];
 
     public const STATUS_JANUARY = "january";
     public const STATUS_MARCH = "march";
@@ -63,6 +65,19 @@ class SchoolClass extends Model {
 
     public function partyGroups(): HasMany {
         return $this->hasMany(PartyGroup::class);
+    }
+
+    /**
+     * Returns Party status: null if no group exists, 0 if registered doesnt match student count, 1 if everything ok
+     * @return int|null
+     */
+    public function getStatusPartyAttribute() {
+        if (!$this->partyGroups()->exists())
+            return null;
+
+        return $this->partyGroups
+            ->pluck('students')
+            ->sum() === $this->students ? 1 : 0;
     }
 
     /**

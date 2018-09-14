@@ -102,7 +102,7 @@ class ClassExportController extends Controller {
         $status_january = SchoolClass::query()->count('status_january');
         $status_march = SchoolClass::query()->count('status_march');
         $status_may = SchoolClass::query()->count('status_may');
-        $status_party = SchoolClass::query()->count('status_party');
+        $status_party = SchoolClass::all()->pluck('status_party')->sum();
 
         $row = $classes + 1 + 3; // header + space after
         $sheet->setCellValue("I$row", $classes);
