@@ -39,7 +39,7 @@ class LoginController extends Controller
     }
 
     public function loginRedirect() {
-        if(\Auth::user() === null) {
+        if(\Auth::user() !== null) {
             if(\Auth::user()->type === User::TYPE_TEACHER && \Auth::user()->teacher !== null) {
                 return redirect()->route('teacher.classes');
             } else if(\Auth::user()->type === User::TYPE_ADMIN) {
