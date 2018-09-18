@@ -1,6 +1,8 @@
 FROM php:7.1-apache
 
 ENV APACHE_DOCUMENT_ROOT /var/www/html/public
+ENV APP_ENV production
+ENV APP_DEBUG false
 
 RUN sed -ri -e 's!/var/www/html!${APACHE_DOCUMENT_ROOT}!g' /etc/apache2/sites-available/*.conf
 RUN sed -ri -e 's!/var/www/!${APACHE_DOCUMENT_ROOT}!g' /etc/apache2/apache2.conf /etc/apache2/conf-available/*.conf
@@ -8,6 +10,7 @@ RUN sed -ri -e 's!/var/www/!${APACHE_DOCUMENT_ROOT}!g' /etc/apache2/apache2.conf
 
 WORKDIR /var/www/html
 COPY . /var/www/html
+COPY .env.example /var/www/html/.env
 
 RUN a2enmod rewrite
 
@@ -26,3 +29,4 @@ RUN chown -R www-data:www-data \
         /var/www/html/bootstrap/cache
 
 RUN php artisan storage:link
+RUN php artisan key:generate
