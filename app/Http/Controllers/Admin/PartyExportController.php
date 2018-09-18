@@ -28,7 +28,7 @@ class PartyExportController extends Controller {
 
         $writer = new XlsxWriter($spreadsheet);
         \Storage::makeDirectory('export/party');
-        $relPath = "export/party/party-" . date('YmdHis') . ".xlsx";
+        $relPath = "export/party/fete-de-cloture-" . date('YmdHis') . ".xlsx";
         $writer->save("../storage/app/$relPath");
         return \Storage::download($relPath);
     }

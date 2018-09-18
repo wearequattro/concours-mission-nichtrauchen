@@ -8,7 +8,7 @@
             @csrf
 
             <div class="form-group mt-4 text-left">
-                <label for="email">Adresse Email</label>
+                <label for="email">Adresse e-mail</label>
                 <input required type="email" name="email" id="email"
                        class="form-control {{ inputValidationClass($errors, 'email') }}"
                        value="{{ old('email') }}">
@@ -35,12 +35,12 @@
 
 
             <div class="form-group">
-                <input type="submit" class="btn btn-block btn-lg btn-primary" value="Connecter">
+                <input type="submit" class="btn btn-block btn-lg btn-primary" value="Je me connecte">
             </div>
 
             <div>
                 <p>
-                    <a href="{{ route('login.password.recover') }}">Mot de passe oubli&eacute;?</a>
+                    <a href="{{ route('login.password.recover') }}">Mot de passe oubli&eacute; ?</a>
                 </p>
             </div>
 

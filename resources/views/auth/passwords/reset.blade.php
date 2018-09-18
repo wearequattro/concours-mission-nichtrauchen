@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.frontend')
 
 @section('content')
     <div class="col-sm-6 offset-3">
@@ -20,8 +20,8 @@
             <input type="hidden" name="token" value="{{ $token }}">
             
             <div class="form-group">
-                <label for="email">Adresse Email</label>
-                <input required type="text" name="email" id="email"
+                <label for="email">Adresse e-mail</label>
+                <input required type="email" name="email" id="email"
                        class="form-control {{ inputValidationClass($errors, 'email') }}"
                        value="{{ old('email') }}">
                 <div class="invalid-feedback">

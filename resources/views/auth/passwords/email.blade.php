@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.frontend')
 
 @section('content')
     <div class="col-sm-6 offset-3">
@@ -14,7 +14,7 @@
             @endif
 
             <div class="form-group mt-4">
-                <label for="email">Adresse Email</label>
+                <label for="email">Adresse e-mail</label>
                 <input required type="email" name="email" id="email"
                        class="form-control {{ inputValidationClass($errors, 'email') }}"
                        value="{{ old('email') }}">

@@ -14,10 +14,11 @@
                 </div>
                 <div class="card-body">
                     <p class="card-text">
-                        Ajoutez les classes qui participerons &agrave; la &laquo;Mission Nichtrauchen&raquo;
+                        Ajoutez les classes qui participeront &agrave; la &laquo;Mission Nichtrauchen&raquo;. Vous pourrez inscrire une ou
+                        plusieurs classes de différents Lycées !
                     </p>
                     <a href="{{ route('teacher.classes.add') }}" class="card-link btn btn-primary">
-                        Ajouter une classe
+                        Je veux ajouter une classe
                     </a>
                 </div>
             </div>
@@ -29,7 +30,7 @@
                 </div>
                 <div class="card-body">
                     <p class="card-text">
-                        Date de clot&ucirc;re des inscriptions: {{ $inscription_date_end }}
+                        Date de cl&ocirc;t&ucircure des inscriptions : {{ $inscription_date_end }}
                         ({{ $inscription_date_end_relative }})
                     </p>
                 </div>
@@ -99,7 +100,7 @@
                 @empty
                     <tr>
                         <td colspan="7" class="text-center">
-                            Aucune classe est enregistr&eacute;e
+                            Aucune classe n'est enregistr&eacute;e
                         </td>
                     </tr>
                 @endforelse

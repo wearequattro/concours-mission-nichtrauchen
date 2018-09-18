@@ -27,14 +27,14 @@
                     <a href="{{ route('teacher.profile') }}"
                        class="nav-link {{ Route::currentRouteName() == 'teacher.profile' ? 'active' : '' }}">
                         <i class="fa fa-fw fa-user-circle"></i>
-                        Mon Profil
+                        Mon profil
                     </a>
                 </li>
                 <li class="nav-item">
                     <a href="{{ route('teacher.classes') }}"
                        class="nav-link {{ Route::currentRouteName() == 'teacher.classes' ? 'active' : '' }}">
                         <i class="fa fa-fw fa-graduation-cap"></i>
-                        Mes Classes
+                        Mes classes
                     </a>
                 </li>
                 @if(isRegistrationOpen())
@@ -42,7 +42,7 @@
                     <a href="{{ route('teacher.classes.add') }}"
                        class="nav-link {{ Route::currentRouteName() == 'teacher.classes.add' ? 'active' : '' }}">
                         <i class="fa fa-fw fa-plus-circle"></i>
-                        Ajouter une classe
+                        Je veux ajouter une classe
                     </a>
                 </li>
                 @endif
@@ -50,7 +50,7 @@
                     <a href="{{ route('teacher.documents') }}"
                        class="nav-link {{ Route::currentRouteName() == 'teacher.documents' ? 'active' : '' }}">
                         <i class="fa fa-fw fa-file-text"></i>
-                        Mes Documents
+                        Mes documents
                     </a>
                 </li>
                 @if(Auth::user()->hasAccessToParty())
@@ -58,7 +58,7 @@
                     <a href="{{ route('teacher.party') }}"
                        class="nav-link {{ Route::currentRouteName() == 'teacher.party' ? 'active' : '' }}">
                         <i class="fa fa-fw fa-birthday-cake"></i>
-                        F&ecirc;te de Cl&ocirc;ture
+                        F&ecirc;te de cl&ocirc;ture
                     </a>
                 </li>
                 @endif
@@ -113,7 +113,7 @@
                         <a href="{{ route('admin.party') }}"
                            class="nav-link {{ Route::currentRouteName() == 'admin.party' ? 'active' : '' }}">
                             <i class="fa fa-fw fa-birthday-cake"></i>
-                            F&ecirc;te de Cl&ocirc;ture
+                            F&ecirc;te de cl&ocirc;ture
                         </a>
                     </li>
                 </ul>

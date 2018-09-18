@@ -44,7 +44,7 @@
         <div class="row">
             <div class="col-sm-12">
 
-                <input type="submit" class="btn btn-success btn-block" value="Actualiser">
+                <input type="submit" class="btn btn-primary btn-block" value="Actualiser">
 
             </div>
         </div>

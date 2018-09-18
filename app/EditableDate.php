@@ -63,7 +63,7 @@ class EditableDate extends Model {
             ],
             [
                 'key' => static::FOLLOW_UP_1,
-                'label' => 'Suivi Janvier',
+                'label' => 'Suivi janvier',
                 'value' => '2019-01-07',
             ],
             [
@@ -78,7 +78,7 @@ class EditableDate extends Model {
             ],
             [
                 'key' => static::FINAL_MAIL,
-                'label' => 'Mail Final',
+                'label' => 'E-mail final',
                 'value' => '2019-06-07',
             ],
             [

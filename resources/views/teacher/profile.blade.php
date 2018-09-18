@@ -47,7 +47,7 @@
     </div>
 
     <div class="form-group">
-        <label for="email">Adresse Email</label>
+        <label for="email">Adresse e-mail</label>
         <input required type="text" name="email" id="email"
                class="form-control {{ inputValidationClass($errors, 'email') }}"
                value="{{ old('email') ?? $user->email }}">
@@ -57,7 +57,7 @@
     </div>
 
     <div class="form-group">
-        <label for="phone">Num&eacute;ro de T&eacute;l&eacute;phone</label>
+        <label for="phone">Num&eacute;ro de t&eacute;l&eacute;phone portable</label>
         <input required type="text" name="phone" id="phone"
                class="form-control {{ inputValidationClass($errors, 'phone') }}"
                value="{{ old('phone') ?? $teacher->phone }}" aria-describedby="phone_help">
@@ -77,7 +77,7 @@
                     {{ inputValidationMessages($errors, 'password') }}
                 </div>
                 <small id="password_help">
-                    Si vous ne voulez pas changer votre mot de passe, laisser les champs vides.
+                    Si vous ne voulez pas changer votre mot de passe, laissez les champs vides.
                 </small>
             </div>
         </div>
@@ -91,7 +91,7 @@
         </div>
     </div>
 
-    <input type="submit" class="btn btn-primary" value="Actualiser">
+    <input type="submit" class="btn btn-primary" value="J'actualise mon profil">
 
 </form>
 @endsection

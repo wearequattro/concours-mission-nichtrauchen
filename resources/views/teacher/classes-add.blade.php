@@ -44,8 +44,20 @@
         </div>
 
         <div class="form-group">
-            <label for="class_school_address">Adresse du Lyc&eacute;e</label>
+            <label for="class_school_address">Adresse du lyc&eacute;e</label>
             <input type="text" readonly class="form-control" id="class_school_address">
+        </div>
+
+        <div class="form-group text-left ml-4">
+            <input type="checkbox" name="data_protection" id="data_protection"
+                   class="custom-control-input {{ inputValidationClass($errors, 'data_protection') }}"
+                    {{ old('data_protection') != null ? 'checked' : '' }}>
+            <label for="data_protection" class="custom-control-label">
+                <a href="#">Information sur la protection des données</a> {{-- TODO LINK TO PDF --}}
+            </label>
+            <div class="invalid-feedback">
+                {{ inputValidationMessages($errors, 'data_protection') }}
+            </div>
         </div>
 
         <input type="submit" class="btn btn-primary" value="Enregistrer">

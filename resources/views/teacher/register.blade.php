@@ -7,7 +7,7 @@
 @section('title', 'Inscription enseignants')
 
 @section('content')
-    <h1 class="display-4 text-center">Inscription enseingnants</h1>
+    <h1 class="display-4 text-center">Inscription enseignants</h1>
 
     <form method="post" action="{{ route('teacher.registerPost') }}">
         @csrf
@@ -46,7 +46,7 @@
         </div>
 
         <div class="form-group">
-            <label for="teacher_email">Addresse Email</label>
+            <label for="teacher_email">Addresse e-mail</label>
             <input required type="email" name="teacher_email" id="teacher_email"
                    class="form-control {{ inputValidationClass($errors, 'teacher_email') }}"
                    value="{{ old('teacher_email') }}">
@@ -81,7 +81,7 @@
         </div>
 
         <div class="form-group">
-            <label for="teacher_phone">Numéro de Téléphone</label>
+            <label for="teacher_phone">Numéro de téléphone portable</label>
             <input required type="text" name="teacher_phone" id="teacher_phone"
                    class="form-control {{ inputValidationClass($errors, 'teacher_phone') }}"
                    value="{{ old('teacher_phone') }}" aria-describedby="phone_help">
@@ -91,7 +91,7 @@
             </div>
         </div>
 
-        <input type="submit" class="btn btn-primary" value="Inscrire">
+        <input type="submit" class="btn btn-primary" value="Je m'inscris">
 
     </form>
 @endsection

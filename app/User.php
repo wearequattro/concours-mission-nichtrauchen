@@ -69,7 +69,7 @@ class User extends Authenticatable {
 
     public function sendPasswordResetNotification($token) {
         \Mail::to($this->email)->queue(new ResetPasswordMail($token));
-        Session::flash('message', 'Email a été envoye avec succès');
+        Session::flash('message', 'Votre e-mail a été envoyé avec succès');
     }
 
     public function hasAccessToParty() {
