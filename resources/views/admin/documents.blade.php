@@ -80,7 +80,7 @@
             <tr>
                 <th>Nom du fichier</th>
                 <th>Description</th>
-                <th>Visible?</th>
+                <th>Visible pour enseignants?</th>
                 <th>Visible Fête?</th>
                 <th>Actions</th>
             </tr>
@@ -91,16 +91,16 @@
                     <td>{{ $document->title }}</td>
                     <td>{{ $document->description }}</td>
                     <td>
-                        {{ statusToIcon($document->visible) }}
-                        <a href="{{ route('admin.documents.toggleVisibility', [$document]) }}" class="btn btn-info">
-                            <i class="fa fa-eye fa-fw text-white"></i>
-                        </a>
+                        <span class="switch">
+                            <input data-document-id="{{ $document->id }}" type="checkbox" class="switch-sm" id="toggle-visible" {{ $document->visible == 1 ? 'checked' : '' }}>
+                            <label for="toggle-visible"></label>
+                        </span>
                     </td>
                     <td>
-                        {{ statusToIcon($document->visible_party) }}
-                        <a href="{{ route('admin.documents.toggleVisibilityParty', [$document]) }}" class="btn btn-info">
-                            <i class="fa fa-eye fa-fw text-white"></i>
-                        </a>
+                        <span class="switch">
+                            <input data-document-id="{{ $document->id }}" type="checkbox" class="switch-sm" id="toggle-party" {{ $document->visible_party == 1 ? 'checked' : '' }}>
+                            <label for="toggle-party"><label>
+                        </span>
                     </td>
                     <td>
                         <a href="{{ route('admin.documents.download', [$document]) }}" class="btn btn-info">
@@ -113,17 +113,29 @@
                 </tr>
             @empty
                 <tr>
-                    <td colspan="9" class="text-center">Aucun lycée disponible</td>
+                    <td colspan="5" class="text-center">Aucun document n'est disponible</td>
                 </tr>
             @endforelse
             </tbody>
         </table>
 
     </div>
+    <form hidden method="post" id="form-visibility">
+        @csrf
+        <input type="hidden" id="visible" name="visible">
+        <input type="hidden" id="visible_party" name="visible_party">
+    </form>
 @endsection
 
 @push('js')
     <script>
         $('table').dataTable();
+        $('input[type=checkbox]').change(function () {
+            var id = $(this).attr('data-document-id');
+            var route = '{{ route('admin.documents.toggleVisibility', ':document:') }}'.replace(':document:', id);
+            $('#visible').val($('#toggle-visible').prop('checked') === true ? 1 : 0);
+            $('#visible_party').val($('#toggle-party').prop('checked') === true ? 1 : 0);
+            $('#form-visibility').attr('action', route).submit();
+        })
     </script>
 @endpush

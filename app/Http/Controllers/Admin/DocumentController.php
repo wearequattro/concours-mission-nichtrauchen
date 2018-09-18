@@ -2,10 +2,12 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Document;
+use App\Http\Controllers\Controller;
 use App\Http\Requests\AdminDocumentUploadRequest;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
-class DocumentController {
+class DocumentController extends Controller {
 
     public function documents() {
         return view('admin.documents')->with([
@@ -25,17 +27,11 @@ class DocumentController {
         return redirect()->route('admin.documents');
     }
 
-    public function documentsToggleVisibility(Document $document) {
-        $document->update([
-            'visible' => !$document->visible
-        ]);
-        return redirect()->route('admin.documents');
-    }
-
-    public function documentsToggleVisibilityParty(Document $document) {
-        $document->update([
-            'visible_party' => !$document->visible_party
-        ]);
+    public function documentsToggleVisibility(Request $request, Document $document) {
+        $document->update($this->validate($request, [
+            'visible_party' => 'required|boolean',
+            'visible' => 'required|boolean',
+        ]));
         return redirect()->route('admin.documents');
     }
 
