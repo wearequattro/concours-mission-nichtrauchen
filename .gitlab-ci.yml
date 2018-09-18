@@ -3,8 +3,6 @@
 image: docker:latest
 
 before_script:
-  - echo docker login -u "$REGISTRY_USER" -p "$REGISTRY_PASSWORD"
-  - docker logout
   - docker login -u "$REGISTRY_USER" -p "$REGISTRY_PASSWORD"
 
 build-master:
