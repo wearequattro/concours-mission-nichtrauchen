@@ -36,6 +36,7 @@ Route::group(['middleware' => ['auth', 'teacher']], function () {
     Route::post('/teacher/classes/add', 'TeacherController@classesAddPost')->name('teacher.classes.add.post');
     Route::post('/teacher/classes/add', 'TeacherController@classesAddPost')->name('teacher.classes.add.post');
     Route::get('/teacher/documents', 'TeacherController@documents')->name('teacher.documents');
+    Route::get('/teacher/documents/download/{document}', 'TeacherController@documentsDownload')->name('teacher.documents.download');
     Route::get('/teacher/party', 'TeacherController@party')->name('teacher.party');
     Route::get('/teacher/party/{class}', 'TeacherController@partyClass')->name('party.class');
     Route::post('/teacher/party/{class}', 'TeacherController@partyClassPost')->name('party.class.post');

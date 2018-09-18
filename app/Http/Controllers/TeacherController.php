@@ -74,8 +74,15 @@ class TeacherController extends Controller {
 
     function documents() {
         return view('teacher.documents')->with([
-            'documents' => Document::all(),
+            'documents' => Document::query()->where('visible', 1)->get(),
         ]);
+    }
+
+    function documentsDownload(Document $document) {
+        if($document->visible == true) {
+            return \Storage::download($document->filename);
+        }
+        return redirect()->route('teacher.documents');
     }
 
     function party() {
