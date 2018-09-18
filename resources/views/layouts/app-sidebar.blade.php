@@ -9,7 +9,9 @@
 </head>
 <body class="teacher">
 <nav class="navbar navbar-dark bg-dark mb-2">
-    <a href="{{ route('login.redirect') }}" class="navbar-brand">Mission Nichtrauchen</a>
+    <a href="{{ route('login.redirect') }}" class="navbar-brand">
+        <img src="{{ asset('images/logo-contrast.png') }}" height="70px">
+    </a>
     <a href="{{ route('logout') }}" class="navbar-text text-white">
         <i class="fa fa-fw fa-sign-out"></i>
         D&eacute;connecter
