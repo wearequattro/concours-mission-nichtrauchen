@@ -24,34 +24,39 @@
         <nav id="sidebar" class="col-md-2">
             <ul class="nav">
                 <li class="nav-item">
-                    <a href="{{ route('teacher.profile') }}" class="nav-link">
+                    <a href="{{ route('teacher.profile') }}"
+                       class="nav-link {{ Route::currentRouteName() == 'teacher.profile' ? 'active' : '' }}">
                         <i class="fa fa-fw fa-user-circle"></i>
                         Mon Profil
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="{{ route('teacher.classes') }}" class="nav-link">
+                    <a href="{{ route('teacher.classes') }}"
+                       class="nav-link {{ Route::currentRouteName() == 'teacher.classes' ? 'active' : '' }}">
                         <i class="fa fa-fw fa-graduation-cap"></i>
                         Mes Classes
                     </a>
                 </li>
                 @if(isRegistrationOpen())
                 <li class="nav-item">
-                    <a href="{{ route('teacher.classes.add') }}" class="nav-link">
+                    <a href="{{ route('teacher.classes.add') }}"
+                       class="nav-link {{ Route::currentRouteName() == 'teacher.classes.add' ? 'active' : '' }}">
                         <i class="fa fa-fw fa-plus-circle"></i>
                         Ajouter une classe
                     </a>
                 </li>
                 @endif
                 <li class="nav-item">
-                    <a href="{{ route('teacher.documents') }}" class="nav-link">
+                    <a href="{{ route('teacher.documents') }}"
+                       class="nav-link {{ Route::currentRouteName() == 'teacher.documents' ? 'active' : '' }}">
                         <i class="fa fa-fw fa-file-text"></i>
                         Mes Documents
                     </a>
                 </li>
                 @if(Auth::user()->hasAccessToParty())
                 <li class="nav-item">
-                    <a href="{{ route('teacher.party') }}" class="nav-link">
+                    <a href="{{ route('teacher.party') }}"
+                       class="nav-link {{ Route::currentRouteName() == 'teacher.party' ? 'active' : '' }}">
                         <i class="fa fa-fw fa-birthday-cake"></i>
                         F&ecirc;te de Cl&ocirc;ture
                     </a>
@@ -63,43 +68,50 @@
             <nav id="sidebar" class="col-md-2">
                 <ul class="nav">
                     <li class="nav-item">
-                        <a href="{{ route('admin.classes') }}" class="nav-link">
+                        <a href="{{ route('admin.classes') }}"
+                           class="nav-link {{ Route::currentRouteName() == 'admin.classes' ? 'active' : '' }}">
                             <i class="fa fa-fw fa-graduation-cap"></i>
                             Classes
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a href="{{ route('admin.schools') }}" class="nav-link">
+                        <a href="{{ route('admin.schools') }}"
+                           class="nav-link {{ Route::currentRouteName() == 'admin.schools' ? 'active' : '' }}">
                             <i class="fa fa-fw fa-university"></i>
                             Lyc&eacute;es
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a href="{{ route('admin.teachers') }}" class="nav-link">
+                        <a href="{{ route('admin.teachers') }}"
+                           class="nav-link {{ Route::currentRouteName() == 'admin.teachers' ? 'active' : '' }}">
                             <i class="fa fa-fw fa-users"></i>
                             Enseignants
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a href="{{ route('admin.emails') }}" class="nav-link">
+                        <a href="{{ route('admin.emails') }}"
+                           class="nav-link {{ Route::currentRouteName() == 'admin.emails' ? 'active' : '' }}">
                             <i class="fa fa-fw fa-envelope"></i>
                             Emails
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a href="{{ route('admin.dates') }}" class="nav-link">
+                        <a href="{{ route('admin.dates') }}"
+                           class="nav-link {{ Route::currentRouteName() == 'admin.dates' ? 'active' : '' }}">
                             <i class="fa fa-fw fa-calendar"></i>
                             Dates
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a href="{{ route('admin.documents') }}" class="nav-link">
+                        <a href="{{ route('admin.documents') }}"
+                           class="nav-link {{ Route::currentRouteName() == 'admin.documents' ? 'active' : '' }}">
                             <i class="fa fa-fw fa-file-text"></i>
                             Documents
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a href="{{ route('admin.party') }}" class="nav-link">
+                        <a href="{{ route('admin.party') }}"
+                           class="nav-link {{ Route::currentRouteName() == 'admin.party' ? 'active' : '' }}">
                             <i class="fa fa-fw fa-birthday-cake"></i>
                             F&ecirc;te de Cl&ocirc;ture
                         </a>
