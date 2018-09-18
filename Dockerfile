@@ -31,4 +31,4 @@ RUN chown -R www-data:www-data \
 RUN php artisan storage:link
 RUN php artisan key:generate
 
-CMD ["tail", "-f", "/var/www/html/storage/logs/laravel.log", "/var/log/apache2/access.log", "/var/log/apache2/error.log"]
+#CMD ["tail", "-f", "/var/www/html/storage/logs/laravel.log", "/var/log/apache2/access.log", "/var/log/apache2/error.log"]
