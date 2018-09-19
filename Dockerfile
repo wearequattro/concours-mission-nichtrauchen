@@ -1,14 +1,11 @@
 FROM php:7.1-apache
 
 ENV APACHE_DOCUMENT_ROOT /var/www/html/public
-ENV APP_ENV production
-ENV APP_DEBUG false
+# ENV APP_ENV production
+# ENV APP_DEBUG false
 
 RUN sed -ri -e 's!/var/www/html!${APACHE_DOCUMENT_ROOT}!g' /etc/apache2/sites-available/*.conf
 RUN sed -ri -e 's!/var/www/!${APACHE_DOCUMENT_ROOT}!g' /etc/apache2/apache2.conf /etc/apache2/conf-available/*.conf
-
-ADD laravel-scheduler /etc/cron.d/laravel-scheduler
-RUN chmod 0644 /etc/cron.d/laravel-scheduler
 
 WORKDIR /var/www/html
 COPY . /var/www/html
@@ -16,7 +13,7 @@ COPY .env.example /var/www/html/.env
 
 RUN a2enmod rewrite
 
-RUN apt-get update && apt-get install -y libmcrypt-dev libmagickwand-dev
+RUN apt-get update && apt-get install -y libmcrypt-dev libmagickwand-dev cron
 RUN docker-php-ext-install mcrypt pdo_mysql gd zip mysqli
 
 RUN php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');" \
@@ -25,6 +22,7 @@ RUN php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');" \
     && php -r "unlink('composer-setup.php');"
 
 RUN php composer.phar update
+RUN touch storage/logs/laravel.log
 
 RUN chown -R www-data:www-data \
         /var/www/html/storage \
@@ -33,4 +31,9 @@ RUN chown -R www-data:www-data \
 RUN php artisan storage:link
 RUN php artisan key:generate
 
-#CMD ["tail", "-f", "/var/www/html/storage/logs/laravel.log", "/var/log/apache2/access.log", "/var/log/apache2/error.log"]
+COPY cron.sh /root/cron.sh
+RUN echo "* * * * * root bash -x /root/cron.sh >> /root/cron.log 2>&1" >> /etc/crontab
+
+COPY start.sh /root/start.sh
+
+CMD bash -x /root/start.sh
