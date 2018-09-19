@@ -44,8 +44,7 @@ Route::group(['middleware' => ['auth', 'teacher']], function () {
 
 Route::get('/suivi/{token}/{status}', 'FollowUpController@setFollowUpStatus')->name('follow-up');
 
-Route::group(['middleware' => ['auth', 'admin']], function () {
-    Route::get('/admin/dashboard', 'AdminController@dashboard')->name('admin.dashboard');
+Route::group(['middleware' => ['auth', 'admin']], function () {;
     Route::group(['namespace' => 'Admin'], function () {
         Route::get('/admin/classes', 'SchoolClassController@classes')->name('admin.classes');
         Route::get('/admin/classes/resend/{status}', 'SchoolClassController@resend')->name('admin.classes.resend');

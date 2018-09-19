@@ -18,7 +18,7 @@ class RequireTeacher {
             return redirect()->route('login');
         if(\Auth::user()->type !== User::TYPE_TEACHER || \Auth::user()->teacher === null) {
             if(\Auth::user()->type === User::TYPE_ADMIN) {
-                return redirect()->route('admin.dashboard');
+                return redirect()->route('admin.classes');
             }
             return redirect('/');
         }

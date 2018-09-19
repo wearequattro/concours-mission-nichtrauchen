@@ -22,7 +22,7 @@ class RedirectIfAuthenticated
             if(Auth::user()->teacher !== null)
                 return redirect()->route('teacher.classes');
             if(Auth::user()->type === User::TYPE_ADMIN)
-                return redirect()->route('admin.dashboard');
+                return redirect()->route('admin.classes');
             return redirect('/');
         }
 
