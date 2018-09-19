@@ -15,6 +15,7 @@ use Illuminate\Support\Str;
  * @property string title
  * @property string text
  * @property string subject
+ * @property Collection sentEmails
  * @property Carbon created_at
  * @property Carbon updated_at
  *
@@ -53,6 +54,40 @@ class EditableEmail extends Model {
             static::$MAIL_NEWSLETTER_START,
             static::$MAIL_NEWSLETTER_ENCOURAGEMENT,
         ]);
+    }
+
+    public function sentEmails() {
+        return $this->hasMany(SentEmail::class);
+    }
+
+    /**
+     * Returns all users that have received this email
+     * @return Collection Collection of user objects
+     */
+    public function sentUsers(): Collection {
+        return $this->sentEmails->map(function (SentEmail $sentEmail) {
+            return $sentEmail->user;
+        });
+    }
+
+    /**
+     * Saves the information that the email is sent to the given user
+     * @param User $user
+     */
+    public function setSent(User $user) {
+        SentEmail::create([
+            'editable_email_key' => $this->key,
+            'user_id' => $user->id,
+        ]);
+    }
+
+    /**
+     * Checks if this email has already been sent to the given user
+     * @param User $user
+     * @return bool
+     */
+    public function isSentToUser(User $user): bool {
+        return $this->sentEmails->pluck('user_id')->containsStrict($user->id);
     }
 
     /**

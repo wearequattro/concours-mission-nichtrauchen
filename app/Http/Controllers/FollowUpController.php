@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\SchoolClass;
+use Illuminate\Support\Facades\Log;
 
 class FollowUpController extends Controller {
 
@@ -12,6 +13,7 @@ class FollowUpController extends Controller {
     }
 
     public function sendFollowUpForAll() {
+        Log::info("Starting follow up sending");
         SchoolClass::all()->each(function (SchoolClass $class) {
             $this->sendFollowUp($class);
         });

@@ -44,6 +44,8 @@ class CustomEmail extends Mailable {
      * @return $this
      */
     public function build() {
+        $this->editableEmail->setSent($this->teacher->user);
+
         return $this
             ->subject($this->editableEmail->subject)
             ->view('emails.custom')
