@@ -215,7 +215,7 @@ class SchoolSeeder extends Seeder {
                 "ESCH-SUR-ALZETTE"
             ],
             [
-                "LYCEE TECHNIQUE D'ESCH-SUR-ALZETTE",
+                "LYCEE GUILLAUME KROLL",
                 "32, rue Henri Koch",
                 "L-4354",
                 "ESCH-SUR-ALZETTE"
