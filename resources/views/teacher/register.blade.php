@@ -46,7 +46,7 @@
         </div>
 
         <div class="form-group">
-            <label for="teacher_email">Addresse e-mail</label>
+            <label for="teacher_email">Adresse e-mail</label>
             <input required type="email" name="teacher_email" id="teacher_email"
                    class="form-control {{ inputValidationClass($errors, 'teacher_email') }}"
                    value="{{ old('teacher_email') }}">

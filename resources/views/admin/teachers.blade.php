@@ -20,7 +20,7 @@
                         <th>Prénom</th>
                         <th>Nom</th>
                         <th>Téléphone</th>
-                        <th>Adresse Email</th>
+                        <th>Adresse e-mail</th>
                         <th>N° de classes</th>
                         <th>Classes</th>
                         <th>Actions</th>
@@ -37,7 +37,7 @@
                             <td>{{ $teacher->classes()->count() }}</td>
                             <td>{{ $teacher->classes->pluck('name')->implode(', ') }}</td>
                             <td>
-                                <a href="{{ route('admin.teachers.edit', [$teacher]) }}" class="btn btn-warning">
+                                <a href="{{ route('admin.teachers.edit', [$teacher]) }}" class="btn btn-primary">
                                     <i class="fa fa-fw fa-pencil"></i>
                                 </a>
                             </td>

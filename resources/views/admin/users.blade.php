@@ -18,7 +18,7 @@
             </div>
             <div class="card-body">
                 <p class="card-text">
-                    Ajoutez un utilisateur qui aura accès à toute les fonctions administratives.
+                    Ajoutez un utilisateur qui aura accès à toutes les fonctions administratives.
                 </p>
                 <a href="{{ route('admin.users.add') }}" class="card-link btn btn-primary">
                     Je veux ajouter un utilisateur

@@ -53,7 +53,7 @@
                    class="custom-control-input {{ inputValidationClass($errors, 'data_protection') }}"
                     {{ old('data_protection') != null ? 'checked' : '' }}>
             <label for="data_protection" class="custom-control-label">
-                <a href="#">Information sur la protection des données</a> {{-- TODO LINK TO PDF --}}
+                <a href="http://missionnichtrauchen.lu/protection-des-donnees/" target="_blank">Information sur la protection des données</a>
             </label>
             <div class="invalid-feedback">
                 {{ inputValidationMessages($errors, 'data_protection') }}

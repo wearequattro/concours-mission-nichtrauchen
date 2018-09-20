@@ -19,13 +19,18 @@
                     Exporter fichier des classes
                 </div>
                 <div class="card-body">
+                    @php
+                        $countClasses = $classes->count();
+                        $countTeacher = $classes->pluck('teacher')->unique()->count();
+                        $countSchool = $classes->pluck('teacher')->pluck('school')->unique()->count();
+                    @endphp
                     <p>
-                        L'export contiendra <strong>{{ $classes->count() }} classes</strong>,
-                        <strong>{{ $classes->pluck('teacher')->unique()->count() }} enseignants</strong>,
-                        <strong>{{ $classes->pluck('teacher')->pluck('school')->unique()->count() }} lycées</strong>.
+                        L'export contiendra <strong>{{ $countClasses }} {{ $countClasses > 1 ? 'classes' : 'classe' }}</strong>,
+                        <strong>{{ $countTeacher }} {{ $countTeacher > 1 ? 'enseignants' : 'enseignant' }}</strong>,
+                        <strong>{{ $countSchool }} {{ $countSchool > 1 ? 'lycées' : 'lycée' }}</strong>.
                     </p>
                     <a class="btn btn-primary" href="{{ route('admin.classes.export') }}">
-                        Export
+                        Exporter
                     </a>
                 </div>
             </div>
@@ -40,14 +45,14 @@
                     <div class="row">
                         <div class="col-sm-6">
                             <p>
-                                <strong>Icônes:</strong><br>
+                                <strong>Icônes :</strong><br>
                                 {{ statusToIcon(null) }}: Pas répondu<br>
                                 {{ statusToIcon(1) }}: Réponse positive<br>
                                 {{ statusToIcon(0) }}: Réponse négative
                             </p>
                         </div>
                         <div class="col-sm-6">
-                            <strong>Enseignants:</strong><br>
+                            <strong>Enseignants :</strong><br>
                             <p class="bg-multiple-classes mb-1 mt-0 p-1">
                                 L'enseignant a plusieurs classes
                             </p>
@@ -148,7 +153,7 @@
                             <td>{{ statusToIcon($class->status_may ) }}</td>
                             <td>{{ statusToIcon($class->status_party ) }}</td>
                             <td>
-                                <a href="{{ route('admin.classes.edit', [$class]) }}" class="btn btn-warning">
+                                <a href="{{ route('admin.classes.edit', [$class]) }}" class="btn btn-primary">
                                     <i class="fa fa-fw fa-pencil"></i>
                                 </a>
                             </td>

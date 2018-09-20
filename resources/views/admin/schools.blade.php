@@ -33,7 +33,7 @@
                             <td>{{ $school->city }}</td>
                             <td>{{ $school->classes()->count() }}</td>
                             <td>
-                                <a href="{{ route('admin.schools.edit', [$school->id]) }}" class="btn btn-warning">
+                                <a href="{{ route('admin.schools.edit', [$school->id]) }}" class="btn btn-primary">
                                     <i class="fa fa-fw fa-pencil"></i>
                                 </a>
                             </td>

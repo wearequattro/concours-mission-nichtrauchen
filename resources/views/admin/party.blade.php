@@ -3,11 +3,11 @@
 @section('title', 'Fête de clôture')
 
 @section('content')
-    <h1 class="display-4 text-center">Inscription Fête de clôture</h1>
+    <h1 class="display-4 text-center">Inscription fête de clôture</h1>
 
     <p>
         <a class="btn btn-primary" href="{{ route('admin.party.export') }}">
-            Export
+            Exporter
         </a>
     </p>
 

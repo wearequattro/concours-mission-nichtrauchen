@@ -80,8 +80,8 @@
             <tr>
                 <th>Nom du fichier</th>
                 <th>Description</th>
-                <th>Visible pour enseignants?</th>
-                <th>Visible Fête?</th>
+                <th>Visible pour enseignants ?</th>
+                <th>Visible pour fête ?</th>
                 <th>Actions</th>
             </tr>
             </thead>
@@ -103,7 +103,7 @@
                         </span>
                     </td>
                     <td>
-                        <a href="{{ route('admin.documents.download', [$document]) }}" class="btn btn-info">
+                        <a href="{{ route('admin.documents.download', [$document]) }}" class="btn btn-primary">
                             <i class="fa fa-fw fa-download text-white"></i>
                         </a>
                         <a href="{{ route('admin.documents.delete', [$document]) }}" class="btn btn-danger">

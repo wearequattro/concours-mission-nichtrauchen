@@ -3,7 +3,7 @@
 @section('title', 'Gestion des classes')
 
 @section('content')
-    <h1 class="display-4 text-center">Vos classes</h1>
+    <h1 class="display-4 text-center">Mes classes</h1>
 
     @if(isRegistrationOpen())
     <div class="row">
@@ -15,7 +15,7 @@
                 <div class="card-body">
                     <p class="card-text">
                         Ajoutez les classes qui participeront &agrave; la &laquo;Mission Nichtrauchen&raquo;. Vous pourrez inscrire une ou
-                        plusieurs classes de différents Lycées !
+                        plusieurs classes de différents lycées !
                     </p>
                     <a href="{{ route('teacher.classes.add') }}" class="card-link btn btn-primary">
                         Je veux ajouter une classe
@@ -30,7 +30,7 @@
                 </div>
                 <div class="card-body">
                     <p class="card-text">
-                        Date de cl&ocirc;t&ucircure des inscriptions : {{ $inscription_date_end }}
+                        Date de cl&ocirc;ture des inscriptions : {{ $inscription_date_end }}
                         ({{ $inscription_date_end_relative }})
                     </p>
                 </div>

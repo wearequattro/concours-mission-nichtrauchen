@@ -3,7 +3,7 @@
 @section('title', 'Mon Profil')
 
 @section('content')
-<h1 class="display-4 text-center">Mise &agrave; jour de mon Profil</h1>
+<h1 class="display-4 text-center">Mise &agrave; jour de mon profil</h1>
 
 @if(Session::has('message'))
     <div class="alert alert-success">
