@@ -68,6 +68,13 @@
             <nav id="sidebar" class="col-md-2">
                 <ul class="nav">
                     <li class="nav-item">
+                        <a href="{{ route('admin.users') }}"
+                           class="nav-link {{ Route::currentRouteName() == 'admin.users' ? 'active' : '' }}">
+                            <i class="fa fa-fw fa-user"></i>
+                            Utilisateurs
+                        </a>
+                    </li>
+                    <li class="nav-item">
                         <a href="{{ route('admin.classes') }}"
                            class="nav-link {{ Route::currentRouteName() == 'admin.classes' ? 'active' : '' }}">
                             <i class="fa fa-fw fa-graduation-cap"></i>

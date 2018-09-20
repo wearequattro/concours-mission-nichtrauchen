@@ -77,5 +77,9 @@ Route::group(['middleware' => ['auth', 'admin']], function () {;
 
         Route::get('/admin/party', 'PartyController@party')->name('admin.party');
         Route::get('/admin/party/export', 'PartyExportController@export')->name('admin.party.export');
+
+        Route::get('/admin/users', 'UserController@users')->name('admin.users');
+        Route::get('/admin/users/add', 'UserController@usersAdd')->name('admin.users.add');
+        Route::post('/admin/users/add', 'UserController@usersAddPost')->name('admin.users.add.post');
     });
 });
