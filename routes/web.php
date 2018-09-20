@@ -24,6 +24,8 @@ Route::get('/login/recover/reset/{token}', 'Auth\ResetPasswordController@showRes
 Route::post('/login/recover/reset', 'Auth\ResetPasswordController@reset')->name('login.password.reset.post');
 Route::get('/login/redirect', 'Auth\LoginController@loginRedirect')->name('login.redirect');
 
+Route::get('/external/classes', 'ExternalController@classes')->name('external.classes');
+
 Route::group(['middleware' => 'guest'], function () {
     Route::get('/teacher/register', 'TeacherRegisterController@start')->name('teacher.register');
     Route::post('/teacher/register', 'TeacherRegisterController@startPost')->name('teacher.registerPost');
