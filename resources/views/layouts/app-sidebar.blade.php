@@ -92,7 +92,7 @@
                         <a href="{{ route('admin.emails') }}"
                            class="nav-link {{ Route::currentRouteName() == 'admin.emails' ? 'active' : '' }}">
                             <i class="fa fa-fw fa-envelope"></i>
-                            Emails
+                            E-mails
                         </a>
                     </li>
                     <li class="nav-item">
