@@ -14,8 +14,7 @@ use App\Salutation;
 use App\School;
 use App\SchoolClass;
 use Carbon\Carbon;
-use function foo\func;
-use Illuminate\Http\Request;
+use Illuminate\Validation\ValidationException;
 
 class TeacherController extends Controller {
 
@@ -79,7 +78,10 @@ class TeacherController extends Controller {
     }
 
     function documentsDownload(Document $document) {
-        if($document->visible == true) {
+        if($document->visible == true ||
+            $document->visible_party == true &&
+            \Auth::user()->teacher != null &&
+            \Auth::user()->teacher->hasAccessToParty()) {
             return \Storage::download($document->filename);
         }
         return redirect()->route('teacher.documents');
@@ -111,12 +113,18 @@ class TeacherController extends Controller {
     function partyClassPost(PartyGroupRegistrationRequest $request, SchoolClass $class) {
         if(!\Auth::user()->hasAccessToParty())
             return redirect()->route('teacher.classes');
-        $numStudents = $class->mapToGroups();
         $data = $request->validated()['class'];
+        if (collect($data)->sum('students') > $class->students) {
+            $errors = [];
+            for ($i = 0; $i < sizeof($data); $i++) {
+                $errors['class.'.$i.'.students'] = ['La somme des étudiants des groupes doit être inférieur au nombre d\'étudiants de la classe'];
+            }
+            throw ValidationException::withMessages($errors);
+        }
         for ($i = 0; $i < sizeof($data); $i++) {
             $name = $data[$i]['name'];
             $language = $data[$i]['language'];
-            $students = $numStudents[$i];
+            $students = $data[$i]['students'];
             PartyGroup::create([
                 'name' => $name,
                 'students' => $students,

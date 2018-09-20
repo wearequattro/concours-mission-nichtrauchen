@@ -26,6 +26,7 @@ class PartyGroupRegistrationRequest extends FormRequest {
         return [
             'class.*.name' => 'required|string',
             'class.*.language' => 'required|string',
+            'class.*.students' => 'required|numeric|max:10',
         ];
     }
 }
