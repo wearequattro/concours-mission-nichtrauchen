@@ -30,7 +30,7 @@ class Teacher extends Model {
 
     protected $fillable = ['first_name', 'last_name', 'phone', 'salutation_id'];
 
-    protected $appends = ['full_name'];
+    protected $appends = ['full_name', 'has_multiple_classes', 'has_multiple_schools'];
 
     public function user(): HasOne {
         return $this->hasOne(User::class);
@@ -47,6 +47,18 @@ class Teacher extends Model {
     public function getFullNameAttribute() {
         $s = $this->salutation()->first()->short_form;
         return $s . " " . $this->first_name . " " . $this->last_name;
+    }
+
+    public function getHasMultipleClassesAttribute() {
+        return $this->classes()->count() > 1;
+    }
+
+    public function getHasMultipleSchoolsAttribute() {
+        return $this->classes()
+                ->get()
+                ->pluck('school')
+                ->unique()
+                ->count() > 1;
     }
 
     /**
@@ -73,10 +85,10 @@ class Teacher extends Model {
 
     public function hasAccessToParty() {
         return $this->classes->map(function (SchoolClass $class) {
-            return $class->isEligibleForParty();
-        })->filter(function (bool $val) {
-            return $val === true;
-        })->count() > 0;
+                return $class->isEligibleForParty();
+            })->filter(function (bool $val) {
+                return $val === true;
+            })->count() > 0;
     }
 
 }
