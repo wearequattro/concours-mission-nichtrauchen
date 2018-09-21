@@ -14,6 +14,7 @@ use App\Salutation;
 use App\School;
 use App\SchoolClass;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Validation\ValidationException;
 
 class TeacherController extends Controller {
@@ -82,7 +83,9 @@ class TeacherController extends Controller {
             $document->visible_party == true &&
             \Auth::user()->teacher != null &&
             \Auth::user()->teacher->hasAccessToParty()) {
-            return \Storage::download($document->filename, preg_replace('/[^a-z0-9]+/', '-', strtolower($document->title)));
+            $exploded = explode('.', $document->filename);
+            return Storage::download($document->filename, preg_replace('/[^a-z0-9]+/', '-', strtolower($document->title))
+                . '.' . $exploded[count($exploded) - 1]);
         }
         return redirect()->route('teacher.documents');
     }
