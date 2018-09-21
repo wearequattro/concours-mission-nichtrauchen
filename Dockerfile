@@ -1,8 +1,6 @@
 FROM php:7.1-apache
 
 ENV APACHE_DOCUMENT_ROOT /var/www/html/public
-# ENV APP_ENV production
-# ENV APP_DEBUG false
 
 RUN sed -ri -e 's!/var/www/html!${APACHE_DOCUMENT_ROOT}!g' /etc/apache2/sites-available/*.conf
 RUN sed -ri -e 's!/var/www/!${APACHE_DOCUMENT_ROOT}!g' /etc/apache2/apache2.conf /etc/apache2/conf-available/*.conf
@@ -29,14 +27,9 @@ RUN chown -R www-data:www-data \
         /var/www/html/bootstrap/cache
 
 RUN php artisan storage:link
-RUN php artisan key:generate
 
-COPY cron.sh /root/cron.sh
-RUN chmod +x /root/cron.sh
-RUN echo "* * * * * root bash -x /root/cron.sh >> /root/cron.log 2>&1" >> /etc/crontab
+RUN echo "* * * * * root cd /var/www/html/ && php artisan schedule:run" >> /etc/crontab
 
-COPY worker.sh /var/www/html
-RUN chmod +x /var/www/html/worker.sh
 COPY laravel-worker.conf /etc/supervisor/conf.d
 COPY start.sh /root/start.sh
 
