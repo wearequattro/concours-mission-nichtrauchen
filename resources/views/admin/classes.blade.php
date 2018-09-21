@@ -171,8 +171,7 @@
 
 @push('js')
     <script>
-        $('table').dataTable();
-
         $('[data-toggle="tooltip"]').tooltip();
+        $('table').dataTable();
     </script>
 @endpush
