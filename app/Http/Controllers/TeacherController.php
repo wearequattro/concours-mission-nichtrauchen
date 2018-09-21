@@ -82,7 +82,7 @@ class TeacherController extends Controller {
             $document->visible_party == true &&
             \Auth::user()->teacher != null &&
             \Auth::user()->teacher->hasAccessToParty()) {
-            return \Storage::download($document->filename);
+            return \Storage::download($document->filename, preg_replace('/[^a-z0-9]+/', '-', strtolower($document->title)));
         }
         return redirect()->route('teacher.documents');
     }

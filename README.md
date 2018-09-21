@@ -49,6 +49,9 @@ docker run --name nichtrauchen --link mysql-nichtrauchen:mysql -p 9000:80 \
     -d kirepo/nichtrauchen
 ``` 
 
+Note: The storage folder permissions could be wrong. To fix this, run this command:
+`docker exec -it nichtrauchen chown -R www-data:www-data storage`
+
 ### NGINX Configuration
 
 This guide assumes the host's web server is [NGINX](https://www.nginx.com/). We'll just route everything

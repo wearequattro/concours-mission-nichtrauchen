@@ -36,7 +36,7 @@ class DocumentController extends Controller {
     }
 
     public function documentsDownload(Document $document) {
-        return Storage::download($document->filename);
+        return Storage::download($document->filename, preg_replace('/[^a-z0-9]+/', '-', strtolower($document->title)));
     }
 
     public function documentsDelete(Document $document) {
