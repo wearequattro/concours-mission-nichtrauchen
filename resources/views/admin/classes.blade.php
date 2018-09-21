@@ -73,7 +73,7 @@
                 </div>
                 <div class="card-body">
                     <p>
-                        Les rappels seront activés dès que les dates des suivis respectifs sont atteints.
+                        Les rappels seront activés dès que les dates des suivis respectifs sont atteintes.
                     </p>
                     @if($show_january)
                         <a href="{{ route('admin.classes.resend', [\App\SchoolClass::STATUS_JANUARY]) }}" class="btn btn-primary">
