@@ -73,7 +73,7 @@
                 </div>
                 <div class="card-body">
                     <p>
-                        Les rappels seront activés dès que les dates des suivis respectifs sont atteintes.
+                        Les rappels seront activés dès que les dates des suivis respectifs sont atteints.
                     </p>
                     @if($show_january)
                         <a href="{{ route('admin.classes.resend', [\App\SchoolClass::STATUS_JANUARY]) }}" class="btn btn-primary">
@@ -160,7 +160,7 @@
                         </tr>
                         @empty
                         <tr>
-                            <td colspan="9" class="text-center">Aucune classe disponible</td>
+                            <td colspan="9" class="text-center">Aucune classe n'est enregistr&eacute;e</td>
                         </tr>
                     @endforelse
                     </tbody>

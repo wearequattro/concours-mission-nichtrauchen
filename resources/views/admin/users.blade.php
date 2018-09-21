@@ -32,7 +32,7 @@
         <table class="table table-bordered table-striped">
             <thead>
             <tr>
-                <th>Email</th>
+                <th>E-mail</th>
             </tr>
             </thead>
             <tbody>
