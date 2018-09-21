@@ -15,5 +15,8 @@ echo "Starting queue worker"
 #supervisorctl start all
 nohup php artisan queue:work &
 
+# volume mounting occurs after setting permissions, therefore do it again
+chown -R www-data:www-data /var/www/html/storage
+
 echo "Starting apache"
 apache2-foreground
