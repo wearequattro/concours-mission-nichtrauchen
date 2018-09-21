@@ -106,8 +106,7 @@
         h1 {
             font-size: 35px;
             font-weight: 300;
-            text-align: center;
-            text-transform: capitalize; }
+            text-align: center; }
 
         p,
         ul,
@@ -124,8 +123,7 @@
             margin-left: 5px; }
 
         a {
-            color: #3498db;
-            text-decoration: underline; }
+            color: #3498db; }
 
         /* -------------------------------------
             BUTTONS
