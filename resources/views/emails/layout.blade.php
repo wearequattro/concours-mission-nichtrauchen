@@ -332,11 +332,12 @@
                         <tr>
                             <td class="content-block">
                                 <span class="apple-link">
-                                    L’équipe de la Fondation Cancer.<br>
                                     Fondation Cancer<br>
                                     209, route d’Arlon L-1150 Luxembourg<br>
                                     Tél : (352) 45 30 331<br>
                                     <a href="http://www.cancer.lu">www.cancer.lu</a> | <a href="mailto:mnr@cancer.lu">mnr@cancer.lu</a>
+                                    <br>
+                                    <a href="http://missionnichtrauchen.lu">www.missionnichtrauchen.lu</a>
                                 </span>
                             </td>
                         </tr>
