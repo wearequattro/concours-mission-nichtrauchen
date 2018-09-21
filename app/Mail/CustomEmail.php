@@ -48,9 +48,12 @@ class CustomEmail extends Mailable {
 
         return $this
             ->subject($this->editableEmail->subject)
+            ->from(env('MAIL_FROM_ADDRESS'), env('APP_NAME'))
+            ->replyTo(env('MAIL_REPLY_TO'))
             ->view('emails.custom')
             ->with([
                 'text' => $this->editableEmail->replaceAll($this->teacher, $this->schoolClass),
+                'subject' => $this->editableEmail->subject,
             ]);
     }
 }

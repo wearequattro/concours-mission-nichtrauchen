@@ -26,7 +26,10 @@ class ResetPasswordMail extends Mailable {
      * @return $this
      */
     public function build() {
-        return $this->subject('Récupération du mot de passe pour «Mission Nichtrauchen»')
+        return $this
+            ->subject('Récupération du mot de passe pour «Mission Nichtrauchen»')
+            ->from(env('MAIL_FROM_ADDRESS'), env('APP_NAME'))
+            ->replyTo(env('MAIL_REPLY_TO'))
             ->view('emails.password-reset')
             ->with([
                 'token' => $this->token,
