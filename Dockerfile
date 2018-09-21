@@ -13,7 +13,7 @@ COPY .env.example /var/www/html/.env
 
 RUN a2enmod rewrite
 
-RUN apt-get update && apt-get install -y libmcrypt-dev libmagickwand-dev cron
+RUN apt-get update && apt-get install -y libmcrypt-dev libmagickwand-dev cron supervisor
 RUN docker-php-ext-install mcrypt pdo_mysql gd zip mysqli
 
 RUN php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');" \
@@ -34,6 +34,7 @@ RUN php artisan key:generate
 COPY cron.sh /root/cron.sh
 RUN echo "* * * * * root bash -x /root/cron.sh >> /root/cron.log 2>&1" >> /etc/crontab
 
+COPY laravel-worker.conf /etc/supervisor/conf.d
 COPY start.sh /root/start.sh
 
 CMD bash -x /root/start.sh

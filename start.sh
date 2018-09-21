@@ -7,7 +7,9 @@ echo "Starting cron"
 cron
 
 echo "Starting queue worker"
-nohup php artisan queue:work &
+supervisorctl reread
+supervisorctl update
+supervisorctl start laravel-worker:*
 
 echo "Starting apache"
 apache2-foreground
