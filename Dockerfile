@@ -34,6 +34,7 @@ RUN php artisan key:generate
 COPY cron.sh /root/cron.sh
 RUN echo "* * * * * root bash -x /root/cron.sh >> /root/cron.log 2>&1" >> /etc/crontab
 
+COPY worker.sh /var/www/html
 COPY laravel-worker.conf /etc/supervisor/conf.d
 COPY start.sh /root/start.sh
 
