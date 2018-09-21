@@ -6,8 +6,8 @@ chmod +x /root/env.sh
 echo "Starting cron"
 cron
 
-echo "Starting apache"
-apache2-foreground & > /dev/null
+echo "Starting queue worker"
+nohup php artisan queue:work &
 
-echo "Tailing logs"
-tail -f /var/www/html/storage/logs/laravel.log /var/log/apache2/access.log /var/log/apache2/error.log
+echo "Starting apache"
+apache2-foreground
