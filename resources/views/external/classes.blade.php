@@ -13,21 +13,23 @@
     <table class="table table-bordered table-striped">
         <thead>
         <tr>
-            <th>Nom de la classe</th>
             <th>Lycée</th>
+            <th>Enseignant</th>
+            <th>Classe</th>
         </tr>
         </thead>
         <tbody>
         @foreach($classes as $class)
             <tr>
-                <td>{{ $class->name }}</td>
                 <td>{{ $class->school->name }}</td>
+                <td>{{ $class->teacher->full_name }}</td>
+                <td>{{ $class->name }}</td>
             </tr>
         @endforeach
         </tbody>
         <tfoot>
         <tr>
-            <th colspan="2">
+            <th colspan="3">
                 Total : {{ $classes->count() }} classes
             </th>
         </tr>
