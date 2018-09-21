@@ -3,7 +3,7 @@
 @section('title', 'Emails')
 
 @section('content')
-    <h1 class="display-4 text-center">Emails</h1>
+    <h1 class="display-4 text-center">E-mails</h1>
 
     @if(Session::has('message'))
         <div class="alert alert-success">
