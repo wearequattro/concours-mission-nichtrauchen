@@ -7,9 +7,12 @@ echo "Starting cron"
 cron
 
 echo "Starting queue worker"
+touch /var/run/supervisor.sock
+chmod 777 /var/run/supervisor.sock
+service supervisor start
 supervisorctl reread
 supervisorctl update
-supervisorctl start laravel-worker:*
+supervisorctl start all
 
 echo "Starting apache"
 apache2-foreground
