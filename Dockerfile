@@ -30,6 +30,9 @@ RUN php artisan storage:link
 
 RUN echo "* * * * * root cd /var/www/html/ && php artisan schedule:run" >> /etc/crontab
 
+RUN mkdir -p /usr/local/etc/php/conf.d
+RUN echo "upload_max_filesize = 40M\npost_max_size = 21M" > /usr/local/etc/php/conf.d/00-upload-size.ini
+
 COPY laravel-worker.conf /etc/supervisor/conf.d
 COPY start.sh /root/start.sh
 
