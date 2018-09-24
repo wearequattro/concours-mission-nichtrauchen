@@ -4,6 +4,7 @@ namespace App\Http\Requests;
 
 use App\User;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class AdminClassUpdateRequest extends FormRequest {
     /**
@@ -26,6 +27,9 @@ class AdminClassUpdateRequest extends FormRequest {
             'students' => 'string|required',
             'school_id' => 'integer|required|exists:schools,id',
             'teacher_id' => 'integer|required|exists:teachers,id',
+            'status_january' => ['integer', 'nullable', Rule::in([0, 1])],
+            'status_march' => ['integer', 'nullable', Rule::in([0, 1])],
+            'status_mai' => ['integer', 'nullable', Rule::in([0, 1])],
         ];
     }
 }
