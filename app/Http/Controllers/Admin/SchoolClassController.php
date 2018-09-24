@@ -49,4 +49,9 @@ class SchoolClassController {
         return redirect()->route('admin.classes');
     }
 
+    public function delete(SchoolClass $class) {
+        $class->delete();
+        return redirect()->route('admin.classes');
+    }
+
 }

@@ -49,6 +49,7 @@ Route::group(['middleware' => ['auth', 'admin']], function () {;
         Route::get('/admin/classes', 'SchoolClassController@classes')->name('admin.classes');
         Route::get('/admin/classes/resend/{status}', 'SchoolClassController@resend')->name('admin.classes.resend');
         Route::get('/admin/classes/export', 'ClassExportController@export')->name('admin.classes.export');
+        Route::get('/admin/classes/{class}/delete', 'SchoolClassController@delete')->name('admin.classes.delete');
         Route::get('/admin/classes/{class}', 'SchoolClassController@classesEdit')->name('admin.classes.edit');
         Route::post('/admin/classes/{class}', 'SchoolClassController@classesEditPost')->name('admin.classes.edit.post');
 

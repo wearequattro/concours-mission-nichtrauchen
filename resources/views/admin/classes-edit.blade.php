@@ -3,10 +3,34 @@
 @section('title', 'Mise à jour classe')
 
 @section('content')
-    <h1 class="display-5 text-center">
-        Mise à jour &laquo;{{ $class->name }} <span class="text-muted">{{ $class->school->name }}</span>&raquo;
+    <h1 class="text-center">
+        <span class="display-5">Mise à jour</span> <span class="text-muted">&laquo; {{ $class->name }} {{ $class->school->name }} &raquo;</span>
     </h1>
 
+    <!-- Delete Modal -->
+    <div class="modal fade" id="modalDelete" tabindex="-1" role="dialog" aria-labelledby="modalDeleteTitle" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="modalDeleteTitle">Supprimer &laquo;{{ $class->name }}&raquo; ?</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Fermer">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    Attention, cette action est irreversible ! Si cette classe est déjà enrégistrée pour la fête de clôture,
+                    les incsriptions sont aussi supprimées.
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn" data-dismiss="modal">Fermer</button>
+                    <a class="btn btn-danger text-white" href="{{ route('admin.classes.delete', [$class]) }}">
+                        <i class="fa fa-trash-o"></i>
+                        Supprimer
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
     <form method="post" action="{{ route('admin.classes.edit.post', [$class]) }}">
         @csrf
 
@@ -143,6 +167,11 @@
 
 
         <input type="submit" class="btn btn-primary" value="Mettre à jour">
+
+        <!-- Button trigger modal -->
+        <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#modalDelete">
+            Supprimer &laquo;{{ $class->name }}&raquo;
+        </button>
 
     </form>
 
