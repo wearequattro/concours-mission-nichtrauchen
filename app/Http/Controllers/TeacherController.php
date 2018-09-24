@@ -93,9 +93,12 @@ class TeacherController extends Controller {
     function party() {
         if(!\Auth::user()->hasAccessToParty())
             return redirect()->route('teacher.classes');
-        $classes = SchoolClass::findForLoggedInUser()->sort(function (SchoolClass $schoolClass) {
-            return $schoolClass->partyGroups()->exists() ? 1 : 0;
-        });
+        $classes = SchoolClass::findForLoggedInUser()
+            ->sort(function (SchoolClass $schoolClass) {
+                return $schoolClass->partyGroups()->exists() ? 1 : 0;
+            })->filter(function (SchoolClass $schoolClass) {
+                return $schoolClass->isEligibleForParty();
+            });
         return view('teacher.party')->with([
             'classes' => $classes,
             'documents' => Document::query()->where('visible_party', 1)->get(),
@@ -105,7 +108,7 @@ class TeacherController extends Controller {
     function partyClass(SchoolClass $class) {
         if(!\Auth::user()->hasAccessToParty())
             return redirect()->route('teacher.classes');
-        if($class->partyGroups()->exists())
+        if($class->partyGroups()->exists() || !$class->isEligibleForParty())
             return redirect()->route('teacher.party');
         return view('teacher.party-class')->with([
             'class' => $class,
@@ -116,6 +119,8 @@ class TeacherController extends Controller {
     function partyClassPost(PartyGroupRegistrationRequest $request, SchoolClass $class) {
         if(!\Auth::user()->hasAccessToParty())
             return redirect()->route('teacher.classes');
+        if($class->partyGroups()->exists() || !$class->isEligibleForParty())
+            return redirect()->route('teacher.party');
         $data = $request->validated()['class'];
         if (collect($data)->sum('students') > $class->students) {
             $errors = [];
