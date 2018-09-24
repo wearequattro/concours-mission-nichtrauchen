@@ -9,7 +9,7 @@ class FollowUpController extends Controller {
 
     public function setFollowUpStatus(string $token, $status) {
         SchoolClass::setFollowUpStatus($token, $status === "true");
-        return redirect('/');
+        return redirect()->route('login.redirect');
     }
 
     public function sendFollowUpForAll() {
@@ -24,9 +24,11 @@ class FollowUpController extends Controller {
         $statuses = collect([SchoolClass::STATUS_JANUARY, SchoolClass::STATUS_MARCH, SchoolClass::STATUS_MAY]);
         foreach ($statuses as $status) {
             if ($schoolClass->shouldSendFollowUp($status)) {
+                Log::info('Sending follow up for '. $status . ' to ' . $schoolClass->teacher->user->email);
                 $schoolClass->sendFollowUpEmail($status);
                 break;
             } else if ($schoolClass->shouldSendFollowUpReminder($status)) {
+                Log::info('Sending follow up reminder for '. $status . ' to ' . $schoolClass->teacher->user->email);
                 $schoolClass->sendFollowUpReminderEmail($status);
                 break;
             }
