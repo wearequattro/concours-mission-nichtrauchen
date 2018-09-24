@@ -46,7 +46,7 @@
             <label for="teacher_id">Enseignant</label>
             <select class="form-control" required name="teacher_id" id="teacher_id">
                 @foreach($teachers as $teacher)
-                    <option value="{{ $teacher->id }}" {{ $teacher->teacher_id === $teacher->id ? 'selected' : '' }}>{{ $teacher->full_name }}</option>
+                    <option value="{{ $teacher->id }}" {{ $class->teacher_id === $teacher->id ? 'selected' : '' }}>{{ $teacher->full_name }}</option>
                 @endforeach
             </select>
             <div class="invalid-feedback">
