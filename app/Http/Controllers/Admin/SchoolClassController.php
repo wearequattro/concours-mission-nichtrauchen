@@ -50,7 +50,9 @@ class SchoolClassController {
     }
 
     public function delete(SchoolClass $class) {
+        $name = $class->name;
         $class->delete();
+        Session::flash('message', 'Supprimé la classe ' . $name);
         return redirect()->route('admin.classes');
     }
 

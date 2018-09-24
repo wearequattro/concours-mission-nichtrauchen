@@ -11,6 +11,31 @@
         </div>
     @endif
 
+    <!-- Delete Modal -->
+    <div class="modal fade" id="modalDelete" tabindex="-1" role="dialog" aria-labelledby="modalDeleteTitle" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="modalDeleteTitle"></h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Fermer">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    Attention, cette action est irreversible ! Si cette classe est déjà enrégistrée pour la fête de clôture,
+                    les incsriptions sont aussi supprimées.
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn" data-dismiss="modal">Fermer</button>
+                    <a id="modalDeleteLink" class="btn btn-danger text-white" href="">
+                        <i class="fa fa-trash-o"></i>
+                        Supprimer
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <div class="row">
 
         <div class="col-sm-3 mb-4">
@@ -156,6 +181,9 @@
                                 <a href="{{ route('admin.classes.edit', [$class]) }}" class="btn btn-primary">
                                     <i class="fa fa-fw fa-pencil"></i>
                                 </a>
+                                <a class="btn btn-danger text-white" data-delete-id="{{ $class->id }}" data-delete-label="{{ $class->name }}">
+                                    <i class="fa fa-fw fa-trash-o"></i>
+                                </a>
                             </td>
                         </tr>
                         @empty
@@ -172,6 +200,14 @@
 @push('js')
     <script>
         $('[data-toggle="tooltip"]').tooltip();
+        $('[data-delete-id]').click(function () {
+            var className = $(this).attr('data-delete-label');
+            var id = $(this).attr('data-delete-id');
+            var url = '{{ route('admin.classes.delete', [':id:']) }}';
+            $('#modalDeleteTitle').html('Supprimer &laquo; ' + className + ' &raquo; ?');
+            $('#modalDeleteLink').attr('href', url.replace(':id:', id));
+            $('#modalDelete').modal('show');
+        });
         $('table').dataTable();
     </script>
 @endpush

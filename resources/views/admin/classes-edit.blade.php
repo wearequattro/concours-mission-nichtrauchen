@@ -31,6 +31,7 @@
             </div>
         </div>
     </div>
+
     <form method="post" action="{{ route('admin.classes.edit.post', [$class]) }}">
         @csrf
 
