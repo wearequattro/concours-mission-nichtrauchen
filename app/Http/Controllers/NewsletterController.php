@@ -15,8 +15,12 @@ class NewsletterController extends Controller {
 
     public function sendNewsletters() {
         $teachers = Teacher::all();
+        $teachersStillParticipating = $teachers->filter(function (Teacher $teacher) {
+            return $teacher->isStillParticipating();
+        });
         $this->send($teachers, EditableDate::NEWSLETTER_START, EditableEmail::$MAIL_NEWSLETTER_START);
-        $this->send($teachers, EditableDate::NEWSLETTER_ENCOURAGEMENT, EditableEmail::$MAIL_NEWSLETTER_ENCOURAGEMENT);
+        $this->send($teachersStillParticipating, EditableDate::NEWSLETTER_ENCOURAGEMENT, EditableEmail::$MAIL_NEWSLETTER_ENCOURAGEMENT);
+        $this->send($teachers, EditableDate::FINAL_MAIL, EditableEmail::$MAIL_FINAL);
     }
 
     private function send(Collection $teachers, string $dateIdentifier, array $mailIdentifier) {
