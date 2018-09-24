@@ -36,6 +36,8 @@ class CustomEmail extends Mailable {
         $this->editableEmail = $editableEmail;
         $this->teacher = $teacher;
         $this->schoolClass = $schoolClass;
+
+        $this->editableEmail->setSent($this->teacher->user);
     }
 
     /**
@@ -44,8 +46,6 @@ class CustomEmail extends Mailable {
      * @return $this
      */
     public function build() {
-        $this->editableEmail->setSent($this->teacher->user);
-
         return $this
             ->subject($this->editableEmail->subject)
             ->from(env('MAIL_FROM_ADDRESS'), env('APP_NAME'))
