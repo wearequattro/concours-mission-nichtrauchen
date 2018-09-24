@@ -11,6 +11,9 @@
 @import "~bootstrap-datepicker/dist/css/bootstrap-datepicker.min.css";
 @import "bootstrap-toggle";
 
+@import "sidebar";
+@import "frontend";
+
 .navbar-laravel {
   background-color: #fff;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.04);
@@ -46,147 +49,10 @@ table.school-classes {
   background-color: rgba(221, 198, 231, 0.4) !important;
 }
 
-.frontend {
-  background-color: #fff;
-
-  .navbar {
-    margin-bottom: 2em;
-    .logo {
-      display: block;
-      margin: 0 auto;
-    }
-  }
-
-  footer {
-    padding-top: 3em;
-    padding-bottom: 2em;
-    font-family: 'Roboto Slab', serif;
-    background-color: #FAB234;
-
-    .lead {
-      font-size: 1em;
-      font-weight: 700;
-    }
-
-    ul.contact-info {
-      list-style: none;
-      margin: 0;
-      padding: 0;
-
-      li {
-        margin-bottom: 0.5em;
-      }
-    }
-
-    .soc-ico {
-      a {
-        display: inline-block;
-        margin-right: 5px;
-        width: 24px;
-        height: 24px;
-        background-color: #FBBD52;
-        border-radius: 100%;
-        :hover {
-          transition-duration: 0.3s;
-          background-color: #FAB234;
-        }
-        svg {
-          transition-duration: 0.3s;
-          width: 24px;
-          height: 24px;
-          fill: #fff;
-        }
-      }
-    }
-
-    hr {
-      border-color: #fff;
-    }
-
-    .logo-fondation {
-      height: 60px;
-      width: auto;
-    }
-
-    .links {
-      p {
-        margin-bottom: 0;
-        margin-top: 0;
-      }
-      p:first-of-type {
-        margin-bottom: 0.4em;
-      }
-      a {
-        color: #fff;
-      }
-    }
-  }
-}
-
 .btn-primary {
   color: #fff;
 }
 
 .navbar-brand, .display-1, .display-2, .display-3, .display-4, .display-5 {
   font-family: 'Oleo Script Swash Caps', cursive;
-}
-
-.teacher {
-
-  @media (min-width: 768px) {
-    #nav-bg {
-      background-color: #f7f7f7;
-      border-right: 1px solid #ccc;
-      position: fixed;
-      top: 0;
-      left: 0;
-      bottom: 0;
-      width: 16.666666%;
-    }
-  }
-
-  nav.navbar {
-    z-index: 1000;
-  }
-
-  nav#sidebar {
-
-    @media (max-width: 768px) {
-      background-color: #f7f7f7;
-      border-bottom: 1px solid #ccc;
-    }
-
-    li {
-      width: 100%;
-    }
-
-    ul {
-      margin-top: 10px;
-    }
-
-    .nav-link {
-      padding-left: 4px;
-      padding-top: 8px;
-      padding-bottom: 8px;
-      font-weight: bold;
-      color: #333;
-      i {
-        color: #888;
-      }
-    }
-
-    .nav-link:hover {
-      color: #333;
-      i {
-        color: #000;
-      }
-    }
-
-    .nav-link.active {
-      color: #fab234;
-      i {
-        color: #fab234;
-      }
-    }
-  }
 }
