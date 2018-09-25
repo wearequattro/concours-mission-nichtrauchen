@@ -3,7 +3,7 @@
 @section('title', 'Mise à jour lycée')
 
 @section('content')
-    <h1 class="display-5 text-center">Mise à jour &laquo;{{ $school->name }}&raquo;</h1>
+    <h1 class="text-center"><span class="display-5">Mise à jour</span> <span class="text-muted">&laquo;{{ $school->name }}&raquo;</span></h1>
 
     <form method="post" action="{{ route('admin.schools.edit.post', [$school]) }}">
         @csrf

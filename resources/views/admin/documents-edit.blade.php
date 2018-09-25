@@ -3,7 +3,7 @@
 @section('title', 'Documents')
 
 @section('content')
-    <h1 class="display-4 text-center">Mise à jour document {{ $document->name }}</h1>
+    <h1 class="text-center"><span class="display-5">Mise à jour document</span> <span class="text-muted">{{ $document->title }}</span></h1>
 
     @if(Session::has('message'))
         <div class="alert alert-success">
