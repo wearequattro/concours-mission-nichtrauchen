@@ -10772,22 +10772,23 @@ a.text-dark:focus {
 }
 
 .external .table-striped tbody tr:nth-of-type(odd) {
-  background-color: #FAB234;
+  background-color: #fff6c0;
 }
 
 .external table {
   font-family: 'Roboto Slab', serif;
-  font-size: 1.1em;
 }
 
 .external table th {
   font-weight: bolder;
   color: #333333;
   font-family: 'Oleo Script Swash Caps', cursive;
+  font-size: 1.6em;
 }
 
 .external table td {
-  color: #777777;
+  color: #000;
+  font-size: 1.2em;
 }
 
 table.school-classes i {
