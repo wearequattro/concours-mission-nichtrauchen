@@ -85,19 +85,19 @@
                 <div class="form-group">
                     <label for="status_january">Status janvier</label>
                     <div class="custom-control custom-radio">
-                        <input type="radio" id="status_january_null" name="status_january" class="custom-control-input" value="" {{ $class->status_january === null ? 'checked' : '' }}>
+                        <input {{ $show_january ? '' : 'disabled' }} type="radio" id="status_january_null" name="status_january" class="custom-control-input" value="" {{ $class->status_january === null ? 'checked' : '' }}>
                         <label class="custom-control-label" for="status_january_null">
                             <i class="fa fa-fw fa-circle text-info"></i> Pas de réponse
                         </label>
                     </div>
                     <div class="custom-control custom-radio">
-                        <input type="radio" id="status_january_yes" name="status_january" class="custom-control-input" value="1" {{ $class->status_january === 1 ? 'checked' : '' }}>
+                        <input {{ $show_january ? '' : 'disabled' }} type="radio" id="status_january_yes" name="status_january" class="custom-control-input" value="1" {{ $class->status_january === 1 ? 'checked' : '' }}>
                         <label class="custom-control-label" for="status_january_yes">
                             <i class="fa fa-fw fa-check-circle text-success"></i> Réponse positive
                         </label>
                     </div>
                     <div class="custom-control custom-radio">
-                        <input type="radio" id="status_january_no" name="status_january" class="custom-control-input" value="0" {{ $class->status_january === 0 ? 'checked' : '' }}>
+                        <input {{ $show_january ? '' : 'disabled' }} type="radio" id="status_january_no" name="status_january" class="custom-control-input" value="0" {{ $class->status_january === 0 ? 'checked' : '' }}>
                         <label class="custom-control-label" for="status_january_no">
                             <i class="fa fa-fw fa-times-circle text-danger"></i> Réponse négative
                         </label>
@@ -113,19 +113,19 @@
                 <div class="form-group">
                     <label for="status_march">Status mars</label>
                     <div class="custom-control custom-radio">
-                        <input type="radio" id="status_march_null" name="status_march" class="custom-control-input" value="" {{ $class->status_march === null ? 'checked' : '' }}>
+                        <input {{ $show_march ? '' : 'disabled' }} type="radio" id="status_march_null" name="status_march" class="custom-control-input" value="" {{ $class->status_march === null ? 'checked' : '' }}>
                         <label class="custom-control-label" for="status_march_null">
                             <i class="fa fa-fw fa-circle text-info"></i> Pas de réponse
                         </label>
                     </div>
                     <div class="custom-control custom-radio">
-                        <input type="radio" id="status_march_yes" name="status_march" class="custom-control-input" value="1" {{ $class->status_march === 1 ? 'checked' : '' }}>
+                        <input {{ $show_march ? '' : 'disabled' }} type="radio" id="status_march_yes" name="status_march" class="custom-control-input" value="1" {{ $class->status_march === 1 ? 'checked' : '' }}>
                         <label class="custom-control-label" for="status_march_yes">
                             <i class="fa fa-fw fa-check-circle text-success"></i> Réponse positive
                         </label>
                     </div>
                     <div class="custom-control custom-radio">
-                        <input type="radio" id="status_march_no" name="status_march" class="custom-control-input" value="0" {{ $class->status_march === 0 ? 'checked' : '' }}>
+                        <input {{ $show_march ? '' : 'disabled' }} type="radio" id="status_march_no" name="status_march" class="custom-control-input" value="0" {{ $class->status_march === 0 ? 'checked' : '' }}>
                         <label class="custom-control-label" for="status_march_no">
                             <i class="fa fa-fw fa-times-circle text-danger"></i> Réponse négative
                         </label>
@@ -141,19 +141,19 @@
                 <div class="form-group">
                     <label for="status_mai">Status mai</label>
                     <div class="custom-control custom-radio">
-                        <input type="radio" id="status_mai_null" name="status_mai" class="custom-control-input" value="" {{ $class->status_mai === null ? 'checked' : '' }}>
+                        <input {{ $show_may ? '' : 'disabled' }} type="radio" id="status_mai_null" name="status_mai" class="custom-control-input" value="" {{ $class->status_mai === null ? 'checked' : '' }}>
                         <label class="custom-control-label" for="status_mai_null">
                             <i class="fa fa-fw fa-circle text-info"></i> Pas de réponse
                         </label>
                     </div>
                     <div class="custom-control custom-radio">
-                        <input type="radio" id="status_mai_yes" name="status_mai" class="custom-control-input" value="1" {{ $class->status_mai === 1 ? 'checked' : '' }}>
+                        <input {{ $show_may ? '' : 'disabled' }} type="radio" id="status_mai_yes" name="status_mai" class="custom-control-input" value="1" {{ $class->status_mai === 1 ? 'checked' : '' }}>
                         <label class="custom-control-label" for="status_mai_yes">
                             <i class="fa fa-fw fa-check-circle text-success"></i> Réponse positive
                         </label>
                     </div>
                     <div class="custom-control custom-radio">
-                        <input type="radio" id="status_mai_no" name="status_mai" class="custom-control-input" value="0" {{ $class->status_mai === 0 ? 'checked' : '' }}>
+                        <input {{ $show_may ? '' : 'disabled' }} type="radio" id="status_mai_no" name="status_mai" class="custom-control-input" value="0" {{ $class->status_mai === 0 ? 'checked' : '' }}>
                         <label class="custom-control-label" for="status_mai_no">
                             <i class="fa fa-fw fa-times-circle text-danger"></i> Réponse négative
                         </label>

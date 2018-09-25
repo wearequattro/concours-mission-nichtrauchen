@@ -26,6 +26,9 @@ class SchoolClassController {
             'class' => $class,
             'schools' => School::all(),
             'teachers' => Teacher::all(),
+            'show_january' => Carbon::now()->gte(EditableDate::find(EditableDate::FOLLOW_UP_1)),
+            'show_march' => Carbon::now()->gte(EditableDate::find(EditableDate::FOLLOW_UP_2)),
+            'show_may' => Carbon::now()->gte(EditableDate::find(EditableDate::FOLLOW_UP_3)),
         ]);
     }
 
