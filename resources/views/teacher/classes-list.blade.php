@@ -14,7 +14,7 @@
                 </div>
                 <div class="card-body">
                     <p class="card-text">
-                        Ajoutez les classes qui participeront &agrave; la &laquo;Mission Nichtrauchen&raquo;. Vous pourrez inscrire une ou
+                        Ajoutez les classes qui participeront &agrave; la <em>Mission Nichtrauchen</em>. Vous pourrez inscrire une ou
                         plusieurs classes de différents lycées !
                     </p>
                     <a href="{{ route('teacher.classes.add') }}" class="card-link btn btn-primary">

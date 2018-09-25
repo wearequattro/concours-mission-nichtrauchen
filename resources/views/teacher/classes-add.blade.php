@@ -48,18 +48,6 @@
             <input type="text" readonly class="form-control" id="class_school_address">
         </div>
 
-        <div class="form-group text-left ml-4">
-            <input type="checkbox" name="data_protection" id="data_protection"
-                   class="custom-control-input {{ inputValidationClass($errors, 'data_protection') }}"
-                    {{ old('data_protection') != null ? 'checked' : '' }}>
-            <label for="data_protection" class="custom-control-label">
-                <a href="http://missionnichtrauchen.lu/protection-des-donnees/" target="_blank">Information sur la protection des données</a>
-            </label>
-            <div class="invalid-feedback">
-                {{ inputValidationMessages($errors, 'data_protection') }}
-            </div>
-        </div>
-
         <input type="submit" class="btn btn-primary" value="Enregistrer">
 
     </form>

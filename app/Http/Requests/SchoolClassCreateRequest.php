@@ -25,7 +25,6 @@ class SchoolClassCreateRequest extends FormRequest {
             'class_name' => 'string|required',
             'class_students' => 'integer|min:0|max:99|required',
             'class_school' => 'required|exists:schools,id',
-            'data_protection' => 'required|accepted',
         ];
     }
 }
