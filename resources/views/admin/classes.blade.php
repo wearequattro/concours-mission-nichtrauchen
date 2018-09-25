@@ -47,7 +47,7 @@
                     @php
                         $countClasses = $classes->count();
                         $countTeacher = $classes->pluck('teacher')->unique()->count();
-                        $countSchool = $classes->pluck('teacher')->pluck('school')->unique()->count();
+                        $countSchool = $classes->pluck('school')->unique()->count();
                     @endphp
                     <p>
                         L'export contiendra <strong>{{ $countClasses }} {{ $countClasses > 1 ? 'classes' : 'classe' }}</strong>,
