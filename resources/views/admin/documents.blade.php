@@ -3,6 +3,13 @@
 @section('title', 'Documents')
 
 @section('content')
+    <div id="overlay" hidden style="position: fixed;top: 0;left: 0;right: 0;bottom: 0;background-color: rgba(240,240,240,0.6);z-index: 100000;">
+        <h1 style="position: fixed;top: 45%;left: 45%;">
+            <i class="fa fa-spin fa-spinner"></i>
+            Chargement...
+        </h1>
+    </div>
+
     <h1 class="display-4 text-center">Documents</h1>
 
     @if(Session::has('message'))
@@ -92,14 +99,14 @@
                     <td>{{ $document->description }}</td>
                     <td>
                         <span class="switch">
-                            <input data-document-id="{{ $document->id }}" type="checkbox" class="switch-sm" id="toggle-visible" {{ $document->visible == 1 ? 'checked' : '' }}>
-                            <label for="toggle-visible"></label>
+                            <input data-document-id="{{ $document->id }}" type="checkbox" class="switch-sm" id="toggle-visible-{{ $document->id }}" {{ $document->visible == 1 ? 'checked' : '' }}>
+                            <label for="toggle-visible-{{ $document->id }}"></label>
                         </span>
                     </td>
                     <td>
                         <span class="switch">
-                            <input data-document-id="{{ $document->id }}" type="checkbox" class="switch-sm" id="toggle-party" {{ $document->visible_party == 1 ? 'checked' : '' }}>
-                            <label for="toggle-party"><label>
+                            <input data-document-id="{{ $document->id }}" type="checkbox" class="switch-sm" id="toggle-party-{{ $document->id }}" {{ $document->visible_party == 1 ? 'checked' : '' }}>
+                            <label for="toggle-party-{{ $document->id }}"><label>
                         </span>
                     </td>
                     <td>
@@ -136,8 +143,9 @@
         $('input[type=checkbox]').change(function () {
             var id = $(this).attr('data-document-id');
             var route = '{{ route('admin.documents.toggleVisibility', ':document:') }}'.replace(':document:', id);
-            $('#visible').val($('#toggle-visible').prop('checked') === true ? 1 : 0);
-            $('#visible_party').val($('#toggle-party').prop('checked') === true ? 1 : 0);
+            $('#visible').val($('#toggle-visible-' + id).prop('checked') === true ? 1 : 0);
+            $('#visible_party').val($('#toggle-party-' + id).prop('checked') === true ? 1 : 0);
+            $('#overlay').prop('hidden', false);
             $('#form-visibility').attr('action', route).submit();
         })
     </script>
