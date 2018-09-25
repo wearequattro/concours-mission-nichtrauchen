@@ -4,6 +4,7 @@ namespace App;
 
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Str;
 
@@ -15,6 +16,7 @@ use Illuminate\Support\Str;
  * @property string title
  * @property string text
  * @property string subject
+ * @property Collection dates
  * @property Collection sentEmails
  * @property Carbon created_at
  * @property Carbon updated_at
@@ -24,6 +26,8 @@ use Illuminate\Support\Str;
 class EditableEmail extends Model {
 
     protected $fillable = ['key', 'title', 'text', 'subject'];
+
+    protected $appends = ['dates_string'];
 
     public $incrementing = false;
 
@@ -58,6 +62,21 @@ class EditableEmail extends Model {
 
     public function sentEmails() {
         return $this->hasMany(SentEmail::class);
+    }
+
+    public function dates(): BelongsToMany {
+        return $this->belongsToMany(EditableDate::class);
+    }
+
+    public function getDatesStringAttribute() {
+        return $this
+            ->dates()
+            ->get()
+            ->pluck('value')
+            ->map(function (Carbon $date) {
+                return $date->toDateString();
+            })
+            ->implode(', ');
     }
 
     /**
@@ -100,7 +119,7 @@ class EditableEmail extends Model {
         $text = $this->text;
         foreach (static::getPlaceholders() as $placeholder) {
             /** @var PlaceHolder $placeholder */
-            if(Str::contains($text, $placeholder->key)) {
+            if (Str::contains($text, $placeholder->key)) {
                 $text = str_replace(
                     $placeholder->key,
                     $this->getReplacement($placeholder->key, $teacher, $class),
@@ -120,6 +139,15 @@ class EditableEmail extends Model {
     }
 
     /**
+     * Finds a EditableEmail object by the key in string format.
+     * @param string $key
+     * @return EditableEmail|null
+     */
+    public static function findByKey(string $key) {
+        return static::query()->where('key', $key)->first();
+    }
+
+    /**
      * Replaces the subject with the proper value. Subject should not contain the placeholder delimiter (%).
      * @param string $subject
      * @param Teacher $teacher
@@ -128,29 +156,29 @@ class EditableEmail extends Model {
      */
     public function getReplacement(string $subject, $teacher, $class) {
         $subject = str_replace('%', '', $subject);
-        if($subject === "PROF")
+        if ($subject === "PROF")
             return $teacher->salutation->long_form . ' ' . $teacher->first_name . ' ' . $teacher->last_name;
-        if($subject === "PROF_1")
+        if ($subject === "PROF_1")
             return $teacher->salutation->short_form . ' ' . $teacher->first_name . ' ' . $teacher->last_name;
-        if($subject === "TITRE_LONG")
+        if ($subject === "TITRE_LONG")
             return $teacher->salutation->long_form;
-        if($subject === "TITRE")
+        if ($subject === "TITRE")
             return $teacher->salutation->short_form;
-        if($subject === "PROF_PRENOM")
+        if ($subject === "PROF_PRENOM")
             return $teacher->first_name;
-        if($subject === "PROF_NOM")
+        if ($subject === "PROF_NOM")
             return $teacher->last_name;
-        if($subject === "NOM_CLASSE")
+        if ($subject === "NOM_CLASSE")
             return $class->name;
-        if($subject === "LIEN_LOGIN")
+        if ($subject === "LIEN_LOGIN")
             return route('login');
-        if($subject === "LIEN_DOCUMENTS")
+        if ($subject === "LIEN_DOCUMENTS")
             return route('teacher.documents');
-        if($subject === "LIEN_FETE_INVITE")
+        if ($subject === "LIEN_FETE_INVITE")
             return route('teacher.party');
-        if($subject === "SUIVI_OUI")
+        if ($subject === "SUIVI_OUI")
             return route('follow-up', ['token' => $class->getCurrentToken(), 'status' => 'true']);
-        if($subject === "SUIVI_NON")
+        if ($subject === "SUIVI_NON")
             return route('follow-up', ['token' => $class->getCurrentToken(), 'status' => 'false']);
         return "";
     }
@@ -176,7 +204,7 @@ class EditableEmail extends Model {
         foreach (static::getEmails() as $mail) {
             $key = $mail[0];
             $title = $mail[1];
-            if(static::query()->where('key', $key)->exists())
+            if (static::query()->where('key', $key)->exists())
                 continue;
 
             static::create([
@@ -208,7 +236,7 @@ class PlaceHolder {
     public $previewValue;
 
     public function __construct(string $key, string $previewValue, string $description = "") {
-        $this->key = '%'.$key.'%';
+        $this->key = '%' . $key . '%';
         $this->previewValue = $previewValue;
         $this->description = $description;
     }

@@ -4,6 +4,8 @@ namespace App;
 
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Support\Collection;
 
 /**
  * Class EditableDate
@@ -12,6 +14,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property string key
  * @property string label
  * @property Carbon value
+ * @property Collection emails
  * @property Carbon created_at
  * @property Carbon updated_at
  *
@@ -43,6 +46,10 @@ class EditableDate extends Model {
      */
     public static function find($key) {
         return optional(static::query()->where('key', $key)->first())->value;
+    }
+
+    public function emails(): BelongsToMany {
+        return $this->belongsToMany(EditableEmail::class);
     }
 
     /**
