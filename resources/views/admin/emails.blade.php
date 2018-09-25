@@ -16,9 +16,8 @@
                 <table class="table table-bordered table-striped">
                     <thead>
                     <tr>
-                        <th>Description</th>
-                        <th>Date d'envoi</th>
                         <th>Sujet</th>
+                        <th>Date d'envoi</th>
                         <th>Aper&ccedil;u du texte</th>
                         <th>Actions</th>
                     </tr>
@@ -26,9 +25,8 @@
                     <tbody>
                     @forelse($emails as $email)
                         <tr>
-                            <td>{{ $email->title }}</td>
-                            <td>{{ $email->dates_string }}</td>
                             <td>{{ $email->subject }}</td>
+                            <td>{{ $email->dates_string }}</td>
                             <td>{{ \Illuminate\Support\Str::words(html_entity_decode(strip_tags($email->text)), 15) }}</td>
                             <td>
                                 <a href="{{ route('admin.emails.edit', [$email]) }}" class="btn btn-primary">
