@@ -22,8 +22,8 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    Attention, cette action est irreversible ! Si cette classe est déjà enrégistrée pour la fête de clôture,
-                    les incsriptions sont aussi supprimées.
+                    Attention, cette action est irréversible ! Si cette classe est déjà enregistrée pour la fête de
+                    clôture, les inscriptions sont aussi supprimées.
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn" data-dismiss="modal">Fermer</button>
