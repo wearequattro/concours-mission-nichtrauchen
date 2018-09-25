@@ -20,13 +20,24 @@
 }
 
 .external {
+  background-color: #fff;
 
   .table-striped tbody tr:nth-of-type(odd) {
-    background-color: #eee2c8;
+    background-color: $primary;
   }
 
   table {
-    font-family: 'Roboto Slab', serif; // todo
+    font-family: 'Roboto Slab', serif;
+    th {
+      font-weight: bolder;
+      color: #333333;
+      font-family: 'Oleo Script Swash Caps', cursive;
+      font-size: 1.6em;
+    }
+    td {
+      color: #000;
+      font-size: 1.2em;
+    }
   }
 }
 

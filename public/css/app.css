@@ -10622,35 +10622,63 @@ a.text-dark:focus {
   margin-left: 1rem;
 }
 
-.navbar-laravel {
-  background-color: #fff;
-  -webkit-box-shadow: 0 2px 4px rgba(0, 0, 0, 0.04);
-          box-shadow: 0 2px 4px rgba(0, 0, 0, 0.04);
+@media (min-width: 768px) {
+  .teacher #nav-bg {
+    background-color: #f7f7f7;
+    border-right: 1px solid #ccc;
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    width: 16.666666%;
+  }
 }
 
-.external .table-striped tbody tr:nth-of-type(odd) {
-  background-color: #eee2c8;
+.teacher nav.navbar {
+  z-index: 1000;
 }
 
-.external table {
-  font-family: 'Roboto Slab', serif;
+@media (max-width: 768px) {
+  .teacher nav#sidebar {
+    background-color: #f7f7f7;
+    border-bottom: 1px solid #ccc;
+  }
 }
 
-table.school-classes i {
-  font-size: 1.2em;
+.teacher nav#sidebar li {
+  width: 100%;
 }
 
-.frontend > .container {
-  margin-top: 2.5em;
-  margin-bottom: 4em;
+.teacher nav#sidebar ul {
+  margin-top: 10px;
 }
 
-.bg-multiple-classes {
-  background-color: rgba(251, 235, 165, 0.4) !important;
+.teacher nav#sidebar .nav-link {
+  padding-left: 4px;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  font-weight: bold;
+  color: #333;
 }
 
-.bg-multiple-schools {
-  background-color: rgba(221, 198, 231, 0.4) !important;
+.teacher nav#sidebar .nav-link i {
+  color: #888;
+}
+
+.teacher nav#sidebar .nav-link:hover {
+  color: #333;
+}
+
+.teacher nav#sidebar .nav-link:hover i {
+  color: #000;
+}
+
+.teacher nav#sidebar .nav-link.active {
+  color: #fab234;
+}
+
+.teacher nav#sidebar .nav-link.active i {
+  color: #fab234;
 }
 
 .frontend {
@@ -10733,6 +10761,52 @@ table.school-classes i {
   color: #fff;
 }
 
+.navbar-laravel {
+  background-color: #fff;
+  -webkit-box-shadow: 0 2px 4px rgba(0, 0, 0, 0.04);
+          box-shadow: 0 2px 4px rgba(0, 0, 0, 0.04);
+}
+
+.external {
+  background-color: #fff;
+}
+
+.external .table-striped tbody tr:nth-of-type(odd) {
+  background-color: #FAB234;
+}
+
+.external table {
+  font-family: 'Roboto Slab', serif;
+  font-size: 1.1em;
+}
+
+.external table th {
+  font-weight: bolder;
+  color: #333333;
+  font-family: 'Oleo Script Swash Caps', cursive;
+}
+
+.external table td {
+  color: #777777;
+}
+
+table.school-classes i {
+  font-size: 1.2em;
+}
+
+.frontend > .container {
+  margin-top: 2.5em;
+  margin-bottom: 4em;
+}
+
+.bg-multiple-classes {
+  background-color: rgba(251, 235, 165, 0.4) !important;
+}
+
+.bg-multiple-schools {
+  background-color: rgba(221, 198, 231, 0.4) !important;
+}
+
 .btn-primary {
   color: #fff;
 }
@@ -10744,64 +10818,5 @@ table.school-classes i {
 .display-4,
 .display-5 {
   font-family: 'Oleo Script Swash Caps', cursive;
-}
-
-@media (min-width: 768px) {
-  .teacher #nav-bg {
-    background-color: #f7f7f7;
-    border-right: 1px solid #ccc;
-    position: fixed;
-    top: 0;
-    left: 0;
-    bottom: 0;
-    width: 16.666666%;
-  }
-}
-
-.teacher nav.navbar {
-  z-index: 1000;
-}
-
-@media (max-width: 768px) {
-  .teacher nav#sidebar {
-    background-color: #f7f7f7;
-    border-bottom: 1px solid #ccc;
-  }
-}
-
-.teacher nav#sidebar li {
-  width: 100%;
-}
-
-.teacher nav#sidebar ul {
-  margin-top: 10px;
-}
-
-.teacher nav#sidebar .nav-link {
-  padding-left: 4px;
-  padding-top: 8px;
-  padding-bottom: 8px;
-  font-weight: bold;
-  color: #333;
-}
-
-.teacher nav#sidebar .nav-link i {
-  color: #888;
-}
-
-.teacher nav#sidebar .nav-link:hover {
-  color: #333;
-}
-
-.teacher nav#sidebar .nav-link:hover i {
-  color: #000;
-}
-
-.teacher nav#sidebar .nav-link.active {
-  color: #fab234;
-}
-
-.teacher nav#sidebar .nav-link.active i {
-  color: #fab234;
 }
 

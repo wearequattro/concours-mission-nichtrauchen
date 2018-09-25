@@ -7,8 +7,8 @@
     <link rel="stylesheet" href="{{ asset('css/app.css') }}">
     <title>@yield('title')</title>
 </head>
-<body>
-<div class="container-fluid external">
+<body class="external">
+<div class="container-fluid p-0">
 
     <table class="table table-bordered table-striped">
         <thead>
