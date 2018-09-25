@@ -7,6 +7,7 @@ use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Support\Collection;
 use Session;
 
 /**
@@ -51,6 +52,15 @@ class User extends Authenticatable {
 
     public function teacher(): BelongsTo {
         return $this->belongsTo(Teacher::class);
+    }
+
+    /**
+     * Finds all users of the given type.
+     * @param string $type
+     * @return Collection Collection of {@link User} objects
+     */
+    public static function findByType(string $type) {
+        return static::query()->where('type', $type)->get();
     }
 
     public function updatePassword($password) {

@@ -76,6 +76,7 @@
                     @if($show_party)
                     <th>Inscrire &agrave; la f&ecirc;te</th>
                     @endif
+                    <th>Actions</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -96,6 +97,11 @@
                         @if($show_party)
                         <td>{{ statusToIcon($class->status_party) }}</td>
                         @endif
+                        <td>
+                            <a href="{{ route('teacher.classes.edit', [$class]) }}" class="btn btn-primary">
+                                <i class="fa fa-pencil fa-fw"></i>
+                            </a>
+                        </td>
                     </tr>
                 @empty
                     <tr>

@@ -8,12 +8,16 @@ use App\EditableEmail;
 use App\Http\Requests\PartyGroupRegistrationRequest;
 use App\Http\Requests\ProfileUpdateRequest;
 use App\Http\Requests\SchoolClassCreateRequest;
+use App\Http\Requests\TeacherUpdateClassRequest;
 use App\Mail\CustomEmail;
+use App\Mail\TeacherUpdatedClassMail;
 use App\PartyGroup;
 use App\Salutation;
 use App\School;
 use App\SchoolClass;
+use App\User;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Validation\ValidationException;
 
@@ -59,6 +63,27 @@ class TeacherController extends Controller {
         return view('teacher.classes-add')->with([
             'schools' => School::all(),
         ]);
+    }
+
+    function classesEdit(SchoolClass $class) {
+        return view('teacher.classes-edit')->with([
+            'class' => $class
+        ]);
+    }
+
+    function classesEditPost(TeacherUpdateClassRequest $request, SchoolClass $class) {
+        $old = [
+            'name' => $class->name,
+            'students' => $class->students,
+        ];
+        $class->update($request->validated());
+        $new = [
+            'name' => $class->name,
+            'students' => $class->students,
+        ];
+        \Mail::to(User::findByType(User::TYPE_ADMIN)->pluck('email'))
+            ->queue(new TeacherUpdatedClassMail(Auth::user()->teacher, $old, $new));
+        return redirect()->route('teacher.classes');
     }
 
     function classesAddPost(SchoolClassCreateRequest $request) {

@@ -32,6 +32,8 @@ Route::group(['middleware' => ['auth', 'teacher']], function () {
     Route::get('/teacher/profile', 'TeacherController@profile')->name('teacher.profile');
     Route::post('/teacher/profile', 'TeacherController@profilePost')->name('teacher.profile.post');
     Route::get('/teacher/classes', 'TeacherController@classes')->name('teacher.classes');
+    Route::get('/teacher/classes/{class}/edit', 'TeacherController@classesEdit')->name('teacher.classes.edit');
+    Route::post('/teacher/classes/{class}/edit', 'TeacherController@classesEditPost')->name('teacher.classes.edit.post');
     Route::get('/teacher/classes/add', 'TeacherController@classesAdd')->name('teacher.classes.add');
     Route::post('/teacher/classes/add', 'TeacherController@classesAddPost')->name('teacher.classes.add.post');
     Route::post('/teacher/classes/add', 'TeacherController@classesAddPost')->name('teacher.classes.add.post');
