@@ -106,6 +106,9 @@
                         <a href="{{ route('admin.documents.download', [$document]) }}" class="btn btn-primary">
                             <i class="fa fa-fw fa-download text-white"></i>
                         </a>
+                        <a href="{{ route('admin.documents.edit', [$document]) }}" class="btn btn-primary">
+                            <i class="fa fa-fw fa-pencil text-white"></i>
+                        </a>
                         <a href="{{ route('admin.documents.delete', [$document]) }}" class="btn btn-danger">
                             <i class="fa fa-fw fa-trash-o text-white"></i>
                         </a>

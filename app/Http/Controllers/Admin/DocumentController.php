@@ -3,8 +3,10 @@ namespace App\Http\Controllers\Admin;
 
 use App\Document;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\AdminDocumentUpdateRequest;
 use App\Http\Requests\AdminDocumentUploadRequest;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Storage;
 
 class DocumentController extends Controller {
@@ -44,6 +46,18 @@ class DocumentController extends Controller {
     public function documentsDelete(Document $document) {
         Storage::delete($document->filename);
         $document->delete();
+        return redirect()->route('admin.documents');
+    }
+
+    public function edit(Document $document) {
+        return view('admin.documents-edit')->with([
+            'document' => $document,
+        ]);
+    }
+
+    public function editUpdate(AdminDocumentUpdateRequest $request, Document $document) {
+        $document->update($request->validated());
+        Session::flash('message', 'Mise à jour réussie');
         return redirect()->route('admin.documents');
     }
 
