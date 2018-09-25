@@ -17,7 +17,7 @@
             <select required name="teacher_salutation" id="teacher_salutation"
                     class="form-control {{ inputValidationClass($errors, 'teacher_salutation') }}">
                 @foreach($salutations as $s)
-                    <option value="{{ $s->id }}">{{ $s->long_form }}</option>
+                    <option value="{{ $s->id }}" {{ old('teacher_salutation') == $s->id ? 'selected' : '' }}>{{ $s->long_form }}</option>
                 @endforeach
             </select>
             <div class="invalid-feedback">
