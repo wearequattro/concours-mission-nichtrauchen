@@ -21,7 +21,7 @@ class EditableEmailsAddNewsletter extends Migration {
 <p>Bien cordialement,</p>
 <p>L&rsquo;&eacute;quipe de la Fondation Cancer.</p>',
             ],
-            \App\EditableEmail::$MAIL_CONTEST_START[0] => [
+            \App\EditableEmail::$MAIL_NEWSLETTER_START[0] => [
                 'subject' => 'Concours début',
                 'text' => '<p>%PROF%,</p>
 <p>Le concours Mission Nichtrauchen 2018/2019 commence aujourd&rsquo;hui, lundi 1 octobre.</p>
@@ -78,10 +78,6 @@ class EditableEmailsAddNewsletter extends Migration {
 <p>Un grand bravo aux heureux gagnants, &agrave; tous vos &eacute;l&egrave;ves... et &agrave; vous sans qui cette<br />action n&rsquo;aurait pas &eacute;t&eacute; possible !<br />Un certificat de r&eacute;ussite de la Mission Nichtrauchen sera envoy&eacute; par courrier &agrave;<br />toutes les classes finalistes.</p>
 <p>les photos sont en ligne sur notre <a href="https://www.flickr.com/photos/fondationcancer/sets/72157667793781827/">galerie photo</a>.<br />En annexe, vous trouverez &eacute;galement les r&eacute;sultats du rallye ainsi que les solutions<br />des diff&eacute;rentes stations &laquo; quiz &raquo;.</p>
 <p>Bien cordialement,<br />L&rsquo;&eacute;quipe de la Fondation Cancer.</p>',
-            ],
-            \App\EditableEmail::$MAIL_NEWSLETTER_START[0] => [
-                'subject' => 'Newsletter début',
-                'text' => '',
             ],
             \App\EditableEmail::$MAIL_NEWSLETTER_ENCOURAGEMENT[0] => [
                 'subject' => 'Newsletter encouragement',

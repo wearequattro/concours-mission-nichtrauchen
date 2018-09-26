@@ -35,20 +35,18 @@ class EditableEmail extends Model {
     protected $keyType = 'string';
 
     public static $MAIL_TEACHER_CONFIRMATION = ["teacher_confirmation", "Email de confirmation dès que l'enseignant s'inscris"];
-    public static $MAIL_CONTEST_START = ["contest_start", "Message pour le début du concours"];
     public static $MAIL_FOLLOW_UP = ["follow_up", "Message de suivi et rappel aux professeurs"];
     public static $MAIL_FOLLOW_UP_YES = ["follow_up_yes", "Réponse positive du suivi"];
     public static $MAIL_FOLLOW_UP_NO = ["follow_up_no", "Réponse négative du suivi"];
     public static $MAIL_FOLLOW_UP_YES_INVITE_PARTY = ["follow_up_yes_invite_party", "Réponse positive du suivi et invitation au fête de clôture"];
     public static $MAIL_PARTY_CONFIRMATION = ["party_confirmation", "Confirmation de participation à la fête de clôture"];
     public static $MAIL_FINAL = ["final", "Mail final"];
-    public static $MAIL_NEWSLETTER_START = ["newsletter_start", "Newsletter début"];
+    public static $MAIL_NEWSLETTER_START = ["newsletter_start", "Message pour le début du concours"];
     public static $MAIL_NEWSLETTER_ENCOURAGEMENT = ["newsletter_encouragement", "Newsletter d'encouragement"];
 
     public static function getEmails() {
         return collect([
             static::$MAIL_TEACHER_CONFIRMATION,
-            static::$MAIL_CONTEST_START,
             static::$MAIL_FOLLOW_UP,
             static::$MAIL_FOLLOW_UP_YES,
             static::$MAIL_FOLLOW_UP_NO,
