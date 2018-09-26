@@ -11,7 +11,6 @@
                 <div class="card mb-3">
                     <div class="card-header">{{ $document->title }}</div>
                     <div class="card-body">
-                        <h5 class="card-title">{{ $document->title }}</h5>
                         <p class="card-text">{{ $document->description }}</p>
                         <a href="{{ route('teacher.documents.download', [$document]) }}" target="_blank" download class="card-link btn btn-primary">
                             <i class="fa fa-fw fa-download text-white"></i>
