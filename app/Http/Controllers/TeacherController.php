@@ -99,7 +99,7 @@ class TeacherController extends Controller {
 
     function documents() {
         return view('teacher.documents')->with([
-            'documents' => Document::query()->where('visible', 1)->get(),
+            'documents' => Document::query()->where('visible', 1)->get()->sortBy('sort'),
         ]);
     }
 
@@ -126,7 +126,7 @@ class TeacherController extends Controller {
             });
         return view('teacher.party')->with([
             'classes' => $classes,
-            'documents' => Document::query()->where('visible_party', 1)->get(),
+            'documents' => Document::query()->where('visible_party', 1)->get()->sortBy('sort'),
         ]);
     }
 

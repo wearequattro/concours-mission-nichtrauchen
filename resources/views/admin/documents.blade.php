@@ -85,6 +85,7 @@
         <table class="table table-bordered table-striped">
             <thead>
             <tr>
+                <th></th>
                 <th>Nom du fichier</th>
                 <th>Description</th>
                 <th>Visible pour enseignants ?</th>
@@ -95,6 +96,7 @@
             <tbody>
             @forelse($documents as $document)
                 <tr>
+                    <td>{{ $document->sort }}</td>
                     <td>{{ $document->title }}</td>
                     <td>{{ $document->description }}</td>
                     <td>
@@ -115,6 +117,12 @@
                         </a>
                         <a href="{{ route('admin.documents.edit', [$document]) }}" class="btn btn-primary">
                             <i class="fa fa-fw fa-pencil text-white"></i>
+                        </a>
+                        <a href="{{ route('admin.documents.moveUp', [$document]) }}" class="btn btn-info">
+                            <i class="fa fa-fw fa-arrow-up text-white"></i>
+                        </a>
+                        <a href="{{ route('admin.documents.moveDown', [$document]) }}" class="btn btn-info">
+                            <i class="fa fa-fw fa-arrow-down text-white"></i>
                         </a>
                         <a href="{{ route('admin.documents.delete', [$document]) }}" class="btn btn-danger">
                             <i class="fa fa-fw fa-trash-o text-white"></i>

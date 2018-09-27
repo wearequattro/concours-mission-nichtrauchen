@@ -77,6 +77,8 @@ Route::group(['middleware' => ['auth', 'admin']], function () {;
         Route::post('/admin/documents/{document}/edit', 'DocumentController@editUpdate')->name('admin.documents.update');
         Route::get('/admin/documents/{document}/download', 'DocumentController@documentsDownload')->name('admin.documents.download');
         Route::get('/admin/documents/{document}/delete', 'DocumentController@documentsDelete')->name('admin.documents.delete');
+        Route::get('/admin/documents/{document}/moveUp', 'DocumentController@moveUp')->name('admin.documents.moveUp');
+        Route::get('/admin/documents/{document}/moveDown', 'DocumentController@moveDown')->name('admin.documents.moveDown');
 
         Route::get('/admin/party', 'PartyController@party')->name('admin.party');
         Route::get('/admin/party/export', 'PartyExportController@export')->name('admin.party.export');

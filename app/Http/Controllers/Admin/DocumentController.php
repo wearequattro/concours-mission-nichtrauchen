@@ -13,7 +13,7 @@ class DocumentController extends Controller {
 
     public function documents() {
         return view('admin.documents')->with([
-            'documents' => Document::all(),
+            'documents' => Document::all()->sortBy('sort'),
         ]);
     }
 
@@ -21,11 +21,21 @@ class DocumentController extends Controller {
         $data = $request->validated();
         $name = \Storage::putFile("documents", $request->file('file'));
 
-        Document::create([
-            'title' => $data['title'],
-            'description' => $data['description'] ?? '',
-            'filename' => $name,
-        ]);
+        Document::createLast(
+            $data['title'],
+            $data['description'] ?? '',
+            $name
+        );
+        return redirect()->route('admin.documents');
+    }
+
+    public function moveUp(Document $document) {
+        $document->moveUp();
+        return redirect()->route('admin.documents');
+    }
+
+    public function moveDown(Document $document) {
+        $document->moveDown();
         return redirect()->route('admin.documents');
     }
 

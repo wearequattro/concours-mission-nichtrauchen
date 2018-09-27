@@ -21,24 +21,21 @@ class UpdateEditableEmailsAddDate extends Migration {
                 ->onUpdate('cascade')->onDelete('cascade');
         });
         $emailDates = [
-            'teacher_confirmation' => [
+            \App\EditableEmail::$MAIL_TEACHER_CONFIRMATION[0] => [
                 'TEACHER_INSCRIPTION_START',
             ],
-            'contest_start' => [
-                'TEACHER_INSCRIPTION_END',
-            ],
-            'follow_up' => [
+            \App\EditableEmail::$MAIL_FOLLOW_UP[0] => [
                 'FOLLOW_UP_1',
                 'FOLLOW_UP_2',
                 'FOLLOW_UP_3',
             ],
-            'final' => [
+            \App\EditableEmail::$MAIL_FINAL[0] => [
                 'FINAL_MAIL',
             ],
-            'newsletter_start' => [
+            \App\EditableEmail::$MAIL_NEWSLETTER_START[0] => [
                 'NEWSLETTER_START',
             ],
-            'newsletter_encouragement' => [
+            \App\EditableEmail::$MAIL_NEWSLETTER_ENCOURAGEMENT[0] => [
                 'NEWSLETTER_ENCOURAGEMENT',
             ],
         ];
