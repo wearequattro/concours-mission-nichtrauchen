@@ -25,7 +25,7 @@ class CreateSalutationsTable extends Migration {
             ],
             [
                 'long_form' => 'Madame',
-                'short_form' => 'Mme.',
+                'short_form' => 'Mme',
             ],
         ];
 
