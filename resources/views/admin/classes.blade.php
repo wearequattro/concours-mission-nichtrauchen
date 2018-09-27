@@ -48,11 +48,13 @@
                         $countClasses = $classes->count();
                         $countTeacher = $classes->pluck('teacher')->unique()->count();
                         $countSchool = $classes->pluck('school')->unique()->count();
+                        $countStudents = $classes->sum('students');
                     @endphp
                     <p>
                         L'export contiendra <strong>{{ $countClasses }} {{ $countClasses > 1 ? 'classes' : 'classe' }}</strong>,
                         <strong>{{ $countTeacher }} {{ $countTeacher > 1 ? 'enseignants' : 'enseignant' }}</strong>,
-                        <strong>{{ $countSchool }} {{ $countSchool > 1 ? 'lycées' : 'lycée' }}</strong>.
+                        <strong>{{ $countSchool }} {{ $countSchool > 1 ? 'lycées' : 'lycée' }}</strong>,
+                        <strong>{{ $countStudents }} {{ $countStudents > 1 ? 'étudiants' : 'étudiant' }}</strong>.
                     </p>
                     <a class="btn btn-primary" href="{{ route('admin.classes.export') }}">
                         Exporter
