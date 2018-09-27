@@ -206,6 +206,7 @@ class SchoolClass extends Model {
             $dbFieldStatus = 'status_' . $whichStatus; // status_january
             $class = static::query()->where($dbFieldToken, $token)->first();
             if ($class != null) {
+                \Log::info('Follow up response is for status: ' . $dbFieldStatus . ' and class ' . $class->toJson());
                 $class->update([
                     $dbFieldToken => null,
                     $dbFieldStatus => $newStatus,
@@ -215,6 +216,8 @@ class SchoolClass extends Model {
                 break;
             }
         }
+        if(!$wasStatusChanged)
+            \Log::warning('Status was not changed, token may not be correct. Token: ' . $token);
         return $wasStatusChanged;
     }
 
@@ -227,12 +230,15 @@ class SchoolClass extends Model {
         $mailToSend = null;
         if($newStatus === false) { // no
             if (in_array($whichStatus, [static::STATUS_JANUARY, static::STATUS_MARCH, static::STATUS_MAY])) {
+                \Log::info('Sending negative response to follow up ' . $whichStatus);
                 $mailToSend = EditableEmail::$MAIL_FOLLOW_UP_NO;
             }
         } else { // yes
             if (in_array($whichStatus, [static::STATUS_JANUARY, static::STATUS_MARCH])) {
+                \Log::info('Sending positive response to follow up ' . $whichStatus);
                 $mailToSend = EditableEmail::$MAIL_FOLLOW_UP_YES;
             } else if($whichStatus === static::STATUS_MAY) {
+                \Log::info('Sending positive response and invite to party ');
                 $mailToSend = EditableEmail::$MAIL_FOLLOW_UP_YES_INVITE_PARTY;
             }
         }
@@ -275,7 +281,7 @@ class SchoolClass extends Model {
             return $this->march_token;
         if($this->may_token != null)
             return $this->may_token;
-        \Log::warning('user has no token. ' . $this->toJson());
+        \Log::error('SchoolClass has no token. ' . $this->toJson());
         return "";
     }
 
@@ -302,6 +308,8 @@ class SchoolClass extends Model {
         if($this->__get($status . '_reminder_sent_at') === null) {
             $this->update([$status . '_token' => Uuid::uuid4()->toString()]);
         }
+        \Log::info('Sending follow up reminder for ' . $status . ' to ' . $this->teacher->user->email
+            . ' for class ' . $this->toJson());
         $this->update([
             $status . '_reminder_sent_at' => Carbon::now(),
         ]);

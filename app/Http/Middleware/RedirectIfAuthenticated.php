@@ -4,6 +4,7 @@ namespace App\Http\Middleware;
 
 use App\User;
 use Closure;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 class RedirectIfAuthenticated
@@ -21,8 +22,10 @@ class RedirectIfAuthenticated
         if (Auth::guard($guard)->check()) {
             if(Auth::user()->teacher !== null)
                 return redirect()->route('teacher.classes');
-            if(Auth::user()->type === User::TYPE_ADMIN)
+            if(Auth::user()->type === User::TYPE_ADMIN) {
+                \Log::info('Admin logged in: ' . \Auth::user()->toJson() . ' from ip ' . Request::capture()->ip());
                 return redirect()->route('admin.classes');
+            }
             return redirect('/');
         }
 

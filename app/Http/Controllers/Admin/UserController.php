@@ -28,6 +28,7 @@ class UserController extends Controller {
             'password' => Hash::make($data['password']),
             'type' => User::TYPE_ADMIN,
         ]);
+        \Log::info(\Auth::user()->email . ' created a new admin: ' . $data['email']);
         Session::flash('message', 'Utilisateur ajouté avec succès');
         return redirect()->route('admin.users');
     }

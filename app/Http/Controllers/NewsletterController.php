@@ -26,17 +26,15 @@ class NewsletterController extends Controller {
     private function send(Collection $teachers, string $dateIdentifier, array $mailIdentifier) {
         $date = EditableDate::find($dateIdentifier);
         $mail = EditableEmail::find($mailIdentifier);
-        \Log::info("Trying to send mail " . $mail->key);
         // is start date today?
         if (!$date->isCurrentDay()) {
-            \Log::info("$date is not today.. exiting");
             return;
         }
 
         if (Carbon::now()->hour != NewsletterController::sendingHour) {
-            \Log::info(Carbon::now()->hour . " is not the sending hour (" . NewsletterController::sendingHour . ")");
             return;
         }
+        \Log::info('Sending ' . $mailIdentifier[0]);
 
         $teachers->each(function (Teacher $teacher) use ($mail) {
             $shouldSend = !$mail->isSentToUser($teacher->user);

@@ -29,6 +29,7 @@ class TeacherRegisterController extends Controller {
         Auth::login($teacher->user);
         \Mail::to($teacher->user->email)
             ->queue(new CustomEmail(EditableEmail::find(EditableEmail::$MAIL_TEACHER_CONFIRMATION), $teacher, null));
+        \Log::info('Teacher registered: ' . $teacher->full_name);
         return redirect()->route('teacher.classes');
     }
 

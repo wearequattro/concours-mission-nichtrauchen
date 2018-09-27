@@ -8,12 +8,12 @@ use Illuminate\Support\Facades\Log;
 class FollowUpController extends Controller {
 
     public function setFollowUpStatus(string $token, $status) {
+        Log::info('Teacher responded to follow up');
         SchoolClass::setFollowUpStatus($token, $status === "true");
         return redirect()->route('login.redirect');
     }
 
     public function sendFollowUpForAll() {
-        Log::info("Starting follow up sending");
         SchoolClass::all()->each(function (SchoolClass $class) {
             $this->sendFollowUp($class);
         });

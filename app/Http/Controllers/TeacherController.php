@@ -93,7 +93,8 @@ class TeacherController extends Controller {
         $data = $request->validated();
         $teacher = \Auth::user()->teacher;
         $school = School::findOrFail($request['class_school']);
-        SchoolClass::createForTeacher($teacher, $data['class_name'], $data['class_students'], $school);
+        $c = SchoolClass::createForTeacher($teacher, $data['class_name'], $data['class_students'], $school);
+        \Log::info('Teacher created class: ' . $c->toJson());
         return redirect()->route('teacher.classes');
     }
 
@@ -150,7 +151,7 @@ class TeacherController extends Controller {
         if (collect($data)->sum('students') > $class->students) {
             $errors = [];
             for ($i = 0; $i < sizeof($data); $i++) {
-                $errors['class.'.$i.'.students'] = ['La somme des étudiants des groupes doit être inférieur au nombre d\'étudiants de la classe'];
+                $errors['class.'.$i.'.students'] = ['La somme des étudiants des groupes doit être égal ou inférieur au nombre d\'étudiants de la classe'];
             }
             throw ValidationException::withMessages($errors);
         }
@@ -165,6 +166,7 @@ class TeacherController extends Controller {
                 'school_class_id' => $class->id,
             ]);
         }
+        \Log::info('Teacher ' . $class->teacher->full_name . ' registered ' . sizeof($data) . ' groups to the final party');
         \Mail::to($class->teacher->user->email)
             ->queue(new CustomEmail(EditableEmail::find(EditableEmail::$MAIL_PARTY_CONFIRMATION), $class->teacher, $class));
         return redirect()->route('teacher.party');

@@ -44,6 +44,7 @@ class LoginController extends Controller
             if(\Auth::user()->type === User::TYPE_TEACHER && \Auth::user()->teacher !== null) {
                 return redirect()->route('teacher.classes');
             } else if(\Auth::user()->type === User::TYPE_ADMIN) {
+                \Log::info('Admin logged in: ' . \Auth::user()->toJson() . ' from ip ' . Request::capture()->ip());
                 return redirect()->route('admin.classes');
             }
         }
