@@ -35,7 +35,7 @@ return [
     'channels' => [
         'stack' => [
             'driver' => 'stack',
-            'channels' => ['single', env('APP_ENV') == 'local' ? '' : 'bugsnag'],
+            'channels' => ['single', 'bugsnag'],
         ],
 
         // Create a bugsnag logging channel:
