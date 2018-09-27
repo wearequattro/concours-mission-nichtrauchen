@@ -15,7 +15,7 @@
 
         body {
             background-color: #f6f6f6;
-            font-family: sans-serif;
+            font-family: 'Calibri', sans-serif;
             -webkit-font-smoothing: antialiased;
             font-size: 14px;
             line-height: 1.4;
@@ -30,7 +30,7 @@
             mso-table-rspace: 0pt;
             width: 100%; }
         table td {
-            font-family: sans-serif;
+            font-family: 'Calibri', sans-serif;
             font-size: 14px;
             vertical-align: top; }
 
@@ -97,7 +97,7 @@
         h3,
         h4 {
             color: #000000;
-            font-family: sans-serif;
+            font-family: 'Calibri', sans-serif;
             font-weight: 400;
             line-height: 1.4;
             margin: 0;
@@ -111,7 +111,7 @@
         p,
         ul,
         ol {
-            font-family: sans-serif;
+            font-family: 'Calibri', sans-serif;
             font-size: 14px;
             font-weight: normal;
             margin: 0;
