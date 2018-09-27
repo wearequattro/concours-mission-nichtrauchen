@@ -9,7 +9,9 @@ class ExternalController extends Controller {
 
     public function classes() {
         return view('external.classes')->with([
-            'classes' => SchoolClass::all()->sortBy('school.name'),
+            'classes' => SchoolClass::all()->sortBy(function (SchoolClass $class) {
+                return $class->school->name . $class->teacher->last_name;
+            }),
         ]);
     }
 
