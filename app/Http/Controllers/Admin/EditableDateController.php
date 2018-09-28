@@ -22,6 +22,9 @@ class EditableDateController extends Controller {
             EditableDate::query()->where('key', $key)->update(['value' => $value]);
         }
         Session::flash('message', 'Mise à jour réussie');
+        // If posting from admin.emails then return there, otherwise return to admin.dates
+        if(back()->getTargetUrl() == route('admin.emails'))
+            return redirect()->route('admin.emails');
         return redirect()->route('admin.dates');
     }
 

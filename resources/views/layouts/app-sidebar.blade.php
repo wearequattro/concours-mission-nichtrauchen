@@ -102,6 +102,8 @@
                             E-mails
                         </a>
                     </li>
+                    {{--
+                    Disabled because merging with emails route
                     <li class="nav-item">
                         <a href="{{ route('admin.dates') }}"
                            class="nav-link {{ Route::currentRouteName() == 'admin.dates' ? 'active' : '' }}">
@@ -109,6 +111,7 @@
                             Dates
                         </a>
                     </li>
+                    --}}
                     <li class="nav-item">
                         <a href="{{ route('admin.documents') }}"
                            class="nav-link {{ Route::currentRouteName() == 'admin.documents' ? 'active' : '' }}">
