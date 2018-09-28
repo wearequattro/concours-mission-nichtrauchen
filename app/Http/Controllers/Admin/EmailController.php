@@ -6,13 +6,18 @@ use App\EditableEmail;
 use App\Http\Requests\AdminDateUpdateRequest;
 use App\Http\Requests\AdminEmailsUpdateRequest;
 use App\PlaceHolder;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\Session;
 
 class EmailController {
 
     public function emails() {
         return view('admin.emails')->with([
-            'emails' => EditableEmail::all(),
+            'emails' => EditableEmail::all()->sortBy(function (EditableEmail $editableEmail) {
+                if($editableEmail->dates()->first() == null)
+                    return Carbon::maxValue()->timestamp;
+                return $editableEmail->dates()->first()->value->timestamp;
+            }),
             'dates' => EditableDate::query()->orderBy('value')->get(),
         ]);
     }
