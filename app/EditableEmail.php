@@ -41,8 +41,8 @@ class EditableEmail extends Model {
     public static $MAIL_FOLLOW_UP_YES_INVITE_PARTY = ["follow_up_yes_invite_party", "Réponse positive du suivi et invitation au fête de clôture"];
     public static $MAIL_PARTY_CONFIRMATION = ["party_confirmation", "Confirmation de participation à la fête de clôture"];
     public static $MAIL_FINAL = ["final", "Mail final"];
-    public static $MAIL_NEWSLETTER_START = ["newsletter_start", "Message pour le début du concours"];
-    public static $MAIL_NEWSLETTER_ENCOURAGEMENT = ["newsletter_encouragement", "Newsletter d'encouragement"];
+    public static $MAIL_NEWSLETTER_START = ["newsletter_start", "Début du concours Mission Nichtrauchen"];
+    public static $MAIL_NEWSLETTER_ENCOURAGEMENT = ["newsletter_encouragement", "Bravo – plus que 13 semaines... !"];
 
     public static function getEmails() {
         return collect([
@@ -210,6 +210,25 @@ class EditableEmail extends Model {
                 'title' => $title,
                 'text' => '',
             ]);
+        }
+
+    }
+
+    public static function updateEmails() {
+        foreach (static::getEmails() as $mail) {
+            $key = $mail[0];
+            $title = $mail[1];
+            if (static::query()->where('key', $key)->exists()) {
+                static::query()->where('key', $key)->update([
+                    'title' => $title,
+                ]);
+            } else {
+                static::create([
+                    'key' => $key,
+                    'title' => $title,
+                    'text' => '',
+                ]);
+            }
         }
 
     }
