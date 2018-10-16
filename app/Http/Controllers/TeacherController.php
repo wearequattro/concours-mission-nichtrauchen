@@ -81,8 +81,9 @@ class TeacherController extends Controller {
             'name' => $class->name,
             'students' => $class->students,
         ];
-        \Mail::to(User::findByType(User::TYPE_ADMIN)->pluck('email'))
-            ->queue(new TeacherUpdatedClassMail(Auth::user()->teacher, $old, $new));
+        if($old != $new)
+            \Mail::to(User::findByType(User::TYPE_ADMIN)->pluck('email'))
+                ->queue(new TeacherUpdatedClassMail(Auth::user()->teacher, $old, $new));
         return redirect()->route('teacher.classes');
     }
 
