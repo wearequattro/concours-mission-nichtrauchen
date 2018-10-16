@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\EditableDate;
 use App\EditableEmail;
 use App\Http\Requests\TeacherRegisterRequest;
 use App\Mail\CustomEmail;
@@ -12,6 +13,9 @@ use Illuminate\Support\Facades\Auth;
 class TeacherRegisterController extends Controller {
 
     function start() {
+        if(!isRegistrationOpen())
+            return view('teacher.register-closed');
+
         return view('teacher.register')->with([
             'salutations' => Salutation::all(),
         ]);
