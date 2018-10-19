@@ -83,6 +83,12 @@ class SchoolSeeder extends Seeder {
                 "LUXEMBOURG"
             ],
             [
+                "IZIGERSTEE VTT",
+                "rue d’Itzig",
+                "L-1816",
+                "LUXEMBOURG"
+            ],
+            [
                 "LENSTER LYCEE",
                 "2, rue Victor Ferrant",
                 "L-6122",
