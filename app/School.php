@@ -3,6 +3,7 @@
 namespace App;
 
 use Carbon\Carbon;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Collection;
 
@@ -31,6 +32,13 @@ class School extends Model {
         'postal_code',
         'city',
     ];
+
+    protected static function boot() {
+        parent::boot();
+        static::addGlobalScope(function (Builder $builder) {
+            return $builder->orderBy('name');
+        });
+    }
 
     protected $appends = ['full_address'];
 
