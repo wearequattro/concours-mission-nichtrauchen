@@ -95,6 +95,7 @@ class ClassExportController extends Controller {
                 ->setColor(new Color(Color::COLOR_BLACK));
             $sheet->getStyle("A$row")->getFill()->setFillType(Fill::FILL_SOLID)->setStartColor(new Color('FFFCD5B4'));
             $sheet->getCell("J$row")->setDataType(DataType::TYPE_STRING);
+            $sheet->getCell("K$row")->setDataType(DataType::TYPE_STRING);
         });
     }
 
@@ -126,7 +127,7 @@ class ClassExportController extends Controller {
         $sheet->getStyle("A$row:P$row")->getAlignment()->setHorizontal(Alignment::HORIZONTAL_CENTER);
 
 
-        $sheet->setAutoFilter('A1:N' . ($classes + 1));
+        $sheet->setAutoFilter('A1:P' . ($classes + 1));
     }
 
     private function statusToString($status) {
