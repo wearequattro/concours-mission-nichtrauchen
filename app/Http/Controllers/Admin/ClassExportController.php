@@ -43,9 +43,11 @@ class ClassExportController extends Controller {
             'ADRESSE',
             'CODE POSTAL',
             'VILLE',
+            'SALUTATION',
             'NOMPROF',
             'PRENOMPROF',
             'EMAIL',
+            'NUMÉRO TÉLÉPHONE',
             'CLASSE',
             'NOMBRE D\'ELEVES',
             'JANVIER',
@@ -60,11 +62,11 @@ class ClassExportController extends Controller {
             $sheet->setCellValue($cell, $headers[$i]);
             $sheet->getColumnDimension($letter)->setAutoSize(true);
         }
-        $sheet->getStyle('A1:N1')->getAlignment()->setHorizontal(Alignment::HORIZONTAL_CENTER);
-        $sheet->getStyle('A1:N1')->getAlignment()->setVertical(Alignment::VERTICAL_CENTER);
-        $sheet->getStyle('A1:N1')->getFont()->setBold(true);
-        $sheet->getStyle('A1:N1')->getFill()->setFillType(Fill::FILL_SOLID)->setStartColor(new Color('FFFCD5B4'));
-        $sheet->getStyle('A1:N1')->getBorders()->getAllBorders()->setBorderStyle(Border::BORDER_THIN)
+        $sheet->getStyle('A1:P1')->getAlignment()->setHorizontal(Alignment::HORIZONTAL_CENTER);
+        $sheet->getStyle('A1:P1')->getAlignment()->setVertical(Alignment::VERTICAL_CENTER);
+        $sheet->getStyle('A1:P1')->getFont()->setBold(true);
+        $sheet->getStyle('A1:P1')->getFill()->setFillType(Fill::FILL_SOLID)->setStartColor(new Color('FFFCD5B4'));
+        $sheet->getStyle('A1:P1')->getBorders()->getAllBorders()->setBorderStyle(Border::BORDER_THIN)
             ->setColor(new Color(Color::COLOR_BLACK));
     }
 
@@ -76,16 +78,18 @@ class ClassExportController extends Controller {
             $sheet->setCellValue("C$row", $class->school->address);
             $sheet->setCellValue("D$row", $class->school->postal_code);
             $sheet->setCellValue("E$row", $class->school->city);
-            $sheet->setCellValue("F$row", $class->teacher->last_name);
-            $sheet->setCellValue("G$row", $class->teacher->first_name);
-            $sheet->setCellValue("H$row", $class->teacher->user->email);
-            $sheet->setCellValue("I$row", $class->name);
-            $sheet->setCellValue("J$row", $class->students);
-            $sheet->setCellValue("K$row", $this->statusToString($class->status_january));
-            $sheet->setCellValue("L$row", $this->statusToString($class->status_march));
-            $sheet->setCellValue("M$row", $this->statusToString($class->status_may));
-            $sheet->setCellValue("N$row", $this->statusToString($class->status_party));
-            $sheet->getStyle("A$row:N$row")->getBorders()
+            $sheet->setCellValue("F$row", $class->teacher->salutation->long_form);
+            $sheet->setCellValue("G$row", $class->teacher->last_name);
+            $sheet->setCellValue("H$row", $class->teacher->first_name);
+            $sheet->setCellValue("I$row", $class->teacher->user->email);
+            $sheet->setCellValue("J$row", $class->teacher->phone);
+            $sheet->setCellValue("K$row", $class->name);
+            $sheet->setCellValue("L$row", $class->students);
+            $sheet->setCellValue("M$row", $this->statusToString($class->status_january));
+            $sheet->setCellValue("N$row", $this->statusToString($class->status_march));
+            $sheet->setCellValue("O$row", $this->statusToString($class->status_may));
+            $sheet->setCellValue("P$row", $this->statusToString($class->status_party));
+            $sheet->getStyle("A$row:P$row")->getBorders()
                 ->getAllBorders()->setBorderStyle(Border::BORDER_THIN)
                 ->setColor(new Color(Color::COLOR_BLACK));
             $sheet->getStyle("A$row")->getFill()->setFillType(Fill::FILL_SOLID)->setStartColor(new Color('FFFCD5B4'));
@@ -105,19 +109,19 @@ class ClassExportController extends Controller {
         $status_party = SchoolClass::all()->pluck('status_party')->sum();
 
         $row = $classes + 1 + 3; // header + space after
-        $sheet->setCellValue("I$row", $classes);
-        $sheet->setCellValue("J$row", $students);
-        $sheet->setCellValue("K$row", $status_january);
-        $sheet->setCellValue("L$row", $status_march);
-        $sheet->setCellValue("M$row", $status_may);
-        $sheet->setCellValue("N$row", $status_party);
+        $sheet->setCellValue("K$row", $classes);
+        $sheet->setCellValue("L$row", $students);
+        $sheet->setCellValue("M$row", $status_january);
+        $sheet->setCellValue("N$row", $status_march);
+        $sheet->setCellValue("O$row", $status_may);
+        $sheet->setCellValue("P$row", $status_party);
 
-        $sheet->getStyle("A$row:N$row")->getBorders()
+        $sheet->getStyle("A$row:P$row")->getBorders()
             ->getAllBorders()->setBorderStyle(Border::BORDER_THIN)
             ->setColor(new Color(Color::COLOR_BLACK));
-        $sheet->getStyle("A$row:N$row")->getFill()->setFillType(Fill::FILL_SOLID)->setStartColor(new Color('FFFCD5B4'));
-        $sheet->getStyle("A$row:N$row")->getFont()->setBold(true);
-        $sheet->getStyle("A$row:N$row")->getAlignment()->setHorizontal(Alignment::HORIZONTAL_CENTER);
+        $sheet->getStyle("A$row:P$row")->getFill()->setFillType(Fill::FILL_SOLID)->setStartColor(new Color('FFFCD5B4'));
+        $sheet->getStyle("A$row:P$row")->getFont()->setBold(true);
+        $sheet->getStyle("A$row:P$row")->getAlignment()->setHorizontal(Alignment::HORIZONTAL_CENTER);
 
 
         $sheet->setAutoFilter('A1:N' . ($classes + 1));
