@@ -55,6 +55,10 @@
 
 @push('js')
     <script>
-        $('table').dataTable();
+        $('table').dataTable({
+            order: [
+                [2, 'asc']
+            ]
+        });
     </script>
 @endpush

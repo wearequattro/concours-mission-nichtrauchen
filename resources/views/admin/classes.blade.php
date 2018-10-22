@@ -154,6 +154,7 @@
                         <th>N° d'étudiants</th>
                         <th>Lycée</th>
                         <th>Enseignant</th>
+                        <th hidden>Enseignant</th>
                         <th>Status janvier</th>
                         <th>Status mars</th>
                         <th>Status mai</th>
@@ -175,6 +176,7 @@
                             <td>{{ $class->students }}</td>
                             <td>{{ $class->school->name }}</td>
                             <td>{{ $class->teacher->full_name }}</td>
+                            <td hidden>{{ $class->teacher->last_name }}</td>
                             <td>{{ statusToIcon($class->status_january ) }}</td>
                             <td>{{ statusToIcon($class->status_march ) }}</td>
                             <td>{{ statusToIcon($class->status_may ) }}</td>
@@ -210,6 +212,11 @@
             $('#modalDeleteLink').attr('href', url.replace(':id:', id));
             $('#modalDelete').modal('show');
         });
-        $('table').dataTable();
+        $('table').dataTable({
+            order: [
+                [2, 'asc'],
+                [4, 'asc']
+            ]
+        });
     </script>
 @endpush
