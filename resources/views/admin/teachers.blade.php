@@ -56,6 +56,7 @@
 @push('js')
     <script>
         $('table').dataTable({
+            pageLength: 100,
             order: [
                 [2, 'asc']
             ]

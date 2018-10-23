@@ -153,8 +153,9 @@
                         <th>Nom</th>
                         <th>N° d'étudiants</th>
                         <th>Lycée</th>
-                        <th>Enseignant</th>
-                        <th hidden>Enseignant</th>
+                        <th>Enseignant titre</th>
+                        <th>Enseignant prénom</th>
+                        <th>Enseignant nom</th>
                         <th>Status janvier</th>
                         <th>Status mars</th>
                         <th>Status mai</th>
@@ -175,8 +176,9 @@
                             <td>{{ $class->name }}</td>
                             <td>{{ $class->students }}</td>
                             <td>{{ $class->school->name }}</td>
-                            <td>{{ $class->teacher->full_name }}</td>
-                            <td hidden>{{ $class->teacher->last_name }}</td>
+                            <td>{{ $class->teacher->salutation->long_form }}</td>
+                            <td>{{ $class->teacher->first_name }}</td>
+                            <td>{{ $class->teacher->last_name }}</td>
                             <td>{{ statusToIcon($class->status_january ) }}</td>
                             <td>{{ statusToIcon($class->status_march ) }}</td>
                             <td>{{ statusToIcon($class->status_may ) }}</td>
@@ -213,9 +215,10 @@
             $('#modalDelete').modal('show');
         });
         $('table').dataTable({
+            pageLength: 100,
             order: [
                 [2, 'asc'],
-                [4, 'asc']
+                [5, 'asc']
             ]
         });
     </script>

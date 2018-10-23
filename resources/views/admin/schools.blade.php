@@ -51,6 +51,8 @@
 
 @push('js')
     <script>
-        $('table').dataTable();
+        $('table').dataTable({
+            pageLength: 100,
+        });
     </script>
 @endpush
