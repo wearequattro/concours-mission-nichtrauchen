@@ -9,33 +9,33 @@
 </head>
 <body class="external">
 <div class="container-fluid p-0">
-
-    <table class="table table-bordered table-striped">
-        <thead>
-        <tr>
-            <th>Lycée</th>
-            <th>Enseignant</th>
-            <th>Classe</th>
-        </tr>
-        </thead>
-        <tbody>
-        @foreach($classes as $class)
+    <div class="table-responsive">
+        <table class="table table-bordered table-striped">
+            <thead>
             <tr>
-                <td>{{ $class->school->name }}</td>
-                <td>{{ $class->teacher->full_name }}</td>
-                <td>{{ $class->name }}</td>
+                <th>Lycée</th>
+                <th>Enseignant</th>
+                <th>Classe</th>
             </tr>
-        @endforeach
-        </tbody>
-        <tfoot>
-        <tr>
-            <th colspan="3">
-                Total : {{ $classes->count() }} classes
-            </th>
-        </tr>
-        </tfoot>
-    </table>
-
+            </thead>
+            <tbody>
+            @foreach($classes as $class)
+                <tr>
+                    <td>{{ $class->school->name }}</td>
+                    <td>{{ $class->teacher->full_name }}</td>
+                    <td>{{ $class->name }}</td>
+                </tr>
+            @endforeach
+            </tbody>
+            <tfoot>
+            <tr>
+                <th colspan="3">
+                    Total : {{ $classes->count() }} classes
+                </th>
+            </tr>
+            </tfoot>
+        </table>
+    </div>
 </div>
 </body>
 </html>
