@@ -31,7 +31,7 @@ class NewsletterController extends Controller {
             return;
         }
 
-        if (Carbon::now()->hour != NewsletterController::sendingHour) {
+        if (Carbon::now()->hour < NewsletterController::sendingHour) {
             return;
         }
         \Log::info('Sending ' . $mailIdentifier[0]);
@@ -40,7 +40,13 @@ class NewsletterController extends Controller {
             $shouldSend = !$mail->isSentToUser($teacher->user);
             if ($shouldSend) {
                 \Log::info("Sending to teacher $teacher->full_name");
-                \Mail::to($teacher->user->email)->queue(new CustomEmail($mail, $teacher, null));
+                if ($teacher->classes()->exists()) {
+                    foreach ($teacher->classes as $class) {
+                        \Mail::to($teacher->user->email)->queue(new CustomEmail($mail, $teacher, $class));
+                    }
+                } else {
+                    \Mail::to($teacher->user->email)->queue(new CustomEmail($mail, $teacher, null));
+                }
             }
         });
     }
