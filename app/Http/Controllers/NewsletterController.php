@@ -11,7 +11,7 @@ use Illuminate\Support\Collection;
 
 class NewsletterController extends Controller {
 
-    const sendingHour = 7;
+    const sendingHour = 10;
 
     public function sendNewsletters() {
         $teachers = Teacher::all();
