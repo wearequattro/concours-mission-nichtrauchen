@@ -7,7 +7,7 @@
 
     @if(isRegistrationOpen())
     <div class="row">
-        <div class="col-sm-6 col-lg-4">
+        <div class="col-sm-6">
             <div class="card">
                 <div class="card-header">
                     Ajoutez une classe
@@ -23,22 +23,7 @@
                 </div>
             </div>
         </div>
-        <div class="col-sm-6 col-lg-4">
-            <div class="card">
-                <div class="card-header">
-                    Légende
-                </div>
-                <div class="card-body">
-                    <p>
-                        <strong>Icônes :</strong><br>
-                        {{ statusToIcon(null) }}: Pas répondu<br>
-                        {{ statusToIcon(1) }}: Classe « non-fumeur », continue à participer au concours<br>
-                        {{ statusToIcon(0) }}: Classe « fumeur », ne continue plus à participer au concours
-                    </p>
-                </div>
-            </div>
-        </div>
-        <div class="col-sm-6 col-lg-4">
+        <div class="col-sm-6">
             <div class="card bg-warning">
                 <div class="card-header">
                     Inscription limit&eacute;e
@@ -62,6 +47,21 @@
                     <div class="card-body">
                         <p class="card-text">
                             Les inscriptions sont fermées.
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="card">
+                    <div class="card-header">
+                        Légende
+                    </div>
+                    <div class="card-body">
+                        <p>
+                            <strong>Icônes :</strong><br>
+                            {{ statusToIcon(null) }}: Pas répondu<br>
+                            {{ statusToIcon(1) }}: Classe « non-fumeur », continue à participer au concours<br>
+                            {{ statusToIcon(0) }}: Classe « fumeur », ne continue plus à participer au concours
                         </p>
                     </div>
                 </div>
