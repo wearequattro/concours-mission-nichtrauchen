@@ -306,7 +306,9 @@ class SchoolClass extends Model {
      */
     public function sendFollowUpReminderEmail($status) {
         if($this->__get($status . '_reminder_sent_at') === null) {
-            $this->update([$status . '_token' => Uuid::uuid4()->toString()]);
+            if($this->__get($status . '_token') == null) {
+                $this->update([$status . '_token' => Uuid::uuid4()->toString()]);
+            }
         }
         \Log::info('Sending follow up reminder for ' . $status . ' to ' . $this->teacher->user->email
             . ' for class ' . $this->toJson());
