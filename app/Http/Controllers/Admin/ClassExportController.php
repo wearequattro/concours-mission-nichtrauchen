@@ -131,7 +131,7 @@ class ClassExportController extends Controller {
     }
 
     private function statusToString($status) {
-        if ($status == null)
+        if ($status === null)
             return "pas répondu";
         if ($status === 1)
             return "oui";
