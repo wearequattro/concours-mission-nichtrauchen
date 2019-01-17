@@ -157,8 +157,12 @@
                         <th>Enseignant prénom</th>
                         <th>Enseignant nom</th>
                         <th>Status janvier</th>
+                        <th>Status janvier</th>
+                        <th>Status mars</th>
                         <th>Status mars</th>
                         <th>Status mai</th>
+                        <th>Status mai</th>
+                        <th>Status fête</th>
                         <th>Status fête</th>
                         <th>Action</th>
                     </tr>
@@ -180,9 +184,13 @@
                             <td>{{ $class->teacher->first_name }}</td>
                             <td>{{ $class->teacher->last_name }}</td>
                             <td>{{ statusToIcon($class->status_january ) }}</td>
+                            <td>{{ $class->status_january === null ? 'E' : ($class->status_january ? 'Y' : 'N') }}</td>
                             <td>{{ statusToIcon($class->status_march ) }}</td>
+                            <td>{{ $class->status_march === null ? 'E' : ($class->status_march ? 'Y' : 'N') }}</td>
                             <td>{{ statusToIcon($class->status_may ) }}</td>
+                            <td>{{ $class->status_may === null ? 'E' : ($class->status_may ? 'Y' : 'N') }}</td>
                             <td>{{ statusToIcon($class->status_party ) }}</td>
+                            <td>{{ $class->status_party === null ? 'E' : ($class->status_party ? 'Y' : 'N') }}</td>
                             <td>
                                 <a href="{{ route('admin.classes.edit', [$class]) }}" class="btn btn-primary">
                                     <i class="fa fa-fw fa-pencil"></i>
@@ -218,8 +226,18 @@
             pageLength: 100,
             order: [
                 [2, 'asc'],
-                [5, 'asc']
-            ]
+                [5, 'asc'],
+            ],
+            columnDefs: [
+                { targets: 6, orderData: [7] },
+                { targets: 7, visible: false },
+                { targets: 8, orderData: [9] },
+                { targets: 9, visible: false },
+                { targets: 10, orderData: [11] },
+                { targets: 11, visible: false },
+                { targets: 12, orderData: [13] },
+                { targets: 13, visible: false },
+            ],
         });
     </script>
 @endpush
