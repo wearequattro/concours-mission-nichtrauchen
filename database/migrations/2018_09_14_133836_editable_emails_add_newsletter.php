@@ -53,7 +53,7 @@ class EditableEmailsAddNewsletter extends Migration {
 <p><br />Avec nos meilleures salutations,<br />L&rsquo;&eacute;quipe de la Fondation Cancer.</p>
 <p><br />Fondation Cancer</p>',
             ],
-            \App\EditableEmail::$MAIL_FOLLOW_UP_YES_INVITE_PARTY[0] => [
+            \App\EditableEmail::$MAIL_FOLLOW_UP_3_YES_INVITE_PARTY[0] => [
                 'subject' => 'Suivi invitation fête',
                 'text' => '<p>%PROF%,</p>
 <p>F&eacute;licitations, votre classe&nbsp;%NOM_CLASSE% a &eacute;t&eacute; non-fumeur &agrave; travers toute la<br />dur&eacute;e du concours Mission Nichtrauchen.<br />Nous vous invitons avec votre classe &agrave; la f&ecirc;te de cl&ocirc;ture du concours qui aura lieu<br />le mardi 6 juin &agrave; Luxembourg-Ville (Place d&rsquo;Armes) de 14 &agrave; 17 heures.<br />Pour participer &agrave; la f&ecirc;te de cl&ocirc;ture, <a href="%LIEN_FETE_INVITE%">inscrivez-vous ici</a>.</p>
@@ -61,7 +61,7 @@ class EditableEmailsAddNewsletter extends Migration {
 <p><br />Bien cordialement,<br />L&rsquo;&eacute;quipe de la Fondation Cancer.</p>
 <p><br />Fondation Cancer</p>',
             ],
-            \App\EditableEmail::$MAIL_PARTY_CONFIRMATION[0] => [
+            \App\EditableEmail::$MAIL_PARTY_YES[0] => [
                 'subject' => 'Confirmation participation fête',
                 'text' => '<p>%PROF%,</p>
 <p>Votre classe &laquo;%NOM_CLASSE%&raquo; est bien inscrite &agrave; la f&ecirc;te de cl&ocirc;ture.<br />Nous vous remercions de vous engager &agrave; nos c&ocirc;t&eacute;s pour un monde sans tabac.</p>

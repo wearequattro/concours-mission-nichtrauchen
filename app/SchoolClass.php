@@ -239,7 +239,7 @@ class SchoolClass extends Model {
                 $mailToSend = EditableEmail::$MAIL_FOLLOW_UP_YES;
             } else if($whichStatus === static::STATUS_MAY) {
                 \Log::info('Sending positive response and invite to party ');
-                $mailToSend = EditableEmail::$MAIL_FOLLOW_UP_YES_INVITE_PARTY;
+                $mailToSend = EditableEmail::$MAIL_FOLLOW_UP_3_YES_INVITE_PARTY;
             }
         }
         if($mailToSend != null) {

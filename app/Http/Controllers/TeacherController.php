@@ -169,7 +169,7 @@ class TeacherController extends Controller {
         }
         \Log::info('Teacher ' . $class->teacher->full_name . ' registered ' . sizeof($data) . ' groups to the final party');
         \Mail::to($class->teacher->user->email)
-            ->queue(new CustomEmail(EditableEmail::find(EditableEmail::$MAIL_PARTY_CONFIRMATION), $class->teacher, $class));
+            ->queue(new CustomEmail(EditableEmail::find(EditableEmail::$MAIL_PARTY_YES), $class->teacher, $class));
         return redirect()->route('teacher.party');
     }
 
