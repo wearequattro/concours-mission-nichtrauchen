@@ -35,8 +35,12 @@ class EditableDate extends Model {
     const NEWSLETTER_START = "NEWSLETTER_START";
     const NEWSLETTER_ENCOURAGEMENT = "NEWSLETTER_ENCOURAGEMENT";
     const FOLLOW_UP_1 = "FOLLOW_UP_1";
+    const FOLLOW_UP_1_REMINDER = "FOLLOW_UP_1_REMINDER";
     const FOLLOW_UP_2 = "FOLLOW_UP_2";
+    const FOLLOW_UP_2_REMINDER = "FOLLOW_UP_2_REMINDER";
     const FOLLOW_UP_3 = "FOLLOW_UP_3";
+    const FOLLOW_UP_3_REMINDER = "FOLLOW_UP_3_REMINDER";
+    const PARTY_REMINDER = "PARTY_REMINDER";
     const FINAL_MAIL = "FINAL_MAIL";
 
     /**
@@ -74,19 +78,39 @@ class EditableDate extends Model {
                 'value' => '2019-01-07',
             ],
             [
+                'key' => static::FOLLOW_UP_1_REMINDER,
+                'label' => 'Suivi janvier rappel',
+                'value' => '2019-01-14',
+            ],
+            [
                 'key' => static::FOLLOW_UP_2,
                 'label' => 'Suivi mars',
                 'value' => '2019-03-01',
             ],
             [
+                'key' => static::FOLLOW_UP_2_REMINDER,
+                'label' => 'Suivi mars rappel',
+                'value' => '2019-03-08',
+            ],
+            [
                 'key' => static::FOLLOW_UP_3,
                 'label' => 'Suivi mai',
-                'value' => '2019-05-06',
+                'value' => '2019-05-02',
+            ],
+            [
+                'key' => static::FOLLOW_UP_3_REMINDER,
+                'label' => 'Suivi mai rappel',
+                'value' => '2019-05-10',
+            ],
+            [
+                'key' => static::PARTY_REMINDER,
+                'label' => 'Suivi mai rappel fête clôture',
+                'value' => '2019-05-14',
             ],
             [
                 'key' => static::FINAL_MAIL,
                 'label' => 'E-mail final',
-                'value' => '2019-06-07',
+                'value' => '2019-06-12',
             ],
             [
                 'key' => static::NEWSLETTER_START,
