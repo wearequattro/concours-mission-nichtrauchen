@@ -295,8 +295,15 @@ class SchoolClass extends Model {
             $status . '_sent_at' => Carbon::now(),
             $status . '_token' => Uuid::uuid4()->toString(),
         ]);
+        $mail = null;
+        if($status == self::STATUS_JANUARY)
+            $mail = EditableEmail::$MAIL_FOLLOW_UP_1;
+        if($status == self::STATUS_MARCH)
+            $mail = EditableEmail::$MAIL_FOLLOW_UP_2;
+        if($status == self::STATUS_MAY)
+            $mail = EditableEmail::$MAIL_FOLLOW_UP_3;
         \Mail::to($this->teacher->user->email)
-            ->queue(new CustomEmail(EditableEmail::find(EditableEmail::$MAIL_FOLLOW_UP), $this->teacher, $this));
+            ->queue(new CustomEmail(EditableEmail::find($mail), $this->teacher, $this));
     }
 
     /**
@@ -315,8 +322,15 @@ class SchoolClass extends Model {
         $this->update([
             $status . '_reminder_sent_at' => Carbon::now(),
         ]);
+        $mail = null;
+        if($status == self::STATUS_JANUARY)
+            $mail = EditableEmail::$MAIL_FOLLOW_UP_1_REMINDER;
+        if($status == self::STATUS_MARCH)
+            $mail = EditableEmail::$MAIL_FOLLOW_UP_2_REMINDER;
+        if($status == self::STATUS_MAY)
+            $mail = EditableEmail::$MAIL_FOLLOW_UP_3_REMINDER;
         \Mail::to($this->teacher->user->email)
-            ->queue(new CustomEmail(EditableEmail::find(EditableEmail::$MAIL_FOLLOW_UP), $this->teacher, $this));
+            ->queue(new CustomEmail(EditableEmail::find($mail), $this->teacher, $this));
     }
 
 }
