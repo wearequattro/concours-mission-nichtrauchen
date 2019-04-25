@@ -36,4 +36,8 @@ class FollowUpController extends Controller {
 
     }
 
+    public function setPartyStatus(string $token, string $status) {
+
+    }
+
 }
