@@ -54,7 +54,6 @@ class EditableEmail extends Model {
     public static $MAIL_FOLLOW_UP_3_NO = ["follow_up_3_no", "Réponse négative du suivi mai"];
     public static $MAIL_FOLLOW_UP_3_REMINDER = ["follow_up_3_reminder", "Message de suivi mai rappel"];
 
-    public static $MAIL_PARTY_YES = ["party_confirmation_yes", "Réponse positive participation à la fête de clôture"];
     public static $MAIL_PARTY_NO = ["party_confirmation_no", "Réponse négative participation à la fête de clôture"];
 
     public static $MAIL_FINAL = ["final", "Mail final"];
@@ -79,7 +78,6 @@ class EditableEmail extends Model {
             static::$MAIL_FOLLOW_UP_3_YES_INVITE_PARTY,
             static::$MAIL_FOLLOW_UP_3_NO,
             static::$MAIL_FOLLOW_UP_3_REMINDER,
-            static::$MAIL_PARTY_YES,
             static::$MAIL_PARTY_NO,
         ]);
     }
