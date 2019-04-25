@@ -273,51 +273,29 @@ class SchoolClass extends Model {
     }
 
     /**
-     * Sends a follow up email asking if they sill participate in the contest.
      * @param $status
      * @throws \Exception
      */
-    public function sendFollowUpEmail($status) {
+    public function prepareSend($status) {
         $this->update([
             $status . '_sent_at' => Carbon::now(),
             $status . '_token' => Uuid::uuid4()->toString(),
         ]);
-        $mail = null;
-        if($status == self::STATUS_JANUARY)
-            $mail = EditableEmail::$MAIL_FOLLOW_UP_1;
-        if($status == self::STATUS_MARCH)
-            $mail = EditableEmail::$MAIL_FOLLOW_UP_2;
-        if($status == self::STATUS_MAY)
-            $mail = EditableEmail::$MAIL_FOLLOW_UP_3;
-        \Mail::to($this->teacher->user->email)
-            ->queue(new CustomEmail(EditableEmail::find($mail), $this->teacher, $this));
     }
 
     /**
-     * Sends the same as message {@see sendFollowUpEmail}.
      * @param $status
      * @throws \Exception
      */
-    public function sendFollowUpReminderEmail($status) {
+    public function prepareSendReminder($status) {
         if($this->__get($status . '_reminder_sent_at') === null) {
             if($this->__get($status . '_token') == null) {
                 $this->update([$status . '_token' => Uuid::uuid4()->toString()]);
             }
         }
-        \Log::info('Sending follow up reminder for ' . $status . ' to ' . $this->teacher->user->email
-            . ' for class ' . $this->toJson());
         $this->update([
             $status . '_reminder_sent_at' => Carbon::now(),
         ]);
-        $mail = null;
-        if($status == self::STATUS_JANUARY)
-            $mail = EditableEmail::$MAIL_FOLLOW_UP_1_REMINDER;
-        if($status == self::STATUS_MARCH)
-            $mail = EditableEmail::$MAIL_FOLLOW_UP_2_REMINDER;
-        if($status == self::STATUS_MAY)
-            $mail = EditableEmail::$MAIL_FOLLOW_UP_3_REMINDER;
-        \Mail::to($this->teacher->user->email)
-            ->queue(new CustomEmail(EditableEmail::find($mail), $this->teacher, $this));
     }
 
 }

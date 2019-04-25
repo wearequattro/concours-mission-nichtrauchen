@@ -43,7 +43,7 @@ class SchoolClassController {
             ->map(function (SchoolClass $class) use ($status) {
                 if ($class->shouldSendFollowUpReminder($status, false)) {
                     \Log::info('Resending follow up for ' . $status . ' for class ' . $class->toJson());
-                    $class->sendFollowUpReminderEmail($status);
+                    $class->prepareSendReminder($status);
                     return 1;
                 }
                 return 0;
