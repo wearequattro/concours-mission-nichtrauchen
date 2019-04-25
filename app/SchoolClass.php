@@ -2,7 +2,6 @@
 
 namespace App;
 
-use App\Mail\CustomEmail;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -181,58 +180,46 @@ class SchoolClass extends Model {
     /**
      * Set the status of the follow to the given response. Which status to choose is automatically determined
      * through the token as it is unique.
-     * @param string $token The token from the url in the email
+     * @param string $status Which status to update
      * @param bool $newStatus If the class is still not smoking
-     * @return bool If the status was changed
+     * @throws \Exception
      */
-    public static function setFollowUpStatus(string $token, bool $newStatus): bool {
-        $wasStatusChanged = false;
-        $statuses = collect([static::STATUS_JANUARY, static::STATUS_MARCH, static::STATUS_MAY]);
-        foreach ($statuses as $whichStatus) {
-            $dbFieldToken = $whichStatus . '_token'; // january_token
-            $dbFieldStatus = 'status_' . $whichStatus; // status_january
-            $class = static::query()->where($dbFieldToken, $token)->first();
-            if ($class != null) {
-                \Log::info('Follow up response is for status: ' . $dbFieldStatus . ' and class ' . $class->toJson());
-                $class->update([
-                    $dbFieldToken => null,
-                    $dbFieldStatus => $newStatus,
-                ]);
-                $wasStatusChanged = true;
-                $class->sendFollowUpReplyToResponse($whichStatus, $newStatus);
-                break;
-            }
-        }
-        if(!$wasStatusChanged)
-            \Log::warning('Status was not changed, token may not be correct. Token: ' . $token);
-        return $wasStatusChanged;
+    public function setFollowUpStatus(string $status, bool $newStatus) {
+        $dbFieldToken = $status . '_token'; // january_token
+        $dbFieldStatus = 'status_' . $status; // status_january
+
+        \Log::info('Follow up response is for status: ' . $dbFieldStatus . ' and class ' . $this->toJson());
+
+        $this->update([
+            $dbFieldToken => null,
+            $dbFieldStatus => $newStatus,
+        ]);
+    }
+
+    public static function findByStatusToken(string $token): ?SchoolClass {
+        return static::query()
+            ->where('status_january', $token)
+            ->orWhere('status_march', $token)
+            ->orWhere('status_may', $token)
+            ->first();
     }
 
     /**
-     * Sends the appropriate reply to the teacher's follow up response.
-     * @param string $whichStatus Which status to check, use constants: {@link STATUS_JANUARY}, {@link STATUS_MARCH}, {@link STATUS_MAY}
-     * @param bool $newStatus
+     * @param string $token
+     * @return string
+     * @throws \Exception
      */
-    function sendFollowUpReplyToResponse($whichStatus, bool $newStatus) {
-        $mailToSend = null;
-        if($newStatus === false) { // no
-            if (in_array($whichStatus, [static::STATUS_JANUARY, static::STATUS_MARCH, static::STATUS_MAY])) {
-                \Log::info('Sending negative response to follow up ' . $whichStatus);
-                $mailToSend = EditableEmail::$MAIL_FOLLOW_UP_NO;
-            }
-        } else { // yes
-            if (in_array($whichStatus, [static::STATUS_JANUARY, static::STATUS_MARCH])) {
-                \Log::info('Sending positive response to follow up ' . $whichStatus);
-                $mailToSend = EditableEmail::$MAIL_FOLLOW_UP_YES;
-            } else if($whichStatus === static::STATUS_MAY) {
-                \Log::info('Sending positive response and invite to party ');
-                $mailToSend = EditableEmail::$MAIL_FOLLOW_UP_3_YES_INVITE_PARTY;
-            }
-        }
-        if($mailToSend != null) {
-            \Mail::to($this->teacher->user->email)
-                ->queue(new CustomEmail(EditableEmail::find($mailToSend), $this->teacher, $this));
-        }
+    public function determineStatusByToken(string $token): string {
+        $class = static::findByStatusToken($token);
+        if(!$class)
+            throw new \Exception('no class found for token');
+        if($class->january_token === $token)
+            return self::STATUS_JANUARY;
+        if($class->march_token === $token)
+            return self::STATUS_MARCH;
+        if($class->may_token === $token)
+            return self::STATUS_MAY;
+        throw new \Exception('no class found for token');
     }
 
     /**

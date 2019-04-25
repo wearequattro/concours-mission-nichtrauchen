@@ -19,12 +19,6 @@ class FollowUpController extends Controller {
         $this->emailRepository = $emailRepository;
     }
 
-    public function setFollowUpStatus(string $token, $status) {
-        Log::info('Teacher responded to follow up');
-        SchoolClass::setFollowUpStatus($token, $status === "true");
-        return redirect()->route('login.redirect');
-    }
-
     public function sendFollowUpForAll() {
         SchoolClass::all()->each(function (SchoolClass $class) {
             try {
@@ -45,12 +39,12 @@ class FollowUpController extends Controller {
         $statuses = collect([SchoolClass::STATUS_JANUARY, SchoolClass::STATUS_MARCH, SchoolClass::STATUS_MAY]);
         foreach ($statuses as $status) {
             if ($schoolClass->shouldSendFollowUp($status)) {
-                Log::info('Sending follow up for '. $status . ' to ' . $schoolClass->teacher->user->email);
+                Log::info('Sending follow up for ' . $status . ' to ' . $schoolClass->teacher->user->email);
                 $schoolClass->prepareSend($status);
                 $this->sendFollowUpMail($schoolClass, $status);
                 break;
             } else if ($schoolClass->shouldSendFollowUpReminder($status)) {
-                Log::info('Sending follow up reminder for '. $status . ' to ' . $schoolClass->teacher->user->email);
+                Log::info('Sending follow up reminder for ' . $status . ' to ' . $schoolClass->teacher->user->email);
                 $schoolClass->prepareSendReminder($status);
                 $this->sendFollowUpReminderMail($schoolClass, $status);
                 break;
@@ -80,8 +74,44 @@ class FollowUpController extends Controller {
             ->queue(new CustomEmail(EditableEmail::find($mail), $class->teacher, $class));
     }
 
-    public function setPartyStatus(string $token, string $status) {
+    public function setFollowUpStatus(string $token, $stillNonSmoking) {
+        $newStatus = $stillNonSmoking === "true";
+        Log::info("Teacher responded to follow up: $token");
+        $class = SchoolClass::findByStatusToken($token);
+        abort_if(!$class, 404, "Ce lien n'est plus valable.");
 
+        try {
+            $status = $class->determineStatusByToken($token);
+            $class->setFollowUpStatus($status, $newStatus);
+            $this->sendFollowUpReplyToResponse($class, $status, $newStatus);
+        } catch (\Exception $e) {
+            abort(404, "Une erreur s'est produite lors du traitement de votre demande.");
+            Bugsnag::notify($e);
+        }
+        return redirect()->route('login.redirect');
     }
+
+    /**
+     * Sends the appropriate reply to the teacher's follow up response.
+     * @param SchoolClass $class
+     * @param string $whichStatus Which status to check, use constants: {@link STATUS_JANUARY}, {@link STATUS_MARCH}, {@link STATUS_MAY}
+     * @param bool $newStatus
+     * @throws \Exception
+     */
+    function sendFollowUpReplyToResponse(SchoolClass $class, $whichStatus, bool $newStatus) {
+        $mailToSend = null;
+        if ($newStatus === false) { // no
+            \Log::info('Sending negative response to follow up ' . $whichStatus);
+            $mailToSend = $this->emailRepository->findFollowUpResponseNegativeForStatus($whichStatus);
+        } else { // yes
+            \Log::info('Sending positive response to follow up ' . $whichStatus);
+            $mailToSend = $this->emailRepository->findFollowUpResponsePositiveForStatus($whichStatus);
+        }
+        if ($mailToSend != null) {
+            \Mail::to($class->teacher->user->email)
+                ->queue(new CustomEmail(EditableEmail::find($mailToSend), $class->teacher, $class));
+        }
+    }
+
 
 }
