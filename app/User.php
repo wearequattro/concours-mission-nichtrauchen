@@ -83,9 +83,13 @@ class User extends Authenticatable {
     }
 
     public function hasAccessToParty() {
-        if($this->teacher != null)
-            return $this->teacher->hasAccessToParty();
-        return false;
+        return $this
+                ->teacher
+                ->classes
+                ->filter(function (SchoolClass $c) {
+                    return $c->status_party;
+                })
+                ->count() > 0;
     }
 
 }
