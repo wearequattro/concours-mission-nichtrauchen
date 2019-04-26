@@ -3,8 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\EditableEmail;
-use App\Http\Controllers\Repositories\EmailRepository;
 use App\Http\Managers\SchoolClassManager;
+use App\Http\Repositories\EmailRepository;
 use App\Http\Repositories\SchoolClassRepository;
 use App\Mail\CustomEmail;
 use App\SchoolClass;

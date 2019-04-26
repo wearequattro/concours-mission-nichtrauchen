@@ -6,7 +6,7 @@ namespace App\Http\Managers;
 
 use App\EditableDate;
 use App\Http\Controllers\Controller;
-use App\Http\Controllers\Repositories\EmailRepository;
+use App\Http\Repositories\EmailRepository;
 use App\Mail\CustomEmail;
 use App\SchoolClass;
 use Carbon\Carbon;
