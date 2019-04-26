@@ -56,12 +56,12 @@ class FollowUpController extends Controller {
         // Determine which status to send next
         $statuses = collect([SchoolClass::STATUS_JANUARY, SchoolClass::STATUS_MARCH, SchoolClass::STATUS_MAY]);
         foreach ($statuses as $status) {
-            if ($schoolClass->shouldSendFollowUp($status)) {
+            if ($this->classManager->shouldSendFollowUp($schoolClass, $status)) {
                 Log::info('Sending follow up for ' . $status . ' to ' . $schoolClass->teacher->user->email);
                 $schoolClass->prepareSend($status);
                 $this->sendFollowUpMail($schoolClass, $status);
                 break;
-            } else if ($schoolClass->shouldSendFollowUpReminder($status)) {
+            } else if ($this->classManager->shouldSendFollowUpReminder($schoolClass, $status)) {
                 Log::info('Sending follow up reminder for ' . $status . ' to ' . $schoolClass->teacher->user->email);
                 $schoolClass->prepareSendReminder($status);
                 $this->sendFollowUpReminderMail($schoolClass, $status);

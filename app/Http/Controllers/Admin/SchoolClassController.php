@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Admin;
 
 use App\EditableDate;
+use App\Http\Controllers\Controller;
+use App\Http\Managers\SchoolClassManager;
 use App\Http\Requests\AdminClassUpdateRequest;
 use App\School;
 use App\SchoolClass;
@@ -10,7 +12,16 @@ use App\Teacher;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Session;
 
-class SchoolClassController {
+class SchoolClassController extends Controller {
+
+    /**
+     * @var SchoolClassManager
+     */
+    private $classManager;
+
+    public function __construct(SchoolClassManager $classManager) {
+        $this->classManager = $classManager;
+    }
 
     public function classes() {
         return view('admin.classes')->with([
@@ -41,7 +52,7 @@ class SchoolClassController {
     public function resend($status) {
         $numSent = SchoolClass::all()
             ->map(function (SchoolClass $class) use ($status) {
-                if ($class->shouldSendFollowUpReminder($status, false)) {
+                if ($this->classManager->shouldSendFollowUpReminder($class, $status, false)) {
                     \Log::info('Resending follow up for ' . $status . ' for class ' . $class->toJson());
                     $class->prepareSendReminder($status);
                     return 1;

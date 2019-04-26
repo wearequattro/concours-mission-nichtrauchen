@@ -75,60 +75,11 @@ class SchoolClass extends Model {
     }
 
     /**
-     * Determines if sent_at is not set and that "now" is after the followUp date in env.
-     * @param string $whichStatus Which status to check, use constants: {@link STATUS_JANUARY}, {@link STATUS_MARCH}, {@link STATUS_MAY}
-     * @return bool
-     */
-    public function shouldSendFollowUp(string $whichStatus): bool {
-        $followupDate = null;
-        if ($whichStatus === static::STATUS_JANUARY)
-            $followupDate = EditableDate::find(EditableDate::FOLLOW_UP_1);
-        if ($whichStatus === static::STATUS_MARCH)
-            $followupDate = EditableDate::find(EditableDate::FOLLOW_UP_2);
-        if ($whichStatus === static::STATUS_MAY)
-            $followupDate = EditableDate::find(EditableDate::FOLLOW_UP_3);
-        $sentAtName = $whichStatus . '_sent_at';
-        $statusValue = $this->__get('status_' . $whichStatus);
-        /** @var Carbon $sentAt */
-        $sentAt = $this->$sentAtName;
-        return $this->arePreviousStatusesPositive($whichStatus)
-            && $sentAt === null
-            && $statusValue === null
-            && Carbon::now()->gte($followupDate);
-    }
-
-    /**
-     * Checks if the follow up for the given status is sent, and it was at least some time ago (configurable in env).
-     * @param string $whichStatus Which status to check, use constants: {@link STATUS_JANUARY}, {@link STATUS_MARCH}, {@link STATUS_MAY}
-     * @param bool $checkIfAlreadySent Checks if the email reminder has already been sent.
-     * @return bool
-     */
-    public function shouldSendFollowUpReminder(string $whichStatus, $checkIfAlreadySent = true): bool {
-        $sentAtName = $whichStatus . '_sent_at';
-        $reminderSentAtName = $whichStatus . '_reminder_sent_at';
-        /** @var Carbon $sentAt */
-        $sentAt = $this->$sentAtName;
-        /** @var Carbon $reminderSentAt */
-        $reminderSentAt = $this->$reminderSentAtName;
-        if ($sentAt === null || !$this->arePreviousStatusesPositive($whichStatus))
-            return false;
-        $statusValue = $this->__get('status_' . $whichStatus);
-        if ($statusValue !== null)
-            return false;
-        $followupReminderDate = $sentAt->copy()->addDays(env('FOLLOW_UP_MAIL_RESEND_DELAY_DAYS'));// todo use proper dates
-        if(!$checkIfAlreadySent) {
-            $followupReminderDate = Carbon::create(2000, 1, 1, 0, 0, 0);
-            $reminderSentAt = null;
-        }
-        return $reminderSentAt === null && Carbon::now()->gte($followupReminderDate);
-    }
-
-    /**
      * Checks if the previous statuses have been answered positively by the teacher.
      * @param string $whichStatus Which status to check, use constants: {@link STATUS_JANUARY}, {@link STATUS_MARCH}, {@link STATUS_MAY}
      * @return bool
      */
-    private function arePreviousStatusesPositive($whichStatus) {
+    public function arePreviousStatusesPositive($whichStatus) {
         if ($whichStatus === static::STATUS_JANUARY)
             return true;
         if ($whichStatus === static::STATUS_MARCH)
