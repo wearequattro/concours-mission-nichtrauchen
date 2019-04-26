@@ -70,4 +70,11 @@ class EmailRepository extends Controller {
         throw new \Exception("no follow up mail exists for status: $status");
     }
 
+    /**
+     * @return EditableEmail
+     */
+    public function findPartyResponseNegative(): EditableEmail {
+        return EditableEmail::find(EditableEmail::$MAIL_PARTY_NO);
+    }
+
 }

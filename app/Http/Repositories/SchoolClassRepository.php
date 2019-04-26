@@ -26,6 +26,17 @@ class SchoolClassRepository extends Controller {
     }
 
     /**
+     * Finds SchoolClass by its party token
+     * @param string $token
+     * @return SchoolClass|null
+     */
+    public function findByPartyToken(string $token): ?SchoolClass {
+        return SchoolClass::query()
+            ->where('party_token', $token)
+            ->first();
+    }
+
+    /**
      * Finds all {@link SchoolClass} objects for the currently logged in Teacher. If user is not a teacher, an empty
      * collection is returned
      * @return Collection Collection of {@link SchoolClass} objects

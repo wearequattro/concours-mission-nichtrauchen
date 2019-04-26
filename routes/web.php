@@ -45,7 +45,7 @@ Route::group(['middleware' => ['auth', 'teacher']], function () {
 });
 
 Route::get('/suivi/{token}/{stillNonSmoking}', 'FollowUpController@setFollowUpStatus')->name('follow-up');
-Route::get('/party/{token}/{status}', 'FollowUpController@setPartyStatus')->name('party-response');
+Route::get('/party/{token}/{status}', 'PartyController@handlePartyResponse')->name('party-response');
 
 Route::group(['middleware' => ['auth', 'admin']], function () {;
     Route::group(['namespace' => 'Admin'], function () {

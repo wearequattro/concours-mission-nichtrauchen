@@ -67,6 +67,14 @@ class SchoolClass extends Model {
     }
 
     /**
+     * @param bool $status
+     */
+    public function setPartyStatus(bool $status) {
+        $this->status_party = $status;
+        $this->save();
+    }
+
+    /**
      * Determines if sent_at is not set and that "now" is after the followUp date in env.
      * @param string $whichStatus Which status to check, use constants: {@link STATUS_JANUARY}, {@link STATUS_MARCH}, {@link STATUS_MAY}
      * @return bool
@@ -107,7 +115,7 @@ class SchoolClass extends Model {
         $statusValue = $this->__get('status_' . $whichStatus);
         if ($statusValue !== null)
             return false;
-        $followupReminderDate = $sentAt->copy()->addDays(env('FOLLOW_UP_MAIL_RESEND_DELAY_DAYS'));
+        $followupReminderDate = $sentAt->copy()->addDays(env('FOLLOW_UP_MAIL_RESEND_DELAY_DAYS'));// todo use proper dates
         if(!$checkIfAlreadySent) {
             $followupReminderDate = Carbon::create(2000, 1, 1, 0, 0, 0);
             $reminderSentAt = null;
