@@ -80,10 +80,10 @@
         </div>
 
         <div class="row">
-            <div class="col-sm-4">
+            <div class="col-sm-3">
 
                 <div class="form-group">
-                    <label for="status_january">Status janvier</label>
+                    <label for="status_january">Statut janvier</label>
                     <div class="custom-control custom-radio">
                         <input {{ $show_january ? '' : 'disabled' }} type="radio" id="status_january_null" name="status_january" class="custom-control-input" value="" {{ $class->status_january === null ? 'checked' : '' }}>
                         <label class="custom-control-label" for="status_january_null">
@@ -108,10 +108,10 @@
                 </div>
 
             </div>
-            <div class="col-sm-4">
+            <div class="col-sm-3">
                 
                 <div class="form-group">
-                    <label for="status_march">Status mars</label>
+                    <label for="status_march">Statut mars</label>
                     <div class="custom-control custom-radio">
                         <input {{ $show_march ? '' : 'disabled' }} type="radio" id="status_march_null" name="status_march" class="custom-control-input" value="" {{ $class->status_march === null ? 'checked' : '' }}>
                         <label class="custom-control-label" for="status_march_null">
@@ -136,30 +136,58 @@
                 </div>
                 
             </div>
-            <div class="col-sm-4">
+            <div class="col-sm-3">
 
                 <div class="form-group">
-                    <label for="status_mai">Status mai</label>
+                    <label for="status_may">Statut mai</label>
                     <div class="custom-control custom-radio">
-                        <input {{ $show_may ? '' : 'disabled' }} type="radio" id="status_mai_null" name="status_mai" class="custom-control-input" value="" {{ $class->status_mai === null ? 'checked' : '' }}>
-                        <label class="custom-control-label" for="status_mai_null">
+                        <input {{ $show_may ? '' : 'disabled' }} type="radio" id="status_may_null" name="status_may" class="custom-control-input" value="" {{ $class->status_may === null ? 'checked' : '' }}>
+                        <label class="custom-control-label" for="status_may_null">
                             <i class="fa fa-fw fa-circle text-info"></i> Pas de réponse
                         </label>
                     </div>
                     <div class="custom-control custom-radio">
-                        <input {{ $show_may ? '' : 'disabled' }} type="radio" id="status_mai_yes" name="status_mai" class="custom-control-input" value="1" {{ $class->status_mai === 1 ? 'checked' : '' }}>
-                        <label class="custom-control-label" for="status_mai_yes">
+                        <input {{ $show_may ? '' : 'disabled' }} type="radio" id="status_may_yes" name="status_may" class="custom-control-input" value="1" {{ $class->status_may === 1 ? 'checked' : '' }}>
+                        <label class="custom-control-label" for="status_may_yes">
                             <i class="fa fa-fw fa-check-circle text-success"></i> Réponse positive
                         </label>
                     </div>
                     <div class="custom-control custom-radio">
-                        <input {{ $show_may ? '' : 'disabled' }} type="radio" id="status_mai_no" name="status_mai" class="custom-control-input" value="0" {{ $class->status_mai === 0 ? 'checked' : '' }}>
-                        <label class="custom-control-label" for="status_mai_no">
+                        <input {{ $show_may ? '' : 'disabled' }} type="radio" id="status_may_no" name="status_may" class="custom-control-input" value="0" {{ $class->status_may === 0 ? 'checked' : '' }}>
+                        <label class="custom-control-label" for="status_may_no">
                             <i class="fa fa-fw fa-times-circle text-danger"></i> Réponse négative
                         </label>
                     </div>
                     <div class="invalid-feedback">
-                        {{ inputValidationMessages($errors, 'status_mai') }}
+                        {{ inputValidationMessages($errors, 'status_may') }}
+                    </div>
+                </div>
+
+            </div>
+            <div class="col-sm-3">
+
+                <div class="form-group">
+                    <label for="status_party">Statut fête de clôture</label>
+                    <div class="custom-control custom-radio">
+                        <input {{ $show_party ? '' : 'disabled' }} type="radio" id="status_party_null" name="status_party" class="custom-control-input" value="" {{ $class->status_party === null ? 'checked' : '' }}>
+                        <label class="custom-control-label" for="status_party_null">
+                            <i class="fa fa-fw fa-circle text-info"></i> Pas de réponse
+                        </label>
+                    </div>
+                    <div class="custom-control custom-radio">
+                        <input {{ $show_party ? '' : 'disabled' }} type="radio" id="status_party_yes" name="status_party" class="custom-control-input" value="1" {{ $class->status_party === 1 ? 'checked' : '' }}>
+                        <label class="custom-control-label" for="status_party_yes">
+                            <i class="fa fa-fw fa-check-circle text-success"></i> Réponse positive
+                        </label>
+                    </div>
+                    <div class="custom-control custom-radio">
+                        <input {{ $show_party ? '' : 'disabled' }} type="radio" id="status_party_no" name="status_party" class="custom-control-input" value="0" {{ $class->status_party === 0 ? 'checked' : '' }}>
+                        <label class="custom-control-label" for="status_party_no">
+                            <i class="fa fa-fw fa-times-circle text-danger"></i> Réponse négative
+                        </label>
+                    </div>
+                    <div class="invalid-feedback">
+                        {{ inputValidationMessages($errors, 'status_party') }}
                     </div>
                 </div>
 

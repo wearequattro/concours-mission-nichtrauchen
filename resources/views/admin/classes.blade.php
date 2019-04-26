@@ -156,14 +156,14 @@
                         <th>Enseignant titre</th>
                         <th>Enseignant prénom</th>
                         <th>Enseignant nom</th>
-                        <th>Status janvier</th>
-                        <th>Status janvier</th>
-                        <th>Status mars</th>
-                        <th>Status mars</th>
-                        <th>Status mai</th>
-                        <th>Status mai</th>
-                        <th>Status fête</th>
-                        <th>Status fête</th>
+                        <th>Statut janvier</th>
+                        <th>Statut janvier</th>
+                        <th>Statut mars</th>
+                        <th>Statut mars</th>
+                        <th>Statut mai</th>
+                        <th>Statut mai</th>
+                        <th>Statut fête</th>
+                        <th>Statut fête</th>
                         <th>Action</th>
                     </tr>
                     </thead>

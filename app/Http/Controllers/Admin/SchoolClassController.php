@@ -40,6 +40,7 @@ class SchoolClassController extends Controller {
             'show_january' => Carbon::now()->gte(EditableDate::find(EditableDate::FOLLOW_UP_1)),
             'show_march' => Carbon::now()->gte(EditableDate::find(EditableDate::FOLLOW_UP_2)),
             'show_may' => Carbon::now()->gte(EditableDate::find(EditableDate::FOLLOW_UP_3)),
+            'show_party' => Carbon::now()->gte(EditableDate::find(EditableDate::FOLLOW_UP_3)),
         ]);
     }
 
