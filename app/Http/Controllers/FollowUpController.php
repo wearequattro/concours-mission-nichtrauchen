@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\EditableEmail;
+use App\Http\Controllers\Repositories\EmailRepository;
 use App\Mail\CustomEmail;
 use App\SchoolClass;
 use Bugsnag\BugsnagLaravel\Facades\Bugsnag;

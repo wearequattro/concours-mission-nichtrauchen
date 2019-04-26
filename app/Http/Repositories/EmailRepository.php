@@ -1,14 +1,20 @@
 <?php
 
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Repositories;
 
 
 use App\EditableEmail;
+use App\Http\Controllers\Controller;
 use App\SchoolClass;
 
 class EmailRepository extends Controller {
 
+    /**
+     * @param string $status
+     * @return array
+     * @throws \Exception
+     */
     public function findFollowUpForStatus(string $status): array {
         if($status == SchoolClass::STATUS_JANUARY)
             return EditableEmail::$MAIL_FOLLOW_UP_1;
@@ -19,6 +25,11 @@ class EmailRepository extends Controller {
         throw new \Exception("no follow up mail exists for status: $status");
     }
 
+    /**
+     * @param string $status
+     * @return array
+     * @throws \Exception
+     */
     public function findFollowUpReminderForStatus(string $status): array {
         if($status == SchoolClass::STATUS_JANUARY)
             return EditableEmail::$MAIL_FOLLOW_UP_1_REMINDER;
@@ -29,6 +40,11 @@ class EmailRepository extends Controller {
         throw new \Exception("no follow up mail exists for status: $status");
     }
 
+    /**
+     * @param string $status
+     * @return array
+     * @throws \Exception
+     */
     public function findFollowUpResponseNegativeForStatus(string $status): array {
         if($status == SchoolClass::STATUS_JANUARY)
             return EditableEmail::$MAIL_FOLLOW_UP_1_NO;
@@ -39,6 +55,11 @@ class EmailRepository extends Controller {
         throw new \Exception("no follow up mail exists for status: $status");
     }
 
+    /**
+     * @param string $status
+     * @return array
+     * @throws \Exception
+     */
     public function findFollowUpResponsePositiveForStatus(string $status): array {
         if($status == SchoolClass::STATUS_JANUARY)
             return EditableEmail::$MAIL_FOLLOW_UP_1_YES;
