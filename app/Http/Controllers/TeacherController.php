@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Document;
 use App\EditableDate;
 use App\EditableEmail;
+use App\Http\Repositories\SchoolClassRepository;
 use App\Http\Requests\PartyGroupRegistrationRequest;
 use App\Http\Requests\ProfileUpdateRequest;
 use App\Http\Requests\SchoolClassCreateRequest;
@@ -22,6 +23,15 @@ use Illuminate\Support\Facades\Storage;
 use Illuminate\Validation\ValidationException;
 
 class TeacherController extends Controller {
+
+    /**
+     * @var SchoolClassRepository
+     */
+    private $classRepository;
+
+    public function __construct(SchoolClassRepository $classRepository) {
+        $this->classRepository = $classRepository;
+    }
 
     public function profile() {
         return view('teacher.profile')->with([
@@ -48,7 +58,7 @@ class TeacherController extends Controller {
         return view('teacher.classes-list')->with([
             'inscription_date_end' => EditableDate::find(EditableDate::TEACHER_INSCRIPTION_END)->format('d M Y'),
             'inscription_date_end_relative' => EditableDate::find(EditableDate::TEACHER_INSCRIPTION_END)->diffForHumans(),
-            'classes' => SchoolClass::findForLoggedInUser(),
+            'classes' => $this->classRepository->findForLoggedInUser(),
             'show_january' => Carbon::now()->gte(EditableDate::find(EditableDate::FOLLOW_UP_1)),
             'show_march' => Carbon::now()->gte(EditableDate::find(EditableDate::FOLLOW_UP_2)),
             'show_may' => Carbon::now()->gte(EditableDate::find(EditableDate::FOLLOW_UP_3)),
@@ -120,7 +130,7 @@ class TeacherController extends Controller {
     function party() {
         if(!\Auth::user()->hasAccessToParty())
             return redirect()->route('teacher.classes');
-        $classes = SchoolClass::findForLoggedInUser()
+        $classes = $this->classRepository->findForLoggedInUser()
             ->sort(function (SchoolClass $schoolClass) {
                 return $schoolClass->partyGroups()->exists() ? 1 : 0;
             })->filter(function (SchoolClass $schoolClass) {

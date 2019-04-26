@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\EditableEmail;
 use App\Http\Controllers\Repositories\EmailRepository;
+use App\Http\Managers\SchoolClassManager;
+use App\Http\Repositories\SchoolClassRepository;
 use App\Mail\CustomEmail;
 use App\SchoolClass;
 use Bugsnag\BugsnagLaravel\Facades\Bugsnag;
@@ -16,8 +18,23 @@ class FollowUpController extends Controller {
      */
     private $emailRepository;
 
-    public function __construct(EmailRepository $emailRepository) {
+    /**
+     * @var SchoolClassRepository
+     */
+    private $classRepository;
+    /**
+     * @var SchoolClassManager
+     */
+    private $classManager;
+
+    public function __construct(
+        EmailRepository $emailRepository,
+        SchoolClassRepository $classRepository,
+        SchoolClassManager $classManager
+    ) {
         $this->emailRepository = $emailRepository;
+        $this->classRepository = $classRepository;
+        $this->classManager = $classManager;
     }
 
     public function sendFollowUpForAll() {
@@ -78,11 +95,11 @@ class FollowUpController extends Controller {
     public function setFollowUpStatus(string $token, $stillNonSmoking) {
         $newStatus = $stillNonSmoking === "true";
         Log::info("Teacher responded to follow up: $token");
-        $class = SchoolClass::findByStatusToken($token);
+        $class = $this->classRepository->findByStatusToken($token);
         abort_if(!$class, 404, "Ce lien n'est plus valable.");
 
         try {
-            $status = $class->determineStatusByToken($token);
+            $status = $this->classManager->determineStatusByToken($class, $token);
             $class->setFollowUpStatus($status, $newStatus);
             $this->sendFollowUpReplyToResponse($class, $status, $newStatus);
         } catch (\Exception $e) {

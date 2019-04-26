@@ -156,28 +156,6 @@ class SchoolClass extends Model {
     }
 
     /**
-     * Finds all {@link SchoolClass} objects for the currently logged in Teacher. If user is not a teacher, an empty
-     * collection is returned
-     * @return Collection Collection of {@link SchoolClass} objects
-     */
-    public static function findForLoggedInUser(): Collection {
-        if (\Auth::user() === null || \Auth::user()->type !== User::TYPE_TEACHER || \Auth::user()->teacher === null)
-            return collect();
-        return static::findForTeacher(\Auth::user()->teacher);
-    }
-
-    /**
-     * Finds all {@link SchoolClass} objects for the given Teacher
-     * @param Teacher $teacher
-     * @return Collection Collection of {@link SchoolClass} objects
-     */
-    public static function findForTeacher(Teacher $teacher): Collection {
-        return static::query()
-            ->where('teacher_id', $teacher->id)
-            ->get();
-    }
-
-    /**
      * Set the status of the follow to the given response. Which status to choose is automatically determined
      * through the token as it is unique.
      * @param string $status Which status to update
@@ -194,32 +172,6 @@ class SchoolClass extends Model {
             $dbFieldToken => null,
             $dbFieldStatus => $newStatus,
         ]);
-    }
-
-    public static function findByStatusToken(string $token): ?SchoolClass {
-        return static::query()
-            ->where('status_january', $token)
-            ->orWhere('status_march', $token)
-            ->orWhere('status_may', $token)
-            ->first();
-    }
-
-    /**
-     * @param string $token
-     * @return string
-     * @throws \Exception
-     */
-    public function determineStatusByToken(string $token): string {
-        $class = static::findByStatusToken($token);
-        if(!$class)
-            throw new \Exception('no class found for token');
-        if($class->january_token === $token)
-            return self::STATUS_JANUARY;
-        if($class->march_token === $token)
-            return self::STATUS_MARCH;
-        if($class->may_token === $token)
-            return self::STATUS_MAY;
-        throw new \Exception('no class found for token');
     }
 
     /**
@@ -247,6 +199,7 @@ class SchoolClass extends Model {
     /**
      * Returns the current token to respond the follow up.
      * @return string
+     * @throws \Exception
      */
     public function getCurrentToken() {
         if($this->january_token != null)
@@ -255,8 +208,7 @@ class SchoolClass extends Model {
             return $this->march_token;
         if($this->may_token != null)
             return $this->may_token;
-        \Log::error('SchoolClass has no token. ' . $this->toJson());
-        return "";
+        throw new \Exception('SchoolClass has no token. ' . $this->toJson());
     }
 
     /**
