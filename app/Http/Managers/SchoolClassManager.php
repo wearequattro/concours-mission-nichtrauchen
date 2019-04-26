@@ -57,15 +57,10 @@ class SchoolClassManager extends Controller {
      * @param SchoolClass $class
      * @param string $whichStatus Which status to check, use constants: {@link STATUS_JANUARY}, {@link STATUS_MARCH}, {@link STATUS_MAY}
      * @return bool
+     * @throws \Exception
      */
     public function shouldSendFollowUp(SchoolClass $class, string $whichStatus): bool {
-        $followupDate = null;
-        if ($whichStatus === SchoolClass::STATUS_JANUARY)
-            $followupDate = EditableDate::find(EditableDate::FOLLOW_UP_1);
-        if ($whichStatus === SchoolClass::STATUS_MARCH)
-            $followupDate = EditableDate::find(EditableDate::FOLLOW_UP_2);
-        if ($whichStatus === SchoolClass::STATUS_MAY)
-            $followupDate = EditableDate::find(EditableDate::FOLLOW_UP_3);
+        $followupDate = $this->findFollowUpDateByStatus($whichStatus);
 
         $sentAtName = $whichStatus . '_sent_at';
         $statusValue = $class->__get('status_' . $whichStatus);
@@ -83,6 +78,7 @@ class SchoolClassManager extends Controller {
      * @param string $whichStatus Which status to check, use constants: {@link STATUS_JANUARY}, {@link STATUS_MARCH}, {@link STATUS_MAY}
      * @param bool $checkIfAlreadySent Checks if the email reminder has already been sent.
      * @return bool
+     * @throws \Exception
      */
     public function shouldSendFollowUpReminder(SchoolClass $class, string $whichStatus, $checkIfAlreadySent = true): bool {
         $sentAtName = $whichStatus . '_sent_at';
@@ -93,15 +89,47 @@ class SchoolClassManager extends Controller {
         $reminderSentAt = $class->$reminderSentAtName;
         if ($sentAt === null || !$class->arePreviousStatusesPositive($whichStatus))
             return false;
+
         $statusValue = $class->__get('status_' . $whichStatus);
         if ($statusValue !== null)
             return false;
-        $followupReminderDate = $sentAt->copy()->addDays(env('FOLLOW_UP_MAIL_RESEND_DELAY_DAYS'));// todo use proper dates
+
+        $followupReminderDate = $this->findReminderDateByStatus($whichStatus);
         if(!$checkIfAlreadySent) {
             $followupReminderDate = Carbon::create(2000, 1, 1, 0, 0, 0);
             $reminderSentAt = null;
         }
         return $reminderSentAt === null && Carbon::now()->gte($followupReminderDate);
+    }
+
+    /**
+     * @param string $whichStatus
+     * @return Carbon|null
+     * @throws \Exception
+     */
+    private function findFollowUpDateByStatus(string $whichStatus): ?Carbon {
+        if ($whichStatus === SchoolClass::STATUS_JANUARY)
+            return EditableDate::find(EditableDate::FOLLOW_UP_1);
+        if ($whichStatus === SchoolClass::STATUS_MARCH)
+            return EditableDate::find(EditableDate::FOLLOW_UP_2);
+        if ($whichStatus === SchoolClass::STATUS_MAY)
+            return EditableDate::find(EditableDate::FOLLOW_UP_3);
+        throw new \Exception("Unknown status: $whichStatus");
+    }
+
+    /**
+     * @param string $whichStatus
+     * @return Carbon|null
+     * @throws \Exception
+     */
+    private function findReminderDateByStatus(string $whichStatus): ?Carbon {
+        if($whichStatus === SchoolClass::STATUS_JANUARY)
+            return EditableDate::find(EditableDate::FOLLOW_UP_1_REMINDER);
+        if($whichStatus === SchoolClass::STATUS_MARCH)
+            return EditableDate::find(EditableDate::FOLLOW_UP_2_REMINDER);
+        if($whichStatus === SchoolClass::STATUS_MAY)
+            return EditableDate::find(EditableDate::FOLLOW_UP_3_REMINDER);
+        throw new \Exception("Unknown status: $whichStatus");
     }
 
 }
