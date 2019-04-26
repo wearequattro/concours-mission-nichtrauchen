@@ -82,6 +82,10 @@ class User extends Authenticatable {
         Session::flash('message', 'Votre e-mail a été envoyé avec succès');
     }
 
+    /**
+     * At least once class has accepted invitation for party
+     * @return bool
+     */
     public function hasAccessToParty() {
         return $this
                 ->teacher
