@@ -122,7 +122,12 @@ class FollowUpController extends Controller {
             \Log::info('Sending negative response to follow up ' . $whichStatus);
             $mailToSend = $this->emailRepository->findFollowUpResponseNegativeForStatus($whichStatus);
         } else { // yes
-            \Log::info('Sending positive response to follow up ' . $whichStatus);
+            if($whichStatus == SchoolClass::STATUS_MAY) {
+                \Log::info('Sending positive response + party invite');
+                $class->prepareSendParty();
+            } else {
+                \Log::info('Sending positive response to follow up ' . $whichStatus);
+            }
             $mailToSend = $this->emailRepository->findFollowUpResponsePositiveForStatus($whichStatus);
         }
         if ($mailToSend != null) {

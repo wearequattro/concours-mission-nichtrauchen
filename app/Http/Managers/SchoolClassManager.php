@@ -102,6 +102,17 @@ class SchoolClassManager extends Controller {
         return $reminderSentAt === null && Carbon::now()->gte($followupReminderDate);
     }
 
+    public function shouldSendPartyFollowup(SchoolClass $class): bool {
+        if($class->status_party !== null)
+            return false;
+
+        if($class->party_reminder_sent_at !== null)
+            return false;
+
+        $reminderDate = EditableDate::find(EditableDate::PARTY_REMINDER);
+        return Carbon::now()->gte($reminderDate);
+    }
+
     /**
      * @param string $whichStatus
      * @return Carbon|null

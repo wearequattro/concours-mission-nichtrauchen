@@ -31,6 +31,8 @@ use Ramsey\Uuid\Uuid;
  * @property string may_token
  * @property Carbon may_sent_at
  * @property Carbon may_reminder_sent_at
+ * @property Carbon party_sent_at
+ * @property Carbon party_reminder_sent_at
  * @property string party_token
  * @property Carbon updated_at
  * @property Carbon created_at
@@ -45,7 +47,7 @@ class SchoolClass extends Model {
     protected $fillable = ['name', 'students', 'school_id', 'teacher_id', 'status_january', 'status_march',
         'status_may', 'status_party', 'january_token', 'january_sent_at', 'january_reminder_sent_at', 'march_token',
         'march_sent_at', 'march_reminder_sent_at', 'may_token', 'may_sent_at', 'may_reminder_sent_at', 'status_party',
-        'party_token'];
+        'party_token', 'party_sent_at', 'party_reminder_sent_at'];
 
     protected $dates = ['january_sent_at', 'january_reminder_sent_at', 'march_sent_at', 'march_reminder_sent_at',
         'may_sent_at', 'may_reminder_sent_at'];
@@ -194,6 +196,27 @@ class SchoolClass extends Model {
         $this->update([
             $status . '_reminder_sent_at' => Carbon::now(),
         ]);
+    }
+
+    /**
+     * @throws \Exception
+     */
+    public function prepareSendParty() {
+        $this->update([
+            'party_sent_at' => Carbon::now(),
+            'party_token' => Uuid::uuid4()->toString(),
+        ]);
+    }
+
+    /**
+     * @throws \Exception
+     */
+    public function prepareSendPartyReminder() {
+        $data = ['party_reminder_sent_at' => Carbon::now()];
+        if($this->party_token === null)
+            $data['party_token'] = Uuid::uuid4()->toString();
+
+        $this->update($data);
     }
 
 }
