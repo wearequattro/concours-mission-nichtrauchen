@@ -73,7 +73,7 @@
                 @if(Auth::user()->hasAccessToParty())
                 <li class="nav-item">
                     <a href="{{ route('teacher.party') }}"
-                       class="nav-link {{ Route::currentRouteName() == 'teacher.party' ? 'active' : '' }}">
+                       class="nav-link {{ Route::currentRouteName() == 'teacher.party' || Route::currentRouteName() == 'party.class' ? 'active' : '' }}">
                         <i class="fa fa-fw fa-birthday-cake"></i>
                         F&ecirc;te de cl&ocirc;ture
                     </a>

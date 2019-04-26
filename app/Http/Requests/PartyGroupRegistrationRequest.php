@@ -24,9 +24,16 @@ class PartyGroupRegistrationRequest extends FormRequest {
      */
     public function rules() {
         return [
-            'class.*.name' => 'required|string',
-            'class.*.language' => 'required|string',
-            'class.*.students' => 'required|numeric|max:10',
+            'class' => 'array|min:1|max:3',
+            'class.0.name' => 'required|string',
+            'class.0.language' => 'required|string',
+            'class.0.students' => 'required|numeric|min:3|max:10',
+            'class.1.name' => 'nullable|string',
+            'class.1.language' => 'nullable|string',
+            'class.1.students' => 'nullable|numeric|min:3|max:10',
+            'class.2.name' => 'nullable|string',
+            'class.2.language' => 'nullable|string',
+            'class.2.students' => 'nullable|numeric|min:3|max:10',
         ];
     }
 }

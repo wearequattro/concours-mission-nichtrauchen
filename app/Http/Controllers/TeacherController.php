@@ -150,7 +150,6 @@ class TeacherController extends Controller {
             return redirect()->route('teacher.party');
         return view('teacher.party-class')->with([
             'class' => $class,
-            'groups' => $class->mapToGroups(),
         ]);
     }
 
@@ -171,6 +170,8 @@ class TeacherController extends Controller {
             $name = $data[$i]['name'];
             $language = $data[$i]['language'];
             $students = $data[$i]['students'];
+            if($name == null || $language == null || $students == null)
+                continue;
             PartyGroup::create([
                 'name' => $name,
                 'students' => $students,
@@ -179,8 +180,8 @@ class TeacherController extends Controller {
             ]);
         }
         \Log::info('Teacher ' . $class->teacher->full_name . ' registered ' . sizeof($data) . ' groups to the final party');
-        \Mail::to($class->teacher->user->email)
-            ->queue(new CustomEmail(EditableEmail::find(EditableEmail::$MAIL_PARTY_YES), $class->teacher, $class));
+        //\Mail::to($class->teacher->user->email)
+        //    ->queue(new CustomEmail(EditableEmail::find(EditableEmail::$MAIL_PARTY_YES), $class->teacher, $class));
         return redirect()->route('teacher.party');
     }
 
