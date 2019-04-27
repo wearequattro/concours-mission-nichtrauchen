@@ -19,9 +19,9 @@ class SchoolClassRepository extends Controller {
      */
     public function findByStatusToken(string $token): ?SchoolClass {
         return SchoolClass::query()
-            ->where('status_january', $token)
-            ->orWhere('status_march', $token)
-            ->orWhere('status_may', $token)
+            ->where('january_token', $token)
+            ->orWhere('march_token', $token)
+            ->orWhere('may_token', $token)
             ->first();
     }
 

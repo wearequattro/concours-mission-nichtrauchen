@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\EditableDate;
 use App\Http\Controllers\Controller;
+use App\Http\Controllers\FollowUpController;
 use App\Http\Managers\SchoolClassManager;
 use App\Http\Requests\AdminClassUpdateRequest;
 use App\School;
@@ -19,8 +20,14 @@ class SchoolClassController extends Controller {
      */
     private $classManager;
 
-    public function __construct(SchoolClassManager $classManager) {
+    /**
+     * @var FollowUpController
+     */
+    private $followUpController;
+
+    public function __construct(SchoolClassManager $classManager, FollowUpController $followUpController) {
         $this->classManager = $classManager;
+        $this->followUpController = $followUpController;
     }
 
     public function classes() {
@@ -56,6 +63,7 @@ class SchoolClassController extends Controller {
                 if ($this->classManager->shouldSendFollowUpReminder($class, $status, false)) {
                     \Log::info('Resending follow up for ' . $status . ' for class ' . $class->toJson());
                     $class->prepareSendReminder($status);
+                    $this->followUpController->sendFollowUpMail($class, $status);
                     return 1;
                 }
                 return 0;
