@@ -24,11 +24,6 @@ class UpdateEditableEmailsAddDate extends Migration {
             \App\EditableEmail::$MAIL_TEACHER_CONFIRMATION[0] => [
                 'TEACHER_INSCRIPTION_START',
             ],
-            \App\EditableEmail::$MAIL_FOLLOW_UP[0] => [
-                'FOLLOW_UP_1',
-                'FOLLOW_UP_2',
-                'FOLLOW_UP_3',
-            ],
             \App\EditableEmail::$MAIL_FINAL[0] => [
                 'FINAL_MAIL',
             ],

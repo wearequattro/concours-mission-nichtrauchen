@@ -24,7 +24,6 @@ class AddNewEmailMappings extends Migration {
             EditableEmail::$MAIL_FOLLOW_UP_3_NO[0] => EditableDate::FOLLOW_UP_3,
             EditableEmail::$MAIL_FOLLOW_UP_3_YES_INVITE_PARTY[0] => EditableDate::FOLLOW_UP_3,
             EditableEmail::$MAIL_PARTY_NO[0] => EditableDate::FOLLOW_UP_3,
-            EditableEmail::$MAIL_PARTY_YES[0] => EditableDate::FOLLOW_UP_3,
             EditableEmail::$MAIL_FOLLOW_UP_3_REMINDER[0] => EditableDate::FOLLOW_UP_3_REMINDER,
         ];
         foreach ($mapping as $email => $date) {

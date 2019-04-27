@@ -30,29 +30,6 @@ class EditableEmailsAddNewsletter extends Migration {
 <p>Bien cordialement,</p>
 <p>L&rsquo;&eacute;quipe de la Fondation Cancer.</p>',
             ],
-            \App\EditableEmail::$MAIL_FOLLOW_UP[0] => [
-                'subject' => 'Suivi',
-                'text' => '<p>%PROF%,</p>
-<p>Est-ce que votre classe&nbsp;%NOM_CLASSE% est toujours non-fumeur ?</p>
-<p>- <a href="%SUIVI_OUI%">OUI</a><br />- <a href="%SUIVI_NON%">NON</a></p>
-<p>Bien cordialement,<br />L&rsquo;&eacute;quipe de la Fondation Cancer.</p>
-<p><br />Fondation Cancer</p>',
-            ],
-            \App\EditableEmail::$MAIL_FOLLOW_UP_YES[0] => [
-                'subject' => 'Suivi réponse positive',
-                'text' => '<p>%PROF%,</p>
-<p>F&eacute;licitations, votre classe&nbsp;%NOM_CLASSE% est toujours non-fumeur et vous<br />continuez &agrave; participer au concours Mission Nichtrauchen.</p>
-<p><br />Bien cordialement,<br />L&rsquo;&eacute;quipe de la Fondation Cancer.</p>
-<p><br />Fondation Cancer</p>',
-            ],
-            \App\EditableEmail::$MAIL_FOLLOW_UP_NO[0] => [
-                'subject' => 'Suivi réponse négative',
-                'text' => '<p>%PROF%,</p>
-<p>Malheureusement votre classe ne pourra donc plus participer au concours. C&rsquo;est<br />bien dommage !</p>
-<p><br />Si vous d&eacute;sirez cependant aborder divers aspects du tabagisme (risques, co&ucirc;ts,<br />d&eacute;pendance, etc.) avec votre classe, vous pouvez utiliser nos fiches de travail.<br />Elles sont t&eacute;l&eacute;chargeables sur notre site (en fran&ccedil;ais et en allemand).<br />Si vous d&eacute;sirez les solutions, elles peuvent &ecirc;tre t&eacute;l&eacute;charg&eacute;es votre <a href="%LIEN_DOCUMENTS%">espace r&eacute;serv&eacute;</a>.<br />Merci encore pour votre engagement.</p>
-<p><br />Avec nos meilleures salutations,<br />L&rsquo;&eacute;quipe de la Fondation Cancer.</p>
-<p><br />Fondation Cancer</p>',
-            ],
             \App\EditableEmail::$MAIL_FOLLOW_UP_3_YES_INVITE_PARTY[0] => [
                 'subject' => 'Suivi invitation fête',
                 'text' => '<p>%PROF%,</p>
@@ -60,13 +37,6 @@ class EditableEmailsAddNewsletter extends Migration {
 <p>La date limite d&rsquo;inscription est le 19 mai.</p>
 <p><br />Bien cordialement,<br />L&rsquo;&eacute;quipe de la Fondation Cancer.</p>
 <p><br />Fondation Cancer</p>',
-            ],
-            \App\EditableEmail::$MAIL_PARTY_YES[0] => [
-                'subject' => 'Confirmation participation fête',
-                'text' => '<p>%PROF%,</p>
-<p>Votre classe &laquo;%NOM_CLASSE%&raquo; est bien inscrite &agrave; la f&ecirc;te de cl&ocirc;ture.<br />Nous vous remercions de vous engager &agrave; nos c&ocirc;t&eacute;s pour un monde sans tabac.</p>
-<p>Bien cordialement,<br />L&rsquo;&eacute;quipe de la Fondation Cancer.</p>
-<p>Fondation Cancer</p>',
             ],
             \App\EditableEmail::$MAIL_FINAL[0] => [
                 'subject' => 'Mail Final',
