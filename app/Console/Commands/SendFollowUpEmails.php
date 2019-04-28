@@ -3,6 +3,7 @@
 namespace App\Console\Commands;
 
 use App\Http\Controllers\FollowUpController;
+use App\Http\Controllers\PartyController;
 use Illuminate\Console\Command;
 
 class SendFollowUpEmails extends Command {
@@ -19,27 +20,16 @@ class SendFollowUpEmails extends Command {
      * @var string
      */
     protected $description = 'Sends follow up emails to applicable teachers';
-    /**
-     * @var FollowUpController
-     */
-    private $followUpController;
-
-    /**
-     * Create a new command instance.
-     *
-     * @param FollowUpController $followUpController
-     */
-    public function __construct(FollowUpController $followUpController) {
-        parent::__construct();
-        $this->followUpController = $followUpController;
-    }
 
     /**
      * Execute the console command.
      *
+     * @param FollowUpController $followUpController
+     * @param PartyController $partyController
      * @return mixed
      */
-    public function handle() {
-        $this->followUpController->sendFollowUpForAll();
+    public function handle(FollowUpController $followUpController, PartyController $partyController) {
+        $followUpController->sendFollowUpForAll();
+        $partyController->sendRemindersForAll();
     }
 }

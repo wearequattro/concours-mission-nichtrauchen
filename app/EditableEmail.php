@@ -207,9 +207,9 @@ class EditableEmail extends Model {
             return route('follow-up', ['token' => $class->getCurrentToken(), 'status' => 'true']);
         if ($subject === "SUIVI_NON")
             return route('follow-up', ['token' => $class->getCurrentToken(), 'status' => 'false']);
-        if ($subject === "FETE_OUI")
+        if ($subject === "LIEN_FETE_OUI")
             return route('party-response', ['token' => $class->party_token, 'status' => 'true']);
-        if ($subject === "FETE_NON")
+        if ($subject === "LIEN_FETE_NON")
             return route('party-response', ['token' => $class->party_token, 'status' => 'false']);
         return "";
     }
@@ -228,8 +228,8 @@ class EditableEmail extends Model {
             new PlaceHolder("LIEN_FETE_INVITE", "https://invite.link/fete", "Lien invitaion fête"),
             new PlaceHolder("SUIVI_OUI", "https://suivi.link/oui", "Lien réponse suivi oui"),
             new PlaceHolder("SUIVI_NON", "https://suivi.link/non", "Lien réponse suivi non"),
-            new PlaceHolder("FETE_OUI", "https://fete.link/oui", "Lien réponse fête oui"),
-            new PlaceHolder("FETE_NON", "https://fete.link/non", "Lien réponse fête non"),
+            new PlaceHolder("LIEN_FETE_OUI", "https://fete.link/oui", "Lien réponse fête oui"),
+            new PlaceHolder("LIEN_FETE_NON", "https://fete.link/non", "Lien réponse fête non"),
         ]);
     }
 

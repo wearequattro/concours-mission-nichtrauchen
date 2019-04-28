@@ -44,8 +44,9 @@ class SchoolClassManager extends Controller {
      */
     public function handlePartyResponse(SchoolClass $class, bool $status) {
         $class->setPartyStatus($status);
+        $class->clearPartyToken();
 
-        if(!$status) {
+        if($status === false) {
             $mail = $this->emailRepository->findPartyResponseNegative();
             \Mail::to($class->teacher->user->email)
                 ->queue(new CustomEmail($mail, $class->teacher, $class));

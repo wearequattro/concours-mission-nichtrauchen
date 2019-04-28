@@ -26,15 +26,21 @@ class FollowUpController extends Controller {
      * @var SchoolClassManager
      */
     private $classManager;
+    /**
+     * @var PartyController
+     */
+    private $partyController;
 
     public function __construct(
         EmailRepository $emailRepository,
         SchoolClassRepository $classRepository,
-        SchoolClassManager $classManager
+        SchoolClassManager $classManager,
+        PartyController $partyController
     ) {
         $this->emailRepository = $emailRepository;
         $this->classRepository = $classRepository;
         $this->classManager = $classManager;
+        $this->partyController = $partyController;
     }
 
     public function sendFollowUpForAll() {
@@ -103,8 +109,9 @@ class FollowUpController extends Controller {
             $class->setFollowUpStatus($status, $newStatus);
             $this->sendFollowUpReplyToResponse($class, $status, $newStatus);
         } catch (\Exception $e) {
+            Log::error($e);
+            Bugsnag::notifyException($e);
             abort(404, "Une erreur s'est produite lors du traitement de votre demande.");
-            Bugsnag::notify($e);
         }
         return redirect()->route('login.redirect');
     }
@@ -121,13 +128,13 @@ class FollowUpController extends Controller {
         if ($newStatus === false) { // no
             \Log::info('Sending negative response to follow up ' . $whichStatus);
             $mailToSend = $this->emailRepository->findFollowUpResponseNegativeForStatus($whichStatus);
-        } else { // yes
-            if($whichStatus == SchoolClass::STATUS_MAY) {
-                \Log::info('Sending positive response + party invite');
-                $class->prepareSendParty();
-            } else {
-                \Log::info('Sending positive response to follow up ' . $whichStatus);
-            }
+        }
+        if ($newStatus === true && $whichStatus == SchoolClass::STATUS_MAY) { // yes, party
+            $this->partyController->sendPartyInvite($class);
+            return;
+        }
+        if ($newStatus === true && $whichStatus !== SchoolClass::STATUS_MAY) { // yes, normal
+            \Log::info('Sending positive response to follow up ' . $whichStatus);
             $mailToSend = $this->emailRepository->findFollowUpResponsePositiveForStatus($whichStatus);
         }
         if ($mailToSend != null) {

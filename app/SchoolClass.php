@@ -50,7 +50,7 @@ class SchoolClass extends Model {
         'party_token', 'party_sent_at', 'party_reminder_sent_at'];
 
     protected $dates = ['january_sent_at', 'january_reminder_sent_at', 'march_sent_at', 'march_reminder_sent_at',
-        'may_sent_at', 'may_reminder_sent_at'];
+        'may_sent_at', 'may_reminder_sent_at', 'party_sent_at', 'party_reminder_sent_at'];
 
     public const STATUS_JANUARY = "january";
     public const STATUS_MARCH = "march";
@@ -169,10 +169,8 @@ class SchoolClass extends Model {
      * @throws \Exception
      */
     public function prepareSendReminder($status) {
-        if($this->__get($status . '_reminder_sent_at') === null) {
-            if($this->__get($status . '_token') == null) {
-                $this->update([$status . '_token' => Uuid::uuid4()->toString()]);
-            }
+        if($this->__get($status . '_token') == null) {
+            $this->update([$status . '_token' => Uuid::uuid4()->toString()]);
         }
         $this->update([
             $status . '_reminder_sent_at' => Carbon::now(),
@@ -183,10 +181,11 @@ class SchoolClass extends Model {
      * @throws \Exception
      */
     public function prepareSendParty() {
-        $this->update([
-            'party_sent_at' => Carbon::now(),
-            'party_token' => Uuid::uuid4()->toString(),
-        ]);
+        $data = ['party_sent_at' => Carbon::now()];
+        if($this->party_token === null)
+            $data['party_token'] = Uuid::uuid4()->toString();
+
+        $this->update($data);
     }
 
     /**
@@ -198,6 +197,11 @@ class SchoolClass extends Model {
             $data['party_token'] = Uuid::uuid4()->toString();
 
         $this->update($data);
+    }
+
+    public function clearPartyToken() {
+        $this->party_token = null;
+        $this->save();
     }
 
 }
