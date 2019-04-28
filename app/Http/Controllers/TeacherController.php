@@ -189,8 +189,10 @@ class TeacherController extends Controller {
         return redirect()->route('teacher.party');
     }
 
-    public function partyClassEdit() {
-
+    public function deleteParty(SchoolClass $class) {
+        abort_if(Auth::user()->teacher->id !== $class->teacher_id, 403);
+        $class->partyGroups()->delete();
+        return redirect()->route('teacher.party');
     }
 
 }

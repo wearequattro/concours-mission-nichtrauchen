@@ -103,8 +103,9 @@
             @endforeach
         </div>
         <div class="row">
-            <div class="col-4">
+            <div class="col-12">
                 <input type="submit" class="btn btn-primary btn-lg" value="Valider l'inscription">
+                <a href="{{ route('party.class.delete', [$class]) }}" class="btn btn-lg btn-danger ml-4">Supprimer &laquo; {{ $class->name }} &raquo;</a>
             </div>
         </div>
     </form>

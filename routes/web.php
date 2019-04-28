@@ -42,6 +42,7 @@ Route::group(['middleware' => ['auth', 'teacher']], function () {
     Route::get('/teacher/party', 'TeacherController@party')->name('teacher.party');
     Route::get('/teacher/party/{class}', 'TeacherController@partyClass')->name('party.class');
     Route::post('/teacher/party/{class}', 'TeacherController@partyClassPost')->name('party.class.post');
+    Route::get('/teacher/party/{class}/delete', 'TeacherController@deleteParty')->name('party.class.delete');
 });
 
 Route::get('/suivi/{token}/{stillNonSmoking}', 'FollowUpController@setFollowUpStatus')->name('follow-up');
