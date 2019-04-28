@@ -11,7 +11,7 @@
 |
 */
 
-Route::redirect('/', 'http://missionnichtrauchen.lu/');
+Route::redirect('/', '/login');
 
 Route::get('/logout', 'Auth\LoginController@logout')->name('logout');
 Route::get('/login', 'Auth\LoginController@showLoginForm')->name('login');
