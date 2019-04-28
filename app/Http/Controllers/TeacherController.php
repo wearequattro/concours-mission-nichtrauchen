@@ -76,12 +76,14 @@ class TeacherController extends Controller {
     }
 
     function classesEdit(SchoolClass $class) {
+        abort_if(Auth::user()->teacher->id !== $class->teacher_id, 403);
         return view('teacher.classes-edit')->with([
             'class' => $class
         ]);
     }
 
     function classesEditPost(TeacherUpdateClassRequest $request, SchoolClass $class) {
+        abort_if(Auth::user()->teacher->id !== $class->teacher_id, 403);
         $old = [
             'name' => $class->name,
             'students' => $class->students,
@@ -144,19 +146,22 @@ class TeacherController extends Controller {
     }
 
     function partyClass(SchoolClass $class) {
+        abort_if(Auth::user()->teacher->id !== $class->teacher_id, 403);
         if(!\Auth::user()->hasAccessToParty())
             return redirect()->route('teacher.classes');
-        if($class->partyGroups()->exists() || !$class->isEligibleForParty())
+        if(!$class->isEligibleForParty())
             return redirect()->route('teacher.party');
         return view('teacher.party-class')->with([
             'class' => $class,
+            'groups' => $class->partyGroups,
         ]);
     }
 
     function partyClassPost(PartyGroupRegistrationRequest $request, SchoolClass $class) {
+        abort_if(Auth::user()->teacher->id !== $class->teacher_id, 403);
         if(!\Auth::user()->hasAccessToParty())
             return redirect()->route('teacher.classes');
-        if($class->partyGroups()->exists() || !$class->isEligibleForParty())
+        if(!$class->isEligibleForParty())
             return redirect()->route('teacher.party');
         $data = $request->validated()['class'];
         if (collect($data)->sum('students') > $class->students) {
@@ -166,6 +171,7 @@ class TeacherController extends Controller {
             }
             throw ValidationException::withMessages($errors);
         }
+        $class->partyGroups()->delete();
         for ($i = 0; $i < sizeof($data); $i++) {
             $name = $data[$i]['name'];
             $language = $data[$i]['language'];
@@ -180,9 +186,11 @@ class TeacherController extends Controller {
             ]);
         }
         \Log::info('Teacher ' . $class->teacher->full_name . ' registered ' . sizeof($data) . ' groups to the final party');
-        //\Mail::to($class->teacher->user->email)
-        //    ->queue(new CustomEmail(EditableEmail::find(EditableEmail::$MAIL_PARTY_YES), $class->teacher, $class));
         return redirect()->route('teacher.party');
+    }
+
+    public function partyClassEdit() {
+
     }
 
 }

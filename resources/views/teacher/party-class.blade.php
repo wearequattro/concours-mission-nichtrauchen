@@ -27,6 +27,7 @@
                                 Ajouter un groupe <i class="fa fa-plus"></i>
                             </a>
                         </h3>
+                        Nombre d'élèves : {{ $class->students }}
                     </div>
                 </div>
             </div>
@@ -51,7 +52,7 @@
                                 <input {{ $i == 0 ? 'required' : '' }} type="text" name="class[{{ $i }}][name]"
                                        id="name_{{ $i }}"
                                        class="form-control {{ inputValidationClass($errors, 'class.' . $i . '.name') }}"
-                                       value="{{ old('class.' . $i . '.name') }}">
+                                       value="{{ old('class.' . $i . '.name', $groups->get($i)['name']) }}">
                                 <div class="invalid-feedback">
                                     {{ inputValidationMessages($errors, 'class.' . $i . '.name') }}
                                 </div>
@@ -66,7 +67,7 @@
                                        id="students_{{ $i }}"
                                        min="3" max="10" step="1"
                                        class="form-control {{ inputValidationClass($errors, 'class.' . $i . '.students') }}"
-                                       value="{{ old('class.' . $i . '.students') }}">
+                                       value="{{ old('class.' . $i . '.students', $groups->get($i)['students']) }}">
                                 <div class="invalid-feedback">
                                     {{ inputValidationMessages($errors, 'class.' . $i . '.students') }}
                                 </div>
@@ -82,10 +83,10 @@
                                 <select {{ $i == 0 ? 'required' : '' }} type="text" name="class[{{ $i }}][language]"
                                         id="language_{{ $i }}"
                                         class="form-control {{ inputValidationClass($errors, 'class.' . $i . '.language') }}">
-                                    <option value="DE" {{ old('class.' . $i . '.language') === 'DE' ? 'selected' : '' }}>
+                                    <option value="DE" {{ old('class.' . $i . '.language', $groups->get($i)['language']) === 'DE' ? 'selected' : '' }}>
                                         Allemand
                                     </option>
-                                    <option value="FR" {{ old('class.' . $i . '.language') === 'FR' ? 'selected' : '' }}>
+                                    <option value="FR" {{ old('class.' . $i . '.language', $groups->get($i)['language']) === 'FR' ? 'selected' : '' }}>
                                         Fran&ccedil;ais
                                     </option>
                                 </select>
@@ -113,7 +114,12 @@
 
 @push("js")
     <script>
+        @if($groups->count() > 0)
+        var visible = {{ $groups->map(function ($item, $i) {return $i;}) }};
+        @else
         var visible = [0];
+        @endif
+
         var maxVisible = 3;
 
         $('.btn-add').click(function () {
@@ -129,8 +135,12 @@
         });
 
         function init() {
-
             updateAddButton();
+            for(var i of visible) {
+                var el = $('[data-card-id='+ i +']');
+                el.show();
+                el.find('input, select').prop('required', true);
+            }
         }
 
         function updateAddButton() {

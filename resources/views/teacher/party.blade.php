@@ -74,6 +74,11 @@
                         <div class="card-body">
                             <h3>
                                 Classe {{ $class->name }} <small class="text-muted text">{{ $class->school->name }}</small>
+                                @if($open)
+                                    <a class="btn btn-primary text-white pull-right" href="{{ route('party.class', [$class]) }}">
+                                        <i class="fa fa-pencil"></i>
+                                    </a>
+                                @endif
                             </h3>
                             <p class="mb-0">
                                 Votre classe est bien inscrite à la fête de clôture.<br>
