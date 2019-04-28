@@ -109,7 +109,7 @@ class SchoolClassManager extends Controller {
         if($class->party_reminder_sent_at !== null)
             return false;
 
-        $reminderDate = EditableDate::find(EditableDate::PARTY_REMINDER);
+        $reminderDate = EditableDate::find(EditableDate::INVITE_PARTY_REMINDER);
         return Carbon::now()->gte($reminderDate);
     }
 

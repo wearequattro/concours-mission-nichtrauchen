@@ -40,7 +40,8 @@ class EditableDate extends Model {
     const FOLLOW_UP_2_REMINDER = "FOLLOW_UP_2_REMINDER";
     const FOLLOW_UP_3 = "FOLLOW_UP_3";
     const FOLLOW_UP_3_REMINDER = "FOLLOW_UP_3_REMINDER";
-    const PARTY_REMINDER = "PARTY_REMINDER";
+    const INVITE_PARTY_REMINDER = "PARTY_REMINDER";
+    const PARTY_GROUP_REMINDER = "PARTY_GROUP_REMINDER";
     const FINAL_MAIL = "FINAL_MAIL";
 
     /**
@@ -103,9 +104,14 @@ class EditableDate extends Model {
                 'value' => '2019-05-10',
             ],
             [
-                'key' => static::PARTY_REMINDER,
+                'key' => static::INVITE_PARTY_REMINDER,
                 'label' => 'Suivi mai rappel fête clôture',
-                'value' => '2019-05-14',
+                'value' => '2019-05-13',
+            ],
+            [
+                'key' => static::PARTY_GROUP_REMINDER,
+                'label' => 'Rappel inscription fête pour oui invite fête',
+                'value' => '2019-05-17',
             ],
             [
                 'key' => static::FINAL_MAIL,
@@ -123,6 +129,18 @@ class EditableDate extends Model {
                 'value' => '2019-02-05',
             ],
         ];
+    }
+
+    public static function updateOrAdd() {
+        foreach(EditableDate::getDefaultValues() as $entry) {
+            /** @var EditableDate $found */
+            $found = EditableDate::query()->where('key', $entry['key'])->first();
+            if($found != null) {
+                $found->update($entry);
+            } else {
+                EditableDate::create($entry);
+            }
+        }
     }
 
 }

@@ -35,9 +35,6 @@ class EditableEmail extends Model {
     protected $keyType = 'string';
 
     public static $MAIL_TEACHER_CONFIRMATION = ["teacher_confirmation", "Email de confirmation dès que l'enseignant s'inscris"];
-    //public static $MAIL_FOLLOW_UP = ["follow_up", "Message de suivi et rappel aux professeurs"];
-    //public static $MAIL_FOLLOW_UP_YES = ["follow_up_yes", "Réponse positive du suivi"];
-    //public static $MAIL_FOLLOW_UP_NO = ["follow_up_no", "Réponse négative du suivi"];
 
     public static $MAIL_FOLLOW_UP_1 = ["follow_up_1", "Message de suivi janvier"];
     public static $MAIL_FOLLOW_UP_1_YES = ["follow_up_1_yes", "Réponse positive du suivi janvier"];
@@ -50,11 +47,15 @@ class EditableEmail extends Model {
     public static $MAIL_FOLLOW_UP_2_REMINDER = ["follow_up_2_reminder", "Message de suivi mars rappel"];
     
     public static $MAIL_FOLLOW_UP_3 = ["follow_up_3", "Message de suivi mai"];
-    public static $MAIL_FOLLOW_UP_3_YES_INVITE_PARTY = ["follow_up_yes_invite_party", "Réponse positive du suivi mai et invitation à la fête de clôture"];
     public static $MAIL_FOLLOW_UP_3_NO = ["follow_up_3_no", "Réponse négative du suivi mai"];
     public static $MAIL_FOLLOW_UP_3_REMINDER = ["follow_up_3_reminder", "Message de suivi mai rappel"];
 
-    public static $MAIL_PARTY_NO = ["party_confirmation_no", "Réponse négative participation à la fête de clôture"];
+    public static $MAIL_INVITE_PARTY = ["invite_party", "Invitation à la fête de clôture"];
+    public static $MAIL_INVITE_PARTY_NO = ["party_confirmation_no", "Réponse négative participation à la fête de clôture"];
+    public static $MAIL_INVITE_PARTY_REMINDER = ["invite_party_reminder", "Invitation à la fête de clôture rappel"];
+
+    public static $MAIL_PARTY_GROUP_REMINDER = ["party_group_reminder", "Rappel inscription des groupes à la fête"];
+
 
     public static $MAIL_FINAL = ["final", "Mail final"];
     public static $MAIL_NEWSLETTER_START = ["newsletter_start", "Début du concours Mission Nichtrauchen"];
@@ -75,10 +76,12 @@ class EditableEmail extends Model {
             static::$MAIL_FOLLOW_UP_2_NO,
             static::$MAIL_FOLLOW_UP_2_REMINDER,
             static::$MAIL_FOLLOW_UP_3,
-            static::$MAIL_FOLLOW_UP_3_YES_INVITE_PARTY,
+            static::$MAIL_INVITE_PARTY,
             static::$MAIL_FOLLOW_UP_3_NO,
+            static::$MAIL_INVITE_PARTY_REMINDER,
+            static::$MAIL_PARTY_GROUP_REMINDER,
             static::$MAIL_FOLLOW_UP_3_REMINDER,
-            static::$MAIL_PARTY_NO,
+            static::$MAIL_INVITE_PARTY_NO,
         ]);
     }
 
@@ -136,6 +139,7 @@ class EditableEmail extends Model {
      * @param Teacher $teacher
      * @param SchoolClass $class
      * @return string The complete email, with placeholders having been replaced.
+     * @throws \Exception
      */
     public function replaceAll($teacher, $class): string {
         $text = $this->text;
@@ -175,6 +179,7 @@ class EditableEmail extends Model {
      * @param Teacher $teacher
      * @param SchoolClass $class
      * @return string Replaced text
+     * @throws \Exception
      */
     public function getReplacement(string $subject, $teacher, $class) {
         $subject = str_replace('%', '', $subject);
@@ -202,6 +207,10 @@ class EditableEmail extends Model {
             return route('follow-up', ['token' => $class->getCurrentToken(), 'status' => 'true']);
         if ($subject === "SUIVI_NON")
             return route('follow-up', ['token' => $class->getCurrentToken(), 'status' => 'false']);
+        if ($subject === "FETE_OUI")
+            return route('party-response', ['token' => $class->party_token, 'status' => 'true']);
+        if ($subject === "FETE_NON")
+            return route('party-response', ['token' => $class->party_token, 'status' => 'false']);
         return "";
     }
 
@@ -219,6 +228,8 @@ class EditableEmail extends Model {
             new PlaceHolder("LIEN_FETE_INVITE", "https://invite.link/fete", "Lien invitaion fête"),
             new PlaceHolder("SUIVI_OUI", "https://suivi.link/oui", "Lien réponse suivi oui"),
             new PlaceHolder("SUIVI_NON", "https://suivi.link/non", "Lien réponse suivi non"),
+            new PlaceHolder("FETE_OUI", "https://fete.link/oui", "Lien réponse fête oui"),
+            new PlaceHolder("FETE_NON", "https://fete.link/non", "Lien réponse fête non"),
         ]);
     }
 

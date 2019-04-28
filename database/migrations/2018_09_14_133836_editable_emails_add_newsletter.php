@@ -30,7 +30,7 @@ class EditableEmailsAddNewsletter extends Migration {
 <p>Bien cordialement,</p>
 <p>L&rsquo;&eacute;quipe de la Fondation Cancer.</p>',
             ],
-            \App\EditableEmail::$MAIL_FOLLOW_UP_3_YES_INVITE_PARTY[0] => [
+            \App\EditableEmail::$MAIL_INVITE_PARTY[0] => [
                 'subject' => 'Suivi invitation fête',
                 'text' => '<p>%PROF%,</p>
 <p>F&eacute;licitations, votre classe&nbsp;%NOM_CLASSE% a &eacute;t&eacute; non-fumeur &agrave; travers toute la<br />dur&eacute;e du concours Mission Nichtrauchen.<br />Nous vous invitons avec votre classe &agrave; la f&ecirc;te de cl&ocirc;ture du concours qui aura lieu<br />le mardi 6 juin &agrave; Luxembourg-Ville (Place d&rsquo;Armes) de 14 &agrave; 17 heures.<br />Pour participer &agrave; la f&ecirc;te de cl&ocirc;ture, <a href="%LIEN_FETE_INVITE%">inscrivez-vous ici</a>.</p>

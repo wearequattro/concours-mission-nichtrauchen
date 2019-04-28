@@ -66,7 +66,7 @@ class EmailRepository extends Controller {
         if($status == SchoolClass::STATUS_MARCH)
             return EditableEmail::$MAIL_FOLLOW_UP_2_YES;
         if($status == SchoolClass::STATUS_MAY)
-            return EditableEmail::$MAIL_FOLLOW_UP_3_YES_INVITE_PARTY;
+            return EditableEmail::$MAIL_INVITE_PARTY;
         throw new \Exception("no follow up mail exists for status: $status");
     }
 
@@ -74,7 +74,7 @@ class EmailRepository extends Controller {
      * @return EditableEmail
      */
     public function findPartyResponseNegative(): EditableEmail {
-        return EditableEmail::find(EditableEmail::$MAIL_PARTY_NO);
+        return EditableEmail::find(EditableEmail::$MAIL_INVITE_PARTY_NO);
     }
 
 }
