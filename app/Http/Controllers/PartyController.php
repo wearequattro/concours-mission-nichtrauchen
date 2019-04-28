@@ -41,7 +41,7 @@ class PartyController extends Controller {
     public function sendRemindersForAll() {
         SchoolClass::all()
             ->filter(function (SchoolClass $class) {
-                return $this->classManager->shouldSendPartyFollowup($class);
+                return $this->classManager->shouldSendPartyReminder($class);
             })
             ->each(function (SchoolClass $class) {
                 $this->sendPartyInviteReminder($class);
