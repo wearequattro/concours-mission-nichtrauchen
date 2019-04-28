@@ -13,7 +13,8 @@ class PartyGroupRegistrationRequest extends FormRequest {
      * @return bool
      */
     public function authorize() {
-        return \Auth::user() !== null && \Auth::user()->type === User::TYPE_TEACHER && \Auth::user()->teacher !== null;
+        return (\Auth::user() !== null && \Auth::user()->type === User::TYPE_TEACHER && \Auth::user()->teacher !== null)
+            || (\Auth::user() !== null && \Auth::user()->type === User::TYPE_ADMIN);
     }
 
     /**

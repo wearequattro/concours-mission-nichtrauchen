@@ -83,6 +83,9 @@ Route::group(['middleware' => ['auth', 'admin']], function () {;
         Route::get('/admin/documents/{document}/moveDown', 'DocumentController@moveDown')->name('admin.documents.moveDown');
 
         Route::get('/admin/party', 'PartyController@party')->name('admin.party');
+        Route::get('/admin/party/{class}', 'PartyController@partyClass')->name('admin.party.class');
+        Route::post('/admin/party/{class}', 'PartyController@partyClassPost')->name('admin.party.class.post');
+        Route::get('/admin/party/{class}/delete', 'PartyController@deleteParty')->name('admin.party.class.delete');
         Route::get('/admin/party/export', 'PartyExportController@export')->name('admin.party.export');
 
         Route::get('/admin/users', 'UserController@users')->name('admin.users');
