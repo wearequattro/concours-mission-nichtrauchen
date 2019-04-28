@@ -164,6 +164,8 @@
                         <th>Statut mai</th>
                         <th>Statut fête</th>
                         <th>Statut fête</th>
+                        <th>Inscription fête complétée</th>
+                        <th>Inscription fête complétée</th>
                         <th>Action</th>
                     </tr>
                     </thead>
@@ -191,6 +193,8 @@
                             <td>{{ $class->status_may === null ? 'E' : ($class->status_may ? 'Y' : 'N') }}</td>
                             <td>{{ statusToIcon($class->status_party ) }}</td>
                             <td>{{ $class->status_party === null ? 'E' : ($class->status_party ? 'Y' : 'N') }}</td>
+                            <td>{{ statusToIcon($class->status_party === null ? null : ($class->partyGroups()->exists() ? 1 : 0)) }}</td>
+                            <td>{{ $class->status_party === null ? 'E' : ($class->partyGroups()->exists() ? 'Y' : 'N') }}</td>
                             <td>
                                 <a href="{{ route('admin.classes.edit', [$class]) }}" class="btn btn-primary">
                                     <i class="fa fa-fw fa-pencil"></i>
@@ -202,7 +206,7 @@
                         </tr>
                         @empty
                         <tr>
-                            <td colspan="9" class="text-center">Aucune classe n'est enregistr&eacute;e</td>
+                            <td colspan="10" class="text-center">Aucune classe n'est enregistr&eacute;e</td>
                         </tr>
                     @endforelse
                     </tbody>
@@ -237,6 +241,8 @@
                 { targets: 11, visible: false },
                 { targets: 12, orderData: [13] },
                 { targets: 13, visible: false },
+                { targets: 14, orderData: [15] },
+                { targets: 15, visible: false },
             ],
         });
     </script>
