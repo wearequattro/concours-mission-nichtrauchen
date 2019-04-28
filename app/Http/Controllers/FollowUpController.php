@@ -57,13 +57,9 @@ class FollowUpController extends Controller {
         $statuses = collect([SchoolClass::STATUS_JANUARY, SchoolClass::STATUS_MARCH, SchoolClass::STATUS_MAY]);
         foreach ($statuses as $status) {
             if ($this->classManager->shouldSendFollowUp($schoolClass, $status)) {
-                Log::info('Sending follow up for ' . $status . ' to ' . $schoolClass->teacher->user->email);
-                $schoolClass->prepareSend($status);
                 $this->sendFollowUpMail($schoolClass, $status);
                 break;
             } else if ($this->classManager->shouldSendFollowUpReminder($schoolClass, $status)) {
-                Log::info('Sending follow up reminder for ' . $status . ' to ' . $schoolClass->teacher->user->email);
-                $schoolClass->prepareSendReminder($status);
                 $this->sendFollowUpReminderMail($schoolClass, $status);
                 break;
             }
@@ -76,6 +72,8 @@ class FollowUpController extends Controller {
      * @throws \Exception
      */
     function sendFollowUpMail(SchoolClass $class, string $status) {
+        Log::info('Sending follow up for ' . $status . ' to ' . $class->teacher->user->email);
+        $class->prepareSend($status);
         $mail = $this->emailRepository->findFollowUpForStatus($status);
         \Mail::to($class->teacher->user->email)
             ->queue(new CustomEmail(EditableEmail::find($mail), $class->teacher, $class));
@@ -87,6 +85,8 @@ class FollowUpController extends Controller {
      * @throws \Exception
      */
     function sendFollowUpReminderMail(SchoolClass $class, string $status) {
+        Log::info('Sending follow up reminder for ' . $status . ' to ' . $class->teacher->user->email);
+        $class->prepareSendReminder($status);
         $mail = $this->emailRepository->findFollowUpReminderForStatus($status);
         \Mail::to($class->teacher->user->email)
             ->queue(new CustomEmail(EditableEmail::find($mail), $class->teacher, $class));

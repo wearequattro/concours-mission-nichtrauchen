@@ -61,9 +61,7 @@ class SchoolClassController extends Controller {
         $numSent = SchoolClass::all()
             ->map(function (SchoolClass $class) use ($status) {
                 if ($this->classManager->shouldSendFollowUpReminder($class, $status, false)) {
-                    \Log::info('Resending follow up for ' . $status . ' for class ' . $class->toJson());
-                    $class->prepareSendReminder($status);
-                    $this->followUpController->sendFollowUpMail($class, $status);
+                    $this->followUpController->sendFollowUpReminderMail($class, $status);
                     return 1;
                 }
                 return 0;
