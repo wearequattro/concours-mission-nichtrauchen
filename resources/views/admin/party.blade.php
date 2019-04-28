@@ -5,11 +5,32 @@
 @section('content')
     <h1 class="display-4 text-center">Inscription fête de clôture</h1>
 
-    <p>
-        <a class="btn btn-primary" href="{{ route('admin.party.export') }}">
-            Exporter
-        </a>
-    </p>
+    <div class="row">
+        <div class="col-sm-3 mb-4">
+            <div class="card">
+                <div class="card-header">
+                    Exporter fichier des classes
+                </div>
+                <div class="card-body">
+                    @php
+                        $countClasses = $groups->count();
+                        $countTeacher = $groups->pluck('schoolClass.teacher')->unique()->count();
+                        $countSchool = $groups->pluck('schoolClass.school.name')->unique()->count();
+                        $countStudents = $groups->sum('students');
+                    @endphp
+                    <p>
+                        L'export contiendra <strong>{{ $countClasses }} {{ $countClasses > 1 ? 'groupes' : 'groupe' }}</strong>,
+                        <strong>{{ $countTeacher }} {{ $countTeacher > 1 ? 'enseignants' : 'enseignant' }}</strong>,
+                        <strong>{{ $countSchool }} {{ $countSchool > 1 ? 'lycées' : 'lycée' }}</strong>,
+                        <strong>{{ $countStudents }} {{ $countStudents > 1 ? 'étudiants' : 'étudiant' }}</strong>.
+                    </p>
+                    <a class="btn btn-primary" href="{{ route('admin.party.export') }}">
+                        Exporter
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <table class="table table-striped table-bordered">
         <thead>
@@ -46,6 +67,9 @@
     <script>
         $('table').DataTable({
             pageLength: 100,
+            order: [
+                [2, "asc"]
+            ]
         });
     </script>
 @endpush
