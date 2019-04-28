@@ -11,49 +11,41 @@
         </a>
     </p>
 
-    @foreach($groups as $group)
-        <div class="row">
-            <div class="col-12 mt-4">
-                <div class="card bg-light mb-2">
-                    <div class="card-body">
-                        <h3>
-                            Classe {{ $group->first()->schoolClass->name }} <small class="text-muted text">{{ $group->first()->schoolClass->school->name }}</small>
-                        </h3>
-                        <p class="mb-0">
-                            Enseignant: <a href="{{ route('admin.teachers.edit', [$group->first()->schoolClass->teacher]) }}">
-                                {{ $group->first()->schoolClass->teacher->full_name }}
-                            </a>
-                        </p>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="row">
-
-            @foreach ($group as $partyGroup)
-
-            <div class="col-sm-6 col-md-3 mb-2">
-                <div class="card">
-                    <div class="card-header">
-                        {{ $partyGroup->name }}
-                    </div>
-                    <div class="card-body">
-                        <p>
-                            <strong>Nombre d'étudiants: </strong>
-                            {{ $partyGroup->students }}
-                        </p>
-                        <p>
-                            <strong>Langue: </strong>
-                            {{ $partyGroup->language }}
-                        </p>
-                    </div>
-                </div>
-            </div>
-            @endforeach
-
-        </div>
-
-    @endforeach
+    <table class="table table-striped table-bordered">
+        <thead>
+        <tr>
+            <th>Nom du groupe</th>
+            <th>Nombre d'élèves du groupe</th>
+            <th>Lycée</th>
+            <th>Classe</th>
+            <th>Langue souhaitée</th>
+            <th>Nom du prof</th>
+            <th>Télephone prof</th>
+            <th>Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        @foreach($groups as $group)
+            <tr>
+                <td>{{ $group->name }}</td>
+                <td>{{ $group->students }}</td>
+                <td>{{ $group->schoolClass->school->name }}</td>
+                <td>{{ $group->schoolClass->name }}</td>
+                <td>{{ $group->language }}</td>
+                <td>{{ $group->schoolClass->teacher->full_name }}</td>
+                <td>{{ $group->schoolClass->teacher->phone }}</td>
+                <td></td>
+            </tr>
+        @endforeach
+        </tbody>
+    </table>
 
 @endsection
+
+@push("js")
+    <script>
+        $('table').DataTable({
+            pageLength: 100,
+        });
+    </script>
+@endpush

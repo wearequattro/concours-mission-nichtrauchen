@@ -7,7 +7,7 @@ use App\PartyGroup;
 class PartyController {
 
     public function party() {
-        $groups = PartyGroup::all()->groupBy('school_class_id');
+        $groups = PartyGroup::all();
 
         return view('admin.party')->with([
             'groups' => $groups,
