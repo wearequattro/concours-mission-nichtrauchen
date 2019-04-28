@@ -44,7 +44,9 @@ class PartyExportController extends Controller {
             'Lycée',
             'Classe',
             'Langue',
-            'Enseignant',
+            'Salutation',
+            'Nom Prof',
+            'Prénom prof',
             'Téléphone',
         ];
         $sheet->getRowDimension(1)->setRowHeight(50);
@@ -54,11 +56,11 @@ class PartyExportController extends Controller {
             $sheet->setCellValue($cell, $headers[$i]);
             $sheet->getColumnDimension($letter)->setAutoSize(true);
         }
-        $sheet->getStyle('A1:G1')->getAlignment()->setHorizontal(Alignment::HORIZONTAL_CENTER);
-        $sheet->getStyle('A1:G1')->getAlignment()->setVertical(Alignment::VERTICAL_CENTER);
-        $sheet->getStyle('A1:G1')->getFont()->setBold(true);
-        $sheet->getStyle('A1:G1')->getFill()->setFillType(Fill::FILL_SOLID)->setStartColor(new Color('FFFCD5B4'));
-        $sheet->getStyle('A1:G1')->getBorders()->getAllBorders()->setBorderStyle(Border::BORDER_THIN)
+        $sheet->getStyle('A1:I1')->getAlignment()->setHorizontal(Alignment::HORIZONTAL_CENTER);
+        $sheet->getStyle('A1:I1')->getAlignment()->setVertical(Alignment::VERTICAL_CENTER);
+        $sheet->getStyle('A1:I1')->getFont()->setBold(true);
+        $sheet->getStyle('A1:I1')->getFill()->setFillType(Fill::FILL_SOLID)->setStartColor(new Color('FFFCD5B4'));
+        $sheet->getStyle('A1:I1')->getBorders()->getAllBorders()->setBorderStyle(Border::BORDER_THIN)
             ->setColor(new Color(Color::COLOR_BLACK));
     }
 
@@ -70,9 +72,11 @@ class PartyExportController extends Controller {
             $sheet->setCellValue("C$row", $group->schoolClass->school->name);
             $sheet->setCellValue("D$row", $group->schoolClass->name);
             $sheet->setCellValue("E$row", $group->language);
-            $sheet->setCellValue("F$row", $group->schoolClass->teacher->full_name);
-            $sheet->setCellValue("G$row", $group->schoolClass->teacher->phone);
-            $sheet->getStyle("A$row:G$row")->getBorders()
+            $sheet->setCellValue("F$row", $group->schoolClass->teacher->salutation->long_form);
+            $sheet->setCellValue("G$row", $group->schoolClass->teacher->last_name);
+            $sheet->setCellValue("H$row", $group->schoolClass->teacher->first_name);
+            $sheet->setCellValue("I$row", $group->schoolClass->teacher->phone);
+            $sheet->getStyle("A$row:I$row")->getBorders()
                 ->getAllBorders()->setBorderStyle(Border::BORDER_THIN)
                 ->setColor(new Color(Color::COLOR_BLACK));
         });
@@ -90,15 +94,15 @@ class PartyExportController extends Controller {
         $sheet->setCellValue("A$row", $classes);
         $sheet->setCellValue("B$row", $students);
 
-        $sheet->getStyle("A$row:G$row")->getBorders()
+        $sheet->getStyle("A$row:I$row")->getBorders()
             ->getAllBorders()->setBorderStyle(Border::BORDER_THIN)
             ->setColor(new Color(Color::COLOR_BLACK));
-        $sheet->getStyle("A$row:G$row")->getFill()->setFillType(Fill::FILL_SOLID)->setStartColor(new Color('FFFCD5B4'));
-        $sheet->getStyle("A$row:G$row")->getFont()->setBold(true);
-        $sheet->getStyle("A$row:G$row")->getAlignment()->setHorizontal(Alignment::HORIZONTAL_CENTER);
+        $sheet->getStyle("A$row:I$row")->getFill()->setFillType(Fill::FILL_SOLID)->setStartColor(new Color('FFFCD5B4'));
+        $sheet->getStyle("A$row:I$row")->getFont()->setBold(true);
+        $sheet->getStyle("A$row:I$row")->getAlignment()->setHorizontal(Alignment::HORIZONTAL_CENTER);
 
 
-        $sheet->setAutoFilter('A1:G' . ($classes + 1));
+        $sheet->setAutoFilter('A1:I' . ($classes + 1));
     }
 
     private function deleteOldFiles() {
