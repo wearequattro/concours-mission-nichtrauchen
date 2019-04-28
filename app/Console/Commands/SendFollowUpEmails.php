@@ -30,6 +30,6 @@ class SendFollowUpEmails extends Command {
      */
     public function handle(FollowUpController $followUpController, PartyController $partyController) {
         $followUpController->sendFollowUpForAll();
-        $partyController->sendRemindersForAll();
+        $partyController->sendReminders();
     }
 }

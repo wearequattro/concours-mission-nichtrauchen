@@ -5,6 +5,7 @@ namespace App\Http\Managers;
 
 
 use App\EditableDate;
+use App\EditableEmail;
 use App\Http\Controllers\Controller;
 use App\Http\Repositories\EmailRepository;
 use App\Mail\CustomEmail;
@@ -114,6 +115,23 @@ class SchoolClassManager extends Controller {
             return false;
 
         $reminderDate = EditableDate::find(EditableDate::INVITE_PARTY_REMINDER);
+        return Carbon::now()->gte($reminderDate);
+    }
+
+    public function shouldSendPartyGroupReminder(SchoolClass $class) {
+        if($class->status_january != true || $class->status_march != true || $class->status_may != true)
+            return false;
+
+        if($class->status_party != true)
+            return false;
+
+        if($class->partyGroups()->exists())
+            return false;
+
+        if($class->party_group_reminder_sent_at !== null)
+            return false;
+
+        $reminderDate = EditableDate::find(EditableDate::PARTY_GROUP_REMINDER);
         return Carbon::now()->gte($reminderDate);
     }
 

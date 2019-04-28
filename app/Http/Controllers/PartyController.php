@@ -38,13 +38,23 @@ class PartyController extends Controller {
         return redirect()->route('login.redirect');
     }
 
-    public function sendRemindersForAll() {
+    public function sendReminders() {
+        // party participation reminders
         SchoolClass::all()
             ->filter(function (SchoolClass $class) {
                 return $this->classManager->shouldSendPartyReminder($class);
             })
             ->each(function (SchoolClass $class) {
                 $this->sendPartyInviteReminder($class);
+            });
+
+        // party group reminders
+        SchoolClass::all()
+            ->filter(function (SchoolClass $class) {
+                return $this->classManager->shouldSendPartyGroupReminder($class);
+            })
+            ->each(function (SchoolClass $class) {
+                $this->sendPartyGroupReminder($class);
             });
     }
 
@@ -59,6 +69,13 @@ class PartyController extends Controller {
         \Log::info('Sending party invite reminder to: ' . $class->toJSON());
         $class->prepareSendPartyReminder();
         $mail = EditableEmail::find(EditableEmail::$MAIL_INVITE_PARTY_REMINDER);
+        \Mail::to($class->teacher->user->email)
+            ->queue(new CustomEmail($mail, $class->teacher, $class));
+    }
+
+    public function sendPartyGroupReminder(SchoolClass $class) {
+        \Log::info('Sending party group reminder to: ' . $class->toJSON());
+        $mail = EditableEmail::find(EditableEmail::$MAIL_PARTY_GROUP_REMINDER);
         \Mail::to($class->teacher->user->email)
             ->queue(new CustomEmail($mail, $class->teacher, $class));
     }

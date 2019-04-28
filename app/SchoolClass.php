@@ -34,6 +34,7 @@ use Ramsey\Uuid\Uuid;
  * @property Carbon party_sent_at
  * @property Carbon party_reminder_sent_at
  * @property string party_token
+ * @property Carbon party_group_reminder_sent_at
  * @property Carbon updated_at
  * @property Carbon created_at
  * @property School school
@@ -47,10 +48,10 @@ class SchoolClass extends Model {
     protected $fillable = ['name', 'students', 'school_id', 'teacher_id', 'status_january', 'status_march',
         'status_may', 'status_party', 'january_token', 'january_sent_at', 'january_reminder_sent_at', 'march_token',
         'march_sent_at', 'march_reminder_sent_at', 'may_token', 'may_sent_at', 'may_reminder_sent_at', 'status_party',
-        'party_token', 'party_sent_at', 'party_reminder_sent_at'];
+        'party_token', 'party_sent_at', 'party_reminder_sent_at', 'party_group_reminder_sent_at'];
 
     protected $dates = ['january_sent_at', 'january_reminder_sent_at', 'march_sent_at', 'march_reminder_sent_at',
-        'may_sent_at', 'may_reminder_sent_at', 'party_sent_at', 'party_reminder_sent_at'];
+        'may_sent_at', 'may_reminder_sent_at', 'party_sent_at', 'party_reminder_sent_at', 'party_group_reminder_sent_at'];
 
     public const STATUS_JANUARY = "january";
     public const STATUS_MARCH = "march";
