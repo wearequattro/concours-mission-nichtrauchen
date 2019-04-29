@@ -74,27 +74,27 @@ class SchoolClass extends Model {
     }
 
     public function getStatusMarch(): ?int {
-        if($this->status_january == 0)
-            return false;
+        if($this->status_january === 0)
+            return 0;
         return $this->status_march;
     }
 
     public function getStatusMay(): ?int {
-        if($this->status_january == 0 || $this->status_march == 0)
-            return false;
+        if($this->status_january === 0 || $this->status_march === 0)
+            return 0;
         return $this->status_may;
     }
 
     public function getStatusParty(): ?int {
-        if($this->status_january == 0 || $this->status_march == 0 || $this->status_may == 0)
-            return false;
+        if($this->status_january === 0 || $this->status_march === 0 || $this->status_may === 0)
+            return 0;
         return $this->status_party;
     }
 
     public function getStatusPartyGroups(): ?int {
-        if($this->status_january == 0 || $this->status_march == 0 || $this->status_may == 0 || $this->status_party == 0)
-            return false;
-        return $this->partyGroups()->exists() ? 1 : 0;
+        if($this->status_january === 0 || $this->status_march === 0 || $this->status_may === 0 || $this->status_party === 0)
+            return 0;
+        return $this->partyGroups()->exists() ? 1 : null;
     }
 
     /**
