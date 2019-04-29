@@ -185,16 +185,16 @@
                             <td>{{ $class->teacher->salutation->long_form }}</td>
                             <td>{{ $class->teacher->first_name }}</td>
                             <td>{{ $class->teacher->last_name }}</td>
-                            <td>{{ statusToIcon($class->status_january ) }}</td>
-                            <td>{{ $class->status_january === null ? 'E' : ($class->status_january ? 'Y' : 'N') }}</td>
-                            <td>{{ statusToIcon($class->status_march ) }}</td>
-                            <td>{{ $class->status_march === null ? 'E' : ($class->status_march ? 'Y' : 'N') }}</td>
-                            <td>{{ statusToIcon($class->status_may ) }}</td>
-                            <td>{{ $class->status_may === null ? 'E' : ($class->status_may ? 'Y' : 'N') }}</td>
-                            <td>{{ statusToIcon($class->status_party ) }}</td>
-                            <td>{{ $class->status_party === null ? 'E' : ($class->status_party ? 'Y' : 'N') }}</td>
-                            <td>{{ statusToIcon($class->status_party === null ? null : ($class->partyGroups()->exists() ? 1 : 0)) }}</td>
-                            <td>{{ $class->status_party === null ? 'E' : ($class->partyGroups()->exists() ? 'Y' : 'N') }}</td>
+                            <td>{{ statusToIcon($class->getStatusJanuary() ) }}</td>
+                            <td>{{ $class->getStatusJanuary() === null ? 'E' : ($class->getStatusJanuary() ? 'Y' : 'N') }}</td>
+                            <td>{{ statusToIcon($class->getStatusMarch() ) }}</td>
+                            <td>{{ $class->getStatusMarch() === null ? 'E' : ($class->getStatusMarch() ? 'Y' : 'N') }}</td>
+                            <td>{{ statusToIcon($class->getStatusMay() ) }}</td>
+                            <td>{{ $class->getStatusMay() === null ? 'E' : ($class->getStatusMay() ? 'Y' : 'N') }}</td>
+                            <td>{{ statusToIcon($class->getStatusParty()) }}</td>
+                            <td>{{ $class->getStatusParty() === null ? 'E' : ($class->getStatusParty() ? 'Y' : 'N') }}</td>
+                            <td>{{ statusToIcon($class->getStatusPartyGroups() ) }}</td>
+                            <td>{{ $class->getStatusPartyGroups() === null ? 'E' : ($class->getStatusPartyGroups() ? 'Y' : 'N') }}</td>
                             <td>
                                 <a href="{{ route('admin.classes.edit', [$class]) }}" class="btn btn-primary">
                                     <i class="fa fa-fw fa-pencil"></i>

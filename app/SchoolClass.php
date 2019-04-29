@@ -69,6 +69,34 @@ class SchoolClass extends Model {
         return $this->hasMany(PartyGroup::class);
     }
 
+    public function getStatusJanuary(): ?int {
+        return $this->status_january;
+    }
+
+    public function getStatusMarch(): ?int {
+        if($this->status_january == 0)
+            return false;
+        return $this->status_march;
+    }
+
+    public function getStatusMay(): ?int {
+        if($this->status_january == 0 || $this->status_march == 0)
+            return false;
+        return $this->status_may;
+    }
+
+    public function getStatusParty(): ?int {
+        if($this->status_january == 0 || $this->status_march == 0 || $this->status_may == 0)
+            return false;
+        return $this->status_party;
+    }
+
+    public function getStatusPartyGroups(): ?int {
+        if($this->status_january == 0 || $this->status_march == 0 || $this->status_may == 0 || $this->status_party == 0)
+            return false;
+        return $this->partyGroups()->exists() ? 1 : 0;
+    }
+
     /**
      * @param bool $status
      */

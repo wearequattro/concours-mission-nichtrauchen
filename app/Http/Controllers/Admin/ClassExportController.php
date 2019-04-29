@@ -54,7 +54,8 @@ class ClassExportController extends Controller {
             'JANVIER',
             'MARS',
             'MAI',
-            'FETE'
+            'FETE',
+            'FETE COMPLETEE',
         ];
         $sheet->getRowDimension(1)->setRowHeight(50);
         for ($i = 0; $i < count($headers); $i++) {
@@ -63,11 +64,11 @@ class ClassExportController extends Controller {
             $sheet->setCellValue($cell, $headers[$i]);
             $sheet->getColumnDimension($letter)->setAutoSize(true);
         }
-        $sheet->getStyle('A1:P1')->getAlignment()->setHorizontal(Alignment::HORIZONTAL_CENTER);
-        $sheet->getStyle('A1:P1')->getAlignment()->setVertical(Alignment::VERTICAL_CENTER);
-        $sheet->getStyle('A1:P1')->getFont()->setBold(true);
-        $sheet->getStyle('A1:P1')->getFill()->setFillType(Fill::FILL_SOLID)->setStartColor(new Color('FFFCD5B4'));
-        $sheet->getStyle('A1:P1')->getBorders()->getAllBorders()->setBorderStyle(Border::BORDER_THIN)
+        $sheet->getStyle('A1:Q1')->getAlignment()->setHorizontal(Alignment::HORIZONTAL_CENTER);
+        $sheet->getStyle('A1:Q1')->getAlignment()->setVertical(Alignment::VERTICAL_CENTER);
+        $sheet->getStyle('A1:Q1')->getFont()->setBold(true);
+        $sheet->getStyle('A1:Q1')->getFill()->setFillType(Fill::FILL_SOLID)->setStartColor(new Color('FFFCD5B4'));
+        $sheet->getStyle('A1:Q1')->getBorders()->getAllBorders()->setBorderStyle(Border::BORDER_THIN)
             ->setColor(new Color(Color::COLOR_BLACK));
     }
 
@@ -86,11 +87,12 @@ class ClassExportController extends Controller {
             $sheet->setCellValue("J$row", $class->teacher->phone);
             $sheet->setCellValue("K$row", $class->name);
             $sheet->setCellValue("L$row", $class->students);
-            $sheet->setCellValue("M$row", $this->statusToString($class->status_january));
-            $sheet->setCellValue("N$row", $this->statusToString($class->status_march));
-            $sheet->setCellValue("O$row", $this->statusToString($class->status_may));
-            $sheet->setCellValue("P$row", $this->statusToString($class->status_party));
-            $sheet->getStyle("A$row:P$row")->getBorders()
+            $sheet->setCellValue("M$row", $this->statusToString($class->getStatusJanuary()));
+            $sheet->setCellValue("N$row", $this->statusToString($class->getStatusMarch()));
+            $sheet->setCellValue("O$row", $this->statusToString($class->getStatusMay()));
+            $sheet->setCellValue("P$row", $this->statusToString($class->getStatusParty()));
+            $sheet->setCellValue("Q$row", $this->statusToString($class->getStatusPartyGroups()));
+            $sheet->getStyle("A$row:Q$row")->getBorders()
                 ->getAllBorders()->setBorderStyle(Border::BORDER_THIN)
                 ->setColor(new Color(Color::COLOR_BLACK));
             $sheet->getStyle("A$row")->getFill()->setFillType(Fill::FILL_SOLID)->setStartColor(new Color('FFFCD5B4'));
@@ -119,15 +121,15 @@ class ClassExportController extends Controller {
         $sheet->setCellValue("O$row", $status_may);
         $sheet->setCellValue("P$row", $status_party);
 
-        $sheet->getStyle("A$row:P$row")->getBorders()
+        $sheet->getStyle("A$row:Q$row")->getBorders()
             ->getAllBorders()->setBorderStyle(Border::BORDER_THIN)
             ->setColor(new Color(Color::COLOR_BLACK));
-        $sheet->getStyle("A$row:P$row")->getFill()->setFillType(Fill::FILL_SOLID)->setStartColor(new Color('FFFCD5B4'));
-        $sheet->getStyle("A$row:P$row")->getFont()->setBold(true);
-        $sheet->getStyle("A$row:P$row")->getAlignment()->setHorizontal(Alignment::HORIZONTAL_CENTER);
+        $sheet->getStyle("A$row:Q$row")->getFill()->setFillType(Fill::FILL_SOLID)->setStartColor(new Color('FFFCD5B4'));
+        $sheet->getStyle("A$row:Q$row")->getFont()->setBold(true);
+        $sheet->getStyle("A$row:Q$row")->getAlignment()->setHorizontal(Alignment::HORIZONTAL_CENTER);
 
 
-        $sheet->setAutoFilter('A1:P' . ($classes + 1));
+        $sheet->setAutoFilter('A1:Q' . ($classes + 1));
     }
 
     private function statusToString($status) {
