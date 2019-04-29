@@ -89,7 +89,8 @@
                     <th>Statut mai</th>
                     @endif
                     @if($show_party)
-                    <th>Inscrire &agrave; la f&ecirc;te</th>
+                    <th>Statut f&ecirc;te</th>
+                    <th>Inscription fête complétée</th>
                     @endif
                     <th>Actions</th>
                 </tr>
@@ -111,6 +112,7 @@
                         @endif
                         @if($show_party)
                         <td>{{ statusToIcon($class->status_party) }}</td>
+                        <td>{{ statusToIcon($class->status_party === null ? null : ($class->partyGroups()->exists() ? 1 : 0)) }}</td>
                         @endif
                         <td>
                             <a href="{{ route('teacher.classes.edit', [$class]) }}" class="btn btn-primary">
