@@ -57,9 +57,9 @@ class PartyController {
         return redirect()->route('admin.party');
     }
 
-    public function deleteParty(SchoolClass $class) {
+    public function deleteGroup(PartyGroup $group) {
         abort_if(Auth::user()->type !== User::TYPE_ADMIN, 403);
-        $class->partyGroups()->delete();
+        $group->delete();
         return redirect()->route('admin.party');
     }
 

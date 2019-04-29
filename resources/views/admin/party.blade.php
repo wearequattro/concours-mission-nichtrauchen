@@ -59,7 +59,7 @@
                     <a href="{{ route('admin.party.class', [$group->schoolClass]) }}" class="btn btn-primary text-white">
                         <i class="fa fa-pencil"></i>
                     </a>
-                    <a href="{{ route('admin.party.class.delete', [$group->schoolClass]) }}" class="btn btn-danger text-white">
+                    <a href="{{ route('admin.party.class.delete', [$group]) }}" class="btn btn-danger text-white">
                         <i class="fa fa-trash-o"></i>
                     </a>
                 </td>
