@@ -154,7 +154,7 @@
         function hideCard(card) {
             card.fadeOut();
             card.find('input, select').prop('required', false);
-            card.find('input, select').val('');
+            card.find('input').val('');
             var id = parseInt(card.attr('data-card-id'));
             visible = removeFromArray(visible, id);
         }
