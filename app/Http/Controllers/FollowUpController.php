@@ -102,7 +102,8 @@ class FollowUpController extends Controller {
         $newStatus = $stillNonSmoking === "true";
         Log::info("Teacher responded to follow up: $token");
         $class = $this->classRepository->findByStatusToken($token);
-        abort_if(!$class, 404, "Ce lien n'est plus valable.");
+        if(!$class)
+            return redirect()->route('login.redirect');
 
         try {
             $status = $this->classManager->determineStatusByToken($class, $token);
@@ -111,7 +112,6 @@ class FollowUpController extends Controller {
         } catch (\Exception $e) {
             Log::error($e);
             Bugsnag::notifyException($e);
-            abort(404, "Une erreur s'est produite lors du traitement de votre demande.");
         }
         return redirect()->route('login.redirect');
     }
