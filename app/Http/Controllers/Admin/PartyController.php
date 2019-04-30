@@ -35,7 +35,7 @@ class PartyController {
         if (collect($data)->sum('students') > $class->students) {
             $errors = [];
             for ($i = 0; $i < sizeof($data); $i++) {
-                $errors['class.'.$i.'.students'] = ['La somme des étudiants des groupes doit être égal ou inférieur au nombre d\'étudiants de la classe'];
+                $errors['class.'.$i.'.students'] = ['La somme des élèves des groupes doit être égale ou inférieure au nombre d\'élèves de la classe'];
             }
             throw ValidationException::withMessages($errors);
         }
