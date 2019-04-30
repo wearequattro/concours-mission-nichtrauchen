@@ -98,6 +98,18 @@ class SchoolClass extends Model {
     }
 
     /**
+     * Get the maximum allowed number of groups
+     * @return int
+     */
+    public function getMaxGroups() {
+        if($this->students <= 10)
+            return 1;
+        if($this->students <= 20)
+            return 2;
+        return 3;
+    }
+
+    /**
      * @param bool $status
      */
     public function setPartyStatus(bool $status) {

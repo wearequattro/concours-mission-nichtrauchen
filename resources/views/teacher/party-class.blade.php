@@ -5,14 +5,19 @@
 @section('content')
     <h1 class="display-4 text-center">Inscription Fête de clôture</h1>
 
-    <p class="text-center">
-        <strong>
-            Pour le rallye, la classe doit se partager en groupes de 10 personnes maximum. Si votre classe comprend
-            jusqu'à 10 élèves, veuillez inscrire 1 groupe, jusqu'à 20 élèves 2 groupes, jusqu'à 30 élèves 3 groupes.
-            En pratique, si la classe compte p.ex. 15 élèves, inscrire 2 groupes (7 et 8 élèves).
-            Pour une classe de 22, inscrire 3 groupes (7, 7 et 8 élèves), etc...
-        </strong>
-    </p>
+    <div class="row">
+        <div class="col-12 col-xl-8 offset-xl-2">
+            <div class="alert alert-warning">
+                <i style="color: #ff0000;" class="fa fa-warning"></i>
+                <strong style="color: #000;">
+                    Pour le rallye, la classe doit se partager en groupes de 10 personnes maximum. Si votre classe comprend
+                    jusqu'à 10 élèves, veuillez inscrire 1 groupe, jusqu'à 20 élèves 2 groupes, jusqu'à 30 élèves 3 groupes.
+                    En pratique, si la classe compte p.ex. 15 élèves, inscrire 2 groupes (7 et 8 élèves).
+                    Pour une classe de 22, inscrire 3 groupes (7, 7 et 8 élèves), etc...
+                </strong>
+            </div>
+        </div>
+    </div>
 
     <form action="{{ route('party.class.post', [$class]) }}" method="post">
         @csrf
@@ -105,10 +110,14 @@
         <div class="row">
             <div class="col-12">
                 <input type="submit" class="btn btn-primary btn-lg" value="Valider l'inscription">
-                <a href="{{ route('party.class.delete', [$class]) }}" class="btn btn-lg btn-danger ml-4">Supprimer &laquo; {{ $class->name }} &raquo;</a>
+                @if($groups->count() > 0)
+                    <a href="{{ route('party.class.delete', [$class]) }}" class="btn btn-lg btn-danger ml-4">Supprimer &laquo; {{ $class->name }} &raquo;</a>
+                @endif
             </div>
         </div>
     </form>
+
+    <div style="height: 150px"></div>
 
 
 @endsection
@@ -121,7 +130,7 @@
         var visible = [0];
         @endif
 
-        var maxVisible = 3;
+        var maxVisible = {{ $class->getMaxGroups() }};
 
         $('.btn-add').click(function () {
             if(visible.length < maxVisible)

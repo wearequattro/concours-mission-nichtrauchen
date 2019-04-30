@@ -178,6 +178,8 @@ class TeacherController extends Controller {
             $students = $data[$i]['students'];
             if($name == null || $language == null || $students == null)
                 continue;
+            if($i >= $class->getMaxGroups()) // dont add more than allowed
+                continue;
             PartyGroup::create([
                 'name' => $name,
                 'students' => $students,
