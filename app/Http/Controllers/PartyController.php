@@ -8,7 +8,7 @@ use App\Http\Managers\SchoolClassManager;
 use App\Http\Repositories\SchoolClassRepository;
 use App\Mail\CustomEmail;
 use App\SchoolClass;
-use function MongoDB\BSON\toJSON;
+use App\User;
 
 class PartyController extends Controller {
 
@@ -28,8 +28,12 @@ class PartyController extends Controller {
 
     public function handlePartyResponse(string $token, string $status) {
         $class = $this->classRepository->findByPartyToken($token);
-        if(!$class)
+        if(!$class) {
+            if(\Auth::check() && \Auth::user()->type === User::TYPE_TEACHER && \Auth::user()->hasAccessToParty()) {
+                return redirect()->route('teacher.party');
+            }
             return redirect()->route('login.redirect');
+        }
 
         $newStatus = $status === "true";
         $this->classManager->handlePartyResponse($class, $newStatus);
