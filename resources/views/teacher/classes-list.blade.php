@@ -102,17 +102,17 @@
                         <td>{{ $class->students }}</td>
                         <td>{{ $class->school->name }}</td>
                         @if($show_january)
-                        <td>{{ statusToIcon($class->status_january) }}</td>
+                            <td>{{ statusToIcon($class->getStatusJanuary() ) }}</td>
                         @endif
                         @if($show_march)
-                        <td>{{ statusToIcon($class->status_march) }}</td>
+                            <td>{{ statusToIcon($class->getStatusMarch() ) }}</td>
                         @endif
                         @if($show_may)
-                        <td>{{ statusToIcon($class->status_may) }}</td>
+                            <td>{{ statusToIcon($class->getStatusMay() ) }}</td>
                         @endif
                         @if($show_party)
-                        <td>{{ statusToIcon($class->status_party) }}</td>
-                        <td>{{ statusToIcon($class->status_party === null ? null : ($class->partyGroups()->exists() ? 1 : 0)) }}</td>
+                            <td>{{ statusToIcon($class->getStatusParty()) }}</td>
+                            <td>{{ statusToIcon($class->getStatusPartyGroups() ) }}</td>
                         @endif
                         <td>
                             <a href="{{ route('teacher.classes.edit', [$class]) }}" class="btn btn-primary">
