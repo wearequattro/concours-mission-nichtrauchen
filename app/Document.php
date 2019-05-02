@@ -71,5 +71,29 @@ class Document extends Model {
         ]);
     }
 
+    public function getSafeFileName() {
+        $n = strtolower($this->title);
+        $replace = [
+            'é' => 'e',
+            'è' => 'e',
+            'ê' => 'e',
+            'á' => 'a',
+            'à' => 'a',
+            'â' => 'a',
+            'ô' => 'o',
+        ];
+        foreach ($replace as $s => $r) {
+            $n = str_replace($s, $r, $n);
+        }
+        $n = str_replace(' ', '-', $n);
+        $n = preg_replace('/[^a-z0-9]+/', '-', $n);
+        return $n;
+    }
+
+    public function getSafeFileNameWithExtension() {
+        $exploded = explode('.', $this->filename);
+        return $this->getSafeFileName(). '.' . $exploded[count($exploded) - 1];
+    }
+
 
 }

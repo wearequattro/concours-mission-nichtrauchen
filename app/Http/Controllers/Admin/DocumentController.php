@@ -48,9 +48,7 @@ class DocumentController extends Controller {
     }
 
     public function documentsDownload(Document $document) {
-        $exploded = explode('.', $document->filename);
-        return Storage::download($document->filename, preg_replace('/[^a-z0-9]+/', '-', strtolower($document->title))
-            . '.' . $exploded[count($exploded) - 1]);
+        return Storage::download($document->filename, $document->getSafeFileNameWithExtension());
     }
 
     public function documentsDelete(Document $document) {
