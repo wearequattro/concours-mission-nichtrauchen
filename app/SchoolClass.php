@@ -245,4 +245,10 @@ class SchoolClass extends Model {
         $this->save();
     }
 
+    public function prepareSendPartyGroupReminder() {
+        $this->update([
+            'party_group_reminder_sent_at' => Carbon::now(),
+        ]);
+    }
+
 }

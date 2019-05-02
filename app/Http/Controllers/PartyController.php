@@ -80,6 +80,7 @@ class PartyController extends Controller {
 
     public function sendPartyGroupReminder(SchoolClass $class) {
         \Log::info('Sending party group reminder to: ' . $class->toJSON());
+        $class->prepareSendPartyGroupReminder();
         $mail = EditableEmail::find(EditableEmail::$MAIL_PARTY_GROUP_REMINDER);
         \Mail::to($class->teacher->user->email)
             ->queue(new CustomEmail($mail, $class->teacher, $class));
