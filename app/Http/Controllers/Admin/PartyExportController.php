@@ -75,7 +75,7 @@ class PartyExportController extends Controller {
             $sheet->setCellValue("F$row", $group->schoolClass->teacher->salutation->long_form);
             $sheet->setCellValue("G$row", $group->schoolClass->teacher->last_name);
             $sheet->setCellValue("H$row", $group->schoolClass->teacher->first_name);
-            $sheet->setCellValue("I$row", $group->schoolClass->teacher->phone);
+            $sheet->setCellValue("I$row", " " . $group->schoolClass->teacher->phone);
             $sheet->getStyle("A$row:I$row")->getBorders()
                 ->getAllBorders()->setBorderStyle(Border::BORDER_THIN)
                 ->setColor(new Color(Color::COLOR_BLACK));

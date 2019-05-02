@@ -84,7 +84,7 @@ class ClassExportController extends Controller {
             $sheet->setCellValue("G$row", $class->teacher->last_name);
             $sheet->setCellValue("H$row", $class->teacher->first_name);
             $sheet->setCellValue("I$row", $class->teacher->user->email);
-            $sheet->setCellValue("J$row", $class->teacher->phone);
+            $sheet->setCellValue("J$row", " " . $class->teacher->phone);
             $sheet->setCellValue("K$row", $class->name);
             $sheet->setCellValue("L$row", $class->students);
             $sheet->setCellValue("M$row", $this->statusToString($class->getStatusJanuary()));
