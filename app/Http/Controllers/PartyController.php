@@ -28,7 +28,8 @@ class PartyController extends Controller {
 
     public function handlePartyResponse(string $token, string $status) {
         $class = $this->classRepository->findByPartyToken($token);
-        abort_if(!$class, 404, "Ce lien n'est plus valable.");
+        if(!$class)
+            return redirect()->route('login.redirect');
 
         $newStatus = $status === "true";
         $this->classManager->handlePartyResponse($class, $newStatus);
