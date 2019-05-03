@@ -231,7 +231,7 @@ class EditableEmail extends Model {
             new PlaceHolder("SUIVI_OUI", "https://suivi.link/oui", "Lien réponse suivi oui"),
             new PlaceHolder("SUIVI_NON", "https://suivi.link/non", "Lien réponse suivi non"),
             new PlaceHolder("LIEN_FETE", "https://fete.link/", "Lien inscription fête"),
-            new PlaceHolder("LIEN_FETE_NON", "https://fete.link/non", "Lien réponse fête non"),
+            new PlaceHolder("LIEN_FETE_OUI", "https://fete.link/oui", "Lien réponse fête oui"),
             new PlaceHolder("LIEN_FETE_NON", "https://fete.link/non", "Lien réponse fête non"),
         ]);
     }
