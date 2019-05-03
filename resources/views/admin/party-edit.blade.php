@@ -121,7 +121,7 @@
         var visible = [0];
         @endif
 
-        var maxVisible = 3;
+        var maxVisible = {{ $class->getMaxGroups() }};
 
         $('.btn-add').click(function () {
             if(visible.length < maxVisible)
