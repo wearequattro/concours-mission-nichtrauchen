@@ -40,7 +40,9 @@
             <th>Lycée</th>
             <th>Classe</th>
             <th>Langue souhaitée</th>
-            <th>Nom du prof</th>
+            <th>Enseignant titre</th>
+            <th>Enseignant prénom</th>
+            <th>Enseignant nom</th>
             <th>Télephone prof</th>
             <th>Actions</th>
         </tr>
@@ -53,7 +55,9 @@
                 <td>{{ $group->schoolClass->school->name }}</td>
                 <td>{{ $group->schoolClass->name }}</td>
                 <td>{{ $group->language }}</td>
-                <td>{{ $group->schoolClass->teacher->full_name }}</td>
+                <td>{{ $group->schoolClass->teacher->salutation->long_form }}</td>
+                <td>{{ $group->schoolClass->teacher->first_name }}</td>
+                <td>{{ $group->schoolClass->teacher->last_name }}</td>
                 <td>{{ $group->schoolClass->teacher->phone }}</td>
                 <td>
                     <a href="{{ route('admin.party.class', [$group->schoolClass]) }}" class="btn btn-primary text-white">
