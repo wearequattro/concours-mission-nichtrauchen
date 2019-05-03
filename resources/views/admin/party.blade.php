@@ -13,16 +13,18 @@
                 </div>
                 <div class="card-body">
                     @php
-                        $countClasses = $groups->count();
+                        $countGroups = $groups->count();
+                        $countClasses = $groups->pluck('schoolClass.name')->unique()->count();
                         $countTeacher = $groups->pluck('schoolClass.teacher')->unique()->count();
                         $countSchool = $groups->pluck('schoolClass.school.name')->unique()->count();
                         $countStudents = $groups->sum('students');
                     @endphp
                     <p>
-                        L'export contiendra <strong>{{ $countClasses }} {{ $countClasses > 1 ? 'groupes' : 'groupe' }}</strong>,
-                        <strong>{{ $countTeacher }} {{ $countTeacher > 1 ? 'enseignants' : 'enseignant' }}</strong>,
-                        <strong>{{ $countSchool }} {{ $countSchool > 1 ? 'lycées' : 'lycée' }}</strong>,
-                        <strong>{{ $countStudents }} {{ $countStudents > 1 ? 'étudiants' : 'étudiant' }}</strong>.
+                        L'export contiendra <strong>{{ $countGroups }} {{ $countGroups == 1 ? 'groupe' : 'groupes' }}</strong>,
+                        <strong>{{ $countTeacher }} {{ $countTeacher == 1 ? 'enseignant' : 'enseignants' }}</strong>,
+                        <strong>{{ $countSchool }} {{ $countSchool == 1 ? 'lycée' : 'lycées' }}</strong>,
+                        <strong>{{ $countStudents }} {{ $countStudents == 1 ? 'étudiant' : 'étudiants' }}</strong>,
+                        <strong>{{ $countClasses }} {{ $countClasses == 1 ? 'classe' : 'classes' }}</strong>.
                     </p>
                     <a class="btn btn-primary" href="{{ route('admin.party.export') }}">
                         Exporter
