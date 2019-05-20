@@ -143,6 +143,13 @@
                             F&ecirc;te de cl&ocirc;ture
                         </a>
                     </li>
+                    <li class="nav-item">
+                        <a href="{{ route('admin.settings') }}"
+                           class="nav-link {{ Route::currentRouteName() == 'admin.settings' ? 'active' : '' }}">
+                            <i class="fa fa-fw fa-gear"></i>
+                            Paramètres
+                        </a>
+                    </li>
                 </ul>
             </nav>
         @endif

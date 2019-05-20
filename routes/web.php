@@ -91,5 +91,9 @@ Route::group(['middleware' => ['auth', 'admin']], function () {;
         Route::get('/admin/users', 'UserController@users')->name('admin.users');
         Route::get('/admin/users/add', 'UserController@usersAdd')->name('admin.users.add');
         Route::post('/admin/users/add', 'UserController@usersAddPost')->name('admin.users.add.post');
+
+        // Settings
+        Route::get('/settings', 'SettingsController@index')->name('admin.settings');
+        Route::post('/settings', 'SettingsController@update')->name('admin.settings.post');
     });
 });

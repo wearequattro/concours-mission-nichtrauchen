@@ -16,6 +16,7 @@ use App\PartyGroup;
 use App\Salutation;
 use App\School;
 use App\SchoolClass;
+use App\Setting;
 use App\User;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
@@ -139,7 +140,7 @@ class TeacherController extends Controller {
         return view('teacher.party')->with([
             'classes' => $classes,
             'documents' => Document::query()->where('visible_party', 1)->get()->sortBy('sort'),
-            'open' => true, // todo replace
+            'open' => !Setting::isPartyClosed(),
         ]);
     }
 
