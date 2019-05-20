@@ -11,6 +11,7 @@ use App\Http\Repositories\EmailRepository;
 use App\Mail\CustomEmail;
 use App\SchoolClass;
 use Carbon\Carbon;
+use Illuminate\Support\Collection;
 
 class SchoolClassManager extends Controller {
 
@@ -163,6 +164,20 @@ class SchoolClassManager extends Controller {
         if($whichStatus === SchoolClass::STATUS_MAY)
             return EditableDate::find(EditableDate::FOLLOW_UP_3_REMINDER);
         throw new \Exception("Unknown status: $whichStatus");
+    }
+
+    /**
+     * Find classes eligible for party but not having created party groups
+     * @return Collection
+     */
+    public function findClassesMissingPartyGroups(): Collection {
+        return SchoolClass::all()->filter(function (SchoolClass $class) {
+            return $this->isClassMissingPartyGroups($class);
+        });
+    }
+
+    public function isClassMissingPartyGroups(SchoolClass $class) {
+        return $class->isEligibleForParty() && $class->partyGroups()->doesntExist();
     }
 
 }

@@ -2,6 +2,7 @@
 namespace App\Http\Controllers\Admin;
 
 
+use App\Http\Managers\SchoolClassManager;
 use App\Http\Requests\PartyGroupRegistrationRequest;
 use App\PartyGroup;
 use App\SchoolClass;
@@ -11,11 +12,22 @@ use Illuminate\Validation\ValidationException;
 
 class PartyController {
 
+    /**
+     * @var SchoolClassManager
+     */
+    private $classManager;
+
+    public function __construct(SchoolClassManager $classManager) {
+        $this->classManager = $classManager;
+    }
+
     public function party() {
         $groups = PartyGroup::all();
+        $eligibleForParty = $this->classManager->findClassesMissingPartyGroups();
 
         return view('admin.party')->with([
             'groups' => $groups,
+            'eligibleForParty' => $eligibleForParty,
         ]);
     }
 

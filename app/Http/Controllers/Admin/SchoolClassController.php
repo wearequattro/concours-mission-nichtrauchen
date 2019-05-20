@@ -54,7 +54,7 @@ class SchoolClassController extends Controller {
     public function classesEditPost(AdminClassUpdateRequest $request, SchoolClass $class) {
         $class->update($request->validated());
         Session::flash('message', 'Mise à jour réussie');
-        return redirect()->route('admin.classes');
+        return redirect()->route('admin.classes.edit', [$class]);
     }
 
     public function resend($status) {

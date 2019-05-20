@@ -204,4 +204,51 @@
 
     </form>
 
+    @if($class->status_party || $class->partyGroups()->exists())
+        <h3 class="mt-4">Groupes pour fête de clôture</h3>
+
+        @if($class->partyGroups()->exists())
+
+            <table class="table table-striped table-bordered">
+                <thead>
+                <tr>
+                    <th>Nom du groupe</th>
+                    <th>Nombre d'élèves du groupe</th>
+                    <th>Lycée</th>
+                    <th>Classe</th>
+                    <th>Langue souhaitée</th>
+                    <th>Actions</th>
+                </tr>
+                </thead>
+                <tbody>
+                    @foreach($class->partyGroups as $group)
+                        <tr>
+                            <td>{{ $group->name }}</td>
+                            <td>{{ $group->students }}</td>
+                            <td>{{ $group->schoolClass->school->name }}</td>
+                            <td>{{ $group->schoolClass->name }}</td>
+                            <td>{{ $group->language }}</td>
+                            <td>
+                                <a href="{{ route('admin.party.class', [$group->schoolClass]) }}" class="btn btn-primary text-white">
+                                    <i class="fa fa-pencil"></i>
+                                </a>
+                                <a href="{{ route('admin.party.class.delete', [$group]) }}" class="btn btn-danger text-white">
+                                    <i class="fa fa-trash-o"></i>
+                                </a>
+                            </td>
+                        </tr>
+
+                    @endforeach
+                </tbody>
+            </table>
+
+        @else
+            <p>
+                <a class="btn btn-primary" href="{{ route('admin.classes.edit', $class) }}">
+                    Ajouter groupes
+                </a>
+            </p>
+        @endif
+    @endif
+
 @endsection

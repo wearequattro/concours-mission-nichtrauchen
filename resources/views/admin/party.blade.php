@@ -32,6 +32,38 @@
                 </div>
             </div>
         </div>
+        <div class="col-sm-3 mb-4">
+            <div class="card">
+                <div class="card-header">
+                    Ajouter groupes
+                </div>
+                <div class="card-body">
+                    @if($eligibleForParty->count() > 0)
+                        <form id="party-create-form">
+
+                            <div class="form-group">
+                                <label for="class">Choisir une classe</label>
+                                <select name="class" id="class" class="form-control">
+                                    <option value=""></option>
+                                    @foreach($eligibleForParty as $class)
+                                        <option value="{{ $class->id }}">{{ $class->name }}</option>
+                                    @endforeach
+                                </select>
+                                <div class="invalid-feedback">
+                                    {{ inputValidationMessages($errors, 'class') }}
+                                </div>
+                            </div>
+
+                            <input type="submit" class="btn btn-primary" value="Ajouter groupes" disabled>
+                        </form>
+                    @else
+                        <p>
+                            Toutes les classes ont des groupes pour la fête de clôture.
+                        </p>
+                    @endif
+                </div>
+            </div>
+        </div>
     </div>
 
     <table class="table table-striped table-bordered">
@@ -84,5 +116,16 @@
                 [2, "asc"]
             ]
         });
+
+        $('#party-create-form select').change(partyCreateFormChanged);
+
+        function partyCreateFormChanged() {
+            $form = $(this).parent().parent();
+            var id = $(this).val();
+            var url = '{{ route('admin.party.class', [':class']) }}'.replace(':class', id);
+            $form.attr('action', url);
+            $form.find('input[type=submit]').prop('disabled', isNaN(parseInt(id)));
+        }
+
     </script>
 @endpush
