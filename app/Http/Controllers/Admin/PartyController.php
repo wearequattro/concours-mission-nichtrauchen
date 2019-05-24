@@ -23,7 +23,7 @@ class PartyController {
 
     public function party() {
         $groups = PartyGroup::all();
-        $eligibleForParty = $this->classManager->findClassesMissingPartyGroups();
+        $eligibleForParty = $this->classManager->findClassesMissingPartyGroups()->sortBy('name');
 
         return view('admin.party')->with([
             'groups' => $groups,
