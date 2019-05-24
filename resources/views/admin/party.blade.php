@@ -46,7 +46,7 @@
                                 <select name="class" id="class" class="form-control">
                                     <option value=""></option>
                                     @foreach($eligibleForParty as $class)
-                                        <option value="{{ $class->id }}">{{ $class->name }}</option>
+                                        <option value="{{ $class->id }}">{{ $class->name }} ({{ $class->teacher->full_name }}) [{{ $class->school->name }}]</option>
                                     @endforeach
                                 </select>
                                 <div class="invalid-feedback">
