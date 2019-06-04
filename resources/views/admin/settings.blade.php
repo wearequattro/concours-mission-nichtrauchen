@@ -11,10 +11,9 @@
                 @csrf
 
                 @foreach($settings as $setting)
-                    <input type="hidden" id="setting_{{ $setting->key }}" name="setting[{{ $setting->key }}]" value="{{ $setting->value ? 'on' : 'off' }}">
                     <div class="form-group">
                         <label>
-                            <input type="checkbox" data-setting="{{ $setting->key }}" {{ $setting->value ? 'checked' : '' }}>
+                            <input type="checkbox" name="setting[{{ $setting->key }}]" data-setting="{{ $setting->key }}" {{ $setting->value ? 'checked' : '' }}>
                             {{ __('settings.' . $setting->key) }}
                         </label>
                     </div>
@@ -26,13 +25,4 @@
     </div>
 
 @endsection
-
-@push('js')
-    <script>
-        $('input[type=checkbox]').change(function () {
-            var sett = $(this).attr('data-setting');
-            $('#setting_' + sett).val($(this).is(":checked") ? 'on' : 'off');
-        });
-    </script>
-@endpush
 

@@ -15,10 +15,11 @@ class SettingsController extends Controller {
     }
 
     public function update(Request $request) {
-        collect($request->all()['setting'])
-            ->each(function ($val, $key) {
-                Setting::findOrFail($key)->update(['value' => $val === 'on']);
-            });
+        Setting::all()->each(function (Setting $s) use ($request) {
+            return $s->update([
+                'value' => $request->get('setting')[$s->key] === "on",
+            ]);
+        });
         return redirect()->route('admin.settings');
     }
 
