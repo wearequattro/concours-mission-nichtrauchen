@@ -205,13 +205,12 @@ class SchoolClassManager extends Controller {
         $uuid = Uuid::uuid4()->toString();
         $certPath = "certificats/$uuid/certificat.pdf";
         Storage::put($certPath, $pdfString, 'public');
-        $url = Storage::url($certPath);
 
         if($class->certificate()->exists()) {
             $class->certificate->deletePdf();
-            $class->certificate()->update(['url' => $url]);
+            $class->certificate()->update(['url' => $certPath]);
         } else {
-            $class->certificate()->create(['url' => $url]);
+            $class->certificate()->create(['url' => $certPath]);
         }
 
     }
