@@ -61,6 +61,12 @@ Route::group(['middleware' => ['auth', 'admin']], function () {;
         Route::get('/admin/schools/{school}', 'SchoolController@schoolsEdit')->name('admin.schools.edit');
         Route::post('/admin/schools/{school}', 'SchoolController@schoolsEditPost')->name('admin.schools.edit.post');
 
+        Route::get('/admin/certificates', 'CertificateController@index')->name('admin.certificates');
+        Route::get('/admin/certificates/generate/all', 'CertificateController@generateAll')->name('admin.certificates.generate.all');
+        Route::get('/admin/certificates/generate/{class}', 'CertificateController@generate')->name('admin.certificates.generate');
+        Route::get('/admin/certificates/delete/{certificate}', 'CertificateController@delete')->name('admin.certificates.delete');
+        Route::get('/admin/certificates/{certificate}', 'CertificateController@download')->name('admin.certificates.download');
+
         Route::get('/admin/teachers', 'TeacherController@teachers')->name('admin.teachers');
         Route::get('/admin/teachers/{teacher}', 'TeacherController@teachersEdit')->name('admin.teachers.edit');
         Route::post('/admin/teachers/{teacher}', 'TeacherController@teachersEditPost')->name('admin.teachers.edit.post');

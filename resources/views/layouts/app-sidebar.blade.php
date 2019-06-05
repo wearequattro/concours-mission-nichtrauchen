@@ -99,6 +99,13 @@
                         </a>
                     </li>
                     <li class="nav-item">
+                        <a href="{{ route('admin.certificates') }}"
+                           class="nav-link {{ Route::currentRouteName() == 'admin.certificates' ? 'active' : '' }}">
+                            <i class="fa fa-fw fa-file"></i>
+                            Certificats
+                        </a>
+                    </li>
+                    <li class="nav-item">
                         <a href="{{ route('admin.schools') }}"
                            class="nav-link {{ Route::currentRouteName() == 'admin.schools' ? 'active' : '' }}">
                             <i class="fa fa-fw fa-university"></i>
