@@ -58,4 +58,28 @@ class SchoolClassRepository extends Controller {
             ->get();
     }
 
+    /**
+     * Finds SchoolClasses eligible for receiving certificates
+     * @return Collection
+     */
+    public function findEligibleForCertificate(): Collection {
+        return SchoolClass::query()
+            ->where('status_january', 1)
+            ->where('status_march', 1)
+            ->where('status_may', 1)
+            ->get();
+    }
+
+    /**
+     * Finds SchoolClasses NOT eligible for receiving certificates
+     * @return Collection
+     */
+    public function findNotEligibleForCertificate(): Collection {
+        return SchoolClass::query()
+            ->where('status_january', 0)
+            ->orWhere('status_march', 0)
+            ->orWhere('status_may', 0)
+            ->get();
+    }
+
 }

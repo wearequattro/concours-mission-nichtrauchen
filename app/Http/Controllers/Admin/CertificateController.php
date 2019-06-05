@@ -4,7 +4,10 @@ namespace App\Http\Controllers\Admin;
 use App\Certificate;
 use App\Http\Controllers\Controller;
 use App\Http\Managers\SchoolClassManager;
+use App\Http\Repositories\SchoolClassRepository;
+use App\Jobs\GenerateCertificatesJob;
 use App\SchoolClass;
+use Cache;
 
 class CertificateController extends Controller {
 
@@ -13,14 +16,18 @@ class CertificateController extends Controller {
      */
     private $classManager;
 
-    public function __construct(SchoolClassManager $classManager) {
+    /**
+     * @var SchoolClassRepository
+     */
+    private $classRepository;
+
+    public function __construct(SchoolClassManager $classManager, SchoolClassRepository $classRepository) {
         $this->classManager = $classManager;
+        $this->classRepository = $classRepository;
     }
 
     public function index() {
-        $classes = SchoolClass::all()->filter(function (SchoolClass $class) {
-            return $class->isEligibleForCertificate();
-        });
+        $classes = $this->classRepository->findEligibleForCertificate();
         return view('admin.certificates')->with(compact('classes'));
     }
 
@@ -41,7 +48,10 @@ class CertificateController extends Controller {
     }
 
     public function generateAll() {
-        dd("todo");
+        GenerateCertificatesJob::dispatch();
+        $count = $this->classRepository->findEligibleForCertificate()->count();
+        \Session::flash('message', "$count certificats sont maintenant générés. Veuillez patienter quelques minutes.");
+        return redirect()->route('admin.certificates');
     }
 
 }
