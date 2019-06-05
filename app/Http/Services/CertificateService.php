@@ -13,7 +13,8 @@ class CertificateService extends Controller {
     private $lineHeight = 11.5;
 
     public function __construct() {
-        define('FPDF_FONTPATH', resource_path('fpdf/'));
+        if(!defined('FPDF_FONTPATH'))
+            define('FPDF_FONTPATH', resource_path('fpdf/'));
     }
 
     /**
