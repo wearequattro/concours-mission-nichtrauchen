@@ -47,7 +47,7 @@ class CertificateService extends Controller {
         $this->line($pdf, 'pour avoir relevé avec succès le défi de', 4);
         $this->line($pdf, 'ne pas fumer durant 6 mois.', 4.7);
 
-        return $pdf->Output('I', 'certificat.pdf');
+        return $pdf->Output('S', 'certificat.pdf');
     }
 
     /**

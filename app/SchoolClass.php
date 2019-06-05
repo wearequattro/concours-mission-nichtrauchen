@@ -6,6 +6,7 @@ use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Support\Collection;
 use Ramsey\Uuid\Uuid;
 
@@ -38,6 +39,7 @@ use Ramsey\Uuid\Uuid;
  * @property Carbon updated_at
  * @property Carbon created_at
  * @property School school
+ * @property Certificate certificate
  * @property Teacher teacher
  * @property Collection partyGroups
  *
@@ -67,6 +69,10 @@ class SchoolClass extends Model {
 
     public function partyGroups(): HasMany {
         return $this->hasMany(PartyGroup::class);
+    }
+
+    public function certificate(): HasOne {
+        return $this->hasOne(Certificate::class);
     }
 
     public function getStatusJanuary(): ?int {
@@ -142,6 +148,16 @@ class SchoolClass extends Model {
             && $this->status_march === 1
             && $this->status_may === 1
             && $this->status_party === 1;
+    }
+
+    /**
+     * Checks if this class is eligible for receiving a certificate.
+     * @return bool
+     */
+    public function isEligibleForCertificate() {
+        return $this->status_january === 1
+            && $this->status_march === 1
+            && $this->status_may === 1;
     }
 
     /**

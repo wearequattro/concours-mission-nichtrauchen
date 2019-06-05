@@ -8,10 +8,14 @@ use App\EditableDate;
 use App\EditableEmail;
 use App\Http\Controllers\Controller;
 use App\Http\Repositories\EmailRepository;
+use App\Http\Services\CertificateService;
 use App\Mail\CustomEmail;
 use App\SchoolClass;
 use Carbon\Carbon;
 use Illuminate\Support\Collection;
+use Log;
+use Ramsey\Uuid\Uuid;
+use Storage;
 
 class SchoolClassManager extends Controller {
 
@@ -20,8 +24,14 @@ class SchoolClassManager extends Controller {
      */
     private $emailRepository;
 
-    public function __construct(EmailRepository $emailRepository) {
+    /**
+     * @var CertificateService
+     */
+    private $certificateService;
+
+    public function __construct(EmailRepository $emailRepository, CertificateService $certificateService) {
         $this->emailRepository = $emailRepository;
+        $this->certificateService = $certificateService;
     }
 
     /**
@@ -178,6 +188,32 @@ class SchoolClassManager extends Controller {
 
     public function isClassMissingPartyGroups(SchoolClass $class) {
         return $class->isEligibleForParty() && $class->partyGroups()->doesntExist();
+    }
+
+    /**
+     * Generates and uploads the certificate file, also creates the model and associates it
+     * @param SchoolClass $class
+     * @throws \Exception
+     */
+    public function generateCertificate(SchoolClass $class) {
+        if (!$class->isEligibleForCertificate())
+            return;
+
+        Log::info("Generating certificate for {$class->id}: {$class->name} ");
+
+        $pdfString = $this->certificateService->generateCertificate($class);
+        $uuid = Uuid::uuid4()->toString();
+        $certPath = "certificats/$uuid/certificat.pdf";
+        Storage::put($certPath, $pdfString, 'public');
+        $url = Storage::url($certPath);
+
+        if($class->certificate()->exists()) {
+            $class->certificate->deletePdf();
+            $class->certificate()->update(['url' => $url]);
+        } else {
+            $class->certificate()->create(['url' => $url]);
+        }
+
     }
 
 }
