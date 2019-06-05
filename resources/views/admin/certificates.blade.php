@@ -53,6 +53,7 @@
                         <th>Enseignant titre</th>
                         <th>Enseignant prénom</th>
                         <th>Enseignant nom</th>
+                        <th>Géneré à</th>
                         <th>Action</th>
                     </tr>
                     </thead>
@@ -65,6 +66,7 @@
                             <td>{{ $class->teacher->salutation->long_form }}</td>
                             <td>{{ $class->teacher->first_name }}</td>
                             <td>{{ $class->teacher->last_name }}</td>
+                            <td>{{ optional($class->certificate)->updated_at }}</td>
                             <td>
                                 @php($cert = $class->certificate()->exists())
                                 <div class="btn-group pull-right">
