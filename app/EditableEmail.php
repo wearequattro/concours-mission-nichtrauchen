@@ -58,6 +58,7 @@ class EditableEmail extends Model {
 
 
     public static $MAIL_FINAL = ["final", "Mail final"];
+    public static $MAIL_FINAL_CERTIFICAT = ["final_certificat", "Mail final avec certificat"];
     public static $MAIL_NEWSLETTER_START = ["newsletter_start", "Début du concours Mission Nichtrauchen"];
     public static $MAIL_NEWSLETTER_ENCOURAGEMENT = ["newsletter_encouragement", "Bravo – plus que 13 semaines... !"];
 
@@ -65,6 +66,7 @@ class EditableEmail extends Model {
         return collect([
             static::$MAIL_TEACHER_CONFIRMATION,
             static::$MAIL_FINAL,
+            static::$MAIL_FINAL_CERTIFICAT,
             static::$MAIL_NEWSLETTER_START,
             static::$MAIL_NEWSLETTER_ENCOURAGEMENT,
             static::$MAIL_FOLLOW_UP_1,
@@ -203,6 +205,11 @@ class EditableEmail extends Model {
             return route('teacher.documents');
         if ($subject === "LIEN_FETE_INVITE")
             return route('teacher.party');
+        if ($subject === "LIEN_CERTIFICAT") {
+            if($class->certificate == null)
+                throw new \Exception("certificate must not be null");
+            return route('certificate.download', [$class->certificate->uid]);
+        }
         if ($subject === "SUIVI_OUI")
             return route('follow-up', ['token' => $class->getCurrentToken(), 'status' => 'true']);
         if ($subject === "SUIVI_NON")
@@ -228,6 +235,7 @@ class EditableEmail extends Model {
             new PlaceHolder("LIEN_LOGIN", route('login'), "Lien login"),
             new PlaceHolder("LIEN_DOCUMENTS", route('teacher.documents'), "Lien documents"),
             new PlaceHolder("LIEN_FETE_INVITE", route('teacher.party'), "Lien invitation fête"),
+            new PlaceHolder("LIEN_CERTIFICAT", "https://certificat.link/telecharger", "Lien télécharger certificat"),
             new PlaceHolder("SUIVI_OUI", "https://suivi.link/oui", "Lien réponse suivi oui"),
             new PlaceHolder("SUIVI_NON", "https://suivi.link/non", "Lien réponse suivi non"),
             new PlaceHolder("LIEN_FETE", "https://fete.link/", "Lien inscription fête"),

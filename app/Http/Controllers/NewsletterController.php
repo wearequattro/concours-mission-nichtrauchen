@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\EditableDate;
 use App\EditableEmail;
+use App\Http\Repositories\SchoolClassRepository;
 use App\Mail\CustomEmail;
 use App\Teacher;
 use Carbon\Carbon;
@@ -12,6 +13,14 @@ use Illuminate\Support\Collection;
 class NewsletterController extends Controller {
 
     const sendingHour = 10;
+    /**
+     * @var SchoolClassRepository
+     */
+    private $classRepository;
+
+    public function __construct(SchoolClassRepository $classRepository) {
+        $this->classRepository = $classRepository;
+    }
 
     public function sendNewsletters() {
         $teachers = Teacher::all();
@@ -20,7 +29,9 @@ class NewsletterController extends Controller {
         });
         $this->send($teachers, EditableDate::NEWSLETTER_START, EditableEmail::$MAIL_NEWSLETTER_START);
         $this->send($teachersStillParticipating, EditableDate::NEWSLETTER_ENCOURAGEMENT, EditableEmail::$MAIL_NEWSLETTER_ENCOURAGEMENT);
-        $this->send($teachers, EditableDate::FINAL_MAIL, EditableEmail::$MAIL_FINAL);
+
+        $this->send($this->classRepository->findNotEligibleForCertificate(), EditableDate::FINAL_MAIL, EditableEmail::$MAIL_FINAL);
+        $this->send($this->classRepository->findEligibleForCertificate(), EditableDate::FINAL_MAIL, EditableEmail::$MAIL_FINAL_CERTIFICAT);
     }
 
     private function send(Collection $teachers, string $dateIdentifier, array $mailIdentifier) {
