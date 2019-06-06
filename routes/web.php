@@ -65,6 +65,7 @@ Route::group(['middleware' => ['auth', 'admin']], function () {;
 
         Route::get('/admin/certificates', 'CertificateController@index')->name('admin.certificates');
         Route::get('/admin/certificates/generate/all', 'CertificateController@generateAll')->name('admin.certificates.generate.all');
+        Route::get('/admin/certificates/generate/missing', 'CertificateController@generateMissing')->name('admin.certificates.generate.missing');
         Route::get('/admin/certificates/generate/{class}', 'CertificateController@generate')->name('admin.certificates.generate');
         Route::get('/admin/certificates/delete/{certificate}', 'CertificateController@delete')->name('admin.certificates.delete');
         Route::get('/admin/certificates/{certificate}', 'CertificateController@download')->name('admin.certificates.download');

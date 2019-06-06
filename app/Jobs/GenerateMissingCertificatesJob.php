@@ -12,7 +12,7 @@ use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
 
-class GenerateCertificatesJob implements ShouldQueue {
+class GenerateMissingCertificatesJob implements ShouldQueue {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
     /**
@@ -30,16 +30,16 @@ class GenerateCertificatesJob implements ShouldQueue {
      * @param SchoolClassRepository $repository
      * @param SchoolClassManager $manager
      * @return void
-     * @throws \Psr\SimpleCache\InvalidArgumentException|\Exception
      */
     public function handle(SchoolClassRepository $repository, SchoolClassManager $manager) {
-        $classes = $repository->findEligibleForCertificate();
-        \Log::info('GenerateCertificatesJob started: generating ' . $classes->count() . ' certificates');
+        $classes = $repository->findEligibleButMissingCertificate();
+
+        \Log::info('GenerateMissingCertificatesJob started: generating ' . $classes->count() . ' certificates');
 
         $classes->each(function (SchoolClass $class) use ($manager) {
             $manager->generateCertificate($class);
         });
 
-        \Log::info('GenerateCertificatesJob completed: ' . $classes->count());
+        \Log::info('GenerateMissingCertificatesJob completed: ' . $classes->count());
     }
 }

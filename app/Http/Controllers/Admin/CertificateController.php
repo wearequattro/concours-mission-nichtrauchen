@@ -5,7 +5,8 @@ use App\Certificate;
 use App\Http\Controllers\Controller;
 use App\Http\Managers\SchoolClassManager;
 use App\Http\Repositories\SchoolClassRepository;
-use App\Jobs\GenerateCertificatesJob;
+use App\Jobs\GenerateAllCertificatesJob;
+use App\Jobs\GenerateMissingCertificatesJob;
 use App\SchoolClass;
 use Cache;
 
@@ -27,10 +28,12 @@ class CertificateController extends Controller {
     }
 
     public function index() {
-        $classes = $this->classRepository->findEligibleForCertificate()
-            ->concat($this->classRepository->findHavingCertificate())
-            ->unique();
-        return view('admin.certificates')->with(compact('classes'));
+        $classesEligible = $this->classRepository->findEligibleForCertificate();
+        $classesHaving = $this->classRepository->findHavingCertificate();
+        $eligibleHaving = $classesEligible->intersect($classesHaving);
+        $eligibleMissing = $this->classRepository->findEligibleButMissingCertificate();
+        $classes = $classesEligible->concat($classesHaving)->unique();
+        return view('admin.certificates')->with(compact('classes', 'classesEligible', 'eligibleHaving', 'eligibleMissing'));
     }
 
     public function generate(SchoolClass $class) {
@@ -50,8 +53,15 @@ class CertificateController extends Controller {
     }
 
     public function generateAll() {
-        GenerateCertificatesJob::dispatch();
+        GenerateAllCertificatesJob::dispatch();
         $count = $this->classRepository->findEligibleForCertificate()->count();
+        \Session::flash('message', "$count certificats sont maintenant générés. Veuillez patienter quelques minutes.");
+        return redirect()->route('admin.certificates');
+    }
+
+    public function generateMissing() {
+        GenerateMissingCertificatesJob::dispatch();
+        $count = $this->classRepository->findEligibleButMissingCertificate()->count();
         \Session::flash('message', "$count certificats sont maintenant générés. Veuillez patienter quelques minutes.");
         return redirect()->route('admin.certificates');
     }

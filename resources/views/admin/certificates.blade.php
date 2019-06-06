@@ -13,29 +13,44 @@
 
     <div class="row">
 
-        <div class="col-12 col-sm-6 col-xl-3 mb-4">
+        <div class="col-12 col-sm-6 col-xl-6 mb-4">
             <div class="card">
                 <div class="card-header">
-                    Exporter fichier des classes
+                    Générer certificats
                 </div>
                 <div class="card-body">
-                    <a class="btn btn-primary btn-block" href="{{ route('admin.certificates.generate.all') }}">
-                        <i class="fa fa-refresh"></i> Générer les certificats
-                    </a>
-                    <br>
-                    Génère des certificats pour toutes les classes éligibles, même si elles ont déjà un certificat.
+                    <div class="row">
+                        <div class="col-12 col-xl-6">
+                            <a class="btn btn-primary btn-block" href="{{ route('admin.certificates.generate.all') }}">
+                                <i class="fa fa-refresh"></i> Regénérer tous les certificats
+                            </a>
+                            <br>
+                            Génère des certificats pour toutes les classes éligibles, même si elles ont déjà un certificat.
+                            <hr class="d-block d-xl-none">
+                        </div>
+                        <div class="col-12 col-xl-6">
+                            <a class="btn btn-primary btn-block {{ $eligibleMissing->count() == 0 ? 'disabled' : '' }}" href="{{ route('admin.certificates.generate.missing') }}">
+                                <i class="fa fa-refresh"></i> Générer certificats manquants
+                            </a>
+                            <br>
+                            <p {{ $eligibleMissing->count() > 0 ? 'hidden' : '' }}>
+                                Toutes les classes ont un certificat.
+                            </p>
+                            Génère des certificats pour toutes les classes éligibles, seulement si elles n'ont pas encore de certificat.
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
 
-        <div class="col-12 col-sm-6 col-xl-3 mb-4">
+        <div class="col-12 col-sm-6 col-xl-6 mb-4">
             <div class="card">
                 <div class="card-header">
                     Statistiques
                 </div>
                 <div class="card-body">
-                    <span class="badge badge-primary text-white">{{ $classes->count() }}</span>
-                    classes sont éligibles pour recevoir un certificat.
+                    <span class="badge badge-primary text-white">{{ $eligibleHaving->count() }} / {{ $classesEligible->count() }}</span>
+                    classes éligibles pour recevoir un certificat ont généré un certificat.
                 </div>
             </div>
         </div>
@@ -53,6 +68,7 @@
                         <th>Enseignant titre</th>
                         <th>Enseignant prénom</th>
                         <th>Enseignant nom</th>
+                        <th>Éligible pour certificat?</th>
                         <th>Géneré à</th>
                         <th>Action</th>
                     </tr>
@@ -66,6 +82,7 @@
                             <td>{{ $class->teacher->salutation->long_form }}</td>
                             <td>{{ $class->teacher->first_name }}</td>
                             <td>{{ $class->teacher->last_name }}</td>
+                            <td>{{ statusToIcon($class->isEligibleForCertificate() ? 1 : 0) }}</td>
                             <td>{{ optional($class->certificate)->updated_at }}</td>
                             <td>
                                 @php($cert = $class->certificate()->exists())

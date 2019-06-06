@@ -86,6 +86,15 @@ class SchoolClassRepository extends Controller {
     }
 
     /**
+     * Finds SchoolClasses that are eligible for receiving certificate but don't have one.
+     * @return Collection
+     */
+    public function findEligibleButMissingCertificate(): Collection {
+        return $this->findEligibleForCertificate()
+            ->diff($this->findHavingCertificate());
+    }
+
+    /**
      * Finds SchoolClasses having generated certificates, without checking if they are allowed to have it
      * @return Collection
      */
