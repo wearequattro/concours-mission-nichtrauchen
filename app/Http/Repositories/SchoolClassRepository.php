@@ -77,8 +77,11 @@ class SchoolClassRepository extends Controller {
     public function findNotEligibleForCertificate(): Collection {
         return SchoolClass::query()
             ->where('status_january', 0)
+            ->orWhereNull('status_january')
             ->orWhere('status_march', 0)
+            ->orWhereNull('status_march')
             ->orWhere('status_may', 0)
+            ->orWhereNull('status_may')
             ->get();
     }
 
