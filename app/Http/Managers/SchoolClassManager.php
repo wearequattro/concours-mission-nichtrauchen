@@ -210,7 +210,10 @@ class SchoolClassManager extends Controller {
             $class->certificate->deletePdf();
             $class->certificate()->update(['url' => $certPath]);
         } else {
-            $class->certificate()->create(['url' => $certPath]);
+            $class->certificate()->create([
+                'url' => $certPath,
+                'uid' => Uuid::uuid4()->toString(),
+            ]);
         }
 
     }

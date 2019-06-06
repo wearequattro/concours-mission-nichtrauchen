@@ -48,6 +48,8 @@ Route::group(['middleware' => ['auth', 'teacher']], function () {
 Route::get('/suivi/{token}/{stillNonSmoking}', 'FollowUpController@setFollowUpStatus')->name('follow-up');
 Route::get('/party/{token}/{status}', 'PartyController@handlePartyResponse')->name('party-response');
 
+Route::get('/certificat/{uid}', 'CertificateController@download')->name('certificate.download');
+
 Route::group(['middleware' => ['auth', 'admin']], function () {;
     Route::group(['namespace' => 'Admin'], function () {
         Route::get('/admin/classes', 'SchoolClassController@classes')->name('admin.classes');

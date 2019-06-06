@@ -11,13 +11,14 @@ use Illuminate\Database\Eloquent\Model;
  * @property int id
  * @property int school_class_id
  * @property string url
+ * @property string uid
  * @property SchoolClass schoolClass
  * @property Carbon created_at
  * @property Carbon updated_at
  */
 class Certificate extends Model {
 
-    protected $fillable = ['school_class_id', 'url'];
+    protected $fillable = ['school_class_id', 'url', 'uid'];
 
     /**
      * Deletes the model and its associated PDF file
