@@ -27,7 +27,9 @@ class CertificateController extends Controller {
     }
 
     public function index() {
-        $classes = $this->classRepository->findEligibleForCertificate();
+        $classes = $this->classRepository->findEligibleForCertificate()
+            ->concat($this->classRepository->findHavingCertificate())
+            ->unique();
         return view('admin.certificates')->with(compact('classes'));
     }
 

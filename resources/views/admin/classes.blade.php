@@ -166,6 +166,8 @@
                         <th>Statut fête</th>
                         <th>Inscription fête complétée</th>
                         <th>Inscription fête complétée</th>
+                        <th>Certificat généré</th>
+                        <th>Certificat généré</th>
                         <th>Action</th>
                     </tr>
                     </thead>
@@ -195,11 +197,14 @@
                             <td>{{ $class->getStatusParty() === null ? 'E' : ($class->getStatusParty() ? 'Y' : 'N') }}</td>
                             <td>{{ statusToIcon($class->getStatusPartyGroups() ) }}</td>
                             <td>{{ $class->getStatusPartyGroups() === null ? 'E' : ($class->getStatusPartyGroups() ? 'Y' : 'N') }}</td>
+                            @php($cert = $class->certificate()->exists() ? 1 : 0)
+                            <td>{{ statusToIcon($cert) }}</td>
+                            <td>{{ $cert === null ? 'E' : ($class->getStatusPartyGroups() ? 'Y' : 'N') }}</td>
                             <td>
                                 <a href="{{ route('admin.classes.edit', [$class]) }}" class="btn btn-primary">
                                     <i class="fa fa-fw fa-pencil"></i>
                                 </a>
-                                <a class="btn btn-danger text-white" data-delete-id="{{ $class->id }}" data-delete-label="{{ $class->name }}">
+                                <a class="btn btn-danger text-white"v data-delete-id="{{ $class->id }}" data-delete-label="{{ $class->name }}">
                                     <i class="fa fa-fw fa-trash-o"></i>
                                 </a>
                             </td>
@@ -243,6 +248,8 @@
                 { targets: 13, visible: false },
                 { targets: 14, orderData: [15] },
                 { targets: 15, visible: false },
+                { targets: 16, orderData: [17] },
+                { targets: 17, visible: false },
             ],
         });
     </script>
