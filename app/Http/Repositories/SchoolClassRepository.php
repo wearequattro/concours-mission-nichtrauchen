@@ -82,4 +82,14 @@ class SchoolClassRepository extends Controller {
             ->get();
     }
 
+    /**
+     * Finds SchoolClasses having generated certificates, without checking if they are allowed to have it
+     * @return Collection
+     */
+    public function findHavingCertificate(): Collection {
+        return SchoolClass::query()
+            ->whereHas('certificate')
+            ->get();
+    }
+
 }
