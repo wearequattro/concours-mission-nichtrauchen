@@ -12,6 +12,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property string editable_email_key
  * @property int user_id
  * @property User user
+ * @property SchoolClass schoolClass
  * @property EditableEmail editableEmail
  * @property Carbon created_at
  * @property Carbon updated_at
@@ -20,7 +21,7 @@ use Illuminate\Database\Eloquent\Model;
  */
 class SentEmail extends Model {
 
-    protected $fillable = ["editable_email_key", "user_id"];
+    protected $fillable = ["editable_email_key", "user_id", "school_class_id"];
 
     public function editableEmail() {
         return $this->belongsTo(EditableEmail::class);
@@ -28,6 +29,10 @@ class SentEmail extends Model {
 
     public function user() {
         return $this->belongsTo(User::class);
+    }
+
+    public function schoolClass() {
+        return $this->belongsTo(SchoolClass::class);
     }
 
 }

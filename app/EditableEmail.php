@@ -127,6 +127,13 @@ class EditableEmail extends Model {
         ]);
     }
 
+    public function setSentToClass(SchoolClass $class) {
+        SentEmail::create([
+            'editable_email_key' => $this->key,
+            'school_class_id' => $class->id,
+        ]);
+    }
+
     /**
      * Checks if this email has already been sent to the given user
      * @param User $user
@@ -134,6 +141,10 @@ class EditableEmail extends Model {
      */
     public function isSentToUser(User $user): bool {
         return $this->sentEmails->pluck('user_id')->containsStrict($user->id);
+    }
+
+    public function isSentToClass(SchoolClass $class): bool {
+        return $this->sentEmails->pluck('school_class_id')->containsStrict($class->id);
     }
 
     /**
