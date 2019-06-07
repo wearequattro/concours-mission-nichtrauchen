@@ -50,7 +50,7 @@
                 </div>
                 <div class="card-body">
                     <span class="badge badge-primary text-white">{{ $eligibleHaving->count() }} / {{ $classesEligible->count() }}</span>
-                    classes éligibles pour recevoir un certificat ont généré un certificat.
+                    Certificats générés / classes éligibles pour recevoir un certificat
                 </div>
             </div>
         </div>
