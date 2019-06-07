@@ -29,9 +29,6 @@ class NewsletterController extends Controller {
         });
         $this->send($teachers, EditableDate::NEWSLETTER_START, EditableEmail::$MAIL_NEWSLETTER_START);
         $this->send($teachersStillParticipating, EditableDate::NEWSLETTER_ENCOURAGEMENT, EditableEmail::$MAIL_NEWSLETTER_ENCOURAGEMENT);
-
-        $this->send($this->classRepository->findNotEligibleForCertificate(), EditableDate::FINAL_MAIL, EditableEmail::$MAIL_FINAL);
-        $this->send($this->classRepository->findEligibleForCertificate(), EditableDate::FINAL_MAIL, EditableEmail::$MAIL_FINAL_CERTIFICAT);
     }
 
     private function send(Collection $teachers, string $dateIdentifier, array $mailIdentifier) {
