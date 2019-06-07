@@ -43,8 +43,8 @@ class CertificateService extends Controller {
         $pdf->Image(public_path('images/pdf/bg.jpg'), 0, 0, $pdf->GetPageWidth(), $pdf->GetPageHeight());
 
         $this->line($pdf, 'La Fondation Cancer félicite la classe');
-        $this->line($pdf, '« '. $class->name .' »', 2, 'B');
-        $this->line($pdf, '« '. $class->school->name .' »', 3, 'B');
+        $this->line($pdf, $class->name, 2, 'B');
+        $this->line($pdf, $class->school->name, 3, 'B');
         $this->line($pdf, 'pour avoir relevé avec succès le défi de', 4);
         $this->line($pdf, 'ne pas fumer durant 6 mois.', 4.7);
 
