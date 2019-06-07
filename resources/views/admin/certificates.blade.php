@@ -3,7 +3,7 @@
 @section('title', 'Certificates')
 
 @section('content')
-    <h1 class="display-4 text-center">Certificates</h1>
+    <h1 class="display-4 text-center">Certificats</h1>
 
     @if(Session::has('message'))
         <div class="alert alert-success">
@@ -22,7 +22,7 @@
                     <div class="row">
                         <div class="col-12 col-xl-6">
                             <a class="btn btn-primary btn-block" href="{{ route('admin.certificates.generate.all') }}">
-                                <i class="fa fa-refresh"></i> Regénérer tous les certificats
+                                <i class="fa fa-refresh"></i> Générer tous les certificats
                             </a>
                             <br>
                             Génère des certificats pour toutes les classes éligibles, même si elles ont déjà un certificat.
