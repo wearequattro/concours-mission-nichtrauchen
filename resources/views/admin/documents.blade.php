@@ -148,13 +148,13 @@
 @push('js')
     <script>
         $('table').dataTable();
-        $('input[type=checkbox]').change(function () {
+        $(document).on('click', 'input[type=checkbox]', function () {
             var id = $(this).attr('data-document-id');
             var route = '{{ route('admin.documents.toggleVisibility', ':document:') }}'.replace(':document:', id);
             $('#visible').val($('#toggle-visible-' + id).prop('checked') === true ? 1 : 0);
             $('#visible_party').val($('#toggle-party-' + id).prop('checked') === true ? 1 : 0);
             $('#overlay').prop('hidden', false);
             $('#form-visibility').attr('action', route).submit();
-        })
+        });
     </script>
 @endpush
