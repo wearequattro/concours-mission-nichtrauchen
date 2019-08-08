@@ -66,67 +66,67 @@ class EditableDate extends Model {
             [
                 'key' => static::TEACHER_INSCRIPTION_START,
                 'label' => 'Début inscriptions',
-                'value' => '2018-10-1',
+                'value' => '2019-09-20',
             ],
             [
                 'key' => static::TEACHER_INSCRIPTION_END,
                 'label' => 'Fin inscriptions',
-                'value' => '2018-10-20',
+                'value' => '2019-10-20',
             ],
             [
                 'key' => static::FOLLOW_UP_1,
                 'label' => 'Suivi janvier',
-                'value' => '2019-01-07',
+                'value' => '2020-01-06',
             ],
             [
                 'key' => static::FOLLOW_UP_1_REMINDER,
                 'label' => 'Suivi janvier rappel',
-                'value' => '2019-01-14',
+                'value' => '2020-01-13',
             ],
             [
                 'key' => static::FOLLOW_UP_2,
                 'label' => 'Suivi mars',
-                'value' => '2019-03-01',
+                'value' => '2020-03-02',
             ],
             [
                 'key' => static::FOLLOW_UP_2_REMINDER,
                 'label' => 'Suivi mars rappel',
-                'value' => '2019-03-08',
+                'value' => '2020-03-09',
             ],
             [
                 'key' => static::FOLLOW_UP_3,
                 'label' => 'Suivi mai',
-                'value' => '2019-05-02',
+                'value' => '2020-05-04',
             ],
             [
                 'key' => static::FOLLOW_UP_3_REMINDER,
                 'label' => 'Suivi mai rappel',
-                'value' => '2019-05-10',
+                'value' => '2020-05-12',
             ],
             [
                 'key' => static::INVITE_PARTY_REMINDER,
                 'label' => 'Suivi mai rappel fête clôture',
-                'value' => '2019-05-13',
+                'value' => '2020-05-12',
             ],
             [
                 'key' => static::PARTY_GROUP_REMINDER,
                 'label' => 'Rappel inscription fête pour oui invite fête',
-                'value' => '2019-05-17',
+                'value' => '2020-05-15',
             ],
             [
                 'key' => static::FINAL_MAIL,
                 'label' => 'E-mail final',
-                'value' => '2019-06-12',
+                'value' => '2020-06-10',
             ],
             [
                 'key' => static::NEWSLETTER_START,
                 'label' => 'Newsletter début concours',
-                'value' => '2018-11-05',
+                'value' => '2019-11-04',
             ],
             [
                 'key' => static::NEWSLETTER_ENCOURAGEMENT,
                 'label' => 'Newsletter encouragement',
-                'value' => '2019-02-05',
+                'value' => '2020-02-03',
             ],
         ];
     }
