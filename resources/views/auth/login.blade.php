@@ -1,5 +1,7 @@
 @extends('layouts.frontend')
 
+@section('title', 'Login')
+
 @section('content')
     <h1 class="display-4 text-center">Login</h1>
     <div class="col-sm-6 offset-sm-3">
