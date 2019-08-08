@@ -77,6 +77,10 @@
                                     <a class="btn btn-primary text-white pull-right" href="{{ route('party.class', [$class]) }}">
                                         <i class="fa fa-pencil"></i>
                                     </a>
+                                @else
+                                    <a class="btn btn-primary text-white pull-right" href="{{ route('party.class', [$class]) }}">
+                                        <i class="fa fa-eye"></i>
+                                    </a>
                                 @endif
                             </h3>
                             <p class="mb-0">

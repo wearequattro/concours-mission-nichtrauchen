@@ -28,9 +28,11 @@
                         <h3>
                             Classe {{ $class->name }}
                             <small class="text-muted text">{{ $class->school->name }}</small>
-                            <a class="btn btn-success text-white pull-right btn-add">
-                                Ajouter un groupe <i class="fa fa-plus"></i>
-                            </a>
+                            @if($open)
+                                <a class="btn btn-success text-white pull-right btn-add">
+                                    Ajouter un groupe <i class="fa fa-plus"></i>
+                                </a>
+                            @endif
                         </h3>
                         Nombre d'élèves : {{ $class->students }}
                     </div>
@@ -55,6 +57,7 @@
                             <div class="form-group">
                                 <label for="name_{{ $i }}">Nom du groupe</label>
                                 <input {{ $i == 0 ? 'required' : '' }} type="text" name="class[{{ $i }}][name]"
+                                       {{ $open ? '' : 'disabled' }}
                                        id="name_{{ $i }}"
                                        class="form-control {{ inputValidationClass($errors, 'class.' . $i . '.name') }}"
                                        value="{{ old('class.' . $i . '.name', $groups->get($i)['name']) }}">
@@ -69,6 +72,7 @@
                             <div class="form-group">
                                 <label for="students_{{ $i }}">Nombre d'élèves</label>
                                 <input {{ $i == 0 ? 'required' : '' }} type="number" name="class[{{ $i }}][students]"
+                                       {{ $open ? '' : 'disabled' }}
                                        id="students_{{ $i }}"
                                        min="3" max="10" step="1"
                                        class="form-control {{ inputValidationClass($errors, 'class.' . $i . '.students') }}"
@@ -86,6 +90,7 @@
                                 <label for="language_{{ $i }}">Langue souhaitée pour le questionnaire du rallye des
                                     élèves</label>
                                 <select {{ $i == 0 ? 'required' : '' }} type="text" name="class[{{ $i }}][language]"
+                                        {{ $open ? '' : 'disabled' }}
                                         id="language_{{ $i }}"
                                         class="form-control {{ inputValidationClass($errors, 'class.' . $i . '.language') }}">
                                     <option value="DE" {{ old('class.' . $i . '.language', $groups->get($i)['language']) === 'DE' ? 'selected' : '' }}>
@@ -107,14 +112,16 @@
                 @php($i++)
             @endforeach
         </div>
-        <div class="row">
-            <div class="col-12">
-                <input type="submit" class="btn btn-primary btn-lg" value="Valider l'inscription">
-                @if($groups->count() > 0)
-                    <a href="{{ route('party.class.delete', [$class]) }}" class="btn btn-lg btn-danger ml-4">Supprimer &laquo; {{ $class->name }} &raquo;</a>
-                @endif
+        @if($open)
+            <div class="row">
+                <div class="col-12">
+                    <input type="submit" class="btn btn-primary btn-lg" value="Valider l'inscription">
+                    @if($groups->count() > 0)
+                        <a href="{{ route('party.class.delete', [$class]) }}" class="btn btn-lg btn-danger ml-4">Supprimer &laquo; {{ $class->name }} &raquo;</a>
+                    @endif
+                </div>
             </div>
-        </div>
+        @endif
     </form>
 
     <div style="height: 150px"></div>

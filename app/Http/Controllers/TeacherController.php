@@ -146,6 +146,7 @@ class TeacherController extends Controller {
 
     function partyClass(SchoolClass $class) {
         abort_if(Auth::user()->teacher->id !== $class->teacher_id, 403);
+
         if(!\Auth::user()->hasAccessToParty())
             return redirect()->route('teacher.classes');
         if(!$class->isEligibleForParty())
@@ -153,11 +154,14 @@ class TeacherController extends Controller {
         return view('teacher.party-class')->with([
             'class' => $class,
             'groups' => $class->partyGroups,
+            'open' => !Setting::isPartyClosed(),
         ]);
     }
 
     function partyClassPost(PartyGroupRegistrationRequest $request, SchoolClass $class) {
         abort_if(Auth::user()->teacher->id !== $class->teacher_id, 403);
+        abort_if(Setting::isPartyClosed(), 403);
+
         if(!\Auth::user()->hasAccessToParty())
             return redirect()->route('teacher.classes');
         if(!$class->isEligibleForParty())
