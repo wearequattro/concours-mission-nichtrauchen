@@ -40,12 +40,12 @@ class EditableEmail extends Model {
     public static $MAIL_FOLLOW_UP_1_YES = ["follow_up_1_yes", "Réponse positive du suivi janvier"];
     public static $MAIL_FOLLOW_UP_1_NO = ["follow_up_1_no", "Réponse négative du suivi janvier"];
     public static $MAIL_FOLLOW_UP_1_REMINDER = ["follow_up_1_reminder", "Message de suivi janvier rappel"];
-    
+
     public static $MAIL_FOLLOW_UP_2 = ["follow_up_2", "Message de suivi mars"];
     public static $MAIL_FOLLOW_UP_2_YES = ["follow_up_2_yes", "Réponse positive du suivi mars"];
     public static $MAIL_FOLLOW_UP_2_NO = ["follow_up_2_no", "Réponse négative du suivi mars"];
     public static $MAIL_FOLLOW_UP_2_REMINDER = ["follow_up_2_reminder", "Message de suivi mars rappel"];
-    
+
     public static $MAIL_FOLLOW_UP_3 = ["follow_up_3", "Message de suivi mai"];
     public static $MAIL_FOLLOW_UP_3_NO = ["follow_up_3_no", "Réponse négative du suivi mai"];
     public static $MAIL_FOLLOW_UP_3_REMINDER = ["follow_up_3_reminder", "Message de suivi mai rappel"];
@@ -154,7 +154,7 @@ class EditableEmail extends Model {
      * @return string The complete email, with placeholders having been replaced.
      * @throws \Exception
      */
-    public function replaceAll($teacher, $class): string {
+    public function replaceAll(Teacher $teacher, ?SchoolClass $class): string {
         $text = $this->text;
         foreach (static::getPlaceholders() as $placeholder) {
             /** @var PlaceHolder $placeholder */
@@ -194,7 +194,7 @@ class EditableEmail extends Model {
      * @return string Replaced text
      * @throws \Exception
      */
-    public function getReplacement(string $subject, $teacher, $class) {
+    public function getReplacement(string $subject, ?Teacher $teacher, ?SchoolClass $class) {
         $subject = str_replace('%', '', $subject);
         if ($subject === "PROF")
             return $teacher->salutation->long_form . ' ' . $teacher->first_name . ' ' . $teacher->last_name;

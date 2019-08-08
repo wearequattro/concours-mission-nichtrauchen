@@ -38,13 +38,16 @@ class CustomEmail extends Mailable {
         $this->schoolClass = $schoolClass;
 
         $this->editableEmail->setSent($this->teacher->user);
-        $this->editableEmail->setSentToClass($this->schoolClass);
+        if($this->schoolClass != null) {
+            $this->editableEmail->setSentToClass($this->schoolClass);
+        }
     }
 
     /**
      * Build the message.
      *
      * @return $this
+     * @throws \Exception
      */
     public function build() {
         return $this
