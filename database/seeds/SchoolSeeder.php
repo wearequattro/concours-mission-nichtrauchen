@@ -173,7 +173,7 @@ class SchoolSeeder extends Seeder {
                 "ESCH/ALZETTE"
             ],
             [
-                "LYCEE JOSY BARTHEL",
+                "LYCEE JOSY BARTHEL MAMER",
                 "2, rue Gaston Thorn",
                 "L-8268",
                 "MAMER"
