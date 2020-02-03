@@ -211,6 +211,23 @@ class SchoolClass extends Model {
     }
 
     /**
+     * Checks if last status was positive. If no follow up reached yet, result will be true.
+     * @return bool
+     */
+    public function isStillParticipating(): bool {
+        if (Carbon::now()->gte(EditableDate::find(EditableDate::FOLLOW_UP_3))) {
+            return $this->status_may;
+        }
+        if (Carbon::now()->gte(EditableDate::find(EditableDate::FOLLOW_UP_2))) {
+            return $this->status_march;
+        }
+        if (Carbon::now()->gte(EditableDate::find(EditableDate::FOLLOW_UP_1))) {
+            return $this->status_january;
+        }
+        return true;
+    }
+
+    /**
      * @param $status
      * @throws \Exception
      */

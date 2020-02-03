@@ -93,31 +93,15 @@ class Teacher extends Model {
 
     /**
      * @return bool if the teacher is still participating in the contest, meaning at least one of the teachers classes
-     * has all statuses as "yes" until now.
+     * is still participating.
      */
     public function isStillParticipating(): bool {
-        if (Carbon::now()->gte(EditableDate::find(EditableDate::FOLLOW_UP_3))) {
-            return $this
-                    ->classes
-                    ->filter(function (SchoolClass $class) {
-                        return $class->status_may;
-                    })->first() != null;
-        }
-        if (Carbon::now()->gte(EditableDate::find(EditableDate::FOLLOW_UP_2))) {
-            return $this
-                    ->classes
-                    ->filter(function (SchoolClass $class) {
-                        return $class->status_march;
-                    })->first() != null;
-        }
-        if (Carbon::now()->gte(EditableDate::find(EditableDate::FOLLOW_UP_1))) {
-            return $this
-                    ->classes
-                    ->filter(function (SchoolClass $class) {
-                        return $class->status_january;
-                    })->first() != null;
-        }
-        return true;
+        return $this
+                ->classes
+                ->filter(function (SchoolClass $class) {
+                    return $class->isStillParticipating();
+                })
+                ->count() > 0;
     }
 
 }

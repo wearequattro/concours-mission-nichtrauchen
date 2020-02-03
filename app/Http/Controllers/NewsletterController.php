@@ -6,6 +6,7 @@ use App\EditableDate;
 use App\EditableEmail;
 use App\Http\Repositories\SchoolClassRepository;
 use App\Mail\CustomEmail;
+use App\SchoolClass;
 use App\Teacher;
 use Carbon\Carbon;
 use Illuminate\Support\Collection;
@@ -47,12 +48,19 @@ class NewsletterController extends Controller {
         $teachers->each(function (Teacher $teacher) use ($mail) {
             $shouldSend = !$mail->isSentToUser($teacher->user);
             if ($shouldSend) {
-                \Log::info("Sending to teacher $teacher->full_name");
                 if ($teacher->classes()->exists()) {
+                    \Log::info("Sending to teacher $teacher->full_name with classes");
                     foreach ($teacher->classes as $class) {
-                        \Mail::to($teacher->user->email)->queue(new CustomEmail($mail, $teacher, $class));
+                        /** @var SchoolClass $class */
+                        if($class->isStillParticipating()) {
+                            \Log::info("Sending to class $class->name");
+                            \Mail::to($teacher->user->email)->queue(new CustomEmail($mail, $teacher, $class));
+                        } else {
+                            \Log::info("Skipping class $class->name because not participating anymore");
+                        }
                     }
                 } else {
+                    \Log::info("Sending to teacher $teacher->full_name without classes");
                     \Mail::to($teacher->user->email)->queue(new CustomEmail($mail, $teacher, null));
                 }
             }
