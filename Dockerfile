@@ -1,4 +1,4 @@
-FROM php:7.1-apache
+FROM php:7.2-apache
 
 ENV APACHE_DOCUMENT_ROOT /var/www/html/public
 
@@ -11,8 +11,8 @@ COPY .env.example /var/www/html/.env
 
 RUN a2enmod rewrite
 
-RUN apt-get update && apt-get install -y libmcrypt-dev libmagickwand-dev cron supervisor
-RUN docker-php-ext-install mcrypt pdo_mysql gd zip mysqli
+RUN apt-get update && apt-get install -y libmagickwand-dev cron supervisor
+RUN docker-php-ext-install mbstring pdo_mysql gd zip mysqli
 
 RUN php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');" \
     && php -r "if (hash_file('sha384', 'composer-setup.php') === 'c5b9b6d368201a9db6f74e2611495f369991b72d9c8cbd3ffbc63edff210eb73d46ffbfce88669ad33695ef77dc76976') { echo 'Installer verified'; } else { echo 'Installer corrupt'; unlink('composer-setup.php'); } echo PHP_EOL;" \
