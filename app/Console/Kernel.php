@@ -6,6 +6,9 @@ use App\Console\Commands\SendFollowUpEmails;
 use App\Console\Commands\SendNewsletter;
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
+use Spatie\Backup\Commands\BackupCommand;
+use Spatie\Backup\Commands\CleanupCommand;
+use Spatie\Backup\Commands\MonitorCommand;
 
 class Kernel extends ConsoleKernel {
     /**
@@ -26,6 +29,10 @@ class Kernel extends ConsoleKernel {
     protected function schedule(Schedule $schedule) {
         $schedule->command(SendFollowUpEmails::class)->dailyAt('10:03')->withoutOverlapping();
         $schedule->command(SendNewsletter::class)->everyTenMinutes()->withoutOverlapping();
+        $schedule->command(BackupCommand::class)->dailyAt('3:30');
+        $schedule->command(MonitorCommand::class)->dailyAt('9:00');
+        $schedule->command(CleanupCommand::class)->dailyAt('14:00');
+
     }
 
     /**

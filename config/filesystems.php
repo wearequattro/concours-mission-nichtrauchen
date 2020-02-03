@@ -64,6 +64,13 @@ return [
             'url' => env('AWS_URL'),
         ],
 
+        'backup' => [
+            'driver' => env('BACKUP_DRIVER', 'sftp'),
+            'host' => env('BACKUP_HOST'),
+            'username' => env('BACKUP_USERNAME'),
+            'password' => env('BACKUP_PASSWORD'),
+        ],
+
     ],
 
 ];
