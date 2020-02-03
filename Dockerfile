@@ -19,7 +19,7 @@ RUN php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');" \
     && php composer-setup.php \
     && php -r "unlink('composer-setup.php');"
 
-RUN php composer.phar update
+RUN php composer.phar install
 RUN touch storage/logs/laravel.log
 
 RUN chown -R www-data:www-data \
