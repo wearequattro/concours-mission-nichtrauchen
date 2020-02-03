@@ -11,7 +11,7 @@ COPY .env.example /var/www/html/.env
 
 RUN a2enmod rewrite
 
-RUN apt-get update && apt-get install -y libmagickwand-dev cron supervisor
+RUN apt-get update && apt-get install -y libmagickwand-dev cron supervisor mariadb-client-10.3
 RUN docker-php-ext-install mbstring pdo_mysql gd zip mysqli
 
 RUN php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');" \
