@@ -5,16 +5,16 @@ ENV APACHE_DOCUMENT_ROOT /var/www/html/public
 RUN sed -ri -e 's!/var/www/html!${APACHE_DOCUMENT_ROOT}!g' /etc/apache2/sites-available/*.conf
 RUN sed -ri -e 's!/var/www/!${APACHE_DOCUMENT_ROOT}!g' /etc/apache2/apache2.conf /etc/apache2/conf-available/*.conf
 
+RUN apt-get update && apt-get install -y libmagickwand-dev cron supervisor mariadb-client-10.3
+RUN docker-php-ext-install mbstring pdo_mysql gd zip mysqli
+
 WORKDIR /var/www/html
 COPY . /var/www/html
 COPY .env.example /var/www/html/.env
 
 RUN a2enmod rewrite
 
-RUN apt-get update && apt-get install -y libmagickwand-dev cron supervisor mariadb-client-10.3
-RUN docker-php-ext-install mbstring pdo_mysql gd zip mysqli
-
-RUN wget https://getcomposer.org/download/1.10.1/composer.phar
+ADD https://getcomposer.org/download/1.10.1/composer.phar composer.phar
 RUN php composer.phar install
 RUN touch storage/logs/laravel.log
 
