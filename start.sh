@@ -4,8 +4,8 @@ cron
 
 echo "Starting queue worker"
 touch /var/run/supervisor.sock
-chmod 777 /var/run/supervisor.sock
-service supervisor start
+chmod 700 /var/run/supervisor.sock
+supervisord -c /etc/supervisor/supervisord.conf
 supervisorctl reread
 supervisorctl update
 supervisorctl start all
