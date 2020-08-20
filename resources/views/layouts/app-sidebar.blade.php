@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <link rel="stylesheet" href="{{ asset('css/app.css') }}">
+    <link rel="stylesheet" href="{{ mix('css/app.css') }}">
     <link rel="apple-touch-icon" sizes="57x57" href="{{ asset('images/favicon/apple-icon-57x57.png') }}">
     <link rel="apple-touch-icon" sizes="60x60" href="{{ asset('images/favicon/apple-icon-60x60.png') }}">
     <link rel="apple-touch-icon" sizes="72x72" href="{{ asset('images/favicon/apple-icon-72x72.png') }}">
@@ -137,6 +137,13 @@
                     </li>
                     --}}
                     <li class="nav-item">
+                        <a href="{{ route('admin.quiz') }}"
+                           class="nav-link {{ Route::currentRouteName() == 'admin.quiz' ? 'active' : '' }}">
+                            <i class="fa fa-fw fa-university"></i>
+                            Quiz
+                        </a>
+                    </li>
+                    <li class="nav-item">
                         <a href="{{ route('admin.documents') }}"
                            class="nav-link {{ Route::currentRouteName() == 'admin.documents' ? 'active' : '' }}">
                             <i class="fa fa-fw fa-file-text"></i>
@@ -168,7 +175,7 @@
 
     </div>
 </div>
-<script src="{{ asset('js/app.js') }}"></script>
+<script src="{{ mix('js/app.js') }}"></script>
 @stack('js')
 </body>
 </html>
