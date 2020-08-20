@@ -13,11 +13,30 @@ use Faker\Generator as Faker;
 |
 */
 
+$factory->define(App\SchoolClass::class, function (Faker $faker) {
+    return [
+        'name' => $faker->numberBetween(5,9) . $faker->randomLetter .  $faker->randomLetter . $faker->numberBetween(1,6),
+        'students' => $faker->numberBetween(11,25),
+        'school_id' => \App\School::query()->inRandomOrder()->first()->id,
+        'teacher_id' => \App\Teacher::query()->inRandomOrder()->first()->id,
+    ];
+});
+
+$factory->define(App\Teacher::class, function (Faker $faker) {
+    return [
+        'first_name' => $faker->firstName,
+        'last_name' => $faker->lastName,
+        'phone' => $faker->phoneNumber,
+        'salutation_id' => \App\Salutation::query()->inRandomOrder()->first()->id,
+    ];
+});
+
 $factory->define(App\User::class, function (Faker $faker) {
     return [
-        'name' => $faker->name,
         'email' => $faker->unique()->safeEmail,
         'password' => '$2y$10$TKh8H1.PfQx37YgCzwiKb.KjNyWgaHb9cbcoQgdIVFlYg7B77UdFm', // secret
         'remember_token' => str_random(10),
+        'type' => \App\User::TYPE_TEACHER,
+        'teacher_id' => factory(\App\Teacher::class)->create()->id,
     ];
 });
