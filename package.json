@@ -20,5 +20,8 @@
         "font-awesome": "4.7.0",
         "datatables": "1.10.18",
         "bootstrap-datepicker": "1.8.0"
+    },
+    "dependencies": {
+        "tinymce": "^5.4.2"
     }
 }

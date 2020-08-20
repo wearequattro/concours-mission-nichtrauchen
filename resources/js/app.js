@@ -6,6 +6,10 @@
  */
 
 require('./bootstrap');
-require('../../node_modules/datatables/media/js/jquery.dataTables.min');
-require('../../node_modules/bootstrap-datepicker/js/bootstrap-datepicker');
-require('../../node_modules/popper.js/dist/popper.min');
+require('datatables/media/js/jquery.dataTables.min');
+require('bootstrap-datepicker/js/bootstrap-datepicker');
+require('popper.js/dist/popper.min');
+
+import tinymce from 'tinymce/tinymce';
+import 'tinymce/icons/default';
+import 'tinymce/themes/silver';
