@@ -30,7 +30,7 @@ class QuizController extends Controller {
         $rules = [
             'name' => 'required|string',
             'max_score' => 'required|int|min:1',
-            'closes_at' => 'required|date',
+            'closes_at' => 'required|date|after:today',
             'classes' => 'array',
             'classes.*' => 'int|exists:school_classes,id',
             'email_text' => 'string|nullable',
@@ -50,7 +50,7 @@ class QuizController extends Controller {
             /** @var QuizInLanguage $quizInLanguage */
             $quizInLanguage = $quiz->quizInLanguage()->create([
                 'language' => $lang,
-                'quiz_maker_id' => $url,
+                'quiz_maker_id' => QuizMakerValidUrlRule::extractIdFromUrl($url),
             ]);
 
             foreach ($data['classes'] as $class) {

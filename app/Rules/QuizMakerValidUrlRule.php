@@ -37,6 +37,14 @@ class QuizMakerValidUrlRule implements Rule
      */
     public function message()
     {
-        return trans('The :attribute must be a valid Quiz-Maker URL. Format: https://www.quiz-maker.com/XXXXX');
+        return trans('validation.quiz_maker_url');
+    }
+
+    public static function extractIdFromUrl($value): ?string {
+        $matches = [];
+        if(preg_match(self::$PATTERN, $value, $matches)) {
+            return $matches[2];
+        }
+        return null;
     }
 }

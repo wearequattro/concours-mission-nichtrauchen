@@ -53,7 +53,7 @@
             <div class="form-group">
                 <label for="closes_at">Date de clôturation</label>
                 <input type="date" name="closes_at" id="closes_at" required
-                       placeholder="yyyy-mm-dd"
+                       placeholder="yyyy-mm-dd" min="{{ date('Y-m-d', strtotime('+1day')) }}"
                        class="form-control {{ inputValidationClass($errors, 'closes_at') }}"
                        value="{{ old('closes_at', $quiz->closes_at) }}">
                 <div class="invalid-feedback">
