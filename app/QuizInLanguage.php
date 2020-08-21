@@ -13,7 +13,8 @@ use Illuminate\Support\Collection;
  * @property int id
  * @property string language
  * @property int quiz_id
- * @property int quiz_maker_id
+ * @property string quiz_maker_id
+ * @property string url
  * @property Carbon created_at
  * @property Carbon updated_at
  * @property Quiz quiz
@@ -30,6 +31,10 @@ class QuizInLanguage extends Model {
         'quiz_maker_id',
     ];
 
+    protected $appends = [
+        'url',
+    ];
+
     public function quiz() {
         return $this->belongsTo(Quiz::class);
     }
@@ -40,5 +45,9 @@ class QuizInLanguage extends Model {
 
     public function responses() {
         return $this->hasManyThrough(QuizResponse::class, QuizAssignment::class);
+    }
+
+    public function getUrlAttribute() {
+        return "https://www.quiz-maker.com/$this->quiz_maker_id";
     }
 }

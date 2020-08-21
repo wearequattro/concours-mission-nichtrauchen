@@ -63,7 +63,7 @@ class QuizController extends Controller {
     }
 
     public function show(Quiz $quiz) {
-        return response()->json($quiz->load('quizInLanguage.assignments'));
+        return view('admin.quiz-show', compact('quiz'));
     }
 
 }

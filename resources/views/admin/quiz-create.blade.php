@@ -101,11 +101,6 @@
         tinymce.init({
             selector: '#email_text',
             height: 500,
-            setup: editor => {
-                editor.on('input', e => {
-                    $('#textarea').val(editor.get('text').getContent())
-                })
-            }
         });
     </script>
 @endpush

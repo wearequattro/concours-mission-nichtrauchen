@@ -138,7 +138,7 @@
                     --}}
                     <li class="nav-item">
                         <a href="{{ route('admin.quiz') }}"
-                           class="nav-link {{ Route::currentRouteName() == 'admin.quiz' ? 'active' : '' }}">
+                           class="nav-link {{ \Illuminate\Support\Str::startsWith(Route::currentRouteName(), 'admin.quiz') ? 'active' : '' }}">
                             <i class="fa fa-fw fa-university"></i>
                             Quiz
                         </a>

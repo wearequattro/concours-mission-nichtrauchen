@@ -30,7 +30,10 @@
                         <th>Nom</th>
                         <th>Max Score</th>
                         <th>Réponses</th>
-                        <th>Closes At</th>
+                        <th>Date de clôturation</th>
+                        <th>Date de clôturation</th>
+                        <th>Créée</th>
+                        <th>Créée</th>
                         <th>Action</th>
                     </tr>
                     </thead>
@@ -40,7 +43,10 @@
                             <td>{{ $q->name }}</td>
                             <td>{{ $q->max_score }}</td>
                             <td>24</td>
-                            <td>{{ $q->closes_at }}</td>
+                            <td>{{ $q->closes_at->format('Y-m-d') }}</td>
+                            <td>{{ $q->closes_at->format('U') }}</td>
+                            <td>{{ $q->created_at }}</td>
+                            <td>{{ $q->created_at->format('U') }}</td>
                             <td>
                                 <a href="{{ route('admin.quiz.show', [$q]) }}" class="btn btn-primary">
                                     <i class="fa fa-fw fa-eye"></i>
@@ -66,6 +72,16 @@
     <script>
         $('table').dataTable({
             pageLength: 100,
+            order: [
+                [3, 'desc'],
+            ],
+            columnDefs: [
+                { targets: 3, orderData: [4] },
+                { targets: 4, visible: false },
+
+                { targets: 5, orderData: [6] },
+                { targets: 6, visible: false },
+            ],
         });
     </script>
 @endpush

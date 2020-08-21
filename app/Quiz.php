@@ -4,6 +4,7 @@ namespace App;
 
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 /**
  * Class Quiz
@@ -25,6 +26,10 @@ class Quiz extends Model {
         'name',
         'email_text',
         'max_score',
+        'closes_at',
+    ];
+
+    protected $dates = [
         'closes_at',
     ];
 
