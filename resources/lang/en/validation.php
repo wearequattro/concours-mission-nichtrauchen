@@ -143,4 +143,5 @@ return [
 
     'attributes' => [],
 
+    'quiz_maker_url' => 'The :attribute must be a valid Quiz-Maker URL. Format: https://www.quiz-maker.com/XXXXX'
 ];

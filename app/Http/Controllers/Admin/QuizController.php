@@ -5,13 +5,14 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Quiz;
 use App\QuizInLanguage;
+use App\Rules\QuizMakerValidUrlRule;
 use App\SchoolClass;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class QuizController extends Controller {
 
-    private $languages = ['FR', 'DE'];
+    private $languages = ['fr', 'de'];
 
     public function index() {
         $quizzes = Quiz::all();
@@ -36,7 +37,7 @@ class QuizController extends Controller {
         ];
 
         foreach ($this->languages as $lang) {
-            $rules["quiz_url.$lang"] ='required|url';
+            $rules["quiz_url.$lang"] = ['required', 'url', new QuizMakerValidUrlRule];
         }
 
         $data = $this->validate($request, $rules);

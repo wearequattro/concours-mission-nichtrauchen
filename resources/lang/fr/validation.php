@@ -171,4 +171,6 @@ return [
         'available'             => 'disponible',
         'size'                  => 'taille',
     ],
+
+    'quiz_maker_url' => 'Le champ :attribute doit être une URL Quiz-Maker valide. Format: https://www.quiz-maker.com/XXXXX'
 ];
