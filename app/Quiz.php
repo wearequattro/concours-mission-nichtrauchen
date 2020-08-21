@@ -16,6 +16,8 @@ use Illuminate\Database\Eloquent\Model;
  * @property Carbon created_at
  * @property Carbon updated_at
  * @property QuizInLanguage quizInLanguage
+ *
+ * @mixin \Eloquent
  */
 class Quiz extends Model {
 

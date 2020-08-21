@@ -28,7 +28,7 @@
 
             <div class="form-group">
                 <label for="max_score">Score maximal</label>
-                <input required type="number" name="max_score" id="max_score" min="1" max="99"
+                <input required type="number" name="max_score" id="max_score" min="1"
                        class="form-control {{ inputValidationClass($errors, 'max_score') }}"
                        value="{{ old('max_score') ?? $quiz->max_score }}">
                 <div class="invalid-feedback">
@@ -36,11 +36,37 @@
                 </div>
             </div>
 
+            @foreach($languages as $language)
+
+            <div class="form-group">
+                <label for="quiz_url[{{ $language }}]">URL Quiz ({{ $language }})</label>
+                <input required type="text" name="quiz_url[{{ $language }}]" id="quiz_url[{{ $language }}]"
+                       class="form-control {{ inputValidationClass($errors, "quiz_url.$language") }}"
+                       value="{{ old("quiz_url.$language") }}">
+                <div class="invalid-feedback">
+                    {{ inputValidationMessages($errors, "quiz_url.$language") }}
+                </div>
+            </div>
+
+            @endforeach
+
+            <div class="form-group">
+                <label for="closes_at">Date de clôturation</label>
+                <input type="date" name="closes_at" id="closes_at" required
+                       placeholder="yyyy-mm-dd"
+                       class="form-control {{ inputValidationClass($errors, 'closes_at') }}"
+                       value="{{ old('closes_at', $quiz->closes_at) }}">
+                <div class="invalid-feedback">
+                    {{ inputValidationMessages($errors, 'closes_at') }}
+                </div>
+            </div>
+
             <div class="form-group">
                 <label for="classes">Classes</label>
-                <select class="form-control" required multiple name="classes[]" id="classes">
+                <select required multiple name="classes[]" id="classes"
+                        class="form-control {{ inputValidationClass($errors, 'classes') }}">
                     @foreach($classes as $class)
-                        <option value="{{ $class->id }}">
+                        <option value="{{ $class->id }}" {{ in_array($class->id, old('classes', [])) ? 'selected' : '' }}>
                             {{ sprintf("%s (%s, %s)", $class->name, $class->teacher->full_name, $class->school->name) }}
                         </option>
                     @endforeach
@@ -59,10 +85,7 @@
                 </div>
             </div>
 
-
-
-
-            <input type="submit" class="btn btn-primary" value="Mettre à jour">
+            <input type="submit" class="btn btn-primary" value="Ajouter">
 
         </form>
 

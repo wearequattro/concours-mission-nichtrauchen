@@ -17,8 +17,10 @@ use Illuminate\Support\Collection;
  * @property Carbon created_at
  * @property Carbon updated_at
  * @property Quiz quiz
- * @property QuizAssignment codes
+ * @property QuizAssignment assignments
  * @property QuizResponse[]|Collection responses
+ *
+ * @mixin \Eloquent
  */
 class QuizInLanguage extends Model {
 
@@ -32,7 +34,7 @@ class QuizInLanguage extends Model {
         return $this->belongsTo(Quiz::class);
     }
 
-    public function codes() {
+    public function assignments() {
         return $this->hasMany(QuizAssignment::class);
     }
 
