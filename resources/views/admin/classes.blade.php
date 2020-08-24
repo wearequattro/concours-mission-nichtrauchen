@@ -156,6 +156,7 @@
                         <th>Enseignant titre</th>
                         <th>Enseignant prénom</th>
                         <th>Enseignant nom</th>
+                        <th>Points Quiz</th>
                         <th>Statut janvier</th>
                         <th>Statut janvier</th>
                         <th>Statut mars</th>
@@ -187,6 +188,7 @@
                             <td>{{ $class->teacher->salutation->long_form }}</td>
                             <td>{{ $class->teacher->first_name }}</td>
                             <td>{{ $class->teacher->last_name }}</td>
+                            <td>{{ $class->quizResponses()->sum('score') }}</td>
                             <td>{{ statusToIcon($class->getStatusJanuary() ) }}</td>
                             <td>{{ $class->getStatusJanuary() === null ? 'E' : ($class->getStatusJanuary() ? 'Y' : 'N') }}</td>
                             <td>{{ statusToIcon($class->getStatusMarch() ) }}</td>
@@ -238,18 +240,23 @@
                 [5, 'asc'],
             ],
             columnDefs: [
-                { targets: 6, orderData: [7] },
-                { targets: 7, visible: false },
-                { targets: 8, orderData: [9] },
-                { targets: 9, visible: false },
-                { targets: 10, orderData: [11] },
-                { targets: 11, visible: false },
-                { targets: 12, orderData: [13] },
-                { targets: 13, visible: false },
-                { targets: 14, orderData: [15] },
-                { targets: 15, visible: false },
-                { targets: 16, orderData: [17] },
-                { targets: 17, visible: false },
+                { targets: 7, orderData: [8] },
+                { targets: 8, visible: false },
+
+                { targets: 9, orderData: [10] },
+                { targets: 10, visible: false },
+
+                { targets: 11, orderData: [12] },
+                { targets: 12, visible: false },
+
+                { targets: 13, orderData: [14] },
+                { targets: 14, visible: false },
+
+                { targets: 15, orderData: [16] },
+                { targets: 16, visible: false },
+
+                { targets: 17, orderData: [18] },
+                { targets: 18, visible: false },
             ],
         });
     </script>

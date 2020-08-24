@@ -3,7 +3,10 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Quiz;
+use App\QuizAssignment;
 use App\SchoolClass;
+use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Storage;
 use PhpOffice\PhpSpreadsheet\Cell\DataType;
 use PhpOffice\PhpSpreadsheet\Exception;
@@ -57,19 +60,20 @@ class ClassExportController extends Controller {
             'FETE',
             'FETE COMPLETEE',
         ];
-        $sheet->getRowDimension(1)->setRowHeight(50);
-        for ($i = 0; $i < count($headers); $i++) {
-            $letter = chr(65 + $i);
-            $cell = $letter . '1';
-            $sheet->setCellValue($cell, $headers[$i]);
-            $sheet->getColumnDimension($letter)->setAutoSize(true);
+        foreach (Quiz::orderBy('id')->get()->pluck('name')->values()->toArray() as $quizName) {
+            $headers[] = $quizName;
         }
-        $sheet->getStyle('A1:Q1')->getAlignment()->setHorizontal(Alignment::HORIZONTAL_CENTER);
-        $sheet->getStyle('A1:Q1')->getAlignment()->setVertical(Alignment::VERTICAL_CENTER);
-        $sheet->getStyle('A1:Q1')->getFont()->setBold(true);
-        $sheet->getStyle('A1:Q1')->getFill()->setFillType(Fill::FILL_SOLID)->setStartColor(new Color('FFFCD5B4'));
-        $sheet->getStyle('A1:Q1')->getBorders()->getAllBorders()->setBorderStyle(Border::BORDER_THIN)
-            ->setColor(new Color(Color::COLOR_BLACK));
+        $sheet->getRowDimension(1)->setRowHeight(50);
+        for ($i = 1; $i <= count($headers); $i++) {
+            $sheet->setCellValueByColumnAndRow($i, 1, $headers[$i - 1]);
+            $sheet->getColumnDimensionByColumn($i)->setAutoSize(true);
+            $sheet->getStyleByColumnAndRow($i, 1)->getAlignment()->setHorizontal(Alignment::HORIZONTAL_CENTER);
+            $sheet->getStyleByColumnAndRow($i, 1)->getAlignment()->setVertical(Alignment::VERTICAL_CENTER);
+            $sheet->getStyleByColumnAndRow($i, 1)->getFont()->setBold(true);
+            $sheet->getStyleByColumnAndRow($i, 1)->getFill()->setFillType(Fill::FILL_SOLID)->setStartColor(new Color('FFFCD5B4'));
+            $sheet->getStyleByColumnAndRow($i, 1)->getBorders()->getAllBorders()->setBorderStyle(Border::BORDER_THIN)
+                ->setColor(new Color(Color::COLOR_BLACK));
+        }
     }
 
     private function addData(Worksheet $sheet) {
@@ -98,6 +102,16 @@ class ClassExportController extends Controller {
             $sheet->getStyle("A$row")->getFill()->setFillType(Fill::FILL_SOLID)->setStartColor(new Color('FFFCD5B4'));
             $sheet->getCell("J$row")->setDataType(DataType::TYPE_STRING);
             $sheet->getCell("K$row")->setDataType(DataType::TYPE_STRING);
+
+            foreach (Quiz::orderBy('id')->pluck('id') as $i => $quiz) {
+                $assignment = QuizAssignment::where('quiz_id', $quiz)
+                    ->where('school_class_id', $class->id)
+                    ->first();
+                $sheet->setCellValueByColumnAndRow(18 + $i, $row, optional(optional($assignment)->response)->score);
+                $sheet->getStyleByColumnAndRow(18 + $i, $row)->getBorders()
+                    ->getAllBorders()->setBorderStyle(Border::BORDER_THIN)
+                    ->setColor(new Color(Color::COLOR_BLACK));
+            }
         });
     }
 
@@ -129,7 +143,7 @@ class ClassExportController extends Controller {
         $sheet->getStyle("A$row:Q$row")->getAlignment()->setHorizontal(Alignment::HORIZONTAL_CENTER);
 
 
-        $sheet->setAutoFilter('A1:Q' . ($classes + 1));
+        $sheet->setAutoFilterByColumnAndRow(1, 1, 17 + Quiz::count(), $classes + 1);
     }
 
     private function statusToString($status) {

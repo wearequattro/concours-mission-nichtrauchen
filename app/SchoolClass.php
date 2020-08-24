@@ -42,6 +42,7 @@ use Ramsey\Uuid\Uuid;
  * @property Certificate certificate
  * @property Teacher teacher
  * @property Collection partyGroups
+ * @property QuizResponse[]|Collection quizResponses
  *
  * @method static SchoolClass create(array $values)
  */
@@ -73,6 +74,10 @@ class SchoolClass extends Model {
 
     public function certificate(): HasOne {
         return $this->hasOne(Certificate::class);
+    }
+
+    public function quizResponses() {
+        return $this->hasManyThrough(QuizResponse::class, QuizAssignment::class);
     }
 
     public function getStatusJanuary(): ?int {
