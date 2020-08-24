@@ -4,8 +4,10 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\QuizAssignment;
+use App\QuizCode;
 use App\QuizInLanguage;
 use Bugsnag\BugsnagLaravel\Facades\Bugsnag;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class QuizController extends Controller {
@@ -30,20 +32,21 @@ class QuizController extends Controller {
 
         foreach ($json->responses as $res) {
             $code = $res->pass;
-            /** @var QuizAssignment $assignment */
-            $assignment = $qIL->assignments()->where('code', $code)->first();
-            if (!$assignment) {
-                \Log::error("Given code cannot be matched to an assignment", ['code' => $code]);
+            /** @var QuizCode $quizCode */
+            $quizCode = $qIL->codes()->where('code', $code)->first();
+            if (!$quizCode) {
+                \Log::error("Given code cannot be found", ['code' => $code]);
                 continue;
             }
-            if ($assignment->response()->exists()) {
+            if ($quizCode->assignment->response()->exists()) {
                 \Log::warning("Given code is already in database.. updating it", ['code' => $code]);
             }
-            $assignment->response()->updateOrCreate([
+            $quizCode->assignment->response()->updateOrCreate([
                 'quizmaker_response_id' => $res->id,
             ], [
                 'quizmaker_response_id' => $res->id,
                 'score' => $res->score,
+                'responded_at' => Carbon::createFromTimestampMs($res->times->end),
             ]);
         }
 

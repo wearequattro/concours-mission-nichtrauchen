@@ -32,9 +32,15 @@
                                     <img src="{{ asset('images/flags/' . $ql->language . '.png') }}" alt="flag {{ $ql->language }}">
                                     {{ $ql->url }}
                                 </a>
-                                <br>
-                                {{ $ql->responses()->count() }} réponses
                             </p>
+                            @if(!$ql->hasEnoughCodes())
+                                <div class="alert alert-warning">
+                                    <i class="fa fa-fw fa-exclamation-triangle"></i> Attention !<br>
+                                     Ce quiz n'a pas assez des codes uniques enregistrés pour que tous les
+                                    profs puissen avoir un code unique.<br>
+                                    {{ $ql->codes()->count() }} / {{ $quiz->assignments()->count() }}
+                                </div>
+                            @endif
                         </div>
                         @endforeach
                     </div>
@@ -59,25 +65,23 @@
                             <tr>
                                 <th>Nom classe</th>
                                 <th>Nom enseignant</th>
-                                <th>Langue répondue</th>
                                 <th>Points</th>
-                                <th>Date</th>
+                                <th>Date répondue</th>
                                 <th>Action</th>
                             </tr>
                             </thead>
                             <tbody>
-                            @forelse($responses as $r)
+                            @forelse($quiz->assignments as $a)
                                 <tr>
-                                    <td>{{ $r->assignment->schoolClass->name }}</td>
-                                    <td>{{ $r->assignment->schoolClass->teacher->full_name }}</td>
-                                    <td>{{ $r->assignment->quizInLanguage->language }}</td>
-                                    <td>{{ $r->score }}</td>
-                                    <td>{{ $r->created_at }}</td>
+                                    <td>{{ $a->schoolClass->name }}</td>
+                                    <td>{{ $a->schoolClass->teacher->full_name }}</td>
+                                    <td>{{ optional($a->response)->score }}</td>
+                                    <td>{{ optional($a->response)->responded_at }}</td>
                                     <td></td>
                                 </tr>
                             @empty
                                 <tr>
-                                    <td colspan="6" class="text-center">Aucune réponse disponible</td>
+                                    <td colspan="5" class="text-center">Aucune réponse disponible</td>
                                 </tr>
                             @endforelse
                             </tbody>

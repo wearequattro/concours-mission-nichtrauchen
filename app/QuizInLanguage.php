@@ -18,8 +18,7 @@ use Illuminate\Support\Collection;
  * @property Carbon created_at
  * @property Carbon updated_at
  * @property Quiz quiz
- * @property QuizAssignment assignments
- * @property QuizResponse[]|Collection responses
+ * @property QuizCode[]|Collection codes
  *
  * @mixin \Eloquent
  */
@@ -39,15 +38,15 @@ class QuizInLanguage extends Model {
         return $this->belongsTo(Quiz::class);
     }
 
-    public function assignments() {
-        return $this->hasMany(QuizAssignment::class);
-    }
-
-    public function responses() {
-        return $this->hasManyThrough(QuizResponse::class, QuizAssignment::class);
+    public function codes() {
+        return $this->hasMany(QuizCode::class);
     }
 
     public function getUrlAttribute() {
         return "https://www.quiz-maker.com/Q$this->quiz_maker_id";
+    }
+
+    public function hasEnoughCodes() {
+        return $this->codes()->count() >= $this->quiz->assignments()->count();
     }
 }

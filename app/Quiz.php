@@ -18,6 +18,8 @@ use Illuminate\Support\Collection;
  * @property Carbon created_at
  * @property Carbon updated_at
  * @property QuizInLanguage[]|Collection quizInLanguage
+ * @property QuizAssignment[]|Collection assignments
+ * @property QuizResponse[]|Collection responses
  *
  * @mixin \Eloquent
  */
@@ -40,6 +42,14 @@ class Quiz extends Model {
 
     public function quizInLanguage() {
         return $this->hasMany(QuizInLanguage::class);
+    }
+
+    public function assignments() {
+        return $this->hasMany(QuizAssignment::class);
+    }
+
+    public function responses() {
+        return $this->hasManyThrough(QuizResponse::class, QuizAssignment::class);
     }
 
     public function getResponsesCountAttribute() {
