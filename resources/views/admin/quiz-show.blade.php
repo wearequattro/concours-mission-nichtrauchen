@@ -36,9 +36,13 @@
                             @if(!$ql->hasEnoughCodes())
                                 <div class="alert alert-warning">
                                     <i class="fa fa-fw fa-exclamation-triangle"></i> Attention !<br>
-                                     Ce quiz n'a pas assez des codes uniques enregistrés pour que tous les
+                                    Ce quiz n'a pas assez des codes uniques enregistrés pour que tous les
                                     profs puissen avoir un code unique.<br>
                                     {{ $ql->codes()->count() }} / {{ $quiz->assignments()->count() }}
+                                    <br>
+                                    <a class="btn btn-primary" href="{{ route('admin.quiz.show.codes', [$quiz]) }}">
+                                        Ajouter les codes
+                                    </a>
                                 </div>
                             @endif
                         </div>

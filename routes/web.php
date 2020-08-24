@@ -95,6 +95,8 @@ Route::group(['middleware' => ['auth', 'admin']], function () {;
         Route::get('/admin/quiz/new', 'QuizController@create')->name('admin.quiz.create');
         Route::post('/admin/quiz/new', 'QuizController@createPost')->name('admin.quiz.create.post');
         Route::get('/admin/quiz/{quiz}', 'QuizController@show')->name('admin.quiz.show');
+        Route::get('/admin/quiz/{quiz}/codes', 'QuizController@codes')->name('admin.quiz.show.codes');
+        Route::post('/admin/quiz/{quiz}/codes', 'QuizController@createCodes')->name('admin.quiz.show.codes.post');
 
         Route::get('/admin/party', 'PartyController@party')->name('admin.party');
         Route::get('/admin/party/export', 'PartyExportController@export')->name('admin.party.export');

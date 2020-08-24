@@ -10,6 +10,7 @@ use App\SchoolClass;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Collection as EloquentCollection;
 use Illuminate\Http\Request;
+use Illuminate\Http\UploadedFile;
 
 class QuizController extends Controller {
 
@@ -65,6 +66,57 @@ class QuizController extends Controller {
 
     public function show(Quiz $quiz) {
         return view('admin.quiz-show', compact('quiz'));
+    }
+
+    public function codes(Quiz $quiz) {
+        return view('admin.quiz-codes', compact('quiz'), ['languages' => $this->languages]);
+    }
+
+    public function createCodes(Request $request, Quiz $quiz) {
+        foreach ($this->languages as $lang) {
+            $rules["files.$lang"] = ['required', 'file', 'mimes:txt'];
+        }
+        $this->validate($request, $rules);
+
+        $assignments = $quiz->assignments()->pluck('id');
+
+        // validate code count <=> assignment cound
+        $codesForLanguage = [];
+        $errors = [];
+        foreach ($this->languages as $lang) {
+            $content = $request->file("files.$lang")->get();
+            $codesForLanguage[$lang] = collect(explode("\r\n", $content));
+
+            $given = sizeof($codesForLanguage[$lang]);
+            $required = $assignments->count();
+            if($given < $required) {
+                $errors["files.$lang"] = ["Ce fichier na pas assez de codes uniques. $given < $required"];
+            }
+        }
+        if($errors) {
+            return back()->withErrors($errors);
+        }
+
+        // create codes for each language
+        foreach ($codesForLanguage as $lang => $codes) {
+            /** @var QuizInLanguage $qIL */
+            $qIL = $quiz->quizInLanguage()
+                ->where('language', $lang)
+                ->first();
+
+            $codes = $codes->take($assignments->count())->toArray();
+            $zip = $assignments->zip($codes);
+
+            foreach ($zip as $code) {
+                $qIL->codes()
+                    ->create([
+                        'quiz_assignment_id' => $code->get(0),
+                        'code' => $code->get(1),
+                    ]);
+            }
+        }
+
+        return redirect()->route('admin.quiz.show', [$quiz]);
     }
 
 }
