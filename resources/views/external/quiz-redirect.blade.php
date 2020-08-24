@@ -3,13 +3,8 @@
 @section('title', 'Quiz')
 
 @section('content')
-    <h1 class="display-4 text-center">Quiz</h1>
 
-    @if(Session::has('message'))
-        <div class="alert alert-success">
-            {{ Session::get('message') }}
-        </div>
-    @endif
+    <div style="height: 50px"></div>
 
     <div class="row">
         <div class="col">
@@ -35,13 +30,15 @@
 
     @else
 
+        <h3 class="text-center mt-5">Sélectionnez votre langue préférée du quiz</h3>
+
         <div class="row align-items-center justify-content-center mt-5 mb-5">
             @foreach($codes as $code)
                 @php
                     $qIL = $code->quizInLanguage;
                 @endphp
                 <div class="col col-lg-4">
-                    <a href="{{ $code->quiz_maker_url }}">
+                    <a href="{{ route('external.quiz.redirect', [$code]) }}">
                         <div class="card">
                             <div class="card-body">
                                 <img src="{{ asset("images/flags/$qIL->language.svg") }}" alt="Flag {{ $qIL->language }}">

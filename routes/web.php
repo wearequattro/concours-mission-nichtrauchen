@@ -24,7 +24,7 @@ Route::get('/login/redirect', 'Auth\LoginController@loginRedirect')->name('login
 
 Route::get('/external/classes', 'ExternalController@classes')->name('external.classes');
 Route::get('/external/quiz/redirect/{quizCode}', 'QuizController@redirect')->name('external.quiz.redirect');
-Route::get('/external/quiz/{uuid}', 'QuizController@showQuizRedirect')->name('external.quiz.redirect');
+Route::get('/external/quiz/{uuid}', 'QuizController@showQuizRedirect')->name('external.quiz.show');
 
 Route::group(['middleware' => 'guest'], function () {
     Route::get('/teacher/register', 'TeacherRegisterController@start')->name('teacher.register');
