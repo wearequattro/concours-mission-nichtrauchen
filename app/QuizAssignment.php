@@ -4,6 +4,7 @@ namespace App;
 
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Collection;
 use Ramsey\Uuid\Uuid;
 
 /**
@@ -17,6 +18,7 @@ use Ramsey\Uuid\Uuid;
  * @property Carbon updated_at
  * @property SchoolClass schoolClass
  * @property QuizResponse response
+ * @property QuizCode[]|Collection codes
  * @property Quiz quiz
  *
  * @mixin \Eloquent
@@ -47,6 +49,10 @@ class QuizAssignment extends Model {
 
     public function codes() {
         return $this->hasMany(QuizCode::class);
+    }
+
+    public function quiz() {
+        return $this->belongsTo(Quiz::class);
     }
 
     public function isAnswered() {

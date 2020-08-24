@@ -16,7 +16,7 @@ class QuizController extends Controller {
         $json = $request->get('json');
         \Log::info("Received quiz maker webhook");
 
-        $filename = 'quiz-maker-hooks/' . date('Y-m-d_H-i-s') . '.txt';
+        $filename = 'quiz-maker-hooks/' . date('Y-m-d_H-i-s') . '.json';
         \Storage::put($filename, $json);
         Bugsnag::leaveBreadcrumb("quiz maker webhook saved as: $filename");
 
@@ -26,12 +26,12 @@ class QuizController extends Controller {
         $qIL = QuizInLanguage::where('quiz_maker_id', $qID)->first();
 
         if (!$qIL) {
-            \Log::error("Got quiz maker webhook but cannot find its id in our database", ['quiz-maker-id' => $qID]);
+            \Log::error("Got quiz maker webhook but cannot find the quiz id in our database", ['quiz-maker-id' => $qID]);
             return response()->json();
         }
 
         foreach ($json->responses as $res) {
-            $code = $res->pass;
+            $code = $res->unique_code->code;
             /** @var QuizCode $quizCode */
             $quizCode = $qIL->codes()->where('code', $code)->first();
             if (!$quizCode) {

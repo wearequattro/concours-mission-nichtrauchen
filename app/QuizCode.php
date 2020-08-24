@@ -12,6 +12,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property int quiz_assignment_id
  * @property int quiz_in_language_id
  * @property string code
+ * @property string quiz_maker_url
  * @property Carbon created_at
  * @property Carbon updated_at
  * @property QuizAssignment assignment
@@ -27,12 +28,21 @@ class QuizCode extends Model {
         'code',
     ];
 
+    protected $appends = [
+        'quiz_maker_url',
+    ];
+
     public function assignment() {
         return $this->belongsTo(QuizAssignment::class, 'quiz_assignment_id');
     }
 
     public function quizInLanguage() {
         return $this->belongsTo(QuizInLanguage::class);
+    }
+
+    public function getQuizMakerUrlAttribute() {
+        $code = substr($this->code, 1);
+        return "https://linkto.run/c/$code";
     }
 
 }
