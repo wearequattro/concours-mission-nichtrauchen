@@ -48,6 +48,6 @@ class QuizInLanguage extends Model {
     }
 
     public function getUrlAttribute() {
-        return "https://www.quiz-maker.com/$this->quiz_maker_id";
+        return "https://www.quiz-maker.com/Q$this->quiz_maker_id";
     }
 }

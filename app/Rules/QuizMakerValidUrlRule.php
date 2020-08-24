@@ -6,7 +6,7 @@ use Illuminate\Contracts\Validation\Rule;
 
 class QuizMakerValidUrlRule implements Rule
 {
-    public static string $PATTERN = "/https?:\/\/(www.)?quiz-maker\.com\/([A-Za-z0-9]*)/";
+    public static string $PATTERN = "/https?:\/\/(www.)?quiz-maker\.com\/Q([A-Za-z0-9]*)/";
 
     /**
      * Create a new rule instance.
