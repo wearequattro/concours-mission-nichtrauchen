@@ -57,27 +57,27 @@
                         <table class="table table-bordered table-striped">
                             <thead>
                             <tr>
-                                <th>Nom</th>
-                                <th>Max Score</th>
-                                <th>Closes At</th>
+                                <th>Nom classe</th>
+                                <th>Nom enseignant</th>
+                                <th>Langue répondue</th>
+                                <th>Points</th>
+                                <th>Date</th>
                                 <th>Action</th>
                             </tr>
                             </thead>
                             <tbody>
-                            @forelse([] as $q)
-                                {{--                        <tr>--}}
-                                {{--                            <td>{{ $q->name }}</td>--}}
-                                {{--                            <td>{{ $q->max_score }}</td>--}}
-                                {{--                            <td>{{ $q->closes_at }}</td>--}}
-                                {{--                            <td>--}}
-                                {{--                                <a href="{{ route('admin.quiz', [$q]) }}" class="btn btn-primary">--}}
-                                {{--                                    <i class="fa fa-fw fa-eye"></i>--}}
-                                {{--                                </a>--}}
-                                {{--                            </td>--}}
-                                {{--                        </tr>--}}
+                            @forelse($responses as $r)
+                                <tr>
+                                    <td>{{ $r->assignment->schoolClass->name }}</td>
+                                    <td>{{ $r->assignment->schoolClass->teacher->full_name }}</td>
+                                    <td>{{ $r->assignment->quizInLanguage->language }}</td>
+                                    <td>{{ $r->score }}</td>
+                                    <td>{{ $r->created_at }}</td>
+                                    <td></td>
+                                </tr>
                             @empty
                                 <tr>
-                                    <td colspan="4" class="text-center">Aucune réponse disponible</td>
+                                    <td colspan="6" class="text-center">Aucune réponse disponible</td>
                                 </tr>
                             @endforelse
                             </tbody>

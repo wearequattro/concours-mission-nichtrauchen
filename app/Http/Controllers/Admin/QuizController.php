@@ -8,6 +8,7 @@ use App\QuizInLanguage;
 use App\Rules\QuizMakerValidUrlRule;
 use App\SchoolClass;
 use Carbon\Carbon;
+use Illuminate\Database\Eloquent\Collection as EloquentCollection;
 use Illuminate\Http\Request;
 
 class QuizController extends Controller {
@@ -63,7 +64,13 @@ class QuizController extends Controller {
     }
 
     public function show(Quiz $quiz) {
-        return view('admin.quiz-show', compact('quiz'));
+        $responses = (new EloquentCollection(
+            $quiz
+                ->quizInLanguage
+                ->flatMap(fn($qIL) => $qIL->responses)
+            ))
+            ->load('assignment.schoolClass', 'assignment.schoolClass.teacher', 'assignment.schoolClass.teacher.salutation', 'assignment.quizInLanguage');
+        return view('admin.quiz-show', compact('quiz', 'responses'));
     }
 
 }

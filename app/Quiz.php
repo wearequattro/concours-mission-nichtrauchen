@@ -5,6 +5,7 @@ namespace App;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Support\Collection;
 
 /**
  * Class Quiz
@@ -16,7 +17,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  * @property Carbon closes_at
  * @property Carbon created_at
  * @property Carbon updated_at
- * @property QuizInLanguage quizInLanguage
+ * @property QuizInLanguage[]|Collection quizInLanguage
  *
  * @mixin \Eloquent
  */

@@ -14,7 +14,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property int quizmaker_response_id
  * @property Carbon created_at
  * @property Carbon updated_at
- * @property QuizAssignment code
+ * @property QuizAssignment assignment
  *
  * @mixin \Eloquent
  */
@@ -26,7 +26,7 @@ class QuizResponse extends Model {
         'quizmaker_response_id',
     ];
 
-    public function code() {
-        return $this->belongsTo(QuizAssignment::class);
+    public function assignment() {
+        return $this->belongsTo(QuizAssignment::class, 'quiz_assignment_id');
     }
 }
