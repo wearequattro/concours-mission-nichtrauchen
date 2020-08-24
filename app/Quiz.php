@@ -34,7 +34,16 @@ class Quiz extends Model {
         'closes_at',
     ];
 
+    protected $appends = [
+        'responses_count',
+    ];
+
     public function quizInLanguage() {
         return $this->hasMany(QuizInLanguage::class);
     }
+
+    public function getResponsesCountAttribute() {
+        return $this->quizInLanguage->sum(fn($qIL) => $qIL->responses()->count());
+    }
+
 }

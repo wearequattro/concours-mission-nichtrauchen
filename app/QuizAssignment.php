@@ -16,6 +16,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property Carbon updated_at
  * @property SchoolClass schoolClass
  * @property QuizInLanguage quizInLanguage
+ * @property QuizResponse response
  *
  * @mixin \Eloquent
  */
@@ -33,5 +34,9 @@ class QuizAssignment extends Model {
 
     public function quizInLanguage() {
         return $this->belongsTo(QuizInLanguage::class);
+    }
+
+    public function response() {
+        return $this->hasOne(QuizResponse::class);
     }
 }
