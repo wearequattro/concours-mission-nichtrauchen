@@ -44,11 +44,9 @@
                     <p>
                         Vérifiez si les liens redirigent vers le propre quiz.<br>
                         <span class="text-danger">
-
-                                <i class="fa fa-fw fa-exclamation-triangle"></i>
-                                Ne pas répondre au quiz avec ces liens test ! Ceci est un lien destiné à une classe.
-                                Il sert seulement à vérifier que les propres codes sont appliqués pour les langues.
-
+                            <i class="fa fa-fw fa-exclamation-triangle"></i>
+                            Ne répondez pas aux quiz avec ces liens test ! Ce sont des lien destinés aux classes.
+                            Il sert seulement à vérifier que les propres codes sont appliqués pour les langues.
                         </span>
                     </p>
 
