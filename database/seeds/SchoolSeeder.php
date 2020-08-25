@@ -101,7 +101,7 @@ class SchoolSeeder extends Seeder {
                 "LUXEMBOURG"
             ],
             [
-                "LYCEE BEL-VAL    ",
+                "LYCEE BEL-VAL",
                 "100, avenue du Blues",
                 "L-4368",
                 "BELVAUX"

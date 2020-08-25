@@ -12,8 +12,8 @@
     @endif
 
     <div class="row">
-        <div class="col-4">
-            <a class="btn btn-success" href="{{ route('admin.quiz.create') }}">
+        <div class="col">
+            <a class="btn btn-primary" href="{{ route('admin.quiz.create') }}">
                 <i class="fa fa-fw fa-plus"></i> Crééer Quiz
             </a>
         </div>
@@ -48,12 +48,14 @@
                             <td>{{ $q->created_at }}</td>
                             <td>{{ $q->created_at->format('U') }}</td>
                             <td>
-                                <a href="{{ route('admin.quiz.show', [$q]) }}" class="btn btn-primary">
-                                    <i class="fa fa-fw fa-eye"></i>
-                                </a>
-                                <a href="{{ route('admin.quiz.edit', [$q]) }}" class="btn btn-primary">
-                                    <i class="fa fa-fw fa-pencil"></i>
-                                </a>
+                                <div class="btn-group">
+                                    <a href="{{ route('admin.quiz.show', [$q]) }}" class="btn btn-secondary">
+                                        <i class="fa fa-fw fa-eye"></i>
+                                    </a>
+                                    <a href="{{ route('admin.quiz.edit', [$q]) }}" class="btn btn-primary">
+                                        <i class="fa fa-fw fa-pencil"></i>
+                                    </a>
+                                </div>
                             </td>
                         </tr>
                     @empty

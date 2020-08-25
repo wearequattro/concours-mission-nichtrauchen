@@ -59,7 +59,7 @@
                 <input type="date" name="closes_at" id="closes_at" required
                        placeholder="yyyy-mm-dd" min="{{ date('Y-m-d', strtotime('+1day')) }}"
                        class="form-control {{ inputValidationClass($errors, 'closes_at') }}"
-                       value="{{ old('closes_at', $quiz->closes_at->format('Y-m-d')) }}">
+                       value="{{ old('closes_at', optional($quiz->closes_at)->format('Y-m-d')) }}">
                 <div class="invalid-feedback">
                     {{ inputValidationMessages($errors, 'closes_at') }}
                 </div>

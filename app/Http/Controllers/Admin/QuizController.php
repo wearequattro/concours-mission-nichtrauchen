@@ -137,4 +137,15 @@ class QuizController extends Controller {
         return redirect()->route('admin.quiz.show', [$quiz]);
     }
 
+    public function review(Quiz $quiz)
+    {
+        $quiz->load('assignments', 'assignments.schoolClass.school', 'assignments.schoolClass.teacher');
+        return view('admin.quiz-review', compact('quiz'));
+    }
+
+    public function send(Quiz $quiz)
+    {
+
+    }
+
 }

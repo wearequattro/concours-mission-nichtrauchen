@@ -45,6 +45,11 @@
                             <a class="btn btn-primary" href="{{ route('admin.quiz.edit', [$quiz]) }}">
                                 <i class="fa fa-fw fa-pencil"></i> Mettre à jour
                             </a>
+
+                            <a class="btn btn-success" href="{{ route('admin.quiz.review', [$quiz]) }}">
+                                <i class="fa fa-fw fa-paper-plane"></i>
+                                Revoir et envoyer
+                            </a>
                         </div>
                     </div>
 
