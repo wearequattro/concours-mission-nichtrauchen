@@ -13,7 +13,7 @@
 
     <div class="col-12 mb-5">
 
-        <form method="post" action="{{ route('admin.quiz.create.post') }}">
+        <form method="post" action="{{ $quiz->exists ? route('admin.quiz.edit.post', [$quiz]) : route('admin.quiz.create.post') }}">
             @csrf
 
             <div class="form-group">
@@ -36,26 +36,30 @@
                 </div>
             </div>
 
-            @foreach($languages as $language)
+            @if(!$quiz->exists)
 
-            <div class="form-group">
-                <label for="quiz_url[{{ $language }}]">URL Quiz ({{ $language }})</label>
-                <input required type="text" name="quiz_url[{{ $language }}]" id="quiz_url[{{ $language }}]"
-                       class="form-control {{ inputValidationClass($errors, "quiz_url.$language") }}"
-                       value="{{ old("quiz_url.$language") }}">
-                <div class="invalid-feedback">
-                    {{ inputValidationMessages($errors, "quiz_url.$language") }}
+                @foreach($languages as $language)
+
+                <div class="form-group">
+                    <label for="quiz_url[{{ $language }}]">URL Quiz ({{ $language }})</label>
+                    <input required type="text" name="quiz_url[{{ $language }}]" id="quiz_url[{{ $language }}]"
+                           class="form-control {{ inputValidationClass($errors, "quiz_url.$language") }}"
+                           value="{{ old("quiz_url.$language") }}">
+                    <div class="invalid-feedback">
+                        {{ inputValidationMessages($errors, "quiz_url.$language") }}
+                    </div>
                 </div>
-            </div>
 
-            @endforeach
+                @endforeach
+
+            @endif
 
             <div class="form-group">
                 <label for="closes_at">Date de clôturation (à 00:00h)</label>
                 <input type="date" name="closes_at" id="closes_at" required
                        placeholder="yyyy-mm-dd" min="{{ date('Y-m-d', strtotime('+1day')) }}"
                        class="form-control {{ inputValidationClass($errors, 'closes_at') }}"
-                       value="{{ old('closes_at', $quiz->closes_at) }}">
+                       value="{{ old('closes_at', $quiz->closes_at->format('Y-m-d')) }}">
                 <div class="invalid-feedback">
                     {{ inputValidationMessages($errors, 'closes_at') }}
                 </div>
@@ -64,9 +68,12 @@
             <div class="form-group">
                 <label for="classes">Classes</label>
                 <select required multiple name="classes[]" id="classes"
+                        {{ $quiz->exists ? 'disabled' : '' }}
                         class="form-control {{ inputValidationClass($errors, 'classes') }}">
                     @foreach($classes as $class)
-                        <option value="{{ $class->id }}" {{ in_array($class->id, old('classes', [])) ? 'selected' : '' }}>
+                        <option value="{{ $class->id }}" {{
+    in_array($class->id, old('classes', [])) || $quiz->assignments()->where('school_class_id', $class->id)->exists()
+     ? 'selected' : '' }}>
                             {{ sprintf("%s (%s, %s)", $class->name, $class->teacher->full_name, $class->school->name) }}
                         </option>
                     @endforeach
@@ -81,7 +88,7 @@
                 <textarea name="email_text" id="email_text"
                 >{{ old('email_text') ?? $quiz->email_text }}</textarea>
                 <div class="invalid-feedback">
-                    {{ inputValidationMessages($errors, 'students') }}
+                    {{ inputValidationMessages($errors, 'email_text') }}
                 </div>
             </div>
 

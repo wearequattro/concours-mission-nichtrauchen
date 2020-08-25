@@ -64,6 +64,24 @@ class QuizController extends Controller {
         return redirect()->route('admin.quiz.show', [$quiz]);
     }
 
+    public function edit(Quiz $quiz) {
+        $classes = SchoolClass::all();
+        return view('admin.quiz-create', compact('quiz', 'classes'), ['languages' => $this->languages]);
+    }
+
+    public function editPost(Request $request, Quiz $quiz) {
+        $data = $this->validate($request, [
+            'name' => 'required|string',
+            'max_score' => 'required|int|min:1',
+            'closes_at' => 'required|date|after:today',
+            'email_text' => 'string|nullable',
+        ]);
+        $data['closes_at'] = Carbon::createFromTimestamp(strtotime($data['closes_at']));
+        $data['email_text'] = $data['email_text'] ?? "";
+        $quiz->update($data);
+        return redirect()->route('admin.quiz.show', [$quiz]);
+    }
+
     public function show(Quiz $quiz) {
         return view('admin.quiz-show', compact('quiz'));
     }

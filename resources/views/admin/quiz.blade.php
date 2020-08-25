@@ -51,6 +51,9 @@
                                 <a href="{{ route('admin.quiz.show', [$q]) }}" class="btn btn-primary">
                                     <i class="fa fa-fw fa-eye"></i>
                                 </a>
+                                <a href="{{ route('admin.quiz.edit', [$q]) }}" class="btn btn-primary">
+                                    <i class="fa fa-fw fa-pencil"></i>
+                                </a>
                             </td>
                         </tr>
                     @empty

@@ -41,6 +41,10 @@
                                     </a>
                                 </p>
                             @endif
+
+                            <a class="btn btn-primary" href="{{ route('admin.quiz.edit', [$quiz]) }}">
+                                <i class="fa fa-fw fa-pencil"></i> Mettre à jour
+                            </a>
                         </div>
                     </div>
 
