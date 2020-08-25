@@ -48,4 +48,23 @@ class Quiz extends Model {
         return $this->hasManyThrough(QuizResponse::class, QuizAssignment::class);
     }
 
+    public function hasEnoughCodes()
+    {
+        return $this
+                ->quizInLanguage
+                ->matchAll(fn ($ql) => $ql->hasEnoughCodes());
+    }
+
+    public function validate()
+    {
+        $errors = [];
+        if ($this->closes_at->isBefore(now())) {
+            $errors[] = 'La date de clôturation doit être dans le futur !';
+        }
+        if (!$this->hasEnoughCodes()) {
+            $errors[] = 'Ce quiz n\'a pas assez de codes uniques enregistrés pour que tous les classes puissent avoir un.';
+        }
+        return $errors;
+    }
+
 }

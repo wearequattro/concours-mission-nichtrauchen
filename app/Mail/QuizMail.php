@@ -15,7 +15,7 @@ class QuizMail extends Mailable
     /**
      * @var QuizAssignment
      */
-    private QuizAssignment $assignment;
+    protected $assignment;
 
     /**
      * Create a new message instance.

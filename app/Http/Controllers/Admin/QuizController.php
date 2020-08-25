@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Mail\QuizMail;
 use App\Quiz;
 use App\QuizInLanguage;
 use App\Rules\QuizMakerValidUrlRule;
@@ -145,7 +146,17 @@ class QuizController extends Controller {
 
     public function send(Quiz $quiz)
     {
+        if(!empty($quiz->validate())) {
+            abort(422);
+        }
 
+        foreach ($quiz->assignments as $a) {
+            \Mail::to($a->schoolClass->teacher->user->email)->queue(
+                new QuizMail($a)
+            );
+        }
+
+        return redirect()->route('admin.quiz.show', [$quiz]);
     }
 
 }

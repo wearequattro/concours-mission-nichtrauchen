@@ -32,7 +32,7 @@
                                 @endforeach
                             </p>
 
-                            @if(!$quiz->quizInLanguage->filter(fn ($ql) => $ql->hasEnoughCodes())->count() > 0)
+                            @if(!$quiz->hasEnoughCodes())
                                 <p>
                                     Ce quiz n'a pas assez de codes uniques enregistrés pour que tous les classes puissent avoir un.
                                     <br>
@@ -46,7 +46,7 @@
                                 <i class="fa fa-fw fa-pencil"></i> Mettre à jour
                             </a>
 
-                            <a class="btn btn-success" href="{{ route('admin.quiz.review', [$quiz]) }}">
+                            <a class="btn btn-success {{ !empty($quiz->validate()) ? 'disabled' : '' }}" href="{{ route('admin.quiz.review', [$quiz]) }}">
                                 <i class="fa fa-fw fa-paper-plane"></i>
                                 Revoir et envoyer
                             </a>
