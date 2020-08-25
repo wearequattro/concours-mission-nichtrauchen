@@ -39,10 +39,17 @@
                             {{ $lang }}
                         </h1>
 
+                        Vous devez générer au moins {{ $quiz->assignments()->count() }} codes uniques pour ce quiz.
+
                         <div class="form-group">
                             <label for="files[{{ $lang }}]">Sélectionnez le fichier avec les codes</label>
                             <div class="custom-file">
-                                <input type="file" class="custom-file-input {{ inputValidationClass($errors, "files.$lang") }}" id="files[{{ $lang }}]" name="files[{{ $lang }}]">
+                                <input type="file"
+                                       class="custom-file-input {{ inputValidationClass($errors, "files.$lang") }}"
+                                       id="files[{{ $lang }}]"
+                                       name="files[{{ $lang }}]"
+                                       required
+                                >
                                 <label class="custom-file-label" for="files[{{ $lang }}]">Choose file</label>
                                 <div class="invalid-feedback">
                                     {{ inputValidationMessages($errors, "files.$lang") }}

@@ -21,32 +21,27 @@
                             <h2 class="text-center">
                                 {{ $quiz->name }}
                             </h2>
-                            Score Maximal: {{ $quiz->max_score }}
-                            <hr>
-                        </div>
-
-                        @foreach($quiz->quizInLanguage as $ql)
-                        <div class="col">
                             <p>
-                                <a href="{{ $ql->url }}">
-                                    <img src="{{ asset('images/flags/' . $ql->language . '.png') }}" alt="flag {{ $ql->language }}">
-                                    {{ $ql->url }}
-                                </a>
+                                Score Maximal: {{ $quiz->max_score }}<br>
+                                @foreach($quiz->quizInLanguage as $ql)
+                                    <a href="{{ $ql->url }}">
+                                        <img style="height: 0.8em; width: auto;" src="{{ asset('/images/flags/' . $ql->language . '.svg') }}" alt="flag {{ $ql->language }}">
+                                        {{ $ql->url }}
+                                        <br>
+                                    </a>
+                                @endforeach
                             </p>
-                            @if(!$ql->hasEnoughCodes())
-                                <div class="alert alert-warning">
-                                    <i class="fa fa-fw fa-exclamation-triangle"></i> Attention !<br>
-                                    Ce quiz n'a pas assez des codes uniques enregistrés pour que tous les
-                                    profs puissen avoir un code unique.<br>
-                                    {{ $ql->codes()->count() }} / {{ $quiz->assignments()->count() }}
+
+                            @if(!$quiz->quizInLanguage->filter(fn ($ql) => $ql->hasEnoughCodes())->count() > 0)
+                                <p>
+                                    Ce quiz n'a pas assez de codes uniques enregistrés pour que tous les classes puissent avoir un.
                                     <br>
                                     <a class="btn btn-primary" href="{{ route('admin.quiz.show.codes', [$quiz]) }}">
                                         Ajouter les codes
                                     </a>
-                                </div>
+                                </p>
                             @endif
                         </div>
-                        @endforeach
                     </div>
 
                 </div>

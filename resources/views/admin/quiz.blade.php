@@ -42,7 +42,7 @@
                         <tr>
                             <td>{{ $q->name }}</td>
                             <td>{{ $q->max_score }}</td>
-                            <td>{{ $q->getResponsesCountAttribute() }}</td>
+                            <td>{{ $q->responses()->count() }}</td>
                             <td>{{ $q->closes_at->format('Y-m-d') }}</td>
                             <td>{{ $q->closes_at->format('U') }}</td>
                             <td>{{ $q->created_at }}</td>
