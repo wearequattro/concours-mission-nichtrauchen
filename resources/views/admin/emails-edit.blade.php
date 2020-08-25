@@ -32,7 +32,7 @@
 
         <div class="row">
 
-            <div class="col-xs-12 col-sm-6">
+            <div class="col-12 col-lg-6">
 
                 <div class="form-group">
                     <label for="text">Texte</label>
@@ -46,7 +46,7 @@
                 </div>
 
             </div>
-            <div class="col-xs-12 col-sm-6">
+            <div class="col-12 col-lg-6">
                 <div class="card mt-4">
                     <div class="card-header">Aper&ccedil;u</div>
                     <div class="card-body" id="preview"></div>
@@ -55,37 +55,42 @@
         </div>
 
 
-        <input type="submit" class="btn btn-primary" value="Actualiser">
+        <input type="submit" class="btn btn-primary mt-2" value="Mettre à jour">
 
     </form>
+
+    <div style="height: 150px"></div>
 
 
 @endsection
 
 @push('js')
-    <script src="{{ asset('js/tinymce/tinymce.min.js') }}"></script>
     <script>
         tinymce.init({
             selector: '#text',
-            plugins: ['advlist autolink link lists charmap hr pagebreak',
-                'searchreplace wordcount visualblocks visualchars insertdatetime nonbreaking',
-                'table contextmenu directionality emoticons template paste textcolor'],
+            plugins: 'link',
+            toolbar: 'undo redo | styleselect | bold italic | link | alignleft aligncenter alignright | placeholder',
             setup: function (editor) {
-                editor.addButton('placeholder', {
-                    title: 'Texte réservé',
-                    image: '{{ asset('images/placeholder.png') }}',
-                    type: 'listbox',
-                    name: '',
-                    onselect: function (e) {
-                        editor.insertContent(this.value() + ' ');
+                editor.ui.registry.addSplitButton('placeholder', {
+                    text: 'Texte réservé',
+                    icon: 'placeholder',
+                    onItemAction: function (api, value) {
+                        editor.insertContent(value);
                     },
-                    values: {!! $placeholders !!}
+                    onAction: function () {
+                    },
+                    fetch: function (callback) {
+
+                        callback({!! $placeholders !!});
+                    }
                 });
                 editor.on('keyUp', refreshPreview);
                 editor.on('Change', refreshPreview);
                 editor.on('init', refreshPreview);
+                editor.ui.registry.addIcon('placeholder', '<svg style="width:24px;height:24px" viewBox="0 0 24 24">\n' +
+                    '    <path fill="currentColor" d="M20,2A2,2 0 0,1 22,4V16A2,2 0 0,1 20,18H6L2,22V4C2,2.89 2.9,2 4,2H20M4,4V17.17L5.17,16H20V4H4M6,7H18V9H6V7M6,11H15V13H6V11Z" />\n' +
+                    '</svg>');
             },
-            toolbar: 'undo redo | styleselect | bold italic | link | alignleft aligncenter alignright | placeholder',
         });
 
         var placeholders = {!! $placeholders !!};

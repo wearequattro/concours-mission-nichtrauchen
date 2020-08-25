@@ -26,6 +26,7 @@ class EmailController {
         $placeholders = EditableEmail::getPlaceholders()
             ->map(function (PlaceHolder $placeHolder) {
                 return [
+                    'type' => 'choiceitem',
                     'text' => !empty($placeHolder->description) ? $placeHolder->description : $placeHolder->previewValue,
                     'preview' => $placeHolder->previewValue,
                     'value' => $placeHolder->key,

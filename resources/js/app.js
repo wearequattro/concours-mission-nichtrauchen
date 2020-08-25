@@ -13,6 +13,7 @@ require('popper.js/dist/popper.min');
 import tinymce from 'tinymce/tinymce';
 import 'tinymce/icons/default';
 import 'tinymce/themes/silver';
+import 'tinymce/plugins/link';
 
 let oldInputLabel = [];
 // show selected file in file chooser
