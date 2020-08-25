@@ -13,6 +13,7 @@ use Illuminate\Support\Collection;
  * @property int id
  * @property string name
  * @property string email_text
+ * @property string state
  * @property int max_score
  * @property Carbon closes_at
  * @property Carbon created_at
@@ -25,11 +26,16 @@ use Illuminate\Support\Collection;
  */
 class Quiz extends Model {
 
+    public const STATE_NEW = 'new';
+    public const STATE_RUNNING = 'running';
+    public const STATE_CLOSED = 'closed';
+
     protected $fillable = [
         'name',
         'email_text',
         'max_score',
         'closes_at',
+        'state',
     ];
 
     protected $dates = [
@@ -48,14 +54,14 @@ class Quiz extends Model {
         return $this->hasManyThrough(QuizResponse::class, QuizAssignment::class);
     }
 
-    public function hasEnoughCodes()
+    public function hasEnoughCodes(): bool
     {
         return $this
                 ->quizInLanguage
                 ->matchAll(fn ($ql) => $ql->hasEnoughCodes());
     }
 
-    public function validate()
+    public function validate(): array
     {
         $errors = [];
         if ($this->closes_at->isBefore(now())) {
@@ -64,7 +70,24 @@ class Quiz extends Model {
         if (!$this->hasEnoughCodes()) {
             $errors[] = 'Ce quiz n\'a pas assez de codes uniques enregistrés pour que tous les classes puissent avoir un.';
         }
+        if ($this->state !== self::STATE_NEW) {
+            $errors[] = 'Ce quiz a déjà commencé.';
+        }
         return $errors;
+    }
+
+    public function stateColor(): string
+    {
+        switch ($this->state) {
+            case self::STATE_NEW:
+                return 'success';
+            case self::STATE_RUNNING:
+                return 'primary';
+            case self::STATE_CLOSED:
+                return 'danger';
+            default:
+                throw new \InvalidArgumentException("$this->state is not a valid quiz state");
+        }
     }
 
 }

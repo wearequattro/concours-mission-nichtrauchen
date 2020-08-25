@@ -66,11 +66,13 @@ class QuizController extends Controller {
     }
 
     public function edit(Quiz $quiz) {
+        abort_if($quiz->state === Quiz::STATE_CLOSED, 403);
         $classes = SchoolClass::all();
         return view('admin.quiz-create', compact('quiz', 'classes'), ['languages' => $this->languages]);
     }
 
     public function editPost(Request $request, Quiz $quiz) {
+        abort_if($quiz->state === Quiz::STATE_CLOSED, 403);
         $data = $this->validate($request, [
             'name' => 'required|string',
             'max_score' => 'required|int|min:1',
@@ -88,10 +90,13 @@ class QuizController extends Controller {
     }
 
     public function codes(Quiz $quiz) {
+        abort_if($quiz->state !== Quiz::STATE_NEW, 403);
         return view('admin.quiz-codes', compact('quiz'), ['languages' => $this->languages]);
     }
 
     public function createCodes(Request $request, Quiz $quiz) {
+        abort_if($quiz->state !== Quiz::STATE_NEW, 403);
+
         foreach ($this->languages as $lang) {
             $rules["files.$lang"] = ['required', 'file', 'mimes:txt'];
         }
@@ -140,6 +145,7 @@ class QuizController extends Controller {
 
     public function review(Quiz $quiz)
     {
+        abort_if($quiz->state !== Quiz::STATE_NEW, 403);
         $quiz->load('assignments', 'assignments.schoolClass.school', 'assignments.schoolClass.teacher');
         return view('admin.quiz-review', compact('quiz'));
     }
@@ -155,6 +161,8 @@ class QuizController extends Controller {
                 new QuizMail($a)
             );
         }
+
+        $quiz->update(['state' => Quiz::STATE_RUNNING]);
 
         return redirect()->route('admin.quiz.show', [$quiz]);
     }

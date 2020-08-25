@@ -21,16 +21,45 @@
                             <h2 class="text-center">
                                 {{ $quiz->name }}
                             </h2>
-                            <p>
-                                Score Maximal: {{ $quiz->max_score }}<br>
-                                @foreach($quiz->quizInLanguage as $ql)
-                                    <a href="{{ $ql->url }}">
-                                        <img style="height: 0.8em; width: auto;" src="{{ asset('/images/flags/' . $ql->language . '.svg') }}" alt="flag {{ $ql->language }}">
-                                        {{ $ql->url }}
-                                        <br>
-                                    </a>
-                                @endforeach
-                            </p>
+
+                            <dl>
+                                <div class="row">
+                                    <div class="col-md">
+                                        <dt>Statut</dt>
+                                        <dd>
+                                            <span class="badge badge-pill badge-{{ $quiz->stateColor() }}">
+                                                {{ __("quiz.state.$quiz->state") }}
+                                            </span>
+                                        </dd>
+                                    </div>
+                                    <div class="col-md">
+                                        <dt>Date de clôturation</dt>
+                                        <dd>{{ $quiz->closes_at }}</dd>
+                                    </div>
+                                    <div class="col-md">
+                                        <dt>Destinataires</dt>
+                                        <dd>{{ $quiz->assignments()->count() }}</dd>
+                                    </div>
+                                    <div class="col-md">
+                                        <dt>Score maximal</dt>
+                                        <dd>{{ $quiz->max_score }}</dd>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md">
+                                        <dt>Langues</dt>
+                                        <dd>
+                                            @foreach($quiz->quizInLanguage as $ql)
+                                                <a href="{{ $ql->url }}">
+                                                    <img style="height: 0.8em; width: auto;" src="{{ asset('/images/flags/' . $ql->language . '.svg') }}" alt="flag {{ $ql->language }}">
+                                                    {{ $ql->url }}
+                                                    <br>
+                                                </a>
+                                            @endforeach
+                                        </dd>
+                                    </div>
+                                </div>
+                            </dl>
 
                             @if(!$quiz->hasEnoughCodes())
                                 <p>
@@ -42,7 +71,7 @@
                                 </p>
                             @endif
 
-                            <a class="btn btn-primary" href="{{ route('admin.quiz.edit', [$quiz]) }}">
+                            <a class="btn btn-primary {{ $quiz->state !== \App\Quiz::STATE_CLOSED }}" href="{{ route('admin.quiz.edit', [$quiz]) }}">
                                 <i class="fa fa-fw fa-pencil"></i> Mettre à jour
                             </a>
 

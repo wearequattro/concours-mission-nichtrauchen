@@ -28,6 +28,16 @@
             </div>
         </div>
 
+    @elseif($quiz->state == \App\Quiz::STATE_CLOSED)
+
+        <div class="row">
+            <div class="col mt-5 mb-5 text-center">
+
+                <h1>Désolé, le quiz est clôturé</h1>
+
+            </div>
+        </div>
+
     @else
 
         <h3 class="text-center mt-5">Sélectionnez votre langue préférée du quiz</h3>

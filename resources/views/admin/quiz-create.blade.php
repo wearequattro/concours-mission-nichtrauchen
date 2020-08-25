@@ -92,7 +92,7 @@
                 </div>
             </div>
 
-            <input type="submit" class="btn btn-primary" value="Ajouter">
+            <input type="submit" class="btn btn-primary" value="{{ $quiz->exists ? 'Mettre à jour' : 'Ajouter' }}">
 
         </form>
 

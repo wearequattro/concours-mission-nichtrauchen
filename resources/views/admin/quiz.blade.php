@@ -30,6 +30,7 @@
                         <th>Nom</th>
                         <th>Max Score</th>
                         <th>Réponses</th>
+                        <th>Statut</th>
                         <th>Date de clôturation</th>
                         <th>Date de clôturation</th>
                         <th>Créée</th>
@@ -43,6 +44,11 @@
                             <td>{{ $q->name }}</td>
                             <td>{{ $q->max_score }}</td>
                             <td>{{ $q->responses()->count() }}</td>
+                            <td>
+                                <span class="badge badge-pill badge-{{ $q->stateColor() }}">
+                                    {{ __("quiz.state.$q->state") }}
+                                </span>
+                            </td>
                             <td>{{ $q->closes_at->format('Y-m-d') }}</td>
                             <td>{{ $q->closes_at->format('U') }}</td>
                             <td>{{ $q->created_at }}</td>
@@ -78,14 +84,14 @@
         $('table').dataTable({
             pageLength: 100,
             order: [
-                [3, 'desc'],
+                [4, 'desc'],
             ],
             columnDefs: [
-                { targets: 3, orderData: [4] },
-                { targets: 4, visible: false },
+                { targets: 4, orderData: [5] },
+                { targets: 5, visible: false },
 
-                { targets: 5, orderData: [6] },
-                { targets: 6, visible: false },
+                { targets: 6, orderData: [7] },
+                { targets: 7, visible: false },
             ],
         });
     </script>
