@@ -43,7 +43,10 @@
                         <tr>
                             <td>{{ $q->name }}</td>
                             <td>{{ $q->max_score }}</td>
-                            <td>{{ $q->responses()->count() }}</td>
+                            <td>
+                                {{ $q->responses()->count() }} / {{ $q->assignments()->count() }}
+                                ({{ sprintf("%.1f %%", $q->responses()->count() / $q->assignments()->count()) }})
+                            </td>
                             <td>
                                 <span class="badge badge-pill badge-{{ $q->stateColor() }}">
                                     {{ __("quiz.state.$q->state") }}
