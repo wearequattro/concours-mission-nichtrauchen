@@ -84,7 +84,13 @@ table.school-classes {
         flex-direction: column;
         align-items: center;
         justify-content: center;
+
+        .row {
+            width: 100%;
+        }
+
     }
+
 
     .lead {
         font-size: 2em;
