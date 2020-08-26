@@ -92,13 +92,15 @@ class QuizController extends Controller {
 
         // Update class assignments
         $givenClasses = $request->get('classes');
-        $quiz->assignments()->whereNotIn('school_class_id', $givenClasses)->delete();
+        if($givenClasses != null) {
+            $quiz->assignments()->whereNotIn('school_class_id', $givenClasses)->delete();
 
-        $toAdd = collect($givenClasses)->diff($quiz->assignments()->pluck('school_class_id'));
-        foreach ($toAdd as $class) {
-            $quiz->assignments()->create([
-                'school_class_id' => $class,
-            ]);
+            $toAdd = collect($givenClasses)->diff($quiz->assignments()->pluck('school_class_id'));
+            foreach ($toAdd as $class) {
+                $quiz->assignments()->create([
+                    'school_class_id' => $class,
+                ]);
+            }
         }
 
         return redirect()->route('admin.quiz.show', [$quiz]);

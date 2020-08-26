@@ -56,9 +56,9 @@
 
             <div class="form-group">
                 <label for="closes_at">Date de clôturation (à 00:00h)</label>
-                <input type="date" name="closes_at" id="closes_at" required
+                <input type="text" name="closes_at" id="closes_at" required
                        placeholder="yyyy-mm-dd" min="{{ date('Y-m-d', strtotime('+1day')) }}"
-                       class="form-control {{ inputValidationClass($errors, 'closes_at') }}"
+                       class="form-control datepicker {{ inputValidationClass($errors, 'closes_at') }}"
                        value="{{ old('closes_at', optional($quiz->closes_at)->format('Y-m-d')) }}">
                 <div class="invalid-feedback">
                     {{ inputValidationMessages($errors, 'closes_at') }}
@@ -71,6 +71,7 @@
                         multiple
                         name="classes[]"
                         id="classes"
+                        {{ $quiz->state !== \App\Quiz::STATE_NEW ? 'disabled' : '' }}
                         class="form-control {{ inputValidationClass($errors, 'classes') }}">
                     @foreach($classes as $class)
                         <option value="{{ $class->id }}" {{
@@ -123,6 +124,11 @@
         tinymce.init({
             selector: '#email_text',
             height: 500,
+        });
+        $('.datepicker').datepicker({
+            format: 'yyyy-mm-dd',
+            autoclose: true,
+            startDate: '{{ date('Y-m-d', strtotime('+1day')) }}'
         });
     </script>
 @endpush
