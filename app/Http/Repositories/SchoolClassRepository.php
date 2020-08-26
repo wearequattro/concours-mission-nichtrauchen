@@ -19,8 +19,8 @@ class SchoolClassRepository extends Controller {
      */
     public function findByStatusToken(string $token): ?SchoolClass {
         return SchoolClass::query()
-            ->where('january_token', $token)
-            ->orWhere('march_token', $token)
+//            ->where('january_token', $token)
+//            ->orWhere('march_token', $token)
             ->orWhere('may_token', $token)
             ->first();
     }
@@ -64,8 +64,8 @@ class SchoolClassRepository extends Controller {
      */
     public function findEligibleForCertificate(): Collection {
         return SchoolClass::query()
-            ->where('status_january', 1)
-            ->where('status_march', 1)
+//            ->where('status_january', 1)
+//            ->where('status_march', 1)
             ->where('status_may', 1)
             ->get();
     }
@@ -76,10 +76,10 @@ class SchoolClassRepository extends Controller {
      */
     public function findNotEligibleForCertificate(): Collection {
         return SchoolClass::query()
-            ->where('status_january', 0)
-            ->orWhereNull('status_january')
-            ->orWhere('status_march', 0)
-            ->orWhereNull('status_march')
+//            ->where('status_january', 0)
+//            ->orWhereNull('status_january')
+//            ->orWhere('status_march', 0)
+//            ->orWhereNull('status_march')
             ->orWhere('status_may', 0)
             ->orWhereNull('status_may')
             ->get();

@@ -102,30 +102,30 @@
                     <p>
                         Les rappels seront activés dès que les dates des suivis respectifs sont atteintes.
                     </p>
-                    @if($show_january)
-                        <a href="{{ route('admin.classes.resend', [\App\SchoolClass::STATUS_JANUARY]) }}" class="btn btn-primary">
-                            Janvier
-                        </a>
-                    @else
-                        <span class="d-inline-block" tabindex="0" data-toggle="tooltip" data-placement="bottom"
-                              title="Sera activé : {{ \App\EditableDate::find(\App\EditableDate::FOLLOW_UP_1)->toDateString() }}">
-                            <button disabled class="btn btn-primary" type="button" style="pointer-events: none;">
-                                Janvier
-                            </button>
-                        </span>
-                    @endif
-                    @if($show_march)
-                        <a href="{{ route('admin.classes.resend', [\App\SchoolClass::STATUS_MARCH]) }}" class="btn btn-primary">
-                            Mars
-                        </a>
-                    @else
-                        <span class="d-inline-block" tabindex="0" data-toggle="tooltip" data-placement="bottom"
-                              title="Sera activé : {{ \App\EditableDate::find(\App\EditableDate::FOLLOW_UP_2)->toDateString() }}">
-                            <button disabled class="btn btn-primary" type="button" style="pointer-events: none;">
-                                Mars
-                            </button>
-                        </span>
-                    @endif
+{{--                    @if($show_january)--}}
+{{--                        <a href="{{ route('admin.classes.resend', [\App\SchoolClass::STATUS_JANUARY]) }}" class="btn btn-primary">--}}
+{{--                            Janvier--}}
+{{--                        </a>--}}
+{{--                    @else--}}
+{{--                        <span class="d-inline-block" tabindex="0" data-toggle="tooltip" data-placement="bottom"--}}
+{{--                              title="Sera activé : {{ \App\EditableDate::find(\App\EditableDate::FOLLOW_UP_1)->toDateString() }}">--}}
+{{--                            <button disabled class="btn btn-primary" type="button" style="pointer-events: none;">--}}
+{{--                                Janvier--}}
+{{--                            </button>--}}
+{{--                        </span>--}}
+{{--                    @endif--}}
+{{--                    @if($show_march)--}}
+{{--                        <a href="{{ route('admin.classes.resend', [\App\SchoolClass::STATUS_MARCH]) }}" class="btn btn-primary">--}}
+{{--                            Mars--}}
+{{--                        </a>--}}
+{{--                    @else--}}
+{{--                        <span class="d-inline-block" tabindex="0" data-toggle="tooltip" data-placement="bottom"--}}
+{{--                              title="Sera activé : {{ \App\EditableDate::find(\App\EditableDate::FOLLOW_UP_2)->toDateString() }}">--}}
+{{--                            <button disabled class="btn btn-primary" type="button" style="pointer-events: none;">--}}
+{{--                                Mars--}}
+{{--                            </button>--}}
+{{--                        </span>--}}
+{{--                    @endif--}}
                     @if($show_may)
                         <a href="{{ route('admin.classes.resend', [\App\SchoolClass::STATUS_MAY]) }}" class="btn btn-primary">
                             Mai
@@ -157,10 +157,10 @@
                         <th>Enseignant prénom</th>
                         <th>Enseignant nom</th>
                         <th>Points Quiz</th>
-                        <th>Statut janvier</th>
-                        <th>Statut janvier</th>
-                        <th>Statut mars</th>
-                        <th>Statut mars</th>
+{{--                        <th>Statut janvier</th>--}}
+{{--                        <th>Statut janvier</th>--}}
+{{--                        <th>Statut mars</th>--}}
+{{--                        <th>Statut mars</th>--}}
                         <th>Statut mai</th>
                         <th>Statut mai</th>
                         <th>Statut fête</th>
@@ -189,10 +189,10 @@
                             <td>{{ $class->teacher->first_name }}</td>
                             <td>{{ $class->teacher->last_name }}</td>
                             <td>{{ $class->quizResponses()->sum('score') }}</td>
-                            <td>{{ statusToIcon($class->getStatusJanuary() ) }}</td>
-                            <td>{{ $class->getStatusJanuary() === null ? 'E' : ($class->getStatusJanuary() ? 'Y' : 'N') }}</td>
-                            <td>{{ statusToIcon($class->getStatusMarch() ) }}</td>
-                            <td>{{ $class->getStatusMarch() === null ? 'E' : ($class->getStatusMarch() ? 'Y' : 'N') }}</td>
+{{--                            <td>{{ statusToIcon($class->getStatusJanuary() ) }}</td>--}}
+{{--                            <td>{{ $class->getStatusJanuary() === null ? 'E' : ($class->getStatusJanuary() ? 'Y' : 'N') }}</td>--}}
+{{--                            <td>{{ statusToIcon($class->getStatusMarch() ) }}</td>--}}
+{{--                            <td>{{ $class->getStatusMarch() === null ? 'E' : ($class->getStatusMarch() ? 'Y' : 'N') }}</td>--}}
                             <td>{{ statusToIcon($class->getStatusMay() ) }}</td>
                             <td>{{ $class->getStatusMay() === null ? 'E' : ($class->getStatusMay() ? 'Y' : 'N') }}</td>
                             <td>{{ statusToIcon($class->getStatusParty()) }}</td>
@@ -213,7 +213,7 @@
                         </tr>
                         @empty
                         <tr>
-                            <td colspan="10" class="text-center">Aucune classe n'est enregistr&eacute;e</td>
+                            <td colspan="16" class="text-center">Aucune classe n'est enregistr&eacute;e</td>
                         </tr>
                     @endforelse
                     </tbody>
@@ -251,12 +251,12 @@
 
                 { targets: 13, orderData: [14] },
                 { targets: 14, visible: false },
-
-                { targets: 15, orderData: [16] },
-                { targets: 16, visible: false },
-
-                { targets: 17, orderData: [18] },
-                { targets: 18, visible: false },
+                //
+                // { targets: 15, orderData: [16] },
+                // { targets: 16, visible: false },
+                //
+                // { targets: 17, orderData: [18] },
+                // { targets: 18, visible: false },
             ],
         });
     </script>

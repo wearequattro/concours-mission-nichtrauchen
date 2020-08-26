@@ -54,8 +54,8 @@ class ClassExportController extends Controller {
             'NUMÉRO TÉLÉPHONE',
             'CLASSE',
             'NOMBRE D\'ELEVES',
-            'JANVIER',
-            'MARS',
+//            'JANVIER',
+//            'MARS',
             'MAI',
             'FETE',
             'FETE COMPLETEE',
@@ -74,44 +74,55 @@ class ClassExportController extends Controller {
             $sheet->getStyleByColumnAndRow($i, 1)->getBorders()->getAllBorders()->setBorderStyle(Border::BORDER_THIN)
                 ->setColor(new Color(Color::COLOR_BLACK));
         }
+
+        $sheet->setAutoFilterByColumnAndRow(1, 1, sizeof($headers), SchoolClass::count() + 1);
     }
 
     private function addData(Worksheet $sheet) {
         SchoolClass::all()->each(function (SchoolClass $class, $row) use ($sheet) {
             $row = $row + 2;
-            $sheet->setCellValue("A$row", $class->id);
-            $sheet->setCellValue("B$row", $class->school->name);
-            $sheet->setCellValue("C$row", $class->school->address);
-            $sheet->setCellValue("D$row", $class->school->postal_code);
-            $sheet->setCellValue("E$row", $class->school->city);
-            $sheet->setCellValue("F$row", $class->teacher->salutation->long_form);
-            $sheet->setCellValue("G$row", $class->teacher->last_name);
-            $sheet->setCellValue("H$row", $class->teacher->first_name);
-            $sheet->setCellValue("I$row", $class->teacher->user->email);
-            $sheet->setCellValue("J$row", " " . $class->teacher->phone);
-            $sheet->setCellValue("K$row", $class->name);
-            $sheet->setCellValue("L$row", $class->students);
-            $sheet->setCellValue("M$row", $this->statusToString($class->getStatusJanuary()));
-            $sheet->setCellValue("N$row", $this->statusToString($class->getStatusMarch()));
-            $sheet->setCellValue("O$row", $this->statusToString($class->getStatusMay()));
-            $sheet->setCellValue("P$row", $this->statusToString($class->getStatusParty()));
-            $sheet->setCellValue("Q$row", $this->statusToString($class->getStatusPartyGroups()));
-            $sheet->getStyle("A$row:Q$row")->getBorders()
-                ->getAllBorders()->setBorderStyle(Border::BORDER_THIN)
-                ->setColor(new Color(Color::COLOR_BLACK));
-            $sheet->getStyle("A$row")->getFill()->setFillType(Fill::FILL_SOLID)->setStartColor(new Color('FFFCD5B4'));
-            $sheet->getCell("J$row")->setDataType(DataType::TYPE_STRING);
-            $sheet->getCell("K$row")->setDataType(DataType::TYPE_STRING);
+            $data = [
+                $class->id,
+                $class->school->name,
+                $class->school->address,
+                $class->school->postal_code,
+                $class->school->city,
+                $class->teacher->salutation->long_form,
+                $class->teacher->last_name,
+                $class->teacher->first_name,
+                $class->teacher->user->email,
+                " " . $class->teacher->phone,
+                $class->name,
+                $class->students,
+//                $this->statusToString($class->getStatusJanuary()),
+//                $this->statusToString($class->getStatusMarch()),
+                $this->statusToString($class->getStatusMay()),
+                $this->statusToString($class->getStatusParty()),
+                $this->statusToString($class->getStatusPartyGroups()),
+            ];
 
             foreach (Quiz::orderBy('id')->pluck('id') as $i => $quiz) {
                 $assignment = QuizAssignment::where('quiz_id', $quiz)
                     ->where('school_class_id', $class->id)
                     ->first();
-                $sheet->setCellValueByColumnAndRow(18 + $i, $row, optional(optional($assignment)->response)->score);
-                $sheet->getStyleByColumnAndRow(18 + $i, $row)->getBorders()
-                    ->getAllBorders()->setBorderStyle(Border::BORDER_THIN)
-                    ->setColor(new Color(Color::COLOR_BLACK));
+                $data[] = optional(optional($assignment)->response)->score;
             }
+
+            for($i = 0; $i < sizeof($data); $i++) {
+                $col = $i + 1;
+                $sheet->setCellValueByColumnAndRow($col, $row, $data[$i]);
+            }
+
+            $sheet->getStyleByColumnAndRow(1, $row, $col, $row)
+                ->getBorders()
+                ->getAllBorders()
+                ->setBorderStyle(Border::BORDER_THIN)
+                ->setColor(new Color(Color::COLOR_BLACK));
+
+            $sheet->getStyle("A$row")->getFill()->setFillType(Fill::FILL_SOLID)->setStartColor(new Color('FFFCD5B4'));
+            $sheet->getCell("J$row")->setDataType(DataType::TYPE_STRING);
+            $sheet->getCell("K$row")->setDataType(DataType::TYPE_STRING);
+
         });
     }
 
@@ -122,18 +133,18 @@ class ClassExportController extends Controller {
     private function addFooter(Worksheet $sheet) {
         $classes = SchoolClass::query()->count();
         $students = SchoolClass::query()->sum('students');
-        $status_january = SchoolClass::query()->count('status_january');
-        $status_march = SchoolClass::query()->count('status_march');
+//        $status_january = SchoolClass::query()->count('status_january');
+//        $status_march = SchoolClass::query()->count('status_march');
         $status_may = SchoolClass::query()->count('status_may');
         $status_party = SchoolClass::all()->pluck('status_party')->sum();
 
         $row = $classes + 1 + 3; // header + space after
         $sheet->setCellValue("K$row", $classes);
         $sheet->setCellValue("L$row", $students);
-        $sheet->setCellValue("M$row", $status_january);
-        $sheet->setCellValue("N$row", $status_march);
-        $sheet->setCellValue("O$row", $status_may);
-        $sheet->setCellValue("P$row", $status_party);
+//        $sheet->setCellValue("M$row", $status_january);
+//        $sheet->setCellValue("N$row", $status_march);
+        $sheet->setCellValue("M$row", $status_may);
+        $sheet->setCellValue("N$row", $status_party);
 
         $sheet->getStyle("A$row:Q$row")->getBorders()
             ->getAllBorders()->setBorderStyle(Border::BORDER_THIN)
@@ -142,8 +153,6 @@ class ClassExportController extends Controller {
         $sheet->getStyle("A$row:Q$row")->getFont()->setBold(true);
         $sheet->getStyle("A$row:Q$row")->getAlignment()->setHorizontal(Alignment::HORIZONTAL_CENTER);
 
-
-        $sheet->setAutoFilterByColumnAndRow(1, 1, 17 + Quiz::count(), $classes + 1);
     }
 
     private function statusToString($status) {

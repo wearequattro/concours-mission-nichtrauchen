@@ -60,7 +60,11 @@ class FollowUpController extends Controller {
      */
     public function sendFollowUp(SchoolClass $schoolClass) {
         // Determine which status to send next
-        $statuses = collect([SchoolClass::STATUS_JANUARY, SchoolClass::STATUS_MARCH, SchoolClass::STATUS_MAY]);
+        $statuses = collect([
+//            SchoolClass::STATUS_JANUARY,
+//            SchoolClass::STATUS_MARCH,
+            SchoolClass::STATUS_MAY
+        ]);
         foreach ($statuses as $status) {
             if ($this->classManager->shouldSendFollowUp($schoolClass, $status)) {
                 $this->sendFollowUpMail($schoolClass, $status);

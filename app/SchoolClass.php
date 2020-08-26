@@ -45,6 +45,7 @@ use Ramsey\Uuid\Uuid;
  * @property QuizResponse[]|Collection quizResponses
  *
  * @method static SchoolClass create(array $values)
+ * @mixin \Eloquent
  */
 class SchoolClass extends Model {
 
@@ -134,14 +135,15 @@ class SchoolClass extends Model {
      * @return bool
      */
     public function arePreviousStatusesPositive($whichStatus) {
-        if ($whichStatus === static::STATUS_JANUARY)
-            return true;
-        if ($whichStatus === static::STATUS_MARCH)
-            return $this->status_january === 1;
-        if ($whichStatus === static::STATUS_MAY)
-            return $this->status_january === 1 && $this->status_march === 1;
-
-        return false;
+        return true; // only may
+//        if ($whichStatus === static::STATUS_JANUARY)
+//            return true;
+//        if ($whichStatus === static::STATUS_MARCH)
+//            return $this->status_january === 1;
+//        if ($whichStatus === static::STATUS_MAY)
+//            return $this->status_january === 1 && $this->status_march === 1;
+//
+//        return false;
     }
 
     /**
@@ -149,10 +151,11 @@ class SchoolClass extends Model {
      * @return bool
      */
     public function isEligibleForParty() {
-        return $this->status_january === 1
-            && $this->status_march === 1
-            && $this->status_may === 1
-            && $this->status_party === 1;
+        return
+//            $this->status_january === 1 &&
+//            $this->status_march === 1 &&
+            $this->status_may === 1 &&
+            $this->status_party === 1;
     }
 
     /**
@@ -160,9 +163,10 @@ class SchoolClass extends Model {
      * @return bool
      */
     public function isEligibleForCertificate() {
-        return $this->status_january === 1
-            && $this->status_march === 1
-            && $this->status_may === 1;
+        return
+//            $this->status_january === 1 &&
+//            $this->status_march === 1 &&
+            $this->status_may === 1;
     }
 
     /**
@@ -206,10 +210,10 @@ class SchoolClass extends Model {
      * @throws \Exception
      */
     public function getCurrentToken() {
-        if($this->january_token != null)
-            return $this->january_token;
-        if($this->march_token != null)
-            return $this->march_token;
+//        if($this->january_token != null)
+//            return $this->january_token;
+//        if($this->march_token != null)
+//            return $this->march_token;
         if($this->may_token != null)
             return $this->may_token;
         throw new \Exception('SchoolClass has no token. ' . $this->toJson());
@@ -223,12 +227,12 @@ class SchoolClass extends Model {
         if (Carbon::now()->gte(EditableDate::find(EditableDate::FOLLOW_UP_3))) {
             return $this->status_may === true;
         }
-        if (Carbon::now()->gte(EditableDate::find(EditableDate::FOLLOW_UP_2))) {
-            return $this->status_march === true;
-        }
-        if (Carbon::now()->gte(EditableDate::find(EditableDate::FOLLOW_UP_1))) {
-            return $this->status_january === true;
-        }
+//        if (Carbon::now()->gte(EditableDate::find(EditableDate::FOLLOW_UP_2))) {
+//            return $this->status_march === true;
+//        }
+//        if (Carbon::now()->gte(EditableDate::find(EditableDate::FOLLOW_UP_1))) {
+//            return $this->status_january === true;
+//        }
         return true;
     }
 

@@ -60,8 +60,8 @@ class TeacherController extends Controller {
             'inscription_date_end' => EditableDate::find(EditableDate::TEACHER_INSCRIPTION_END)->format('d M Y'),
             'inscription_date_end_relative' => EditableDate::find(EditableDate::TEACHER_INSCRIPTION_END)->diffForHumans(),
             'classes' => $this->classRepository->findForLoggedInUser(),
-            'show_january' => Carbon::now()->gte(EditableDate::find(EditableDate::FOLLOW_UP_1)),
-            'show_march' => Carbon::now()->gte(EditableDate::find(EditableDate::FOLLOW_UP_2)),
+            'show_january' => false, // Carbon::now()->gte(EditableDate::find(EditableDate::FOLLOW_UP_1)),
+            'show_march' => false, // Carbon::now()->gte(EditableDate::find(EditableDate::FOLLOW_UP_2)),
             'show_may' => Carbon::now()->gte(EditableDate::find(EditableDate::FOLLOW_UP_3)),
             'show_party' => Carbon::now()->gte(EditableDate::find(EditableDate::FOLLOW_UP_3)),
         ]);
