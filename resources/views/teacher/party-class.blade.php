@@ -60,7 +60,7 @@
                                        {{ $open ? '' : 'disabled' }}
                                        id="name_{{ $i }}"
                                        class="form-control {{ inputValidationClass($errors, 'class.' . $i . '.name') }}"
-                                       value="{{ old('class.' . $i . '.name', $groups->get($i)['name']) }}">
+                                       value="{{ old('class.' . $i . '.name', $groups->get($i)['name'] ?? null) }}">
                                 <div class="invalid-feedback">
                                     {{ inputValidationMessages($errors, 'class.' . $i . '.name') }}
                                 </div>
@@ -76,7 +76,7 @@
                                        id="students_{{ $i }}"
                                        min="3" max="10" step="1"
                                        class="form-control {{ inputValidationClass($errors, 'class.' . $i . '.students') }}"
-                                       value="{{ old('class.' . $i . '.students', $groups->get($i)['students']) }}">
+                                       value="{{ old('class.' . $i . '.students', $groups->get($i)['students'] ?? null) }}">
                                 <div class="invalid-feedback">
                                     {{ inputValidationMessages($errors, 'class.' . $i . '.students') }}
                                 </div>
@@ -93,10 +93,10 @@
                                         {{ $open ? '' : 'disabled' }}
                                         id="language_{{ $i }}"
                                         class="form-control {{ inputValidationClass($errors, 'class.' . $i . '.language') }}">
-                                    <option value="DE" {{ old('class.' . $i . '.language', $groups->get($i)['language']) === 'DE' ? 'selected' : '' }}>
+                                    <option value="DE" {{ old('class.' . $i . '.language', $groups->get($i)['language'] ?? null) === 'DE' ? 'selected' : '' }}>
                                         Allemand
                                     </option>
-                                    <option value="FR" {{ old('class.' . $i . '.language', $groups->get($i)['language']) === 'FR' ? 'selected' : '' }}>
+                                    <option value="FR" {{ old('class.' . $i . '.language', $groups->get($i)['language'] ?? null) === 'FR' ? 'selected' : '' }}>
                                         Fran&ccedil;ais
                                     </option>
                                 </select>
