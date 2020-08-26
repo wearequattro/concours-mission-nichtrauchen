@@ -4,6 +4,7 @@ namespace App\Console;
 
 use App\Console\Commands\SendFollowUpEmails;
 use App\Console\Commands\SendNewsletter;
+use App\Console\Commands\QuizUpdateCommand;
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
 use Spatie\Backup\Commands\BackupCommand;
@@ -32,7 +33,7 @@ class Kernel extends ConsoleKernel {
         $schedule->command(BackupCommand::class)->dailyAt('3:30');
         $schedule->command(MonitorCommand::class)->dailyAt('9:00');
         $schedule->command(CleanupCommand::class)->dailyAt('14:00');
-
+        $schedule->command(QuizUpdateCommand::class)->everyMinute();
     }
 
     /**
