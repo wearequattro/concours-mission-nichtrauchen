@@ -67,13 +67,15 @@
 
             <div class="form-group">
                 <label for="classes">Classes</label>
-                <select required multiple name="classes[]" id="classes"
-                        {{ $quiz->exists ? 'disabled' : '' }}
+                <select required
+                        multiple
+                        name="classes[]"
+                        id="classes"
                         class="form-control {{ inputValidationClass($errors, 'classes') }}">
                     @foreach($classes as $class)
                         <option value="{{ $class->id }}" {{
-    in_array($class->id, old('classes', [])) || $quiz->assignments()->where('school_class_id', $class->id)->exists()
-     ? 'selected' : '' }}>
+                                in_array($class->id, old('classes', [])) || $quiz->assignments()->where('school_class_id', $class->id)->exists()
+                                 ? 'selected' : '' }}>
                             {{ sprintf("%s (%s, %s)", $class->name, $class->teacher->full_name, $class->school->name) }}
                         </option>
                     @endforeach

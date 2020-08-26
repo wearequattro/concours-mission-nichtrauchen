@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Mail\QuizMail;
 use App\Quiz;
+use App\QuizAssignment;
 use App\QuizInLanguage;
 use App\Rules\QuizMakerValidUrlRule;
 use App\SchoolClass;
@@ -79,6 +80,8 @@ class QuizController extends Controller {
             'max_score' => 'required|int|min:1',
             'closes_at' => 'required|date|after:today',
             'email_text' => 'string|nullable',
+            'classes' => 'array',
+            'classes.*' => 'int|exists:school_classes,id',
         ]);
         $data['closes_at'] = Carbon::createFromTimestamp(strtotime($data['closes_at']));
         $data['email_text'] = $data['email_text'] ?? "";
@@ -86,6 +89,18 @@ class QuizController extends Controller {
             unset($data['email_text']);
         }
         $quiz->update($data);
+
+        // Update class assignments
+        $givenClasses = $request->get('classes');
+        $quiz->assignments()->whereNotIn('school_class_id', $givenClasses)->delete();
+
+        $toAdd = collect($givenClasses)->diff($quiz->assignments()->pluck('school_class_id'));
+        foreach ($toAdd as $class) {
+            $quiz->assignments()->create([
+                'school_class_id' => $class,
+            ]);
+        }
+
         return redirect()->route('admin.quiz.show', [$quiz]);
     }
 
@@ -124,6 +139,9 @@ class QuizController extends Controller {
         if($errors) {
             return back()->withErrors($errors);
         }
+
+        // delete prev codes
+        $quiz->assignments->each(fn (QuizAssignment $ass) => $ass->codes()->delete());
 
         // create codes for each language
         foreach ($codesForLanguage as $lang => $codes) {
