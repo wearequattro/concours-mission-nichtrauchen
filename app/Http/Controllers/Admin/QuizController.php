@@ -12,6 +12,7 @@ use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Collection as EloquentCollection;
 use Illuminate\Http\Request;
 use Illuminate\Http\UploadedFile;
+use Illuminate\Support\Arr;
 
 class QuizController extends Controller {
 
@@ -81,6 +82,9 @@ class QuizController extends Controller {
         ]);
         $data['closes_at'] = Carbon::createFromTimestamp(strtotime($data['closes_at']));
         $data['email_text'] = $data['email_text'] ?? "";
+        if($quiz->state !== Quiz::STATE_NEW) {
+            unset($data['email_text']);
+        }
         $quiz->update($data);
         return redirect()->route('admin.quiz.show', [$quiz]);
     }

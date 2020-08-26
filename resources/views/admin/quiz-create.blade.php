@@ -83,6 +83,8 @@
                 </div>
             </div>
 
+            @if($quiz->state === \App\Quiz::STATE_NEW)
+
             <div class="form-group">
                 <label for="email_text">Text Email</label>
                 <textarea name="email_text" id="email_text"
@@ -91,6 +93,17 @@
                     {{ inputValidationMessages($errors, 'email_text') }}
                 </div>
             </div>
+
+            @else
+                <div class="form-group">
+                    <label>Text Email</label>
+                    <div class="card">
+                        <div class="card-body">
+                            {!! $quiz->email_text !!}
+                        </div>
+                    </div>
+                </div>
+            @endif
 
             <input type="submit" class="btn btn-primary" value="{{ $quiz->exists ? 'Mettre à jour' : 'Ajouter' }}">
 
