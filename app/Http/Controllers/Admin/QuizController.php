@@ -167,4 +167,12 @@ class QuizController extends Controller {
         return redirect()->route('admin.quiz.show', [$quiz]);
     }
 
+    public function previewMail(Quiz $quiz)
+    {
+        return view('emails.quiz', [
+            'uuid' => '',
+            'text' => $quiz->email_text,
+        ]);
+    }
+
 }

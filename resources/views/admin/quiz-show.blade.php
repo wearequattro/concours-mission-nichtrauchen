@@ -70,8 +70,14 @@
                                     </a>
                                 </p>
                             @endif
+                            <p>
+                                <a class="btn btn-info" href="{{ route('admin.quiz.review-mail', [$quiz]) }}">
+                                    <i class="fa fa-fw fa-eye"></i>
+                                    Aperçu de l'e-mail
+                                </a>
+                            </p>
 
-                            <a class="btn btn-primary {{ $quiz->state !== \App\Quiz::STATE_CLOSED }}" href="{{ route('admin.quiz.edit', [$quiz]) }}">
+                            <a class="btn btn-primary {{ $quiz->state === \App\Quiz::STATE_CLOSED ? 'disabled' : '' }}" href="{{ route('admin.quiz.edit', [$quiz]) }}">
                                 <i class="fa fa-fw fa-pencil"></i> Mettre à jour
                             </a>
 
