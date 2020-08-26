@@ -47,6 +47,7 @@ Route::group(['middleware' => ['auth', 'teacher']], function () {
     Route::get('/teacher/party/{class}/delete', 'TeacherController@deleteParty')->name('party.class.delete');
 });
 
+Route::get('/suivi/response/{class}/{stillNonSmoking}', 'FollowUpController@showFollowUpResponse')->name('follow-up-response');
 Route::get('/suivi/{token}/{stillNonSmoking}', 'FollowUpController@setFollowUpStatus')->name('follow-up');
 Route::get('/party/{token}/{status}', 'PartyController@handlePartyResponse')->name('party-response');
 

@@ -117,7 +117,13 @@ class FollowUpController extends Controller {
             Log::error($e);
             Bugsnag::notifyException($e);
         }
-        return redirect()->route('login.redirect');
+        return redirect()->route('follow-up-response', [$class, $stillNonSmoking]);
+    }
+
+    public function showFollowUpResponse(SchoolClass $class, $stillNonSmoking)
+    {
+        $status = $stillNonSmoking === "true";
+        return view('external.follow-up-response', compact('class', 'status'));
     }
 
     /**
