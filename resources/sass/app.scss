@@ -68,3 +68,25 @@ table.school-classes {
 .navbar-brand, .display-1, .display-2, .display-3, .display-4, .display-5 {
   font-family: 'Oleo Script Swash Caps', cursive;
 }
+
+.single-page {
+    body {
+        background-image: url('/images/background.jpg');
+        background-size: cover;
+        background-attachment: fixed;
+    }
+
+    .container {
+        min-height: 100vh;
+        padding-top: 3em;
+        padding-bottom: 3em;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .lead {
+        font-size: 2em;
+    }
+}
