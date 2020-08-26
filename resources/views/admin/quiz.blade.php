@@ -66,7 +66,7 @@
                         </tr>
                     @empty
                         <tr>
-                            <td colspan="5" class="text-center">Aucun quiz disponible</td>
+                            <td colspan="9" class="text-center">Aucun quiz disponible</td>
                         </tr>
                     @endforelse
                     </tbody>
