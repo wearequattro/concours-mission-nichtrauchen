@@ -61,7 +61,7 @@ class Quiz extends Model {
                 ->matchAll(fn ($ql) => $ql->hasEnoughCodes());
     }
 
-    public function validate(): array
+    public function validate(string $requiredState = self::STATE_NEW): array
     {
         $errors = [];
         if ($this->closes_at->isBefore(now())) {
@@ -70,8 +70,8 @@ class Quiz extends Model {
         if (!$this->hasEnoughCodes()) {
             $errors[] = 'Ce quiz n\'a pas assez de codes uniques enregistrés pour que tous les classes puissent avoir un.';
         }
-        if ($this->state !== self::STATE_NEW) {
-            $errors[] = 'Ce quiz a déjà commencé.';
+        if ($this->state !== $requiredState) {
+            $errors[] = sprintf('Ce quiz doit être dans le statut %s.', __("quiz.state.$requiredState"));
         }
         return $errors;
     }
@@ -88,6 +88,11 @@ class Quiz extends Model {
             default:
                 throw new \InvalidArgumentException("$this->state is not a valid quiz state");
         }
+    }
+
+    public function remindableCount()
+    {
+        return $this->assignments()->whereDoesntHave('response')->count();
     }
 
 }

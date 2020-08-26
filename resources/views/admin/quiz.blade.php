@@ -45,7 +45,7 @@
                             <td>{{ $q->max_score }}</td>
                             <td>
                                 {{ $q->responses()->count() }} / {{ $q->assignments()->count() }}
-                                ({{ sprintf("%.1f %%", $q->responses()->count() / $q->assignments()->count()) }})
+                                ({{ sprintf("%.1f %%", $q->responses()->count() / $q->assignments()->count() * 100) }})
                             </td>
                             <td>
                                 <span class="badge badge-pill badge-{{ $q->stateColor() }}">

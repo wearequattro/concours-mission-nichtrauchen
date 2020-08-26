@@ -24,7 +24,7 @@
 
                             <dl>
                                 <div class="row">
-                                    <div class="col-md">
+                                    <div class="col-md-6 col-lg-3">
                                         <dt>Statut</dt>
                                         <dd>
                                             <span class="badge badge-pill badge-{{ $quiz->stateColor() }}">
@@ -32,21 +32,38 @@
                                             </span>
                                         </dd>
                                     </div>
-                                    <div class="col-md">
+                                    <div class="col-md-6 col-lg-3">
                                         <dt>Date de clôturation</dt>
                                         <dd>{{ $quiz->closes_at }}</dd>
                                     </div>
-                                    <div class="col-md">
+                                    <div class="col-md-6 col-lg-3">
                                         <dt>Destinataires</dt>
                                         <dd>{{ $quiz->assignments()->count() }}</dd>
                                     </div>
                                     <div class="col-md">
-                                        <dt>Score maximal</dt>
+                                        <dt>Réponses</dt>
+                                        <dd>
+                                            {{ $quiz->responses()->count() }} / {{ $quiz->assignments()->count() }}
+                                            ({{ sprintf("%.1f %%", $quiz->responses()->count() / $quiz->assignments()->count() * 100) }})
+                                        </dd>
+                                    </div>
+                                    <div class="col-md-6 col-lg-3">
+                                        <dt>Moyenne des points</dt>
+                                        <dd>
+                                            @if($quiz->responses()->count())
+                                                {{ sprintf("%.2f", $quiz->responses()->avg('score')) }}
+                                            @else
+                                                <span class="text-muted">indisponible</span>
+                                            @endif
+                                        </dd>
+                                    </div>
+                                    <div class="col-md-6 col-lg-3">
+                                        <dt>Max points</dt>
                                         <dd>{{ $quiz->max_score }}</dd>
                                     </div>
                                 </div>
                                 <div class="row">
-                                    <div class="col-md">
+                                    <div class="col">
                                         <dt>Langues</dt>
                                         <dd>
                                             @foreach($quiz->quizInLanguage as $ql)
@@ -61,15 +78,6 @@
                                 </div>
                             </dl>
 
-                            @if(!$quiz->hasEnoughCodes())
-                                <p>
-                                    Ce quiz n'a pas assez de codes uniques enregistrés pour que tous les classes puissent avoir un.
-                                    <br>
-                                    <a class="btn btn-primary" href="{{ route('admin.quiz.show.codes', [$quiz]) }}">
-                                        Ajouter les codes
-                                    </a>
-                                </p>
-                            @endif
                             <p>
                                 <a class="btn btn-info" href="{{ route('admin.quiz.review-mail', [$quiz]) }}">
                                     <i class="fa fa-fw fa-eye"></i>
@@ -85,6 +93,22 @@
                                 <i class="fa fa-fw fa-paper-plane"></i>
                                 Revoir et envoyer
                             </a>
+
+                            <a class="btn btn-success {{ $quiz->remindableCount() == 0 || $quiz->state !== \App\Quiz::STATE_RUNNING ? 'disabled' : '' }}"
+                               href="{{ route('admin.quiz.send-reminder', [$quiz]) }}">
+                                <i class="fa fa-fw fa-clock-o"></i>
+                                Envoyer rappel
+                                {{ $quiz->remindableCount() > 0 ? sprintf('à %d classes', $quiz->remindableCount()): '' }}
+                            </a>
+
+                            @if(!$quiz->hasEnoughCodes())
+                                <div class="alert alert-warning mt-4">
+                                    <p>Ce quiz n'a pas assez de codes uniques enregistrés pour que tous les classes puissent avoir un.</p>
+                                    <a class="btn btn-primary" href="{{ route('admin.quiz.show.codes', [$quiz]) }}">
+                                        Ajouter les codes
+                                    </a>
+                                </div>
+                            @endif
                         </div>
                     </div>
 

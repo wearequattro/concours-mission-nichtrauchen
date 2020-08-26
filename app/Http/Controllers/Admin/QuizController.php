@@ -178,13 +178,32 @@ class QuizController extends Controller {
             abort(422);
         }
 
-        foreach ($quiz->assignments as $a) {
-            \Mail::to($a->schoolClass->teacher->user->email)->queue(
-                new QuizMail($a)
-            );
+        $assignments = $quiz->assignments;
+        foreach ($assignments as $a) {
+            \Mail::to($a->schoolClass->teacher->user->email)
+                ->queue(new QuizMail($a));
         }
 
+        \Session::flash('message', sprintf('Envoyé %d emails', $assignments->count()));
+
         $quiz->update(['state' => Quiz::STATE_RUNNING]);
+
+        return redirect()->route('admin.quiz.show', [$quiz]);
+    }
+
+    public function sendReminders(Quiz $quiz)
+    {
+        if(!empty($quiz->validate(Quiz::STATE_RUNNING))) {
+            abort(422);
+        }
+
+        $assignments = $quiz->assignments()->whereDoesntHAave('response')->get();
+        foreach ($assignments as $a) {
+            \Mail::to($a->schoolClass->teacher->user->email)
+                ->queue(new QuizMail($a));
+        }
+
+        \Session::flash('message', sprintf('Envoyé %d emails', $assignments->count()));
 
         return redirect()->route('admin.quiz.show', [$quiz]);
     }
