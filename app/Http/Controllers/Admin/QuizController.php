@@ -197,7 +197,7 @@ class QuizController extends Controller {
             abort(422);
         }
 
-        $assignments = $quiz->assignments()->whereDoesntHAave('response')->get();
+        $assignments = $quiz->assignments()->whereDoesntHave('response')->get();
         foreach ($assignments as $a) {
             \Mail::to($a->schoolClass->teacher->user->email)
                 ->queue(new QuizMail($a));
