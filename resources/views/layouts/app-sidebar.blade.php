@@ -49,7 +49,7 @@
                 </li>
                 <li class="nav-item">
                     <a href="{{ route('teacher.classes') }}"
-                       class="nav-link {{ \Illuminate\Support\Str::startsWith(Route::currentRouteName(), 'teacher.classes') ? 'active' : '' }}">
+                       class="nav-link {{ Route::currentRouteName() == 'teacher.classes' ? 'active' : '' }}">
                         <i class="fa fa-fw fa-graduation-cap"></i>
                         Mes classes
                     </a>
