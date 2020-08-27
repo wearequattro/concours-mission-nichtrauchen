@@ -28,7 +28,7 @@
                                         <dt>Statut</dt>
                                         <dd>
                                             <span class="badge badge-pill badge-{{ $quiz->stateColor() }}">
-                                                {{ __("quiz.state.$quiz->state") }}
+                                                {{ $quiz->stateText() }}
                                             </span>
                                         </dd>
                                     </div>

@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Controllers\FollowUpController;
 use App\Http\Managers\SchoolClassManager;
 use App\Http\Requests\AdminClassUpdateRequest;
+use App\Quiz;
 use App\School;
 use App\SchoolClass;
 use App\Teacher;
@@ -32,6 +33,7 @@ class SchoolClassController extends Controller {
 
     public function classes() {
         return view('admin.classes')->with([
+            'quizzes' => Quiz::all(),
             'classes' => SchoolClass::all()->load('teacher'),
             'show_january' => Carbon::now()->gte(EditableDate::find(EditableDate::FOLLOW_UP_1)),
             'show_march' => Carbon::now()->gte(EditableDate::find(EditableDate::FOLLOW_UP_2)),

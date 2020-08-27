@@ -70,7 +70,8 @@
     @endif
 
     <div class="row">
-        <div class="col-xs-12 table-responsive mt-2 pl-3 pr-3">
+        <div class="col-xs-12 mt-2 pl-3 pr-3">
+            <div class="table-responsive">
 
             <table class="table table-bordered table-striped bg-white school-classes">
                 <caption>Liste de vos classes</caption>
@@ -79,6 +80,9 @@
                     <th>Nom</th>
                     <th>Nombre d'&eacute;l&egrave;ves</th>
                     <th>Lyc&eacute;e</th>
+                    @foreach($quizzes as $quiz)
+                        <th>{{ $quiz->name }}</th>
+                    @endforeach
                     @if($show_january)
                     <th>Statut janvier</th>
                     @endif
@@ -101,6 +105,9 @@
                         <td>{{ $class->name }}</td>
                         <td>{{ $class->students }}</td>
                         <td>{{ $class->school->name }}</td>
+                        @foreach($quizzes as $quiz)
+                            <td>{{ $quiz->getPointsForClass($class) ?? 0 }} / {{ $quiz->max_score }}</td>
+                        @endforeach
                         @if($show_january)
                             <td>{{ statusToIcon($class->getStatusJanuary() ) }}</td>
                         @endif
@@ -129,6 +136,8 @@
                 @endforelse
                 </tbody>
             </table>
+
+            </div>
 
         </div>
     </div>

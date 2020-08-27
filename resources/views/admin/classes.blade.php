@@ -156,7 +156,16 @@
                         <th>Enseignant titre</th>
                         <th>Enseignant prénom</th>
                         <th>Enseignant nom</th>
-                        <th>Points Quiz</th>
+                        @foreach($quizzes as $quiz)
+                        <th>
+                            {{ $quiz->name }}
+                            <br>
+                            <span class="badge badge-pill badge-{{ $quiz->stateColor() }}">
+                                {{ $quiz->stateText() }}
+                            </span>
+                        </th>
+                        @endforeach
+                        <th>Quiz Total</th>
 {{--                        <th>Statut janvier</th>--}}
 {{--                        <th>Statut janvier</th>--}}
 {{--                        <th>Statut mars</th>--}}
@@ -188,6 +197,15 @@
                             <td>{{ $class->teacher->salutation->long_form }}</td>
                             <td>{{ $class->teacher->first_name }}</td>
                             <td>{{ $class->teacher->last_name }}</td>
+                            @foreach($quizzes as $quiz)
+                                <td>
+                                    @if($quiz->getPointsForClass($class) !== null)
+                                    {{ $quiz->getPointsForClass($class) }}
+                                    /
+                                    {{ $quiz->max_score  }}
+                                    @endif
+                                </td>S
+                            @endforeach
                             <td>{{ $class->quizResponses()->sum('score') }}</td>
 {{--                            <td>{{ statusToIcon($class->getStatusJanuary() ) }}</td>--}}
 {{--                            <td>{{ $class->getStatusJanuary() === null ? 'E' : ($class->getStatusJanuary() ? 'Y' : 'N') }}</td>--}}
@@ -224,6 +242,7 @@
 
 @push('js')
     <script>
+        var numQuizzes = {{ $quizzes->count() }};
         $('[data-toggle="tooltip"]').tooltip();
         $('[data-delete-id]').click(function () {
             var className = $(this).attr('data-delete-label');
@@ -240,17 +259,17 @@
                 [5, 'asc'],
             ],
             columnDefs: [
-                { targets: 7, orderData: [8] },
-                { targets: 8, visible: false },
+                { targets: numQuizzes + 7, orderData: [numQuizzes + 8] },
+                { targets: numQuizzes + 8, visible: false },
 
-                { targets: 9, orderData: [10] },
-                { targets: 10, visible: false },
+                { targets: numQuizzes + 9, orderData: [numQuizzes + 10] },
+                { targets: numQuizzes + 10, visible: false },
 
-                { targets: 11, orderData: [12] },
-                { targets: 12, visible: false },
+                { targets: numQuizzes + 11, orderData: [numQuizzes + 12] },
+                { targets: numQuizzes + 12, visible: false },
 
-                { targets: 13, orderData: [14] },
-                { targets: 14, visible: false },
+                { targets: numQuizzes + 13, orderData: [numQuizzes + 14] },
+                { targets: numQuizzes + 14, visible: false },
                 //
                 // { targets: 15, orderData: [16] },
                 // { targets: 16, visible: false },

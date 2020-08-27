@@ -93,9 +93,29 @@ class Quiz extends Model {
         }
     }
 
+    public function stateText() {
+        return __("quiz.state.$this->state");
+    }
+
+    public static function totalMaxScore() {
+        return Quiz::where('state', Quiz::STATE_CLOSED)->sum('max_score');
+    }
+
     public function remindableCount()
     {
         return $this->assignments()->whereDoesntHave('response')->count();
+    }
+
+    public function getPointsForClass(SchoolClass $class) {
+        return optional(
+            QuizResponse::query()
+                ->whereHas('assignment', function ($q) use ($class) {
+                    return $q
+                        ->where('school_class_id', '=', $class->id)
+                        ->where('quiz_id', '=', $this->id);
+                })
+                ->first()
+        )->score;
     }
 
 }

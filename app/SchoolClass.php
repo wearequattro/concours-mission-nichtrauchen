@@ -109,6 +109,16 @@ class SchoolClass extends Model {
         return $this->partyGroups()->exists() ? 1 : null;
     }
 
+    public function getQuizScore() {
+        return $this->quizResponses()->whereHas('assignment.quiz', function ($q) {
+            $q->where('state', '=', Quiz::STATE_CLOSED);
+        })->sum('score');
+    }
+
+    public function getQuizScoreAll() {
+        return $this->quizResponses()->sum('score');
+    }
+
     /**
      * Get the maximum allowed number of groups
      * @return int

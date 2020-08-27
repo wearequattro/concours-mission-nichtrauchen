@@ -13,6 +13,7 @@ use App\Http\Requests\TeacherUpdateClassRequest;
 use App\Mail\CustomEmail;
 use App\Mail\TeacherUpdatedClassMail;
 use App\PartyGroup;
+use App\Quiz;
 use App\Salutation;
 use App\School;
 use App\SchoolClass;
@@ -60,6 +61,7 @@ class TeacherController extends Controller {
             'inscription_date_end' => EditableDate::find(EditableDate::TEACHER_INSCRIPTION_END)->format('d M Y'),
             'inscription_date_end_relative' => EditableDate::find(EditableDate::TEACHER_INSCRIPTION_END)->diffForHumans(),
             'classes' => $this->classRepository->findForLoggedInUser(),
+            'quizzes' => Quiz::where('state', '!=', Quiz::STATE_NEW)->get(),
             'show_january' => false, // Carbon::now()->gte(EditableDate::find(EditableDate::FOLLOW_UP_1)),
             'show_march' => false, // Carbon::now()->gte(EditableDate::find(EditableDate::FOLLOW_UP_2)),
             'show_may' => Carbon::now()->gte(EditableDate::find(EditableDate::FOLLOW_UP_3)),

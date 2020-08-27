@@ -16,6 +16,9 @@
                 <th>Lycée</th>
                 <th>Enseignant</th>
                 <th>Classe</th>
+                @if($totalMaxScore > 0)
+                <th>Points Quiz</th>
+                @endif
             </tr>
             </thead>
             <tbody>
@@ -24,12 +27,15 @@
                     <td>{{ $class->school->name }}</td>
                     <td>{{ $class->teacher->full_name }}</td>
                     <td>{{ $class->name }}</td>
+                    @if($totalMaxScore > 0)
+                    <td>{{ $class->getQuizScore() }} / {{ $totalMaxScore }}</td>
+                    @endif
                 </tr>
             @endforeach
             </tbody>
             <tfoot>
             <tr>
-                <th colspan="3">
+                <th colspan="{{ $totalMaxScore > 0 ? 4 : 3 }}">
                     Total : {{ $classes->count() }} classes
                 </th>
             </tr>

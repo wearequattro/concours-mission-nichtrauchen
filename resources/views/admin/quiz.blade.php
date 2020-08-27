@@ -49,7 +49,7 @@
                             </td>
                             <td>
                                 <span class="badge badge-pill badge-{{ $q->stateColor() }}">
-                                    {{ __("quiz.state.$q->state") }}
+                                    {{ $q->stateText() }}
                                 </span>
                             </td>
                             <td>{{ $q->closes_at->format('Y-m-d') }}</td>
