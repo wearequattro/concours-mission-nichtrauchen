@@ -3,7 +3,6 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
-use App\QuizAssignment;
 use App\QuizCode;
 use App\QuizInLanguage;
 use Bugsnag\BugsnagLaravel\Facades\Bugsnag;
@@ -14,6 +13,9 @@ class QuizController extends Controller {
 
     public function quizMakerWebhook(Request $request) {
         $json = $request->get('json');
+        if(!$json) {
+            return response('');
+        }
         \Log::info("Received quiz maker webhook");
 
         $filename = 'quiz-maker-hooks/' . date('Y-m-d_H-i-s') . '.json';
@@ -27,7 +29,7 @@ class QuizController extends Controller {
 
         if (!$qIL) {
             \Log::error("Got quiz maker webhook but cannot find the quiz id in our database", ['quiz-maker-id' => $qID]);
-            return response()->json();
+            return response('');
         }
 
         foreach ($json->responses as $res) {
@@ -51,7 +53,7 @@ class QuizController extends Controller {
         }
 
 
-        return response()->json();
+        return response('');
     }
 
 }
