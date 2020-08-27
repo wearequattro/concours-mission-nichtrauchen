@@ -3,6 +3,7 @@
 namespace App\Mail;
 
 use App\EditableEmail;
+use App\PlaceHolder;
 use App\SchoolClass;
 use App\Teacher;
 use Illuminate\Bus\Queueable;
@@ -56,7 +57,7 @@ class CustomEmail extends Mailable {
             ->replyTo(env('MAIL_REPLY_TO'))
             ->view('emails.custom')
             ->with([
-                'text' => $this->editableEmail->replaceAll($this->teacher, $this->schoolClass),
+                'text' => PlaceHolder::replaceAll($this->editableEmail->text, $this->teacher, $this->schoolClass),
                 'subject' => $this->editableEmail->subject,
             ]);
     }

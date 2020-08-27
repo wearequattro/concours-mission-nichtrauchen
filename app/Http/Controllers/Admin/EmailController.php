@@ -23,18 +23,9 @@ class EmailController {
     }
 
     public function emailsEdit(EditableEmail $email) {
-        $placeholders = EditableEmail::getPlaceholders()
-            ->map(function (PlaceHolder $placeHolder) {
-                return [
-                    'type' => 'choiceitem',
-                    'text' => !empty($placeHolder->description) ? $placeHolder->description : $placeHolder->previewValue,
-                    'preview' => $placeHolder->previewValue,
-                    'value' => $placeHolder->key,
-                ];
-            });
         return view('admin.emails-edit')->with([
             'email' => $email,
-            'placeholders' => $placeholders,
+            'placeholders' => self::getPlaceholdersForView(),
         ]);
     }
 
@@ -42,6 +33,17 @@ class EmailController {
         $email->update($request->validated());
         Session::flash('message', 'Mise à jour réussie');
         return redirect()->route('admin.emails');
+    }
+
+    public static function getPlaceholdersForView() {
+        return PlaceHolder::getPlaceholders()->map(function (PlaceHolder $placeHolder) {
+            return [
+                'type' => 'choiceitem',
+                'text' => !empty($placeHolder->description) ? $placeHolder->description : $placeHolder->previewValue,
+                'preview' => $placeHolder->previewValue,
+                'value' => $placeHolder->key,
+            ];
+        });
     }
 
 }

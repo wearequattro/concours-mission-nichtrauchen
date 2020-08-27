@@ -88,14 +88,27 @@
 
             @if(!$quiz->exists || $quiz->state === \App\Quiz::STATE_NEW)
 
-            <div class="form-group">
-                <label for="email_text">Text Email</label>
-                <textarea name="email_text" id="email_text"
-                >{{ old('email_text') ?? $quiz->email_text }}</textarea>
-                <div class="invalid-feedback">
-                    {{ inputValidationMessages($errors, 'email_text') }}
+                <div class="row">
+
+                    <div class="col-12 col-lg-6">
+
+                        <div class="form-group">
+                            <label for="email_text">Text Email</label>
+                            <textarea name="email_text" id="email_text"
+                            >{{ old('email_text') ?? $quiz->email_text }}</textarea>
+                            <div class="invalid-feedback">
+                                {{ inputValidationMessages($errors, 'email_text') }}
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="col-12 col-lg-6">
+                        <div class="card mt-4">
+                            <div class="card-header">Aper&ccedil;u</div>
+                            <div class="card-body" id="preview"></div>
+                        </div>
+                    </div>
                 </div>
-            </div>
 
             @else
                 <div class="form-group">
@@ -124,7 +137,42 @@
         tinymce.init({
             selector: '#email_text',
             height: 500,
+            plugins: 'link',
+            toolbar: 'undo redo | styleselect | bold italic | link | alignleft aligncenter alignright | placeholder',
+            setup: function (editor) {
+                editor.ui.registry.addSplitButton('placeholder', {
+                    text: 'Texte réservé',
+                    icon: 'placeholder',
+                    onItemAction: function (api, value) {
+                        editor.insertContent(value);
+                    },
+                    onAction: function () {
+                    },
+                    fetch: function (callback) {
+                        callback({!! $placeholders !!});
+                    }
+                });
+                editor.on('keyUp', refreshPreview);
+                editor.on('Change', refreshPreview);
+                editor.on('init', refreshPreview);
+                editor.ui.registry.addIcon('placeholder', '<svg style="width:24px;height:24px" viewBox="0 0 24 24">\n' +
+                    '    <path fill="currentColor" d="M20,2A2,2 0 0,1 22,4V16A2,2 0 0,1 20,18H6L2,22V4C2,2.89 2.9,2 4,2H20M4,4V17.17L5.17,16H20V4H4M6,7H18V9H6V7M6,11H15V13H6V11Z" />\n' +
+                    '</svg>');
+            },
         });
+
+        var placeholders = {!! $placeholders !!};
+
+        function refreshPreview() {
+            var text = tinymce.activeEditor.getContent({format: 'string'});
+            for (p in placeholders) {
+                var o = placeholders[p];
+                text = text.replace(new RegExp(o.value, "g"), o.preview);
+            }
+
+            $('#preview').html(text);
+            $('#text').html(text);
+        }
         $('.datepicker').datepicker({
             format: 'yyyy-mm-dd',
             autoclose: true,

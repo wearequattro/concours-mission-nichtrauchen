@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\EditableEmail;
 use App\Http\Controllers\Controller;
 use App\Mail\QuizMail;
+use App\PlaceHolder;
 use App\Quiz;
 use App\QuizAssignment;
 use App\QuizInLanguage;
@@ -27,8 +29,9 @@ class QuizController extends Controller {
     public function create() {
         $classes = SchoolClass::all();
         $quiz = new Quiz();
+        $placeholders = EmailController::getPlaceholdersForView();
 
-        return view('admin.quiz-create', compact('classes', 'quiz'), ['languages' => $this->languages]);
+        return view('admin.quiz-create', compact('classes', 'quiz', 'placeholders'), ['languages' => $this->languages]);
     }
 
     public function createPost(Request $request) {
@@ -70,7 +73,8 @@ class QuizController extends Controller {
     public function edit(Quiz $quiz) {
         abort_if($quiz->state === Quiz::STATE_CLOSED, 403);
         $classes = SchoolClass::all();
-        return view('admin.quiz-create', compact('quiz', 'classes'), ['languages' => $this->languages]);
+        $placeholders = EmailController::getPlaceholdersForView();
+        return view('admin.quiz-create', compact('quiz', 'classes', 'placeholders'), ['languages' => $this->languages]);
     }
 
     public function editPost(Request $request, Quiz $quiz) {
@@ -215,9 +219,11 @@ class QuizController extends Controller {
 
     public function previewMail(Quiz $quiz)
     {
+        $class = $quiz->assignments()->first()->schoolClass;
+        $text = PlaceHolder::replaceAll($quiz->email_text, $class->teacher, $class);
         return view('emails.quiz', [
             'uuid' => '',
-            'text' => $quiz->email_text,
+            'text' => $text,
         ]);
     }
 
