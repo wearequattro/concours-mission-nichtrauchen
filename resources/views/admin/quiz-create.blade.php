@@ -71,7 +71,7 @@
                         multiple
                         name="classes[]"
                         id="classes"
-                        {{ $quiz->state !== \App\Quiz::STATE_NEW ? 'disabled' : '' }}
+                        {{ $quiz->exists ? 'disabled' : '' }}
                         class="form-control {{ inputValidationClass($errors, 'classes') }}">
                     @foreach($classes as $class)
                         <option value="{{ $class->id }}" {{
