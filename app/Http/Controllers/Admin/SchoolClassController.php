@@ -32,7 +32,7 @@ class SchoolClassController extends Controller {
 
     public function classes() {
         return view('admin.classes')->with([
-            'classes' => SchoolClass::all(),
+            'classes' => SchoolClass::all()->load('teacher'),
             'show_january' => Carbon::now()->gte(EditableDate::find(EditableDate::FOLLOW_UP_1)),
             'show_march' => Carbon::now()->gte(EditableDate::find(EditableDate::FOLLOW_UP_2)),
             'show_may' => Carbon::now()->gte(EditableDate::find(EditableDate::FOLLOW_UP_3)),
