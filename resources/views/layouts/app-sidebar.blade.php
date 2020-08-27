@@ -42,14 +42,14 @@
             <ul class="nav">
                 <li class="nav-item">
                     <a href="{{ route('teacher.profile') }}"
-                       class="nav-link {{ Route::currentRouteName() == 'teacher.profile' ? 'active' : '' }}">
+                       class="nav-link {{ \Illuminate\Support\Str::startsWith(Route::currentRouteName(), 'teacher.profile') ? 'active' : '' }}">
                         <i class="fa fa-fw fa-user-circle"></i>
                         Mon profil
                     </a>
                 </li>
                 <li class="nav-item">
                     <a href="{{ route('teacher.classes') }}"
-                       class="nav-link {{ Route::currentRouteName() == 'teacher.classes' ? 'active' : '' }}">
+                       class="nav-link {{ \Illuminate\Support\Str::startsWith(Route::currentRouteName(), 'teacher.classes') ? 'active' : '' }}">
                         <i class="fa fa-fw fa-graduation-cap"></i>
                         Mes classes
                     </a>
@@ -57,7 +57,7 @@
                 @if(isRegistrationOpen())
                 <li class="nav-item">
                     <a href="{{ route('teacher.classes.add') }}"
-                       class="nav-link {{ Route::currentRouteName() == 'teacher.classes.add' ? 'active' : '' }}">
+                       class="nav-link {{ \Illuminate\Support\Str::startsWith(Route::currentRouteName(), 'teacher.classes.add') ? 'active' : '' }}">
                         <i class="fa fa-fw fa-plus-circle"></i>
                         Je veux ajouter une classe
                     </a>
@@ -65,7 +65,7 @@
                 @endif
                 <li class="nav-item">
                     <a href="{{ route('teacher.documents') }}"
-                       class="nav-link {{ Route::currentRouteName() == 'teacher.documents' ? 'active' : '' }}">
+                       class="nav-link {{ \Illuminate\Support\Str::startsWith(Route::currentRouteName(), 'teacher.documents') ? 'active' : '' }}">
                         <i class="fa fa-fw fa-file-text"></i>
                         Mes documents
                     </a>
@@ -73,7 +73,7 @@
                 @if(Auth::user()->hasAccessToParty())
                 <li class="nav-item">
                     <a href="{{ route('teacher.party') }}"
-                       class="nav-link {{ Route::currentRouteName() == 'teacher.party' || Route::currentRouteName() == 'party.class' ? 'active' : '' }}">
+                       class="nav-link {{ \Illuminate\Support\Str::startsWith(Route::currentRouteName(), 'teacher.party') ? 'active' : '' }}">
                         <i class="fa fa-fw fa-birthday-cake"></i>
                         F&ecirc;te de cl&ocirc;ture
                     </a>
@@ -86,42 +86,42 @@
                 <ul class="nav">
                     <li class="nav-item">
                         <a href="{{ route('admin.users') }}"
-                           class="nav-link {{ Route::currentRouteName() == 'admin.users' ? 'active' : '' }}">
+                           class="nav-link {{ \Illuminate\Support\Str::startsWith(Route::currentRouteName(), 'admin.users') ? 'active' : '' }}">
                             <i class="fa fa-fw fa-user"></i>
                             Utilisateurs
                         </a>
                     </li>
                     <li class="nav-item">
                         <a href="{{ route('admin.classes') }}"
-                           class="nav-link {{ Route::currentRouteName() == 'admin.classes' ? 'active' : '' }}">
+                           class="nav-link {{ \Illuminate\Support\Str::startsWith(Route::currentRouteName(), 'admin.classes') ? 'active' : '' }}">
                             <i class="fa fa-fw fa-graduation-cap"></i>
                             Classes
                         </a>
                     </li>
                     <li class="nav-item">
                         <a href="{{ route('admin.certificates') }}"
-                           class="nav-link {{ Route::currentRouteName() == 'admin.certificates' ? 'active' : '' }}">
+                           class="nav-link {{ \Illuminate\Support\Str::startsWith(Route::currentRouteName(), 'admin.certificates') ? 'active' : '' }}">
                             <i class="fa fa-fw fa-file"></i>
                             Certificats
                         </a>
                     </li>
                     <li class="nav-item">
                         <a href="{{ route('admin.schools') }}"
-                           class="nav-link {{ Route::currentRouteName() == 'admin.schools' ? 'active' : '' }}">
+                           class="nav-link {{ \Illuminate\Support\Str::startsWith(Route::currentRouteName(), 'admin.schools') ? 'active' : '' }}">
                             <i class="fa fa-fw fa-university"></i>
                             Lyc&eacute;es
                         </a>
                     </li>
                     <li class="nav-item">
                         <a href="{{ route('admin.teachers') }}"
-                           class="nav-link {{ Route::currentRouteName() == 'admin.teachers' ? 'active' : '' }}">
+                           class="nav-link {{ \Illuminate\Support\Str::startsWith(Route::currentRouteName(), 'admin.teachers') ? 'active' : '' }}">
                             <i class="fa fa-fw fa-users"></i>
                             Enseignants
                         </a>
                     </li>
                     <li class="nav-item">
                         <a href="{{ route('admin.emails') }}"
-                           class="nav-link {{ Route::currentRouteName() == 'admin.emails' ? 'active' : '' }}">
+                           class="nav-link {{ \Illuminate\Support\Str::startsWith(Route::currentRouteName(), 'admin.emails') ? 'active' : '' }}">
                             <i class="fa fa-fw fa-envelope"></i>
                             E-mails
                         </a>
@@ -139,27 +139,27 @@
                     <li class="nav-item">
                         <a href="{{ route('admin.quiz') }}"
                            class="nav-link {{ \Illuminate\Support\Str::startsWith(Route::currentRouteName(), 'admin.quiz') ? 'active' : '' }}">
-                            <i class="fa fa-fw fa-university"></i>
+                            <i class="fa fa-fw fa-check-square"></i>
                             Quiz
                         </a>
                     </li>
                     <li class="nav-item">
                         <a href="{{ route('admin.documents') }}"
-                           class="nav-link {{ Route::currentRouteName() == 'admin.documents' ? 'active' : '' }}">
+                           class="nav-link {{ \Illuminate\Support\Str::startsWith(Route::currentRouteName(), 'admin.documents') ? 'active' : '' }}">
                             <i class="fa fa-fw fa-file-text"></i>
                             Documents
                         </a>
                     </li>
                     <li class="nav-item">
                         <a href="{{ route('admin.party') }}"
-                           class="nav-link {{ Route::currentRouteName() == 'admin.party' ? 'active' : '' }}">
+                           class="nav-link {{ \Illuminate\Support\Str::startsWith(Route::currentRouteName(), 'admin.party') ? 'active' : '' }}">
                             <i class="fa fa-fw fa-birthday-cake"></i>
                             F&ecirc;te de cl&ocirc;ture
                         </a>
                     </li>
                     <li class="nav-item">
                         <a href="{{ route('admin.settings') }}"
-                           class="nav-link {{ Route::currentRouteName() == 'admin.settings' ? 'active' : '' }}">
+                           class="nav-link {{ \Illuminate\Support\Str::startsWith(Route::currentRouteName(), 'admin.settings') ? 'active' : '' }}">
                             <i class="fa fa-fw fa-gear"></i>
                             Paramètres
                         </a>

@@ -56,7 +56,7 @@
                                     Cliquez sur &laquo; Inscrire &raquo; pour compléter et valider l'inscription de votre classe.
                                 </strong>
                             </p>
-                            <a class="btn btn-primary text-white" href="{{ route('party.class', [$class]) }}">
+                            <a class="btn btn-primary text-white" href="{{ route('teacher.party.class', [$class]) }}">
                                 Inscrire
                             </a>
                         @else
@@ -74,11 +74,11 @@
                             <h3>
                                 Classe {{ $class->name }} <small class="text-muted text">{{ $class->school->name }}</small>
                                 @if($open)
-                                    <a class="btn btn-primary text-white pull-right" href="{{ route('party.class', [$class]) }}">
+                                    <a class="btn btn-primary text-white pull-right" href="{{ route('teacher.party.class', [$class]) }}">
                                         <i class="fa fa-pencil"></i>
                                     </a>
                                 @else
-                                    <a class="btn btn-primary text-white pull-right" href="{{ route('party.class', [$class]) }}">
+                                    <a class="btn btn-primary text-white pull-right" href="{{ route('teacher.party.class', [$class]) }}">
                                         <i class="fa fa-eye"></i>
                                     </a>
                                 @endif

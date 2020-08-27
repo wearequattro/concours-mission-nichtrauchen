@@ -42,9 +42,9 @@ Route::group(['middleware' => ['auth', 'teacher']], function () {
     Route::get('/teacher/documents', 'TeacherController@documents')->name('teacher.documents');
     Route::get('/teacher/documents/download/{document}', 'TeacherController@documentsDownload')->name('teacher.documents.download');
     Route::get('/teacher/party', 'TeacherController@party')->name('teacher.party');
-    Route::get('/teacher/party/{class}', 'TeacherController@partyClass')->name('party.class');
-    Route::post('/teacher/party/{class}', 'TeacherController@partyClassPost')->name('party.class.post');
-    Route::get('/teacher/party/{class}/delete', 'TeacherController@deleteParty')->name('party.class.delete');
+    Route::get('/teacher/party/{class}', 'TeacherController@partyClass')->name('teacher.party.class');
+    Route::post('/teacher/party/{class}', 'TeacherController@partyClassPost')->name('teacher.party.class.post');
+    Route::get('/teacher/party/{class}/delete', 'TeacherController@deleteParty')->name('teacher.party.class.delete');
 });
 
 Route::get('/suivi/response/{class}/{stillNonSmoking}', 'FollowUpController@showFollowUpResponse')->name('follow-up-response');

@@ -131,7 +131,7 @@
                 </tr>
             @empty
                 <tr>
-                    <td colspan="5" class="text-center">Aucun document n'est disponible</td>
+                    <td colspan="6" class="text-center">Aucun document n'est disponible</td>
                 </tr>
             @endforelse
             </tbody>

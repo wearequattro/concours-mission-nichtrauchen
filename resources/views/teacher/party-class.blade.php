@@ -19,7 +19,7 @@
         </div>
     </div>
 
-    <form action="{{ route('party.class.post', [$class]) }}" method="post">
+    <form action="{{ route('teacher.party.class.post', [$class]) }}" method="post">
         @csrf
         <div class="row">
             <div class="col-xs-12 col-sm-12 mt-4 mb-2">
@@ -117,7 +117,7 @@
                 <div class="col-12">
                     <input type="submit" class="btn btn-primary btn-lg" value="Valider l'inscription">
                     @if($groups->count() > 0)
-                        <a href="{{ route('party.class.delete', [$class]) }}" class="btn btn-lg btn-danger ml-4">Supprimer &laquo; {{ $class->name }} &raquo;</a>
+                        <a href="{{ route('teacher.party.class.delete', [$class]) }}" class="btn btn-lg btn-danger ml-4">Supprimer &laquo; {{ $class->name }} &raquo;</a>
                     @endif
                 </div>
             </div>
