@@ -9,9 +9,9 @@
             <p class="text-center lead pt-3">
 
                 @if($status === false)
-                    Votre classe {{ $class->name }} ne participera pas à la fête de clôture.<br>
-                    Nous vous remercions pour votre engagement tout au long du concours et nous espérons pouvoir
-                    vous retrouver parmi les enseignants participant à l’année prochaine.
+                    Malheureusement votre classe {{ $class->name }} ne pourra donc plus participer au concours. C’est bien dommage !
+                    Si vous désirez cependant aborder divers aspects du tabagisme (risques, coûts, dépendance, etc.) avec
+                    votre classe, vous pouvez utiliser nos fiches pédagogiques.
                 @endif
 
                 @if($status === true)
