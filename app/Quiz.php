@@ -16,6 +16,7 @@ use Illuminate\Support\Collection;
  * @property string state
  * @property int max_score
  * @property Carbon closes_at
+ * @property Carbon sent_at
  * @property Carbon created_at
  * @property Carbon updated_at
  * @property QuizInLanguage[]|Collection quizInLanguage
@@ -36,10 +37,12 @@ class Quiz extends Model {
         'max_score',
         'closes_at',
         'state',
+        'sent_at',
     ];
 
     protected $dates = [
         'closes_at',
+        'sent_at',
     ];
 
     public function quizInLanguage() {

@@ -61,9 +61,15 @@
                                         <dt>Max points</dt>
                                         <dd>{{ $quiz->max_score }}</dd>
                                     </div>
+                                    @if($quiz->state !== \App\Quiz::STATE_NEW && $quiz->sent_at != null)
+                                        <div class="col-md-6 col-lg-3">
+                                            <dt>Date d'envoi</dt>
+                                            <dd>{{ $quiz->sent_at }}</dd>
+                                        </div>
+                                    @endif
                                 </div>
                                 <div class="row">
-                                    <div class="col">
+                                    <div class="col-md">
                                         <dt>Langues</dt>
                                         <dd>
                                             @foreach($quiz->quizInLanguage as $ql)

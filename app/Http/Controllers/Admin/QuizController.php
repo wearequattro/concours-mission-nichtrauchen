@@ -188,7 +188,10 @@ class QuizController extends Controller {
 
         \Session::flash('message', sprintf('Envoyé %d emails', $assignments->count()));
 
-        $quiz->update(['state' => Quiz::STATE_RUNNING]);
+        $quiz->update([
+            'state' => Quiz::STATE_RUNNING,
+            'sent_at' => now(),
+        ]);
 
         return redirect()->route('admin.quiz.show', [$quiz]);
     }
