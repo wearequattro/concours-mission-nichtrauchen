@@ -61,9 +61,11 @@
                                     <a href="{{ route('admin.quiz.show', [$q]) }}" class="btn btn-secondary">
                                         <i class="fa fa-fw fa-eye"></i>
                                     </a>
+                                    @if($q->state !== \App\Quiz::STATE_CLOSED)
                                     <a href="{{ route('admin.quiz.edit', [$q]) }}" class="btn btn-primary">
                                         <i class="fa fa-fw fa-pencil"></i>
                                     </a>
+                                    @endif
                                 </div>
                             </td>
                         </tr>

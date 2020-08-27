@@ -98,7 +98,9 @@
                                href="{{ route('admin.quiz.send-reminder', [$quiz]) }}">
                                 <i class="fa fa-fw fa-clock-o"></i>
                                 Envoyer rappel
+                                @if($quiz->state == \App\Quiz::STATE_RUNNING)
                                 {{ $quiz->remindableCount() > 0 ? sprintf('à %d classes', $quiz->remindableCount()): '' }}
+                                @endif
                             </a>
 
                             @if(!$quiz->hasEnoughCodes())

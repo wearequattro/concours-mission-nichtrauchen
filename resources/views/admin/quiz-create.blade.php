@@ -71,7 +71,7 @@
                         multiple
                         name="classes[]"
                         id="classes"
-                        {{ $quiz->exists ? 'disabled' : '' }}
+                        {{ $quiz->exists && $quiz->state !== \App\Quiz::STATE_NEW ? 'disabled' : '' }}
                         class="form-control {{ inputValidationClass($errors, 'classes') }}">
                     @foreach($classes as $class)
                         <option value="{{ $class->id }}" {{
@@ -86,7 +86,7 @@
                 </div>
             </div>
 
-            @if($quiz->state === \App\Quiz::STATE_NEW)
+            @if(!$quiz->exists || $quiz->state === \App\Quiz::STATE_NEW)
 
             <div class="form-group">
                 <label for="email_text">Text Email</label>
