@@ -19,3 +19,6 @@ $green: #38c172;
 $teal: #4dc0b5;
 $cyan: #6cb2eb;
 $primary: #FAB234;
+
+// make text in primary and info buttons light not dark
+$yiq-contrasted-threshold:  200 !default;

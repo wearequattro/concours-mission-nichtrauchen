@@ -14,7 +14,7 @@
     <div class="row">
         <div class="col">
             <a class="btn btn-primary" href="{{ route('admin.quiz.create') }}">
-                <i class="fa fa-fw fa-plus"></i> Crééer Quiz
+                <i class="fa fa-fw fa-plus"></i> Ajouter un Quiz
             </a>
         </div>
     </div>
