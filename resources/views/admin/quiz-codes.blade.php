@@ -34,9 +34,9 @@
             <div class="col">
                 <div class="card">
                     <div class="card-body">
-                        <h1>
+                        <h1 class="text-center">
                             <img class="d-inline" style="max-height: 1em; width: auto;" src="{{ asset("/images/flags/$lang.svg") }}" alt="flag {{ $lang }}">
-                            {{ $lang }}
+                            {{ __("language.$lang") }}
                         </h1>
 
                         Vous devez générer au moins {{ $quiz->assignments()->count() }} codes uniques pour ce quiz.

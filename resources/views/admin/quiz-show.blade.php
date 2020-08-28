@@ -84,39 +84,56 @@
                                 </div>
                             </dl>
 
-                            <p>
-                                <a class="btn btn-info" href="{{ route('admin.quiz.review-mail', [$quiz]) }}">
-                                    <i class="fa fa-fw fa-eye"></i>
-                                    Aperçu de l'e-mail
-                                </a>
-                            </p>
+                            <div class="row">
+                                <div class="col">
 
-                            <a class="btn btn-primary {{ $quiz->state === \App\Quiz::STATE_CLOSED ? 'disabled' : '' }}" href="{{ route('admin.quiz.edit', [$quiz]) }}">
-                                <i class="fa fa-fw fa-pencil"></i> Mettre à jour
-                            </a>
+                                    <a class="btn btn-info" href="{{ route('admin.quiz.review-mail', [$quiz]) }}">
+                                        <i class="fa fa-fw fa-eye"></i>
+                                        Aperçu de l'e-mail
+                                    </a>
 
-                            <a class="btn btn-success {{ !empty($quiz->validate()) ? 'disabled' : '' }}" href="{{ route('admin.quiz.review', [$quiz]) }}">
-                                <i class="fa fa-fw fa-paper-plane"></i>
-                                Revoir et envoyer
-                            </a>
+                                </div>
+                            </div>
 
-                            <a class="btn btn-success {{ $quiz->remindableCount() == 0 || $quiz->state !== \App\Quiz::STATE_RUNNING ? 'disabled' : '' }}"
-                               href="{{ route('admin.quiz.send-reminder', [$quiz]) }}">
-                                <i class="fa fa-fw fa-clock-o"></i>
-                                Envoyer rappel
-                                @if($quiz->state == \App\Quiz::STATE_RUNNING)
-                                {{ $quiz->remindableCount() > 0 ? sprintf('à %d classes', $quiz->remindableCount()): '' }}
-                                @endif
-                            </a>
+                            <div class="row">
+                                <div class="col mt-3">
 
-                            @if(!$quiz->hasEnoughCodes())
-                                <div class="alert alert-warning mt-4">
-                                    <p>Ce quiz n'a pas assez de codes uniques enregistrés pour que tous les classes puissent avoir un.</p>
+                                    @if(!$quiz->hasEnoughCodes())
+                                            <p class="alert alert-warning">Ce quiz n'a pas assez de codes uniques enregistrés pour que tous les classes puissent avoir un.</p>
+                                    @endif
+
+                                    <a class="btn btn-primary {{ $quiz->state === \App\Quiz::STATE_CLOSED ? 'disabled' : '' }}" href="{{ route('admin.quiz.edit', [$quiz]) }}">
+                                        <i class="fa fa-fw fa-pencil"></i> Mettre à jour
+                                    </a>
+
                                     <a class="btn btn-primary" href="{{ route('admin.quiz.show.codes', [$quiz]) }}">
+                                        <i class="fa fa-fw fa-key"></i>
                                         Ajouter les codes
                                     </a>
+
                                 </div>
-                            @endif
+                            </div>
+
+                            <div class="row">
+                                <div class="col mt-3">
+
+                                    <a class="btn btn-success {{ !empty($quiz->validate()) ? 'disabled' : '' }}" href="{{ route('admin.quiz.review', [$quiz]) }}">
+                                        <i class="fa fa-fw fa-paper-plane"></i>
+                                        Revoir et envoyer
+                                    </a>
+
+                                    <a class="btn btn-success {{ $quiz->remindableCount() == 0 || $quiz->state !== \App\Quiz::STATE_RUNNING ? 'disabled' : '' }}"
+                                       href="{{ route('admin.quiz.send-reminder', [$quiz]) }}">
+                                        <i class="fa fa-fw fa-clock-o"></i>
+                                        Envoyer rappel
+                                        @if($quiz->state == \App\Quiz::STATE_RUNNING)
+                                            {{ $quiz->remindableCount() > 0 ? sprintf('à %d classes', $quiz->remindableCount()): '' }}
+                                        @endif
+                                    </a>
+
+                                </div>
+                            </div>
+
                         </div>
                     </div>
 

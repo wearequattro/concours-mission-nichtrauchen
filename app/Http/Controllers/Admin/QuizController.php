@@ -139,7 +139,7 @@ class QuizController extends Controller {
             $given = sizeof($codesForLanguage[$lang]);
             $required = $assignments->count();
             if($given < $required) {
-                $errors["files.$lang"] = ["Ce fichier na pas assez de codes uniques. $given < $required"];
+                $errors["files.$lang"] = ["Ce fichier n'a pas assez de codes uniques. $given < $required"];
             }
         }
         if($errors) {
