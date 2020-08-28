@@ -11,8 +11,9 @@ import 'popper.js'
 import 'tinymce/icons/default';
 import 'tinymce/themes/silver';
 import 'tinymce/plugins/link';
-import 'datatables.net'
-import 'datatables.net-bs4'
+
+require('datatables.net');
+require('datatables.net-bs4');
 
 $('[data-toggle="tooltip"]').tooltip();
 
