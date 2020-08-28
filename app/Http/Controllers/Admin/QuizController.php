@@ -2,20 +2,17 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\EditableEmail;
 use App\Http\Controllers\Controller;
 use App\Mail\QuizMail;
 use App\PlaceHolder;
 use App\Quiz;
 use App\QuizAssignment;
 use App\QuizInLanguage;
+use App\Rules\QuizMakerUniqueRule;
 use App\Rules\QuizMakerValidUrlRule;
 use App\SchoolClass;
 use Carbon\Carbon;
-use Illuminate\Database\Eloquent\Collection as EloquentCollection;
 use Illuminate\Http\Request;
-use Illuminate\Http\UploadedFile;
-use Illuminate\Support\Arr;
 
 class QuizController extends Controller {
 
@@ -45,7 +42,7 @@ class QuizController extends Controller {
         ];
 
         foreach ($this->languages as $lang) {
-            $rules["quiz_url.$lang"] = ['required', 'url', new QuizMakerValidUrlRule];
+            $rules["quiz_url.$lang"] = ['required', 'url', new QuizMakerValidUrlRule, new QuizMakerUniqueRule];
         }
 
         $data = $this->validate($request, $rules);
