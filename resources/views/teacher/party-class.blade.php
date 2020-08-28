@@ -124,8 +124,6 @@
         @endif
     </form>
 
-    <div style="height: 150px"></div>
-
 
 @endsection
 

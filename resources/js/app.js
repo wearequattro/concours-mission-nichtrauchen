@@ -6,14 +6,14 @@
  */
 
 require('./bootstrap');
-require('datatables/media/js/jquery.dataTables.min');
 require('bootstrap-datepicker/js/bootstrap-datepicker');
 require('popper.js/dist/popper.min');
 
-import tinymce from 'tinymce/tinymce';
 import 'tinymce/icons/default';
 import 'tinymce/themes/silver';
 import 'tinymce/plugins/link';
+import 'datatables.net'
+import 'datatables.net-bs4'
 
 let oldInputLabel = [];
 // show selected file in file chooser
