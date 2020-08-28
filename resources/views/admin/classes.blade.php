@@ -226,7 +226,7 @@
                                 <a href="{{ route('admin.classes.edit', [$class]) }}" class="btn btn-primary">
                                     <i class="fa fa-fw fa-pencil"></i>
                                 </a>
-                                <a class="btn btn-danger text-white"v data-delete-id="{{ $class->id }}" data-delete-label="{{ $class->name }}">
+                                <a class="btn btn-danger text-white" data-delete-id="{{ $class->id }}" data-delete-label="{{ $class->name }}">
                                     <i class="fa fa-fw fa-trash-o"></i>
                                 </a>
                             </td>

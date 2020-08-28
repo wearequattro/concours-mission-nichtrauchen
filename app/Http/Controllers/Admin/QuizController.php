@@ -67,6 +67,13 @@ class QuizController extends Controller {
         return redirect()->route('admin.quiz.show', [$quiz]);
     }
 
+    public function delete(Quiz $quiz)
+    {
+        $quiz->delete();
+        \Session::flash('message', sprintf('Quiz %s supprimé avec succès', $quiz->name));
+        return redirect()->back();
+    }
+
     public function edit(Quiz $quiz) {
         abort_if($quiz->state === Quiz::STATE_CLOSED, 403);
         $classes = SchoolClass::all();
