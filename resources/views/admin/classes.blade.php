@@ -204,7 +204,7 @@
                                     /
                                     {{ $quiz->max_score  }}
                                     @endif
-                                </td>S
+                                </td>
                             @endforeach
                             <td>{{ $class->quizResponses()->sum('score') }}</td>
 {{--                            <td>{{ statusToIcon($class->getStatusJanuary() ) }}</td>--}}
