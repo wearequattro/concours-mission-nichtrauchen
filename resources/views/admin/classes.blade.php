@@ -245,7 +245,6 @@
 @push('js')
     <script>
         var numQuizzes = {{ $quizzes->count() }};
-        $('[data-toggle="tooltip"]').tooltip();
         $('[data-delete-id]').click(function () {
             var className = $(this).attr('data-delete-label');
             var id = $(this).attr('data-delete-id');
