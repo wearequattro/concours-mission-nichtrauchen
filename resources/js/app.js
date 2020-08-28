@@ -8,6 +8,8 @@
 require('./bootstrap');
 import 'bootstrap-datepicker'
 import 'popper.js'
+
+import tinymce from 'tinymce/tinymce';
 import 'tinymce/icons/default';
 import 'tinymce/themes/silver';
 import 'tinymce/plugins/link';
