@@ -203,6 +203,8 @@
                                     {{ $quiz->getPointsForClass($class) }}
                                     /
                                     {{ $quiz->max_score  }}
+                                    @else
+                                        /
                                     @endif
                                 </td>
                             @endforeach

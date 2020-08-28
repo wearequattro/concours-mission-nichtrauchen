@@ -106,7 +106,15 @@
                         <td>{{ $class->students }}</td>
                         <td>{{ $class->school->name }}</td>
                         @foreach($quizzes as $quiz)
-                            <td>{{ $quiz->getPointsForClass($class) ?? 0 }} / {{ $quiz->max_score }}</td>
+                            <td>
+                                @if($quiz->getPointsForClass($class) !== null)
+                                    {{ $quiz->getPointsForClass($class) }}
+                                    /
+                                    {{ $quiz->max_score  }}
+                                @else
+                                    /
+                                @endif
+                            </td>
                         @endforeach
                         @if($show_january)
                             <td>{{ statusToIcon($class->getStatusJanuary() ) }}</td>
