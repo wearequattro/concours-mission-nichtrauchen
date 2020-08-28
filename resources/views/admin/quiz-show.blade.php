@@ -106,7 +106,7 @@
                                         <i class="fa fa-fw fa-pencil"></i> Mettre à jour
                                     </a>
 
-                                    <a class="btn btn-primary" {{ $quiz->state !== \App\Quiz::STATE_NEW ? 'disabled' : '' }} href="{{ route('admin.quiz.show.codes', [$quiz]) }}">
+                                    <a class="btn btn-primary {{ $quiz->state !== \App\Quiz::STATE_NEW ? 'disabled' : '' }}" href="{{ route('admin.quiz.show.codes', [$quiz]) }}">
                                         <i class="fa fa-fw fa-key"></i>
                                         Ajouter les codes
                                     </a>
