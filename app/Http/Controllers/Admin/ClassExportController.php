@@ -63,6 +63,7 @@ class ClassExportController extends Controller {
         foreach (Quiz::orderBy('id')->get()->pluck('name')->values()->toArray() as $quizName) {
             $headers[] = $quizName;
         }
+        $headers[] = "QUIZ TOTAL";
         $sheet->getRowDimension(1)->setRowHeight(50);
         for ($i = 1; $i <= count($headers); $i++) {
             $sheet->setCellValueByColumnAndRow($i, 1, $headers[$i - 1]);
@@ -107,6 +108,7 @@ class ClassExportController extends Controller {
                     ->first();
                 $data[] = optional(optional($assignment)->response)->score;
             }
+            $data[] = $class->getQuizScoreAll();
 
             for($i = 0; $i < sizeof($data); $i++) {
                 $col = $i + 1;
