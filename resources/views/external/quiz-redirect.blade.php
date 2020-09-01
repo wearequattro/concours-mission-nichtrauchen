@@ -38,7 +38,7 @@
                                 @endphp
                                 <div class="col col-lg-4">
                                     <a href="{{ route('external.quiz.redirect', [$code]) }}" class="btn btn-primary btn-block">
-                                        {{ __("language." . $qIL->language) }}
+                                        {{ trans("language." . $qIL->language, [], $qIL->language) }}
                                     </a>
                                 </div>
                             @endforeach
