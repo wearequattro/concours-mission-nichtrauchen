@@ -43,6 +43,7 @@ use Ramsey\Uuid\Uuid;
  * @property Teacher teacher
  * @property Collection partyGroups
  * @property QuizResponse[]|Collection quizResponses
+ * @property QuizAssignment[]|Collection quizAssignments
  *
  * @method static SchoolClass create(array $values)
  * @mixin \Eloquent
@@ -79,6 +80,10 @@ class SchoolClass extends Model {
 
     public function quizResponses() {
         return $this->hasManyThrough(QuizResponse::class, QuizAssignment::class);
+    }
+
+    public function quizAssignments() {
+        return $this->hasMany(QuizAssignment::class);
     }
 
     public function getStatusJanuary(): ?int {
@@ -301,6 +306,20 @@ class SchoolClass extends Model {
         $this->update([
             'party_group_reminder_sent_at' => Carbon::now(),
         ]);
+    }
+
+    public function getPoints(?Collection $quizzes = null) {
+        $quizzes = $quizzes ?? Quiz::all();
+        return $quizzes
+            ->pluck('assignments')
+            ->flatten()
+            ->where('school_class_id', $this->id)
+            ->sum('response.score');
+    }
+
+    public function getMaxPoints(?Collection $quizzes = null) {
+        $quizzes = $quizzes ?? Quiz::all();
+        return $quizzes->sum('max_score');
     }
 
 }

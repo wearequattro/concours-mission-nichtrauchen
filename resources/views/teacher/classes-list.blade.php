@@ -83,6 +83,7 @@
                     @foreach($quizzes as $quiz)
                         <th>{{ $quiz->name }}</th>
                     @endforeach
+                    <th>Quiz Total</th>
                     @if($show_january)
                     <th>Statut janvier</th>
                     @endif
@@ -116,6 +117,11 @@
                                 @endif
                             </td>
                         @endforeach
+                        <td>
+                            {{ $class->getPoints($quizzes) }}
+                            /
+                            {{ $class->getMaxPoints($quizzes) }}
+                        </td>
                         @if($show_january)
                             <td>{{ statusToIcon($class->getStatusJanuary() ) }}</td>
                         @endif

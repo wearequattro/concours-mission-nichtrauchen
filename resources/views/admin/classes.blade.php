@@ -165,7 +165,9 @@
                             </span>
                         </th>
                         @endforeach
-                        <th>Quiz Total</th>
+                        <th>
+                            Quiz Total
+                        </th>
 {{--                        <th>Statut janvier</th>--}}
 {{--                        <th>Statut janvier</th>--}}
 {{--                        <th>Statut mars</th>--}}
@@ -208,7 +210,7 @@
                                     @endif
                                 </td>
                             @endforeach
-                            <td>{{ $class->quizResponses()->sum('score') }}</td>
+                            <td>{{ $class->quizResponses()->sum('score') }}  / {{ $quizzes->where('state', '!=', \App\Quiz::STATE_CLOSED)->sum('max_score') }} </td>
 {{--                            <td>{{ statusToIcon($class->getStatusJanuary() ) }}</td>--}}
 {{--                            <td>{{ $class->getStatusJanuary() === null ? 'E' : ($class->getStatusJanuary() ? 'Y' : 'N') }}</td>--}}
 {{--                            <td>{{ statusToIcon($class->getStatusMarch() ) }}</td>--}}

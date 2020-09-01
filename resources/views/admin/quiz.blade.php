@@ -90,9 +90,9 @@
                                         <i class="fa fa-fw fa-pencil"></i>
                                     </a>
                                     @endif
-                                    <a class="btn btn-danger text-white" data-action="delete" data-quiz="{{ $q }}">
-                                        <i class="fa fa-fw fa-trash-o"></i>
-                                    </a>
+{{--                                    <a class="btn btn-danger text-white" data-action="delete" data-quiz="{{ $q }}">--}}
+{{--                                        <i class="fa fa-fw fa-trash-o"></i>--}}
+{{--                                    </a>--}}
                                 </div>
                             </td>
                         </tr>
