@@ -15,7 +15,7 @@
                     </h1>
 
                     <h4 class="text-center mb-5">
-                        Date de clôturation : {{ $quiz->closes_at->format('Y-m-d') }}
+                        Date de clôture : {{ $quiz->closes_at->format('Y-m-d') }}
                     </h4>
 
                     @if($assignment->isAnswered())
@@ -37,13 +37,8 @@
                                     $qIL = $code->quizInLanguage;
                                 @endphp
                                 <div class="col col-lg-4">
-                                    <a href="{{ route('external.quiz.redirect', [$code]) }}">
-                                        <div class="card">
-                                            <div class="card-body">
-                                                <img src="{{ asset("images/flags/$qIL->language.svg") }}"
-                                                     alt="Flag {{ $qIL->language }}">
-                                            </div>
-                                        </div>
+                                    <a href="{{ route('external.quiz.redirect', [$code]) }}" class="btn btn-primary btn-block">
+                                        {{ __("language." . $qIL->language) }}
                                     </a>
                                 </div>
                             @endforeach

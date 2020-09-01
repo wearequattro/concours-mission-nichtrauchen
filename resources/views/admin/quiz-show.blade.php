@@ -33,7 +33,7 @@
                                         </dd>
                                     </div>
                                     <div class="col-md-6 col-lg-3">
-                                        <dt>Date de clôturation</dt>
+                                        <dt>Date de clôture</dt>
                                         <dd>{{ $quiz->closes_at }}</dd>
                                     </div>
                                     <div class="col-md-6 col-lg-3">

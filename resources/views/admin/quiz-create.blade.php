@@ -55,7 +55,7 @@
             @endif
 
             <div class="form-group">
-                <label for="closes_at">Date de clôturation (à 00:00h)</label>
+                <label for="closes_at">Date de clôture (à 00:00h)</label>
                 <input type="text" name="closes_at" id="closes_at" required
                        placeholder="yyyy-mm-dd" min="{{ date('Y-m-d', strtotime('+1day')) }}"
                        class="form-control datepicker {{ inputValidationClass($errors, 'closes_at') }}"

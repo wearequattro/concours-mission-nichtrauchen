@@ -55,8 +55,8 @@
                         <th>Max Score</th>
                         <th>Réponses</th>
                         <th>Statut</th>
-                        <th>Date de clôturation</th>
-                        <th>Date de clôturation</th>
+                        <th>Date de clôture</th>
+                        <th>Date de clôture</th>
                         <th>Créée</th>
                         <th>Créée</th>
                         <th>Action</th>
