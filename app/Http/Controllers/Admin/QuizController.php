@@ -213,7 +213,7 @@ class QuizController extends Controller {
         $assignments = $quiz->assignments()->whereDoesntHave('response')->get();
         foreach ($assignments as $a) {
             \Mail::to($a->schoolClass->teacher->user->email)
-                ->queue(new QuizMail($a));
+                ->queue(new QuizMail($a, true));
         }
 
         \Session::flash('message', sprintf('Envoyé %d emails', $assignments->count()));
