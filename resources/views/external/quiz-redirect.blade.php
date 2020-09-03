@@ -33,7 +33,7 @@
                                 </p>
                             @endif
 
-                            <h1>Dieses Quiz ist abgeschlossen</h1>
+                            <h1 class="mt-5">Dieses Quiz ist abgeschlossen</h1>
 
                             @if(!$quiz->isLastQuiz())
                                 <p class="lead">Sie erhalten demnächst Zugang zu einem neuen Quiz.</p>
