@@ -30,9 +30,11 @@ class Kernel extends ConsoleKernel {
     protected function schedule(Schedule $schedule) {
         $schedule->command(SendFollowUpEmails::class)->dailyAt('10:03')->withoutOverlapping();
         $schedule->command(SendNewsletter::class)->everyTenMinutes()->withoutOverlapping();
-        $schedule->command(BackupCommand::class)->dailyAt('3:30');
-        $schedule->command(MonitorCommand::class)->dailyAt('9:00');
-        $schedule->command(CleanupCommand::class)->dailyAt('14:00');
+        if(\App::environment() == 'production') {
+            $schedule->command(BackupCommand::class)->dailyAt('3:30');
+            $schedule->command(MonitorCommand::class)->dailyAt('9:00');
+            $schedule->command(CleanupCommand::class)->dailyAt('14:00');
+        }
         $schedule->command(QuizUpdateCommand::class)->everyMinute();
     }
 
