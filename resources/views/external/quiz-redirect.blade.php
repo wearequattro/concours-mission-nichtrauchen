@@ -25,19 +25,19 @@
 
                     @elseif($quiz->state == \App\Quiz::STATE_CLOSED)
 
-                        @if($quiz->isLastQuiz())
-
                             <h1>Désolé, ce quiz est clôturé</h1>
+
+                            @if(!$quiz->isLastQuiz())
+                                <p class="lead">
+                                    Vous aurez prochainement accès au nouveau quiz.
+                                </p>
+                            @endif
 
                             <h1>Dieses Quiz ist abgeschlossen</h1>
 
-                        @else
-
-                            <h1>Désolé, ce quiz est clôturé. Vous aurez prochainement accès au nouveau quiz</h1>
-
-                            <h1>Dieses Quiz ist abgeschlossen. Sie erhalten demnächst Zugang zu einem neuen Quiz</h1>
-
-                        @endif
+                            @if(!$quiz->isLastQuiz())
+                                <p class="lead">Sie erhalten demnächst Zugang zu einem neuen Quiz.</p>
+                            @endif
 
                     @else
 
