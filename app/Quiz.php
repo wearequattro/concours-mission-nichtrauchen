@@ -118,4 +118,9 @@ class Quiz extends Model {
         )->score;
     }
 
+    public function isLastQuiz()
+    {
+        return Quiz::where('closes_at', '>', $this->closes_at)->doesntExist();
+    }
+
 }
