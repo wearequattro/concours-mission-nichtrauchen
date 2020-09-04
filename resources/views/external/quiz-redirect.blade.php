@@ -21,7 +21,7 @@
                     @if($assignment->isAnswered())
 
                         <h1>Vous avez déjà répondu au quiz</h1>
-                        <h1>Votre score: {{ $assignment->response->score }} / {{ $quiz->max_score }}</h1>
+                        <h1>Votre score : {{ $assignment->response->score }} / {{ $quiz->max_score }}</h1>
 
                         <h1 class="mt-5">Sie haben das Quiz bereits beantwortet</h1>
                         <h1>Ihr Ergebnis ist: {{ $assignment->response->score }} / {{ $quiz->max_score }}</h1>
