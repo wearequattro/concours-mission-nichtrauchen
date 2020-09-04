@@ -33,17 +33,23 @@ class PlaceHolder {
      * Returns the text from this email where all placeholders have been replaced
      * @param string $text The text with the placeholders to be changed
      * @param Teacher $teacher
-     * @param SchoolClass $class
+     * @param SchoolClass|null $class
+     * @param QuizAssignment|null $assignment
      * @return string The complete email, with placeholders having been replaced.
      * @throws \Exception
      */
-    public static function replaceAll(string $text, Teacher $teacher, ?SchoolClass $class): string {
+    public static function replaceAll(
+        string $text,
+        Teacher $teacher,
+        ?SchoolClass $class,
+        ?QuizAssignment $assignment = null
+    ): string {
         foreach (PlaceHolder::getPlaceholders() as $placeholder) {
             /** @var PlaceHolder $placeholder */
             if (Str::contains($text, $placeholder->key)) {
                 $text = str_replace(
                     $placeholder->key,
-                    self::getReplacement($placeholder->key, $teacher, $class),
+                    self::getReplacement($placeholder->key, $teacher, $class, $assignment),
                     $text);
             }
         }
@@ -53,12 +59,18 @@ class PlaceHolder {
     /**
      * Replaces the subject with the proper value. Subject should not contain the placeholder delimiter (%).
      * @param string $subject
-     * @param Teacher $teacher
-     * @param SchoolClass $class
+     * @param Teacher|null $teacher
+     * @param SchoolClass|null $class
+     * @param QuizAssignment|null $assignment
      * @return string Replaced text
      * @throws \Exception
      */
-    public static function getReplacement(string $subject, ?Teacher $teacher, ?SchoolClass $class) {
+    public static function getReplacement(
+        string $subject,
+        ?Teacher $teacher,
+        ?SchoolClass $class,
+        ?QuizAssignment $assignment
+    ) {
         $subject = str_replace('%', '', $subject);
         if ($subject === "PROF")
             return $teacher->salutation->long_form . ' ' . $teacher->first_name . ' ' . $teacher->last_name;
@@ -95,6 +107,9 @@ class PlaceHolder {
             return route('party-response', ['token' => $class->party_token, 'status' => 'true']);
         if ($subject === "LIEN_FETE_NON")
             return route('party-response', ['token' => $class->party_token, 'status' => 'false']);
+        if ($subject === "LIEN_QUIZ")
+            return route('external.quiz.show', [$assignment->uuid]);
+
         return "";
     }
 
@@ -116,6 +131,7 @@ class PlaceHolder {
             new PlaceHolder("LIEN_FETE", "https://fete.link/", "Lien inscription fête"),
             new PlaceHolder("LIEN_FETE_OUI", "https://fete.link/oui", "Lien réponse fête oui"),
             new PlaceHolder("LIEN_FETE_NON", "https://fete.link/non", "Lien réponse fête non"),
+            new PlaceHolder("LIEN_QUIZ", "https://quiz.link/non", "Lien quiz"),
         ]);
     }
 

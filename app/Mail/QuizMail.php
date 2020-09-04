@@ -39,7 +39,7 @@ class QuizMail extends Mailable
     public function build()
     {
         $class = $this->assignment->schoolClass;
-        $text = PlaceHolder::replaceAll($this->assignment->quiz->email_text, $class->teacher, $class);
+        $text = PlaceHolder::replaceAll($this->assignment->quiz->email_text, $class->teacher, $class, $this->assignment);
         if($this->reminder) {
             $subj = "Rappel − " . $this->assignment->quiz->name;
         } else {
@@ -49,9 +49,6 @@ class QuizMail extends Mailable
             ->subject($subj)
             ->from(env('MAIL_FROM_ADDRESS'), env('APP_NAME'))
             ->replyTo(env('MAIL_REPLY_TO'))
-            ->view('emails.quiz', [
-                'uuid' => $this->assignment->uuid,
-                'text' => $text,
-            ]);
+            ->view('emails.custom', compact('text'));
     }
 }
