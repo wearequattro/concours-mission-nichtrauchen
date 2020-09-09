@@ -224,9 +224,8 @@ class QuizController extends Controller {
     public function previewMail(Quiz $quiz)
     {
         $class = $quiz->assignments()->first()->schoolClass;
-        $text = PlaceHolder::replaceAll($quiz->email_text, $class->teacher, $class);
+        $text = PlaceHolder::replaceAll($quiz->email_text, $class->teacher, $class, $quiz->assignments()->first());
         return view('emails.quiz', [
-            'uuid' => '',
             'text' => $text,
         ]);
     }
