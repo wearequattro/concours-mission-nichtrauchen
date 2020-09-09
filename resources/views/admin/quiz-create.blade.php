@@ -54,16 +54,38 @@
 
             @endif
 
-            <div class="form-group">
-                <label for="closes_at">Date de clôture (à 00:00h)</label>
-                <input type="text" name="closes_at" id="closes_at" required
-                       placeholder="yyyy-mm-dd" min="{{ date('Y-m-d', strtotime('+1day')) }}"
-                       class="form-control datepicker {{ inputValidationClass($errors, 'closes_at') }}"
-                       value="{{ old('closes_at', optional($quiz->closes_at)->format('Y-m-d')) }}">
-                <div class="invalid-feedback">
-                    {{ inputValidationMessages($errors, 'closes_at') }}
+            <div class="row">
+                <div class="col-6">
+
+                    <div class="form-group">
+                        <label for="closes_at_date">Date de clôture (à 00:00h)</label>
+                        <input type="text" name="closes_at_date" id="closes_at_date" required
+                               placeholder="yyyy-mm-dd" min="{{ date('Y-m-d', strtotime('+1day')) }}"
+                               class="form-control datepicker {{ inputValidationClass($errors, 'closes_at') }}"
+                               value="{{ old('closes_at_date', optional($quiz->closes_at)->format('Y-m-d')) }}">
+                        <div class="invalid-feedback">
+                            {{ inputValidationMessages($errors, 'closes_at') }}
+                        </div>
+                    </div>
+
+                </div>
+                <div class="col-6">
+
+                    <div class="form-group">
+                        <label for="closes_at_time">Temps de clôture</label>
+                        <input type="time" name="closes_at_time" id="closes_at_time" required
+                               min="{{ date('Y-m-d', strtotime('+1day')) }}"
+                               class="form-control {{ inputValidationClass($errors, 'closes_at') }}"
+                               value="{{ old('closes_at_time', optional($quiz->closes_at)->format('H:i') ?? '07:00') }}">
+                        <div class="invalid-feedback">
+                            {{ inputValidationMessages($errors, 'closes_at') }}
+                        </div>
+                    </div>
+
                 </div>
             </div>
+
+
 
             <div class="form-group">
                 <label for="classes">Classes</label>

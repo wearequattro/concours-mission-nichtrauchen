@@ -32,6 +32,9 @@ class QuizController extends Controller {
     }
 
     public function createPost(Request $request) {
+        $request->merge([
+            'closes_at' => $request->get('closes_at_date') . ' ' . $request->get('closes_at_time'),
+        ]);
         $rules = [
             'name' => 'required|string',
             'max_score' => 'required|int|min:1',
@@ -83,10 +86,13 @@ class QuizController extends Controller {
 
     public function editPost(Request $request, Quiz $quiz) {
         abort_if($quiz->state === Quiz::STATE_CLOSED, 403);
+        $request->merge([
+            'closes_at' => $request->get('closes_at_date') . ' ' . $request->get('closes_at_time'),
+        ]);
         $data = $this->validate($request, [
             'name' => 'required|string',
             'max_score' => 'required|int|min:1',
-            'closes_at' => 'required|date|after:today',
+            'closes_at' => 'required|date|date_format:Y-m-d H:i|after:today',
             'email_text' => 'string|nullable',
             'classes' => 'array',
             'classes.*' => 'int|exists:school_classes,id',
