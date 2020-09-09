@@ -225,7 +225,7 @@ class QuizController extends Controller {
     {
         $class = $quiz->assignments()->first()->schoolClass;
         $text = PlaceHolder::replaceAll($quiz->email_text, $class->teacher, $class, $quiz->assignments()->first());
-        return view('emails.quiz', [
+        return view('emails.custom', [
             'text' => $text,
         ]);
     }
