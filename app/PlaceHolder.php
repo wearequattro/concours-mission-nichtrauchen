@@ -131,7 +131,7 @@ class PlaceHolder {
             new PlaceHolder("LIEN_FETE", "https://fete.link/", "Lien inscription fête"),
             new PlaceHolder("LIEN_FETE_OUI", "https://fete.link/oui", "Lien réponse fête oui"),
             new PlaceHolder("LIEN_FETE_NON", "https://fete.link/non", "Lien réponse fête non"),
-            new PlaceHolder("LIEN_QUIZ", "https://quiz.link/non", "Lien quiz"),
+            new PlaceHolder("LIEN_QUIZ", "https://quiz.link/", "Lien quiz"),
         ]);
     }
 
