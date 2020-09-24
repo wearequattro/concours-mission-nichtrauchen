@@ -31,7 +31,6 @@
                 <div class="card-body">
                     <p class="card-text">
                         Date de cl&ocirc;ture des inscriptions : {{ $inscription_date_end }}
-                        ({{ $inscription_date_end_relative }})
                     </p>
                 </div>
             </div>
