@@ -44,7 +44,9 @@
                                         <dt>Réponses</dt>
                                         <dd>
                                             {{ $quiz->responses()->count() }} / {{ $quiz->assignments()->count() }}
+                                            @if($quiz->assignments()->count() > 0)
                                             ({{ sprintf("%.1f %%", $quiz->responses()->count() / $quiz->assignments()->count() * 100) }})
+                                            @endif
                                         </dd>
                                     </div>
                                     <div class="col-md-6 col-lg-3">
