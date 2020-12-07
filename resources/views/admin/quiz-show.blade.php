@@ -86,10 +86,19 @@
                             <div class="row">
                                 <div class="col">
 
-                                    <a class="btn btn-info" href="{{ route('admin.quiz.review-mail', [$quiz]) }}">
+                                    <a
+                                       class="btn btn-info {{ $quiz->assignments()->count() === 0 ? 'disabled' : '' }}"
+                                       href="{{ route('admin.quiz.review-mail', [$quiz]) }}"
+                                    >
                                         <i class="fa fa-fw fa-eye"></i>
                                         Aperçu de l'e-mail
                                     </a>
+
+                                    @if($quiz->assignments()->count() === 0)
+                                    <span class="text text-danger">
+                                        Vous devez ajouter au moins une classe pour afficher l'aperçu
+                                    </span>
+                                    @endif
 
                                 </div>
                             </div>
