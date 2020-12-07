@@ -43,10 +43,7 @@
                                     <div class="col-md">
                                         <dt>Réponses</dt>
                                         <dd>
-                                            {{ $quiz->responses()->count() }} / {{ $quiz->assignments()->count() }}
-                                            @if($quiz->assignments()->count() > 0)
-                                            ({{ sprintf("%.1f %%", $quiz->responses()->count() / $quiz->assignments()->count() * 100) }})
-                                            @endif
+                                            {{ $quiz->responseCountText() }}
                                         </dd>
                                     </div>
                                     <div class="col-md-6 col-lg-3">

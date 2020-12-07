@@ -123,4 +123,15 @@ class Quiz extends Model {
         return Quiz::where('closes_at', '>', $this->closes_at)->doesntExist();
     }
 
+    public function responseCountText(): string {
+        $responses = $this->assignments()->whereHas('response')->count();
+        $max = $this->assignments()->count();
+        $text = "$responses / $max";
+        if ($max > 0) {
+            $percentage = $responses / $max * 100;
+            $text .= ' (' . sprintf("%.1f %%", $percentage) . ')';
+        }
+        return $text;
+    }
+
 }
