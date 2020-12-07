@@ -134,4 +134,8 @@ class Quiz extends Model {
         return $text;
     }
 
+    public function getResponseAverage() {
+        return $this->assignments->average(fn (QuizAssignment $qa) => optional($qa->response)->score);
+    }
+
 }

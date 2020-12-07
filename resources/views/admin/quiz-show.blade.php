@@ -50,7 +50,7 @@
                                         <dt>Moyenne des points</dt>
                                         <dd>
                                             @if($quiz->responses()->count())
-                                                {{ sprintf("%.2f", $quiz->responses()->avg('score')) }}
+                                                {{ sprintf("%.2f", $quiz->getResponseAverage()) }}
                                             @else
                                                 <span class="text-muted">indisponible</span>
                                             @endif
