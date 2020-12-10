@@ -177,7 +177,13 @@
                                     <td>{{ $a->schoolClass->teacher->full_name }}</td>
                                     <td>{{ optional($a->response)->score }}</td>
                                     <td>{{ optional($a->response)->responded_at }}</td>
-                                    <td></td>
+                                    <td>
+                                        @if($quiz->state == \App\Quiz::STATE_RUNNING)
+                                        <a class="btn btn-info" onclick="$('#modalLinkTextArea').val('{{ route('external.quiz.show', [$a->uuid]) }}');$('#modalLink').modal('show')">
+                                            <i class="fa fa-fw fa-chain"></i>
+                                        </a>
+                                        @endif
+                                    </td>
                                 </tr>
                             @empty
                                 <tr>
@@ -193,6 +199,25 @@
 
         </div>
     </div>
+
+    <div class="modal fade" id="modalLink" tabindex="-1" role="dialog" aria-labelledby="modalLinkTitle" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Lien Quiz</h5>
+                </div>
+                <div class="modal-body">
+                    <textarea id="modalLinkTextArea" class="form-control col-12"
+                              onclick="this.focus();this.select();"
+                    ></textarea>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" data-dismiss="modal">Fermer</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
 
 @endsection
 
