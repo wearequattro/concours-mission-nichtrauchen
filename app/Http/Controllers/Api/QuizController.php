@@ -41,7 +41,8 @@ class QuizController extends Controller {
                 continue;
             }
             if ($quizCode->assignment->response()->exists()) {
-                \Log::warning("Given code is already in database.. updating it", ['code' => $code]);
+                \Log::warning("Given code is already in database.. skipping it", ['code' => $code]);
+                return response('');
             }
             $quizCode->assignment->response()->updateOrCreate([
                 'quizmaker_response_id' => $res->id,
