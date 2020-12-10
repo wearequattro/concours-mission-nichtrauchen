@@ -179,7 +179,7 @@
                                     <td>{{ optional($a->response)->responded_at }}</td>
                                     <td>
                                         @if($quiz->state == \App\Quiz::STATE_RUNNING)
-                                        <a class="btn btn-info" onclick="$('#modalLinkTextArea').val('{{ route('external.quiz.show', [$a->uuid]) }}');$('#modalLink').modal('show')">
+                                        <a class="btn btn-info" onclick="$('#modalLinkTextArea').val('{{ route('external.quiz.show', [$a->uuid]) }}'); $('#modalLink').modal('show')">
                                             <i class="fa fa-fw fa-chain"></i>
                                         </a>
                                         @endif
@@ -225,6 +225,10 @@
     <script>
         $('table').dataTable({
             pageLength: 100,
+        });
+        $('#modalLink').on('shown.bs.modal', function (e) {
+            console.log("showing");
+            $('#modalLinkTextArea').focus().select();
         });
     </script>
 @endpush
