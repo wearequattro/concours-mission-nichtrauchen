@@ -99,7 +99,7 @@ class QuizController extends Controller {
         ]);
         $data['closes_at'] = Carbon::createFromTimestamp(strtotime($data['closes_at']));
         $data['email_text'] = $data['email_text'] ?? "";
-        if($quiz->state !== Quiz::STATE_NEW) {
+        if($quiz->state === Quiz::STATE_CLOSED) {
             unset($data['email_text']);
         }
         $quiz->update($data);

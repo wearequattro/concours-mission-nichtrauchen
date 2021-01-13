@@ -108,7 +108,7 @@
                 </div>
             </div>
 
-            @if(!$quiz->exists || $quiz->state === \App\Quiz::STATE_NEW)
+            @if(!$quiz->exists || $quiz->state !== \App\Quiz::STATE_CLOSED)
 
                 <div class="row">
 
