@@ -26,6 +26,8 @@ class NewsletterController extends Controller {
     public function sendNewsletters() {
         $teachers = Teacher::all();
         $this->send($teachers, EditableDate::NEWSLETTER_START, EditableEmail::$MAIL_NEWSLETTER_START);
+        $this->send($teachers, EditableDate::NEWSLETTER_1, EditableEmail::$MAIL_NEWSLETTER_1);
+        $this->send($teachers, EditableDate::NEWSLETTER_2, EditableEmail::$MAIL_NEWSLETTER_2);
     }
 
     private function send(Collection $teachers, string $dateIdentifier, array $mailIdentifier) {

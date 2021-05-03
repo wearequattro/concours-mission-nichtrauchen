@@ -61,6 +61,8 @@ class EditableEmail extends Model {
     public static $MAIL_FINAL_CERTIFICAT = ["final_certificat", "Mail final avec certificat"];
     public static $MAIL_NEWSLETTER_START = ["newsletter_start", "Début du concours Mission Nichtrauchen"];
     public static $MAIL_NEWSLETTER_ENCOURAGEMENT = ["newsletter_encouragement", "Bravo – plus que 13 semaines... !"];
+    public static $MAIL_NEWSLETTER_1 = ["newsletter_1", "Mail 1"];
+    public static $MAIL_NEWSLETTER_2 = ["newsletter_2", "Mail 2"];
 
     public static function getEmails() {
         return collect([
@@ -84,6 +86,8 @@ class EditableEmail extends Model {
             static::$MAIL_PARTY_GROUP_REMINDER,
             static::$MAIL_FOLLOW_UP_3_REMINDER,
             static::$MAIL_INVITE_PARTY_NO,
+            static::$MAIL_NEWSLETTER_1,
+            static::$MAIL_NEWSLETTER_2,
         ]);
     }
 

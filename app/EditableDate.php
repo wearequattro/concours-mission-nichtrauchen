@@ -34,6 +34,8 @@ class EditableDate extends Model {
     const TEACHER_INSCRIPTION_END = "TEACHER_INSCRIPTION_END";
     const NEWSLETTER_START = "NEWSLETTER_START";
     const NEWSLETTER_ENCOURAGEMENT = "NEWSLETTER_ENCOURAGEMENT";
+    const NEWSLETTER_1 = "NEWSLETTER_1";
+    const NEWSLETTER_2 = "NEWSLETTER_2";
     const FOLLOW_UP_1 = "FOLLOW_UP_1";
     const FOLLOW_UP_1_REMINDER = "FOLLOW_UP_1_REMINDER";
     const FOLLOW_UP_2 = "FOLLOW_UP_2";
@@ -127,6 +129,16 @@ class EditableDate extends Model {
                 'key' => static::NEWSLETTER_ENCOURAGEMENT,
                 'label' => 'Newsletter encouragement',
                 'value' => '2030-02-03',
+            ],
+            [
+                'key' => static::NEWSLETTER_1,
+                'label' => 'Mail 1',
+                'value' => '2030-11-01',
+            ],
+            [
+                'key' => static::NEWSLETTER_2,
+                'label' => 'Mail 2',
+                'value' => '2030-11-02',
             ],
         ];
     }
