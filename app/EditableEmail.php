@@ -97,11 +97,9 @@ class EditableEmail extends Model {
 
     public function getDatesStringAttribute() {
         return $this
-            ->dates()
-            ->get()
-            ->pluck('value')
-            ->map(function (Carbon $date) {
-                return $date->toDateString();
+            ->dates
+            ->map(function (EditableDate $date) {
+                return $date->value->toDateString() . ' (' . $date->label . ')';
             })
             ->implode(', ');
     }
