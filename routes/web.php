@@ -67,6 +67,7 @@ Route::group(['middleware' => ['auth', 'admin']], function () {;
         Route::post('/admin/schools/{school}', 'SchoolController@schoolsEditPost')->name('admin.schools.edit.post');
 
         Route::get('/admin/certificates', 'CertificateController@index')->name('admin.certificates');
+        Route::get('/admin/certificates/send', 'CertificateController@sendEmail')->name('admin.certificates.send');
         Route::get('/admin/certificates/generate/all', 'CertificateController@generateAll')->name('admin.certificates.generate.all');
         Route::get('/admin/certificates/generate/missing', 'CertificateController@generateMissing')->name('admin.certificates.generate.missing');
         Route::get('/admin/certificates/generate/{class}', 'CertificateController@generate')->name('admin.certificates.generate');
