@@ -3,6 +3,7 @@
 namespace App;
 
 use Carbon\Carbon;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -181,7 +182,8 @@ class SchoolClass extends Model {
         return
 //            $this->status_january === 1 &&
 //            $this->status_march === 1 &&
-            $this->status_may === 1;
+ //           $this->status_may === 1;
+            $this->quizResponses()->whereNotNull('responded_at')->exists();
     }
 
     /**
