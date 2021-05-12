@@ -1,7 +1,7 @@
 @extends('emails.layout')
 
 @section("content")
-    <h3> {{$teacher->getFullNameAttribute()}} </h3>
+    <p> {{$teacher->getFullNameAttribute()}}, </p>
 
     <p>Pour cette édition, 109 classes du Luxembourg ont participé avec 2 027 élèves.</p>
     <p>Nous avons ainsi le plaisir de vous annoncer les 4 gagnants de cette année :</p>

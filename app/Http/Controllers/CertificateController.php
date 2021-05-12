@@ -16,7 +16,9 @@ class CertificateController extends Controller {
     }
 
     public function download(Certificate $certificate) {
-        return \Storage::download($certificate->url);
+        return view('external.certificate-download', ['certificate' => $certificate]);
+
+        //return \Storage::download($certificate->url);
     }
 
 }
