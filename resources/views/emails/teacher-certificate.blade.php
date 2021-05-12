@@ -18,7 +18,7 @@
 
     <p>La persévérance et le dévouement de vos classes en valaient la peine, et nous vous remercions d’avoir participé avec succès au concours <em>Mission Nichtrauchen 2020-2021</em> !</p>
 
-    <p>En pièce jointe, vous trouverez votre <a href="{{ route('certificate.download', [$certificate]) }}">certification de participation</a>.</p>
+    <p>En pièce jointe, vous trouverez votre <a href="{{ route('certificate.page', [$certificate]) }}">certification de participation</a>.</p>
 
     <p>En attendant, nous vous souhaitons une agréable fin d’année scolaire et nous vous donnons d’ores et déjà rendez-vous pour l’édition 2021/2022 du
         concours

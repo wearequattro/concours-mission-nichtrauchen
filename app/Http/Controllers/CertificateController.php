@@ -15,10 +15,13 @@ class CertificateController extends Controller {
         $this->certificateRepository = $certificateRepository;
     }
 
-    public function download(Certificate $certificate) {
+    public function downloadPage(Certificate $certificate) {
         return view('external.certificate-download', ['certificate' => $certificate]);
-
         //return \Storage::download($certificate->url);
+    }
+
+    public function downloadCertificate(Certificate $certificate) {
+        return \Storage::download($certificate->url);
     }
 
 }
