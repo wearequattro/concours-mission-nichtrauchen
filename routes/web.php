@@ -51,7 +51,7 @@ Route::get('/suivi/response/{class}/{stillNonSmoking}', 'FollowUpController@show
 Route::get('/suivi/{token}/{stillNonSmoking}', 'FollowUpController@setFollowUpStatus')->name('follow-up');
 Route::get('/party/{token}/{status}', 'PartyController@handlePartyResponse')->name('party-response');
 
-Route::get('/certificat/{certificat}', 'CertificateController@download')->name('certificate.download');
+Route::get('/certificat/{certificate}', 'CertificateController@download')->name('certificate.download');
 
 Route::group(['middleware' => ['auth', 'admin']], function () {;
     Route::group(['namespace' => 'Admin'], function () {

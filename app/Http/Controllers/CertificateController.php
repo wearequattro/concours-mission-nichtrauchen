@@ -15,7 +15,7 @@ class CertificateController extends Controller {
         $this->certificateRepository = $certificateRepository;
     }
 
-    public function download( Certificate $certificate) {
+    public function download(Certificate $certificate) {
         return \Storage::download($certificate->url);
     }
 
