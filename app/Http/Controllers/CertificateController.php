@@ -1,6 +1,7 @@
 <?php
 namespace App\Http\Controllers;
 
+use App\Certificate;
 use App\Http\Repositories\CertificateRepository;
 
 class CertificateController extends Controller {
@@ -14,10 +15,8 @@ class CertificateController extends Controller {
         $this->certificateRepository = $certificateRepository;
     }
 
-    public function download($uid) {
-        $cert = $this->certificateRepository->getByUid($uid);
-        abort_if(!$cert, 404);
-        return \Storage::download($cert->url);
+    public function download( Certificate $certificate) {
+        return \Storage::download($certificate->url);
     }
 
 }
