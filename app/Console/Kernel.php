@@ -31,9 +31,10 @@ class Kernel extends ConsoleKernel {
         $schedule->command(SendFollowUpEmails::class)->dailyAt('10:03')->withoutOverlapping();
         $schedule->command(SendNewsletter::class)->everyTenMinutes()->withoutOverlapping();
         if(\App::environment() == 'production') {
-            $schedule->command(BackupCommand::class)->dailyAt('3:30');
-            $schedule->command(MonitorCommand::class)->dailyAt('9:00');
-            $schedule->command(CleanupCommand::class)->dailyAt('14:00');
+            // Stop backups as we use Hetzner's backup system
+            // $schedule->command(BackupCommand::class)->dailyAt('3:30');
+            // $schedule->command(MonitorCommand::class)->dailyAt('9:00');
+            // $schedule->command(CleanupCommand::class)->dailyAt('14:00');
         }
         $schedule->command(QuizUpdateCommand::class)->everyMinute();
     }
