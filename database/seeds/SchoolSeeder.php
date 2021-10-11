@@ -257,6 +257,12 @@ class SchoolSeeder extends Seeder {
                 "DIFFERDANGE"
             ],
             [
+                "LYCEE TECHNIQUE POUR PROFESSIONS DE SANTE",
+                "27, rue Nicolas Ernest Barblé",
+                "L-1210",
+                "LUXEMBOURG"
+            ],
+            [
                 "LYCEE TECHNIQUE PRIVE EMILE METZ",
                 "50, rue de Beggen",
                 "L-1220",
