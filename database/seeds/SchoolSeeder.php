@@ -113,7 +113,7 @@ class SchoolSeeder extends Seeder {
                 "DIEKIRCH"
             ],
             [
-                "LYCEE CLASSIQUE DE DIEKIRCH - ANNEXE MERSCH",
+                "LYCEE CLASSIQUE DE DIEKIRCH - EIMAB",
                 "Square Princesse Marie Astrid",
                 "L-7523",
                 "MERSCH"
