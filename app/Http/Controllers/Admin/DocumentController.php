@@ -43,6 +43,7 @@ class DocumentController extends Controller {
         $document->update($this->validate($request, [
             'visible_party' => 'required|boolean',
             'visible' => 'required|boolean',
+            'notification' => 'required|boolean',
         ]));
         return redirect()->route('admin.documents');
     }

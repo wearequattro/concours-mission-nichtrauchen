@@ -90,6 +90,7 @@
                 <th>Description</th>
                 <th>Visible pour enseignants ?</th>
                 <th>Visible pour fête ?</th>
+                <th>Notification ?</th>
                 <th>Actions</th>
             </tr>
             </thead>
@@ -109,6 +110,12 @@
                         <span class="switch">
                             <input data-document-id="{{ $document->id }}" type="checkbox" class="switch-sm" id="toggle-party-{{ $document->id }}" {{ $document->visible_party == 1 ? 'checked' : '' }}>
                             <label for="toggle-party-{{ $document->id }}"><label>
+                        </span>
+                    </td>
+                    <td>
+                        <span class="switch">
+                            <input data-document-id="{{ $document->id }}" type="checkbox" class="switch-sm" id="toggle-notification-{{ $document->id }}" {{ $document->notification == 1 ? 'checked' : '' }}>
+                            <label for="toggle-notification-{{ $document->id }}"><label>
                         </span>
                     </td>
                     <td>
@@ -142,6 +149,7 @@
         @csrf
         <input type="hidden" id="visible" name="visible">
         <input type="hidden" id="visible_party" name="visible_party">
+        <input type="hidden" id="notification" name="notification">
     </form>
 @endsection
 
@@ -153,6 +161,7 @@
             var route = '{{ route('admin.documents.toggleVisibility', ':document:') }}'.replace(':document:', id);
             $('#visible').val($('#toggle-visible-' + id).prop('checked') === true ? 1 : 0);
             $('#visible_party').val($('#toggle-party-' + id).prop('checked') === true ? 1 : 0);
+            $('#notification').val($('#toggle-notification-' + id).prop('checked') === true ? 1 : 0);
             $('#overlay').prop('hidden', false);
             $('#form-visibility').attr('action', route).submit();
         });

@@ -9,7 +9,11 @@
         @forelse($documents as $document)
             <div class="col-sm-12 col-md-6 col-lg-3">
                 <div class="card mb-3">
-                    <div class="card-header">{{ $document->title }}</div>
+                    <div class="card-header">{{ $document->title }}
+                        @if($document->notification && !in_array($document->id,auth()->user()->openedDocuments->pluck('document_id')->toArray()))
+                            <span class="my-docs-new">Nouveau</span>
+                            @endif
+                    </div>
                     <div class="card-body">
                         <p class="card-text">{{ $document->description }}</p>
                         <a href="{{ route('teacher.documents.download', [$document]) }}" target="_blank" download class="card-link btn btn-primary btn-block">

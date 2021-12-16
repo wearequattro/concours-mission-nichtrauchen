@@ -4,6 +4,7 @@ namespace App;
 
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
 
@@ -17,6 +18,7 @@ use Illuminate\Support\Str;
  * @property string filename
  * @property boolean visible
  * @property boolean visible_party
+ * @property boolean notification
  * @property int sort
  * @property Carbon created_at
  * @property Carbon updated_at
@@ -25,7 +27,12 @@ use Illuminate\Support\Str;
  */
 class Document extends Model {
 
-    protected $fillable = ['title', 'description', 'filename', 'visible', 'visible_party', 'sort'];
+    protected $fillable = ['title', 'description', 'filename', 'visible', 'visible_party', 'notification', 'sort'];
+
+    public function openedDocuments(): HasMany
+    {
+        return $this->hasMany(OpenedDocuments::class);
+    }
 
     public function delete() {
         static::query()->where('sort', '>', $this->sort)->update([

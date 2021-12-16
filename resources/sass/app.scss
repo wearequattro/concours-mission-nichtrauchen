@@ -96,3 +96,36 @@ table.school-classes {
         font-size: 2em;
     }
 }
+
+/** New settings */
+.teacher nav#sidebar .nav-link .label {
+  position: relative;
+}
+
+.teacher nav#sidebar .nav-link .label .menu-docs-new {
+  display: inline-block;
+  margin-left: 5px;
+  margin-bottom: -3px;
+  background: #EF4444;
+  color: white;
+  padding: 7px;
+  border-radius: 20px;
+  font-size: 10px;
+  text-transform: uppercase;
+}
+
+.teacher .card .card-header {
+  position: relative;
+}
+
+.teacher .card .card-header .my-docs-new {
+  position: absolute;
+  top: -14px;
+  right: -19px;
+  background: #EF4444;
+  color: white;
+  padding: 7px 12px;
+  border-radius: 20px;
+  font-size: 10px;
+  text-transform: uppercase;
+}

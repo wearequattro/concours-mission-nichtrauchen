@@ -19,8 +19,10 @@ use App\School;
 use App\SchoolClass;
 use App\Setting;
 use App\User;
+use App\OpenedDocuments;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Validation\ValidationException;
 
@@ -125,7 +127,8 @@ class TeacherController extends Controller {
             $document->visible_party == true &&
             \Auth::user()->teacher != null &&
             \Auth::user()->teacher->hasAccessToParty()) {
-            return Storage::download($document->filename, $document->getSafeFileNameWithExtension());
+                \Auth::user()->openedDocuments()->firstOrCreate(['document_id' => $document->id]);
+                return Storage::download($document->filename, $document->getSafeFileNameWithExtension());
         }
         return redirect()->route('teacher.documents');
     }

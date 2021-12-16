@@ -5,6 +5,7 @@ namespace App;
 use App\Mail\ResetPasswordMail;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Support\Collection;
@@ -23,6 +24,7 @@ use Session;
  * @property Carbon updated_at
  * @property string type
  * @property Teacher teacher
+ * @property OpenedDocument opened_document
  *
  * @method static User create(array $valueMap)
  */
@@ -52,6 +54,21 @@ class User extends Authenticatable {
 
     public function teacher(): BelongsTo {
         return $this->belongsTo(Teacher::class);
+    }
+
+    public function openedDocuments(): HasMany
+    {
+        return $this->hasMany(OpenedDocuments::class);
+    }
+
+    public function getCountUnopenedDocumentsAttribute()
+    {
+        $notificationDocumentsCount = Document::where('notification', true)->count();
+        $openedDocumentsCount = $this->openedDocuments()->whereHas('document', function ($query) {
+            $query->where('notification', true);
+        })->count();
+
+        return  $notificationDocumentsCount - $openedDocumentsCount;
     }
 
     /**

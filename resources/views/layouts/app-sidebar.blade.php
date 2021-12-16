@@ -67,7 +67,12 @@
                     <a href="{{ route('teacher.documents') }}"
                        class="nav-link {{ \Illuminate\Support\Str::startsWith(Route::currentRouteName(), 'teacher.documents') ? 'active' : '' }}">
                         <i class="fa fa-fw fa-file-text"></i>
-                        Mes documents
+                        <span class="label">
+                            Mes documents
+                            @if(auth()->user()->count_unopened_documents)
+                                <span class="menu-docs-new"></span>
+                            @endif
+                        </span>
                     </a>
                 </li>
                 @if(Auth::user()->hasAccessToParty())
