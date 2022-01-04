@@ -70,7 +70,7 @@
                         <span class="label">
                             Mes documents
                             @if(auth()->user()->count_unopened_documents)
-                                <span class="menu-docs-new"></span>
+                                <span class="menu-docs-new">{{ auth()->user()->count_unopened_documents }}</span>
                             @endif
                         </span>
                     </a>

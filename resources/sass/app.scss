@@ -103,9 +103,11 @@ table.school-classes {
 }
 
 .teacher nav#sidebar .nav-link .label .menu-docs-new {
-  display: inline-block;
-  margin-left: 5px;
-  margin-bottom: -3px;
+  display: block;
+  position: absolute;
+  right: -15px;
+  transform: translate(100%, -50%);
+  top: 50%;
   background: #EF4444;
   color: white;
   padding: 7px;
