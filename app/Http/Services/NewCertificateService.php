@@ -38,7 +38,7 @@ class NewCertificateService extends Controller {
         $pdf->SetTitle('Certificat', true);
         $pdf->SetAuthor('Fondation Cancer', true);
 
-        $pdf->Image(public_path('images/pdf/2021-certificate-bg.jpg'), 0, 0, $pdf->GetPageWidth(), $pdf->GetPageHeight());
+        $pdf->Image(public_path('images/pdf/certificate-bg.jpg'), 0, 0, $pdf->GetPageWidth(), $pdf->GetPageHeight());
 
         $this->line($pdf, $class->name,1.3 , 'B');
         $this->line($pdf, $class->school->name, 2.3, 'B');
