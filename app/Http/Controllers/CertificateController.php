@@ -20,8 +20,9 @@ class CertificateController extends Controller {
         //return \Storage::download($certificate->url);
     }
 
-    public function downloadCertificate(Certificate $certificate) {
-        return \Storage::download($certificate->url);
+    public function downloadCertificate($certificate) {
+        $cert = Certificate::where('uid', $certificate)->first();
+        return \Storage::download($cert->url);
     }
 
 }
