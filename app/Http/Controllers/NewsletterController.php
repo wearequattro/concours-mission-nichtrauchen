@@ -46,7 +46,7 @@ class NewsletterController extends Controller {
         $teachers->each(function (Teacher $teacher) use ($mail) {
             $shouldSend = !$mail->isSentToUser($teacher->user);
             if ($shouldSend) {
-                if ($teacher->classes()->exists()) {
+                if ($teacher->classes()->exists() && $mail->key !== 'newsletter_1') {
                     \Log::info("Sending to teacher $teacher->full_name with classes");
                     foreach ($teacher->classes as $class) {
                         /** @var SchoolClass $class */
@@ -58,7 +58,7 @@ class NewsletterController extends Controller {
                         }
                     }
                 } else {
-                    \Log::info("Sending to teacher $teacher->full_name without classes");
+                    \Log::info("Sending to teacher $teacher->full_name without classes or newsletter_1");
                     \Mail::to($teacher->user->email)->queue(new CustomEmail($mail, $teacher, null));
                 }
             }
