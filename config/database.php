@@ -1,5 +1,7 @@
 <?php
 
+use Illuminate\Support\Str;
+
 return [
 
     /*
@@ -109,7 +111,7 @@ return [
         'client' => 'predis',
 
         'options'=>[
-            'prefix' => env('REDIS_PREFIX', '')
+            'prefix' => env('REDIS_PREFIX', Str::slug(env('APP_NAME', 'laravel'), '_').'_database_'),
         ],
 
         'default' => [
