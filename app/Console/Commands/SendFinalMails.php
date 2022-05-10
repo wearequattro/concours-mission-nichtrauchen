@@ -49,7 +49,7 @@ class SendFinalMails extends Command
      */
     public function handle()
     {
-        $this->sendFinalMail($this->classRepository->findNotEligibleForCertificate(), EditableEmail::$MAIL_FINAL);
+        // $this->sendFinalMail($this->classRepository->findNotEligibleForCertificate(), EditableEmail::$MAIL_FINAL);
         $this->sendFinalMail($this->classRepository->findEligibleForCertificate(), EditableEmail::$MAIL_FINAL_CERTIFICAT);
     }
 
