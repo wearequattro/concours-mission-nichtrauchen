@@ -25,9 +25,9 @@
         </div>
         <div class="col-sm-6">
             <div class="card bg-warning">
-                <div class="card-header">
+                {{-- <div class="card-header">
                     Inscription limit&eacute;e
-                </div>
+                </div> --}}
                 <div class="card-body">
                     <p class="card-text">
                         Date de cl&ocirc;ture des inscriptions : {{ $inscription_date_end }}
