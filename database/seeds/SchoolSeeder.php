@@ -287,6 +287,12 @@ class SchoolSeeder extends Seeder {
                 "DIEKIRCH"
             ],
             [
+                "ECOLE D'HÔTELLERIE ET DE TOURISME DU LUXEMBOURG",
+                "19, rue Joseph Merten, B.p. 71",
+                "L-9201",
+                "DIEKIRCH"
+            ],
+            [
                 "SCHENGEN-LYZEUM",
                 "Auf dem Sabel 2",
                 "D-66706",
