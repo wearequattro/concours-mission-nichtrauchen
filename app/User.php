@@ -108,7 +108,8 @@ class User extends Authenticatable {
                 ->teacher
                 ->classes
                 ->filter(function (SchoolClass $c) {
-                    return $c->status_party;
+                    return $c->isEligibleForParty();
+                    // return $c->status_party;
                 })
                 ->count() > 0;
     }

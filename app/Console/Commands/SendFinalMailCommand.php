@@ -3,29 +3,28 @@
 namespace App\Console\Commands;
 
 use App\EditableEmail;
-use App\Http\Controllers\NewsletterController;
 use App\Http\Repositories\SchoolClassRepository;
 use App\Mail\CustomEmail;
-use App\SchoolClass;
-use Carbon\Carbon;
 use Illuminate\Console\Command;
-use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Mail;
 
-class SendFinalMails extends Command
+class SendFinalMailCommand extends Command
 {
     /**
      * The name and signature of the console command.
      *
      * @var string
      */
-    protected $signature = 'send:final';
+    protected $signature = 'send:final-mail';
 
     /**
      * The console command description.
      *
      * @var string
      */
-    protected $description = 'Sends final mails';
+    protected $description = 'Send final mail with key "final"';
+
     /**
      * @var SchoolClassRepository
      */
@@ -49,23 +48,19 @@ class SendFinalMails extends Command
      */
     public function handle()
     {
-        // $this->sendFinalMail($this->classRepository->findNotEligibleForCertificate(), EditableEmail::$MAIL_FINAL);
-        // $this->sendFinalMail($this->classRepository->findEligibleForCertificate(), EditableEmail::$MAIL_FINAL_CERTIFICAT);
-    }
+        $mail = EditableEmail::find(EditableEmail::$MAIL_FINAL);
+        $classes = $this->classRepository->findEligibleForFinalParty();
 
-    private function sendFinalMail(Collection $classes, array $mailIdentifier) {
-        $mail = EditableEmail::find($mailIdentifier);
-
-        \Log::info('Sending ' . $mailIdentifier[0]);
+        Log::info('Sending ' . EditableEmail::$MAIL_FINAL[0]);
 
         /** @var SchoolClass $class */
         foreach ($classes as $class) {
             if($mail->isSentToClass($class)) {
-                \Log::info("Mail already sent to {$class->name} ({$class->id}), skipping...");
+                Log::info("Mail already sent to {$class->name} ({$class->id}), skipping...");
                 continue;
             }
-            \Log::info("Sending mail to {$class->name} ({$class->id})");
-            \Mail::to($class->teacher->user->email)->queue(new CustomEmail($mail, $class->teacher, $class));
+            Log::info("Sending mail to {$class->name} ({$class->id})");
+            Mail::to($class->teacher->user->email)->queue(new CustomEmail($mail, $class->teacher, $class));
         }
     }
 }

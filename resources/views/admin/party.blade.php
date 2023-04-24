@@ -14,13 +14,23 @@
                 <div class="card-body">
                     @php
                         $countGroups = $groups->count();
-                        $countClasses = $groups->pluck('schoolClass.name')->unique()->count();
-                        $countTeacher = $groups->pluck('schoolClass.teacher')->unique()->count();
-                        $countSchool = $groups->pluck('schoolClass.school.name')->unique()->count();
+                        $countClasses = $groups
+                            ->pluck('schoolClass.name')
+                            ->unique()
+                            ->count();
+                        $countTeacher = $groups
+                            ->pluck('schoolClass.teacher')
+                            ->unique()
+                            ->count();
+                        $countSchool = $groups
+                            ->pluck('schoolClass.school.name')
+                            ->unique()
+                            ->count();
                         $countStudents = $groups->sum('students');
                     @endphp
                     <p>
-                        L'export contiendra <strong>{{ $countGroups }} {{ $countGroups == 1 ? 'groupe' : 'groupes' }}</strong>,
+                        L'export contiendra <strong>{{ $countGroups }}
+                            {{ $countGroups == 1 ? 'groupe' : 'groupes' }}</strong>,
                         <strong>{{ $countTeacher }} {{ $countTeacher == 1 ? 'enseignant' : 'enseignants' }}</strong>,
                         <strong>{{ $countSchool }} {{ $countSchool == 1 ? 'lycée' : 'lycées' }}</strong>,
                         <strong>{{ $countStudents }} {{ $countStudents == 1 ? 'étudiant' : 'étudiants' }}</strong>,
@@ -38,15 +48,16 @@
                     Ajouter groupes
                 </div>
                 <div class="card-body">
-                    @if($eligibleForParty->count() > 0)
+                    @if ($eligibleForParty->count() > 0)
                         <form id="party-create-form">
 
                             <div class="form-group">
                                 <label for="class">Choisir une classe</label>
                                 <select name="class" id="class" class="form-control">
                                     <option value=""></option>
-                                    @foreach($eligibleForParty as $class)
-                                        <option value="{{ $class->id }}">{{ $class->name }} ({{ $class->teacher->full_name }}) [{{ $class->school->name }}]</option>
+                                    @foreach ($eligibleForParty as $class)
+                                        <option value="{{ $class->id }}">{{ $class->name }}
+                                            ({{ $class->teacher->full_name }}) [{{ $class->school->name }}]</option>
                                     @endforeach
                                 </select>
                                 <div class="invalid-feedback">
@@ -64,51 +75,75 @@
                 </div>
             </div>
         </div>
+        <div class="col-sm-3 mb-4">
+            <div class="card">
+                <div class="card-header">
+                    Recap
+                </div>
+                <div class="card-body">
+                    <ul class="list-group">
+                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                            Classes éligibles sans group
+                            <span class="badge badge-primary badge-pill">{{ $eligibleForParty->count() }}</span>
+                        </li>
+                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                            Nombre de groupes
+                            <span class="badge badge-primary badge-pill">{{ $groups->count() }}</span>
+                        </li>
+                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                            Nombre d'élèves
+                            <span class="badge badge-primary badge-pill">{{ $groups->sum('students') }}</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
     </div>
 
     <table class="table table-striped table-bordered">
         <thead>
-        <tr>
-            <th>Nom du groupe</th>
-            <th>Nombre d'élèves du groupe</th>
-            <th>Lycée</th>
-            <th>Classe</th>
-            <th>Langue souhaitée</th>
-            <th>Enseignant titre</th>
-            <th>Enseignant prénom</th>
-            <th>Enseignant nom</th>
-            <th>Télephone prof</th>
-            <th>Actions</th>
-        </tr>
+            <tr>
+                <th>Nom du groupe</th>
+                <th>Nombre d'élèves du groupe</th>
+                <th>Lycée</th>
+                <th>Classe</th>
+                <th>Langue souhaitée</th>
+                <th>Enseignant titre</th>
+                <th>Enseignant prénom</th>
+                <th>Enseignant nom</th>
+                <th>Télephone prof</th>
+                <th>Actions</th>
+            </tr>
         </thead>
         <tbody>
-        @foreach($groups as $group)
-            <tr>
-                <td>{{ $group->name }}</td>
-                <td>{{ $group->students }}</td>
-                <td>{{ $group->schoolClass->school->name }}</td>
-                <td>{{ $group->schoolClass->name }}</td>
-                <td>{{ $group->language }}</td>
-                <td>{{ $group->schoolClass->teacher->salutation->long_form }}</td>
-                <td>{{ $group->schoolClass->teacher->first_name }}</td>
-                <td>{{ $group->schoolClass->teacher->last_name }}</td>
-                <td>{{ $group->schoolClass->teacher->phone }}</td>
-                <td>
-                    <a href="{{ route('admin.party.class', [$group->schoolClass]) }}" class="btn btn-primary text-white">
-                        <i class="fa fa-pencil"></i>
-                    </a>
-                    <a href="{{ route('admin.party.class.delete', [$group]) }}" class="btn btn-danger text-white">
-                        <i class="fa fa-trash-o"></i>
-                    </a>
-                </td>
-            </tr>
-        @endforeach
+            @foreach ($groups as $group)
+                <tr>
+                    <td>{{ $group->name }}</td>
+                    <td>{{ $group->students }}</td>
+                    <td>{{ $group->schoolClass->school->name }}</td>
+                    <td>{{ $group->schoolClass->name }}</td>
+                    <td>{{ $group->language }}</td>
+                    <td>{{ $group->schoolClass->teacher->salutation->long_form }}</td>
+                    <td>{{ $group->schoolClass->teacher->first_name }}</td>
+                    <td>{{ $group->schoolClass->teacher->last_name }}</td>
+                    <td>{{ $group->schoolClass->teacher->phone }}</td>
+                    <td>
+                        <a href="{{ route('admin.party.class', [$group->schoolClass]) }}"
+                            class="btn btn-primary text-white">
+                            <i class="fa fa-pencil"></i>
+                        </a>
+                        <a href="{{ route('admin.party.class.delete', [$group]) }}" class="btn btn-danger text-white">
+                            <i class="fa fa-trash-o"></i>
+                        </a>
+                    </td>
+                </tr>
+            @endforeach
         </tbody>
     </table>
 
 @endsection
 
-@push("js")
+@push('js')
     <script>
         $('table').DataTable({
             pageLength: 100,
@@ -126,6 +161,5 @@
             $form.attr('action', url);
             $form.find('input[type=submit]').prop('disabled', isNaN(parseInt(id)));
         }
-
     </script>
 @endpush

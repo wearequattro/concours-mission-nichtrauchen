@@ -13,7 +13,6 @@ use Illuminate\Support\Collection;
 
 class SchoolClassRepository extends Controller
 {
-
     /**
      * Finds SchoolClass by one of its status tokens
      *
@@ -72,6 +71,44 @@ class SchoolClassRepository extends Controller
     }
 
     /**
+     * Finds SchoolClasses eligible for receiving party invitation
+     *
+     * @return Collection
+     */
+    public function findEligibleForFinalParty(): Collection
+    {
+        return SchoolClass::query()
+            ->has('quizResponses', '>=', config('app.minimum_required_quiz_responses'))
+            ->get();
+    }
+
+    /**
+     * Finds SchoolClasses not eligible for receiving party invitation
+     *
+     * @return Collection
+     */
+    public function findNotEligibleForFinalParty(): Collection
+    {
+        return SchoolClass::query()
+            ->has('quizResponses', '<', config('app.minimum_required_quiz_responses'))
+            ->get();
+    }
+
+
+    /**
+     * Finds SchoolClasses eligible for receiving party invitation reminder
+     *
+     * @return Collection
+     */
+    public function findEligibleForFinalPartyReminder(): Collection
+    {
+        return SchoolClass::query()
+            ->has('quizResponses', '>=', config('app.minimum_required_quiz_responses'))
+            ->doesntHave('partyGroups')
+            ->get();
+    }
+
+    /**
      * Finds SchoolClasses eligible for receiving certificates
      *
      * @return Collection
@@ -82,9 +119,10 @@ class SchoolClassRepository extends Controller
 //            ->where('status_january', 1)
 //            ->where('status_march', 1)
 //            ->where('status_may', 1)
-            ->whereHas('quizResponses', function (Builder $q) {
-                $q->whereNotNull('responded_at');
-            })
+            // ->whereHas('quizResponses', function (Builder $q) {
+            //     $q->whereNotNull('responded_at');
+            // })
+            ->has('quizResponses', '>=', config('app.minimum_required_quiz_responses'))
             ->get();
     }
 
@@ -130,6 +168,20 @@ class SchoolClassRepository extends Controller
     {
         return SchoolClass::query()
             ->whereHas('certificate')
+            ->get();
+    }
+
+    /**
+     * Finds SchoolClasses having generated certificates, without checking if they are allowed to have it
+     *
+     * @return Collection
+     */
+    public function findHavingCertificateToBeSent(): Collection
+    {
+        return SchoolClass::query()
+            ->whereHas('certificate', function($query) {
+                return $query->whereNull('sent_at');
+            })
             ->get();
     }
 

@@ -215,4 +215,6 @@ return [
 
     ],
 
+    'minimum_required_quiz_responses' => env('MNR_MIN_QUIZ_RESPONSES', 5),
+
 ];

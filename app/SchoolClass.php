@@ -167,6 +167,10 @@ class SchoolClass extends Model {
      * @return bool
      */
     public function isEligibleForParty() {
+        //  We allow classes that have answered to at least 5 out of 6 quizzes
+        return $this->quizResponses()->count() >= config('app.minimum_required_quiz_responses');
+
+        // Old solution
         return
 //            $this->status_january === 1 &&
 //            $this->status_march === 1 &&

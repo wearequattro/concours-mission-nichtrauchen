@@ -15,8 +15,9 @@ class CertificateController extends Controller {
         $this->certificateRepository = $certificateRepository;
     }
 
-    public function downloadPage(Certificate $certificate) {
-        return view('external.certificate-download', ['certificate' => $certificate]);
+    public function downloadPage($certificate) {
+        $cert = Certificate::where('uid', $certificate)->first();
+        return view('external.certificate-download', ['certificate' => $cert]);
         //return \Storage::download($certificate->url);
     }
 

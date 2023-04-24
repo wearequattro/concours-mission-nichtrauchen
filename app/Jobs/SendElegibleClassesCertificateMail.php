@@ -40,10 +40,13 @@ class SendElegibleClassesCertificateMail implements ShouldQueue
      */
     public function handle(SchoolClassRepository $repository, SchoolClassManager $manager)
     {
-        $classes = $repository->findHavingCertificate();
+        $classes = $repository->findHavingCertificateToBeSent();
 
         $classes->each(function (SchoolClass $class) use ($manager) {
             \Mail::to($class->teacher->user->email)->queue(new TeacherCertificateMail($class->teacher, $class));
+            $class->certificate->update([
+                'sent_at' => Carbon::now()
+            ]);
         });
 
     }

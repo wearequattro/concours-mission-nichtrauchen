@@ -45,6 +45,9 @@ class EditableDate extends Model {
     const INVITE_PARTY_REMINDER = "PARTY_REMINDER";
     const PARTY_GROUP_REMINDER = "PARTY_GROUP_REMINDER";
     const FINAL_MAIL = "FINAL_MAIL";
+    const FINAL_MAIL_CERTIFICATE = "FINAL_MAIL_CERTIFICATE";
+    const FINAL_INVITATION_PARTY = "FINAL_INVITATION_PARTY";
+    const FINAL_INVITATION_PARTY_REMINDER = "FINAL_INVITATION_PARTY_REMINDER";
 
     /**
      * Finds a date value by a key. Keys are constants defined in this class.

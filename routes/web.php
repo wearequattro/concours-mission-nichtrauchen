@@ -11,6 +11,8 @@
 |
 */
 
+use App\Certificate;
+
 Route::redirect('/', '/login');
 
 Route::get('/logout', 'Auth\LoginController@logout')->name('logout');
@@ -51,8 +53,8 @@ Route::get('/suivi/response/{class}/{stillNonSmoking}', 'FollowUpController@show
 Route::get('/suivi/{token}/{stillNonSmoking}', 'FollowUpController@setFollowUpStatus')->name('follow-up');
 Route::get('/party/{token}/{status}', 'PartyController@handlePartyResponse')->name('party-response');
 
-Route::get('/certificat/{certificate}', 'CertificateController@downloadPage')->name('certificate.page');
-Route::get('/certificat/download/{certificate}', 'CertificateController@downloadCertificate')->name('certificate.download');
+Route::get('/certificat/{certificate_uid}', 'CertificateController@downloadPage')->name('certificate.page');
+Route::get('/certificat/download/{certificate_uid}', 'CertificateController@downloadCertificate')->name('certificate.download');
 
 Route::group(['middleware' => ['auth', 'admin']], function () {;
     Route::group(['namespace' => 'Admin'], function () {

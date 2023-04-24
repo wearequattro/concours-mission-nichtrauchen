@@ -42,7 +42,7 @@ class TeacherCertificateMail extends Mailable {
      */
     public function build() {
         return $this
-            ->subject('Mission Nichtrauchen 2020-2021 | Les gagnants sont ...')
+            ->subject("Mission Nichtrauchen | Fin de l'édition 2022-2023")
             ->from(env('MAIL_FROM_ADDRESS'), env('APP_NAME'))
             ->replyTo(env('MAIL_REPLY_TO'))
             ->view('emails.teacher-certificate')

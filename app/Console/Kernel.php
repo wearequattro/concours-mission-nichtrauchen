@@ -5,6 +5,8 @@ namespace App\Console;
 use App\Console\Commands\SendFollowUpEmails;
 use App\Console\Commands\SendNewsletter;
 use App\Console\Commands\QuizUpdateCommand;
+use App\Console\Commands\SendFinalMailCommand;
+use App\Console\Commands\SendFinalMailsCommand;
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
 use Spatie\Backup\Commands\BackupCommand;
@@ -28,14 +30,15 @@ class Kernel extends ConsoleKernel {
      * @return void
      */
     protected function schedule(Schedule $schedule) {
-        $schedule->command(SendFollowUpEmails::class)->dailyAt('10:03')->withoutOverlapping();
-        $schedule->command(SendNewsletter::class)->everyTenMinutes()->withoutOverlapping();
-        if(\App::environment() == 'production') {
-            // Stop backups as we use Hetzner's backup system
-            // $schedule->command(BackupCommand::class)->dailyAt('3:30');
-            // $schedule->command(MonitorCommand::class)->dailyAt('9:00');
-            // $schedule->command(CleanupCommand::class)->dailyAt('14:00');
-        }
+        // $schedule->command(SendFollowUpEmails::class)->dailyAt('10:03')->withoutOverlapping();
+        // $schedule->command(SendNewsletter::class)->everyTenMinutes()->withoutOverlapping();
+        // if(\App::environment() == 'production') {
+        //     // Stop backups as we use Hetzner's backup system
+        //     // $schedule->command(BackupCommand::class)->dailyAt('3:30');
+        //     // $schedule->command(MonitorCommand::class)->dailyAt('9:00');
+        //     // $schedule->command(CleanupCommand::class)->dailyAt('14:00');
+        // }
+        $schedule->command(SendFinalMailsCommand::class)->dailyAt('10:03')->withoutOverlapping();
         $schedule->command(QuizUpdateCommand::class)->everyMinute();
     }
 
