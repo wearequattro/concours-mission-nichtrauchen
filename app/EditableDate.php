@@ -22,7 +22,7 @@ use Illuminate\Support\Collection;
  */
 class EditableDate extends Model {
 
-    protected $fillable = ['key', 'label', 'value'];
+    protected $fillable = ['key', 'label', 'description', 'value'];
 
     protected $primaryKey = 'key';
 

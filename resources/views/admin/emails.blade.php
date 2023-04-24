@@ -16,18 +16,23 @@
         <table class="table table-bordered table-striped">
             <thead>
             <tr>
+                <th>Libellé</th>
                 <th>Sujet</th>
-                <th>Date d'envoi</th>
                 <th>Aper&ccedil;u du texte</th>
+                <th>Date d'envoi</th>
                 <th>Actions</th>
             </tr>
             </thead>
             <tbody>
             @forelse($emails as $email)
                 <tr>
+                    <td>
+                        <div class="font-weight-bold">{{ $email->dates->first()->label }}</div>
+                        <div class="font-italic text-secondary">{{ $email->dates->first()->description }}</div>
+                    </td>
                     <td>{{ $email->subject }}</td>
-                    <td>{{ $email->dates_string }}</td>
                     <td>{{ \Illuminate\Support\Str::words(html_entity_decode(strip_tags($email->text)), 15) }}</td>
+                    <td class="text-nowrap">{{ $email->dates()->first()->value->format('Y-m-d') }}</td>
                     <td>
                         <a href="{{ route('admin.emails.edit', [$email]) }}" class="btn btn-primary">
                             <i class="fa fa-fw fa-pencil"></i>
@@ -63,7 +68,10 @@
                         <tbody>
                         @foreach($dates as $date)
                             <tr>
-                                <td>{{ $date->label }}</td>
+                                <td>
+                                    <div class="font-weight-bold">{{ $date->label }}</div>
+                                    <div class="font-italic text-secondary">{{ $date->description }}</div>
+                                </td>
                                 <td>
                                     <input type="hidden" name="dates[{{ $loop->index }}][key]" value="{{ $date->key }}">
                                     <input type="text" name="dates[{{ $loop->index }}][value]"
