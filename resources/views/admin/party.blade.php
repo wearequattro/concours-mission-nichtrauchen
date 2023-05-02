@@ -91,7 +91,15 @@
                             <span class="badge badge-primary badge-pill">{{ $groups->count() }}</span>
                         </li>
                         <li class="list-group-item d-flex justify-content-between align-items-center">
-                            Nombre d'élèves
+                            Nombre de groupes FR
+                            <span class="badge badge-primary badge-pill">{{ $groups->filter(function($item) { return $item->language === 'FR'; })->count() }}</span>
+                        </li>
+                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                            Nombre de groupes DE
+                            <span class="badge badge-primary badge-pill">{{ $groups->filter(function($item) { return $item->language === 'DE'; })->count() }}</span>
+                        </li>
+                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                            Nombre total d'élèves
                             <span class="badge badge-primary badge-pill">{{ $groups->sum('students') }}</span>
                         </li>
                     </ul>
