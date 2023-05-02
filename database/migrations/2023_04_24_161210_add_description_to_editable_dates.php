@@ -5,7 +5,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class AddDescriptionToEditableDates extends Migration
+class AddDescriptionToEditableDatesNew extends Migration
 {
     /**
      * Run the migrations.
