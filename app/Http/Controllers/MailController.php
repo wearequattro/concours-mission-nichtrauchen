@@ -100,4 +100,26 @@ class MailController extends Controller
             Mail::to($class->teacher->user->email)->queue(new CustomEmail($mail, $class->teacher, $class));
         }
     }
+
+    public function sendPartyInviteReminderSecond()
+    {
+        $date = EditableDate::find(EditableDate::FINAL_INVITATION_PARTY_REMINDER_SECOND);
+        $mail = EditableEmail::find(EditableEmail::$MAIL_INVITE_PARTY_REMINDER_SECOND);
+        // is start date today?
+        if (!$date->isCurrentDay()) {
+            return;
+        }
+
+        Log::info('Sending ' . EditableEmail::$MAIL_INVITE_PARTY_REMINDER_SECOND[0]);
+
+        $classes = $this->schoolClassRepository->findEligibleForFinalPartyReminder();
+        foreach ($classes as $class) {
+            if($mail->isSentToClass($class)) {
+                Log::info("Mail already sent to {$class->name} ({$class->id}), skipping...");
+                continue;
+            }
+            Log::info("Sending mail to {$class->name} ({$class->id})");
+            Mail::to($class->teacher->user->email)->queue(new CustomEmail($mail, $class->teacher, $class));
+        }
+    }
 }
