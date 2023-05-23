@@ -7,6 +7,7 @@ use App\Console\Commands\SendNewsletter;
 use App\Console\Commands\QuizUpdateCommand;
 use App\Console\Commands\SendFinalMailCommand;
 use App\Console\Commands\SendFinalMailsCommand;
+use App\Console\Commands\SendPartyInformationsCommand;
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
 use Spatie\Backup\Commands\BackupCommand;
@@ -39,6 +40,7 @@ class Kernel extends ConsoleKernel {
         //     // $schedule->command(CleanupCommand::class)->dailyAt('14:00');
         // }
         $schedule->command(SendFinalMailsCommand::class)->dailyAt('10:03')->withoutOverlapping();
+        $schedule->command(SendPartyInformationsCommand::class)->dailyAt('10:03')->withoutOverlapping();
         $schedule->command(QuizUpdateCommand::class)->everyMinute();
     }
 

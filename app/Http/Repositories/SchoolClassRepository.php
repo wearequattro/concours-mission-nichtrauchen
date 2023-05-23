@@ -109,6 +109,19 @@ class SchoolClassRepository extends Controller
     }
 
     /**
+     * Finds SchoolClasses eligible for receiving party informations
+     *
+     * @return Collection
+     */
+    public function findEligibleForFinalPartyInformations(): Collection
+    {
+        return SchoolClass::query()
+            ->has('quizResponses', '>=', config('app.minimum_required_quiz_responses'))
+            ->has('partyGroups')
+            ->get();
+    }
+
+    /**
      * Finds SchoolClasses eligible for receiving certificates
      *
      * @return Collection
