@@ -4,9 +4,13 @@
     <p>Chers enseignants, </p>
 
     <p>Cet e-mail pour vous informer que le concours Mission Nichtrauchen 2022-2023 est officiellement terminé.</p>
+
     <p>La persévérance et le dévouement de vos classes en valaient la peine, et nous vous remercions pour votre participation au concours. En tout, 163 classes du Luxembourg avec 2973 élèves ont participé à cette édition, qui a donc été, grâce à vous, un grand succès !</p>
+
     <p>Vous trouverez dans votre espace personnel, sous ce <a href="{{ route('certificate.page', ['uid' => $certificate->uid]) }}">lien</a>, votre certificat de participation.</p>
+
     <p>Nous avons également le plaisir d'annoncer les trois classes gagnantes de cette année, que nous félicitons très chaleureusement :</p>
+
     <ul>
         <li> 1<sup>er</sup> prix – 1 000 € : la classe 4GPSAF1 du Lycée technique du Centre (enseignante : Mme Sandra Urbing)</li>
         <li> 2<sup>ème</sup> prix – 500 € : la classe 7C3 du Lycée Josy Barthel Mamer (enseignante : Mme Dominique Schmit)</li>
@@ -15,12 +19,11 @@
 
     <p>Pour tous ceux qui ont été présents à la fête de clôture hier, qui a été une réussite éclatante grâce à votre engagement, les solutions des stations quiz sont désormais disponibles dans votre <a href="https://concours.missionnichtrauchen.lu/login" target="_blank">espace personnel</a>.</p>
 
-    <p>Vous trouverez votre certificat de participation sous ce <a href="{{ route('certificate.page', ['uid' => $certificate->uid]) }}">lien</a>.</p>
-
     <p>Et ne manquez pas non plus de découvrir les photos de l'événement sur le site internet : <a href="https://missionnichtrauchen.lu/medias" target="_blank">https://missionnichtrauchen.lu/medias</a></p>
 
-    <p>En attendant, nous vous souhaitons une agréable fin d’année scolaire et nous vous donnons d’ores et déjà rendez-vous pour l’édition 2023-2024 du concours Mission Nichtrauchen !</p>
+    <p>En attendant, nous vous souhaitons une agréable fin d'année scolaire et nous vous donnons d'ores et déjà rendez-vous pour l'édition 2023-2024 du concours Mission Nichtrauchen !</p>
 
     <p>Mat beschte Gréiss,</p>
+
     <p>D'Ekipp vun der Fondation Cancer</p>
 @endsection
