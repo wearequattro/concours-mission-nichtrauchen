@@ -7,6 +7,7 @@ use App\Console\Commands\SendNewsletter;
 use App\Console\Commands\QuizUpdateCommand;
 use App\Console\Commands\SendFinalMailCommand;
 use App\Console\Commands\SendFinalMailsCommand;
+use App\Console\Commands\SendNewEducationalToolCommand;
 use App\Console\Commands\SendPartyInformationsCommand;
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
@@ -39,8 +40,9 @@ class Kernel extends ConsoleKernel {
         //     // $schedule->command(MonitorCommand::class)->dailyAt('9:00');
         //     // $schedule->command(CleanupCommand::class)->dailyAt('14:00');
         // }
+        $schedule->command(SendNewEducationalToolCommand::class)->dailyAt('10:01')->withoutOverlapping();
         $schedule->command(SendFinalMailsCommand::class)->dailyAt('10:03')->withoutOverlapping();
-        $schedule->command(SendPartyInformationsCommand::class)->dailyAt('10:03')->withoutOverlapping();
+        $schedule->command(SendPartyInformationsCommand::class)->dailyAt('10:05')->withoutOverlapping();
         $schedule->command(QuizUpdateCommand::class)->everyMinute();
     }
 

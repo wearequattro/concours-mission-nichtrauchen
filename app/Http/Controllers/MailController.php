@@ -6,6 +6,7 @@ use App\EditableDate;
 use App\EditableEmail;
 use App\Http\Repositories\SchoolClassRepository;
 use App\Mail\CustomEmail;
+use App\Teacher;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
@@ -142,6 +143,28 @@ class MailController extends Controller
             }
             Log::info("Sending mail to {$class->name} ({$class->id})");
             Mail::to($class->teacher->user->email)->queue(new CustomEmail($mail, $class->teacher, $class));
+        }
+    }
+
+    public function sendNewEducationalTool()
+    {
+        $date = EditableDate::find(EditableDate::NEW_EDUCATIONAL_TOOL);
+        $mail = EditableEmail::find(EditableEmail::$MAIL_NEW_EDUCATIONAL_TOOL);
+        // is start date today?
+        if (!$date->isCurrentDay()) {
+            return;
+        }
+
+        Log::info('Sending ' . EditableEmail::$MAIL_NEW_EDUCATIONAL_TOOL[0]);
+
+        $teachers = Teacher::all();
+        foreach ($teachers as $teacher) {
+            if($mail->isSentToUser($teacher->user)) {
+                Log::info("Mail already sent to {$teacher->first_name} ({$teacher->id}), skipping...");
+                continue;
+            }
+            Log::info("Sending mail to {$teacher->first_name} ({$teacher->id})");
+            Mail::to($teacher->user->email)->queue(new CustomEmail($mail, $teacher, null));
         }
     }
 }
