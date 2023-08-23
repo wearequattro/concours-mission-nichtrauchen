@@ -34,6 +34,10 @@ class MailController extends Controller
         // Send party invitation reminder mail to classes eligible to
         // participate to the party that haven't registered yet
         $this->sendPartyInviteReminder();
+
+        // Send party invitation reminder mail to classes eligible to
+        // participate to the party that haven't registered yet
+        $this->sendPartyInviteJ2();
     }
 
     public function sendFinalMail()
@@ -112,6 +116,28 @@ class MailController extends Controller
         }
 
         Log::info('Sending ' . EditableEmail::$MAIL_INVITE_PARTY_REMINDER_SECOND[0]);
+
+        $classes = $this->schoolClassRepository->findEligibleForFinalPartyReminder();
+        foreach ($classes as $class) {
+            if($mail->isSentToClass($class)) {
+                Log::info("Mail already sent to {$class->name} ({$class->id}), skipping...");
+                continue;
+            }
+            Log::info("Sending mail to {$class->name} ({$class->id})");
+            Mail::to($class->teacher->user->email)->queue(new CustomEmail($mail, $class->teacher, $class));
+        }
+    }
+
+    public function sendPartyInviteJ2()
+    {
+        $date = EditableDate::find(EditableDate::FINAL_INVITATION_PARTY_J_2);
+        $mail = EditableEmail::find(EditableEmail::$MAIL_INVITE_PARTY_J_2);
+        // is start date today?
+        if (!$date->isCurrentDay()) {
+            return;
+        }
+
+        Log::info('Sending ' . EditableEmail::$MAIL_INVITE_PARTY_J_2[0]);
 
         $classes = $this->schoolClassRepository->findEligibleForFinalPartyReminder();
         foreach ($classes as $class) {

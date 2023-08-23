@@ -56,6 +56,7 @@ class EditableEmail extends Model {
     public static $MAIL_INVITE_PARTY_NO = ["party_confirmation_no", "Réponse négative participation à la fête de clôture"];
     public static $MAIL_INVITE_PARTY_REMINDER = ["invite_party_reminder", "Invitation à la fête de clôture rappel"];
     public static $MAIL_INVITE_PARTY_REMINDER_SECOND = ["invite_party_reminder_second", "Invitation à la fête de clôture rappel"];
+    public static $MAIL_INVITE_PARTY_J_2 = ["invite_party_j_2", "Invitation à la fête de clôture | J - 2"];
     public static $MAIL_INVITATION_PARTY_INFORMATIONS = ["invite_party_informations", "Informations pour la fête de clôture"];
 
     public static $MAIL_PARTY_GROUP_REMINDER = ["party_group_reminder", "Rappel inscription des groupes à la fête"];
@@ -90,6 +91,7 @@ class EditableEmail extends Model {
             static::$MAIL_INVITATION_PARTY_INFORMATIONS,
             static::$MAIL_INVITE_PARTY_REMINDER,
             static::$MAIL_INVITE_PARTY_REMINDER_SECOND,
+            static::$MAIL_INVITE_PARTY_J_2,
             static::$MAIL_PARTY_GROUP_REMINDER,
             static::$MAIL_FOLLOW_UP_3_REMINDER,
             static::$MAIL_INVITE_PARTY_NO,
