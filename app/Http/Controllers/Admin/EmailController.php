@@ -13,12 +13,14 @@ class EmailController {
 
     public function emails() {
         return view('admin.emails')->with([
-            'emails' => EditableEmail::all()->sortBy(function (EditableEmail $editableEmail) {
-                if($editableEmail->dates()->first() == null)
-                    return Carbon::maxValue()->timestamp;
-                return $editableEmail->dates()->first()->value->timestamp;
-            }),
-            'dates' => EditableDate::query()->orderBy('value')->get(),
+            // 'emails' => EditableEmail::all()->sortBy(function (EditableEmail $editableEmail) {
+            //     if($editableEmail->dates()->first() == null)
+            //         return Carbon::maxValue()->timestamp;
+            //     return $editableEmail->dates()->first()->value->timestamp;
+            // }),
+            'emails' => EditableEmail::query()->orderBy('sort_order')->get(),
+            // 'dates' => EditableDate::query()->orderBy('value')->get(),
+            'dates' => EditableDate::query()->orderBy('sort_order')->get(),
         ]);
     }
 
