@@ -33,7 +33,7 @@ class Kernel extends ConsoleKernel {
      */
     protected function schedule(Schedule $schedule) {
         // $schedule->command(SendFollowUpEmails::class)->dailyAt('10:03')->withoutOverlapping();
-        // $schedule->command(SendNewsletter::class)->everyTenMinutes()->withoutOverlapping();
+        $schedule->command(SendNewsletter::class)->everyTenMinutes()->withoutOverlapping();
         // if(\App::environment() == 'production') {
         //     // Stop backups as we use Hetzner's backup system
         //     // $schedule->command(BackupCommand::class)->dailyAt('3:30');
