@@ -45,22 +45,26 @@ class NewsletterController extends Controller {
 
         $teachers->each(function (Teacher $teacher) use ($mail) {
             $shouldSend = !$mail->isSentToUser($teacher->user);
-            if ($shouldSend) {
-                if ($teacher->classes()->exists() && $mail->key !== 'newsletter_1') {
-                    \Log::info("Sending to teacher $teacher->full_name with classes");
-                    foreach ($teacher->classes as $class) {
-                        /** @var SchoolClass $class */
-                        if($class->isStillParticipating()) {
-                            \Log::info("Sending to class $class->name");
-                            \Mail::to($teacher->user->email)->queue(new CustomEmail($mail, $teacher, $class));
-                        } else {
-                            \Log::info("Skipping class $class->name because not participating anymore");
-                        }
-                    }
-                } else {
-                    \Log::info("Sending to teacher $teacher->full_name without classes or newsletter_1");
-                    \Mail::to($teacher->user->email)->queue(new CustomEmail($mail, $teacher, null));
-                }
+            // if ($shouldSend) {
+            //     if ($teacher->classes()->exists() && $mail->key !== 'newsletter_1') {
+            //         \Log::info("Sending to teacher $teacher->full_name with classes");
+            //         foreach ($teacher->classes as $class) {
+            //             /** @var SchoolClass $class */
+            //             if($class->isStillParticipating()) {
+            //                 \Log::info("Sending to class $class->name");
+            //                 \Mail::to($teacher->user->email)->queue(new CustomEmail($mail, $teacher, $class));
+            //             } else {
+            //                 \Log::info("Skipping class $class->name because not participating anymore");
+            //             }
+            //         }
+            //     } else {
+            //         \Log::info("Sending to teacher $teacher->full_name without classes or newsletter_1");
+            //         \Mail::to($teacher->user->email)->queue(new CustomEmail($mail, $teacher, null));
+            //     }
+            // }
+            if ($shouldSend && $mail->key === 'newsletter_start') {
+                \Log::info("Sending to teacher $teacher->full_name");
+                \Mail::to($teacher->user->email)->queue(new CustomEmail($mail, $teacher, null));
             }
         });
     }
