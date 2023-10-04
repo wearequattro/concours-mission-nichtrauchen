@@ -310,6 +310,12 @@ class SchoolSeeder extends Seeder {
                 "L-2328",
                 "LUXEMBOURG"
             ],
+            [
+                "ECOLE INTERNATIONALE GASTON THORN",
+                "17, rue Marguerite de Brabant",
+                "L-1254",
+                "LUXEMBOURG-MERL",
+            ],
         ];
 
         foreach ($data as $single) {
