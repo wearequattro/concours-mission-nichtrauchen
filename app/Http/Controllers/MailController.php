@@ -35,6 +35,10 @@ class MailController extends Controller
         // participate to the party that haven't registered yet
         $this->sendPartyInviteReminder();
 
+        // Send second party invitation reminder mail to classes eligible to
+        // participate to the party that haven't registered yet
+        $this->sendPartyInviteReminderSecond();
+
         // Send party invitation reminder mail to classes eligible to
         // participate to the party that haven't registered yet
         $this->sendPartyInviteJ2();
