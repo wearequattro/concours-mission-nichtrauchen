@@ -104,6 +104,7 @@ class User extends Authenticatable {
      * @return bool
      */
     public function hasAccessToParty() {
+        $partyInvitationDate = \App\EditableDate::find(EditableDate::FINAL_INVITATION_PARTY);
         return $this
                 ->teacher
                 ->classes
@@ -111,7 +112,8 @@ class User extends Authenticatable {
                     return $c->isEligibleForParty();
                     // return $c->status_party;
                 })
-                ->count() > 0;
+                ->count() > 0
+                && $partyInvitationDate->isPast();
     }
 
 }
