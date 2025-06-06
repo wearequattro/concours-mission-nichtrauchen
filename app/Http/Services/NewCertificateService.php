@@ -40,7 +40,19 @@ class NewCertificateService extends Controller {
 
         $pdf->Image(public_path('images/pdf/certificate-bg.jpg'), 0, 0, $pdf->GetPageWidth(), $pdf->GetPageHeight());
 
-        $this->line($pdf, $class->name,1.3 , 'B');
+        $pdf->SetTextColor(38, 36, 37);
+        $pdf->SetFont('RockwellBold', 'B', 12);
+        $text = '2024';
+        $pdf->SetXY(60, 29.5);
+        $pdf->Cell(50, 10, $text, 0, 0, 'R');
+
+        $pdf->SetTextColor(38, 36, 37);
+        $pdf->SetFont('RockwellBold', 'B', 12);
+        $text = '2025';
+        $pdf->SetXY(188, 29.5);
+        $pdf->Cell(50, 10, $text, 0, 0, 'L');
+
+        $this->line($pdf, $class->name, 1.3, 'B');
         $this->line($pdf, $class->school->name, 2.3, 'B');
 
         return $pdf->Output('S', 'certificat.pdf');
