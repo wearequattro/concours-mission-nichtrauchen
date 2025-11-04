@@ -20,7 +20,10 @@
         "laravel-mix": "^4.1.2",
         "lodash": "^4.17.5",
         "popper.js": "^1.12",
-        "sass": "^1.93.3"
+        "resolve-url-loader": "^3.1.0",
+        "sass": "^1.93.3",
+        "sass-loader": "^7.3.1",
+        "vue-template-compiler": "^2.7.16"
     },
     "dependencies": {
         "datatables.net-bs4": "^1.10.21",
