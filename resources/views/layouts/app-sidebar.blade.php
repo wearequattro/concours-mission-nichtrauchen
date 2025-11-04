@@ -64,6 +64,15 @@
                 </li>
                 @endif
                 <li class="nav-item">
+                    <a href="{{ route('teacher.quizzes') }}"
+                       class="nav-link {{ \Illuminate\Support\Str::startsWith(Route::currentRouteName(), 'teacher.quizzes') ? 'active' : '' }}">
+                        <i class="fa fa-fw fa-file-text"></i>
+                        <span class="label">
+                            Mes quiz
+                        </span>
+                    </a>
+                </li>
+                <li class="nav-item">
                     <a href="{{ route('teacher.documents') }}"
                        class="nav-link {{ \Illuminate\Support\Str::startsWith(Route::currentRouteName(), 'teacher.documents') ? 'active' : '' }}">
                         <i class="fa fa-fw fa-file-text"></i>

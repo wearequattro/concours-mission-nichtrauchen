@@ -47,6 +47,7 @@ Route::group(['middleware' => ['auth', 'teacher']], function () {
     Route::get('/teacher/party/{class}', 'TeacherController@partyClass')->name('teacher.party.class');
     Route::post('/teacher/party/{class}', 'TeacherController@partyClassPost')->name('teacher.party.class.post');
     Route::get('/teacher/party/{class}/delete', 'TeacherController@deleteParty')->name('teacher.party.class.delete');
+    Route::get('/teacher/quizzes', '\App\Http\Controllers\Teachers\QuizIndexController')->name('teacher.quizzes');
 });
 
 Route::get('/suivi/response/{class}/{stillNonSmoking}', 'FollowUpController@showFollowUpResponse')->name('follow-up-response');
