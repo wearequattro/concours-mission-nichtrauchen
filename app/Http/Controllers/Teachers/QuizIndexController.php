@@ -14,7 +14,9 @@ class QuizIndexController extends Controller
                 return $query->whereHas('schoolClass', function ($query) {
                     $query->whereIn('id', auth()->user()->teacher->classes->pluck('id'));
                 });
-            }, 'assignments.schoolClass'])
+            }, 'assignments.schoolClass', 'assignments.codes', 'assignments.response'])
+            ->where('state', '!=', Quiz::STATE_NEW)
+            ->orderBy('created_at', 'desc')
             ->get();
 
         return view('teacher.quizzes', compact('quizzes'));
